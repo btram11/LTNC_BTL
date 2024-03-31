@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Models.Vehicles;
 
 namespace Models
 {
+    public enum VehicleType
+    {
+        car,
+        truck,
+        bus
+    }
     public class FleetManager
     {
         private List<Vehicle> vehicles;
@@ -20,7 +27,7 @@ namespace Models
         {
             foreach (Vehicle existingVehicle in vehicles)
             {
-                if (existingVehicle.LicensePlate == vehicle.LicensePlate) 
+                if (existingVehicle._LicensePlate == vehicle._LicensePlate) 
                 {
                     throw new Exception();
                 }

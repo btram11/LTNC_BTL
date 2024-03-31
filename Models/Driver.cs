@@ -17,22 +17,24 @@ namespace Models
         public string Name { get; set; }
         public string Telephone { get; set; }
         public DriverLicense license { get; }
-        public string HomeAddress { get; set; }
+        public Address_Local homeAddress { get; set; }
         public string Nationality { get; set; }
         public StatusDriver statusDriver {  get; set; }
+        public int leave {  get; set; }
+        public string salary { get; set; }
+        protected List<Trip> tripList { get; set; }
 
-        public List<Trip> tripList { get; set; }
-
-        public Driver(string Name, string Telephone, string HomeAddress, string Nationality)
+        public Driver(string Name, string Telephone, Address_Local HomeAddress, string Nationality)
         {
             this.Name = Name;
             this.Telephone = Telephone;
-            this.HomeAddress = HomeAddress;
+            this.homeAddress = HomeAddress;
             this.Nationality = Nationality;
             this.statusDriver = StatusDriver.Free;
-            this.tripList = new List<Trip>();
+            this.tripList = null;
+            this.leave = 0;
         }
-
+   
         public void addTrip(Trip trip)
         {
             this.tripList.Add(trip);
