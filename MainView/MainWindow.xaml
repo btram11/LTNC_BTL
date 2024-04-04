@@ -1,12 +1,199 @@
-﻿<Window x:Class="MainView.MainWindow"
+﻿<Window x:Class="importing.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MainView"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Height="760" Width="1280" ResizeMode="NoResize" AllowsTransparency="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVis"/>
+    </Window.Resources>
+
+    <Border CornerRadius="25" Background="#151f2d" MouseDown="Border_MouseDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="600"/>
+                    <ColumnDefinition Width="470"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <!--logo-->
+
+                <Grid>
+                    
+                </Grid>
+                
+                <!--Search-->
+                <Grid Grid.Column="1" Margin="10">
+                    <TextBlock Margin="40 0 15 0" VerticalAlignment="Center" Foreground="#9ea4ad" Panel.ZIndex="1"
+               IsHitTestVisible="False" Text="Search here..."
+               Visibility="{Binding ElementName=textBox,Path=Text.IsEmpty,Converter={StaticResource boolToVis}}"/>
+                    <TextBox x:Name="textBox" Style="{StaticResource searchTextBox}"/>
+
+                    <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Foreground="#9ea4ad" Margin="15 0 0 0" HorizontalAlignment="Left" />
+                </Grid>
+                
+                <!--icon-->
+                <Grid Grid.Column="3" >
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource topmenuButton}">
+                            <Icon:PackIconMaterial Kind="Bell" Style="{StaticResource topmenuButtonIcon}"/>
+                        </Button>
+                        <Button Style="{StaticResource topmenuButton}">
+                            <Icon:PackIconMaterial Kind="Help" Style="{StaticResource topmenuButtonIcon}"/>
+                        </Button>
+                        <Button Style="{StaticResource topmenuButton}">
+                            <Icon:PackIconMaterial Kind="Plus" Style="{StaticResource topmenuButtonIcon}"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+
+            <Border Grid.Row="1" Style="{StaticResource mainBorder}">
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="600"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="ArrowLeft" Foreground="#dfe1e3" Height="13" Width="13" VerticalAlignment="Center" Margin="20 8 10 0"/>
+                            <TextBlock  Text="Vehicles" Foreground="#7166f9" FontSize="15" Margin="0 8 0 0" FontWeight="SemiBold"/>
+                        </StackPanel>
+                        <TextBlock Text="New Vehicle" Foreground="#dfe1e3" FontSize="25" Margin="20 0 0 0" FontWeight="SemiBold"/>
+                    </StackPanel>
+
+                    <Grid Grid.Column="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Cancel" Width="70" Margin="30 45 10 0 ">
+
+                            </Button>
+                            <Button Content="Add Multiple Vehicles" Width="150" Margin="0 45 10 0">
+
+                            </Button>
+                            <Button Content="Save Vehicle" Width="90" Margin="0 45 10 0">
+
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+            
+            <!--Identification-->
+            <Grid Grid.Row="2">
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="200 20 200 0">
+                            <Border Style="{StaticResource mainBorder}">
+                                <StackPanel>
+
+                                    <TextBlock Text="Identification" FontSize="30" Height="50" Margin="20 0 0 15" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Vehicle Name" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <TextBox Height="30" Margin="20 5 20 5" Style="{StaticResource textbox}"/>
+                                    <TextBlock Text="Enter a nickname to distinguish this vehicle in Fleetio. Learn more" FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="VIN/SN" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <TextBox Height="30" Margin="20 5 20 5" Style="{StaticResource textbox}"/>
+                                    <TextBlock Text="Vehicle Identification Number or Serial Number. Learn more" FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="License Plate" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <TextBox Height="30" Margin="20 5 20 5" Style="{StaticResource textbox}"/>
+
+                                    <TextBlock Text="Type" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <ComboBox Height="30" Margin="20 5 20 5" Style="{StaticResource combobox}"/>
+                                    <TextBlock Text="Categorize this vehicle" FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Year" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <TextBox Height="30" Margin="20 5 20 5" Style="{StaticResource textbox}"/>
+                                    <TextBlock Text="e.g. 1999, 2012, etc." FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Make" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <ComboBox Height="30" Margin="20 5 20 5" Style="{StaticResource combobox}"/>
+                                    <TextBlock Text="e.g. Toyota, GMC, Chevrolet, etc." FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Model" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <ComboBox Height="30" Margin="20 5 20 5" Style="{StaticResource combobox}"/>
+                                    <TextBlock Text="e.g. 4Runner, Yukon, Silverado, etc." FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Trim" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <TextBox Height="30" Margin="20 5 20 5" Style="{StaticResource textbox}"/>
+                                    <TextBlock Text="e.g SE, LE, XLE, etc." FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Registrration State/Province" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <ComboBox Height="30" Margin="20 5 20 5" Style="{StaticResource combobox}"/>
+
+
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Margin="200 10 200 0">
+                            <Border Style="{StaticResource mainBorder}">
+                                <StackPanel>
+                                    <TextBlock Text="Classification" FontSize="30" Height="50" Margin="20 0 0 15" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Status" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <ComboBox Height="30" Margin="20 5 20 5" Style="{StaticResource combobox}"/>
+                                    <TextBlock Text="Vehicle's Status. Learn more" FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Group" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <ComboBox Height="30" Margin="20 5 20 5" Style="{StaticResource combobox}"/>
+                                    <TextBlock Text="Vehicle's Group. Learn more" FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Operator" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <ComboBox Height="30" Margin="20 5 20 5" Style="{StaticResource combobox}"/>
+
+                                    <TextBlock Text="Ownership" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <ComboBox Height="30" Margin="20 5 20 5" Style="{StaticResource combobox}"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Margin="200 10 200 0">
+                            <Border Style="{StaticResource mainBorder}">
+                                <StackPanel>
+                                    <TextBlock Text="Additional Deteils" FontSize="30" Height="50" Margin="20 0 0 15" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Color" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <TextBox Height="30" Margin="20 5 20 5" Style="{StaticResource textbox}"/>
+
+                                    <TextBlock Text="Body Type" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <TextBox Height="30" Margin="20 5 20 5" Style="{StaticResource textbox}"/>
+                                    <TextBlock Text="e.g. Convertible, Coupe, Pickup, Sedan, etc." FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="Body SubType" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <TextBox Height="30" Margin="20 5 20 5" Style="{StaticResource textbox}"/>
+                                    <TextBlock Text="e.g. Extended Cab, Crew Cab, etc." FontSize="14" Margin="20 0 0 0" Style="{StaticResource titleText}"/>
+
+                                    <TextBlock Text="MSRP" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <TextBox Height="30" Margin="20 5 20 5" Style="{StaticResource textbox}"/>
+
+                                    <TextBlock Text="Linked Vehicle" FontSize="14" Margin="20 15 0 0" Style="{StaticResource titleText}"/>
+                                    <TextBox Height="30" Margin="20 5 20 5" Style="{StaticResource textbox}"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+
+        </Grid>
+    </Border>
 </Window>
