@@ -11,7 +11,7 @@ namespace Models.Vehicles
     {
         _4x2, _4x4, _6x2, _6x4, _8x2, _8x4
     }
-    public class Truck: Vehicle
+    public class Truck : Vehicle
     {
         //public DriveType DriveType { get; }
         //public Truck(int vehicleStatus, string brand, string models, string licensePlate, int enginePower, FuelType fuelType, int fuelCapacity, int nb_of_wheeles) : base(nb_of_wheeles)
@@ -24,8 +24,13 @@ namespace Models.Vehicles
         //    this._fuelType = fuelType;
         //    this._fuelCapacity = fuelCapacity;
         //}
+        public override LicenseType LicenseAtLeast => LicenseType.C;
 
-        public Truck() { }
+        public bool NeedTrailer = false;
+        public Truck()
+        {
+            _trailer = null;
+        }
         public Trailer _trailer { get; set; }
         public DriveType _driveType { get; set; }
         public override void setType(object type)

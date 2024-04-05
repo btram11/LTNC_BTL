@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Models.Vehicles
 {
-    
+
     public class VehicleBuilder
     {
         private Vehicle vehicle;
@@ -16,16 +16,17 @@ namespace Models.Vehicles
         {
             //Thực hiện lại việc xử lý string và đưa ra phân loại
             type = type.ToLower();
+            type = char.ToUpper(type[0]) + type.Substring(1);
             //string truckType = type.Contains("truck")
             switch ((VehicleType)Enum.Parse(typeof(VehicleType), type))
             {
-                case VehicleType.car:
+                case VehicleType.Car:
                     vehicle = new Car();
                     break;
-                case VehicleType.truck:
+                case VehicleType.Truck:
                     vehicle = new Truck();
                     break;
-                case VehicleType.bus:
+                case VehicleType.Bus:
                     vehicle = new Bus();
                     break;
                 default:

@@ -12,14 +12,14 @@ namespace Models.Vehicles
         Sprinter,
         Bus
     }
-    public class Bus: Vehicle
+    public class Bus : Vehicle
     {
         //public Bus (int vehicleStatus, string brand, string models, string licensePlate, int enginePower, FuelType fuelType, int fuelCapacity, int nb_of_wheeles)
         //{
 
         //}
         public int _height, _width, _length;
-        public BusType _Type {  get; set; }
+        public BusType _Type { get; set; }
 
         public Bus() { }
         public override void setType(object type)
