@@ -1,0 +1,144 @@
+﻿<Window x:Class="MainView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Height="760" Width="1280" ResizeMode="NoResize" AllowsTransparency="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent">
+    <Border CornerRadius="25" Background="#151f2d">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="760" />
+            </Grid.ColumnDefinitions>
+
+            <Border CornerRadius="25 0 0 25" Style="{StaticResource mainBorder}">
+                <ScrollViewer>
+                    <StackPanel>
+                        <!--user-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 35 0 0">
+                            <Border CornerRadius="10" Width="40" Height="40">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                        <GradientStop Color="#7f7cf1" Offset="0"/>
+                                        <GradientStop Color="#d3b7ff" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <TextBlock Text="L" Foreground="#ffffff" FontSize="22" FontWeight="SemiBold"
+                                       TextAlignment="Center" VerticalAlignment="Center" Margin="3 0 0 2"/>
+
+                            </Border>
+
+                            <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                                <TextBlock Text="user" FontSize="15" Margin="0 0 0 5" Foreground="#c2cfff"/>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <Separator Height="0.8" Margin="20 30" Background="#46558a" />
+
+                        <!--menu-->
+                        <Button Style="{StaticResource menuButtonActive}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Home" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Dashboard" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Car" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Vehicles" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Devices" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Equipment" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Check" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Inspections" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="ExclamationThick" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Issues" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="ClockAlertOutline" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Reminders" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Wrench" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Service" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Phone" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Contacts and Users" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Store" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Vendors" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Package" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Parts and Inventory" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Fuel" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Fuel History" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Compass" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Places" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="FileDocument" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Documents" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Note" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Reports" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Border>
+</Window>
