@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MainView
 {
     /// <summary>
-    /// Interaction logic for AddVehiclePage.xaml
+    /// Interaction logic for AddVehicleUC.xaml
     /// </summary>
-    public partial class AddVehiclePage : Page
+    public partial class AddVehicleUC : UserControl
     {
-        public AddVehiclePage()
+        public AddVehicleUC()
         {
             InitializeComponent();
         }
