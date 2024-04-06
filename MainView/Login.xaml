@@ -11,7 +11,7 @@
             <ColumnDefinition Width="530" />
         </Grid.ColumnDefinitions>
         <Grid>
-            <MediaElement Source="C:\Users\ADMIN\Pictures\code\MainView\MainView\video\202404052329 (1).mp4" />
+            <MediaElement Source="D:\LTNC\MainView\video\levitating.mp4" />
         </Grid>
     </Grid>
 </UserControl>
