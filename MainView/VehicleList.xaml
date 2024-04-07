@@ -64,7 +64,7 @@
                 </Grid>
             </Border>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Margin="0 8 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="*"/>
@@ -108,7 +108,12 @@
 
                 </Grid>
             </Grid>
-            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="3" x:Name="membersDataGrid">
+            <DataGrid Style="{DynamicResource DataGridStyle1}" 
+                      CellStyle="{DynamicResource DataGridCellStyle1}" 
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                      RowStyle="{DynamicResource DataGridRowStyle1}" 
+                      Grid.Row="3" 
+                      x:Name="membersDataGrid">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn CanUserResize="False" Width="auto">
                         <DataGridCheckBoxColumn.HeaderTemplate>
