@@ -43,7 +43,8 @@
             <RadioButton Content="Home"
                          Height="60"
                          FontSize="25"
-                         Style="{StaticResource ResourceKey=MenuButtonTheme}"/>
+                         Style="{StaticResource ResourceKey=MenuButtonTheme}"
+						 Check ="RadioButton_Checked"/>
             <RadioButton Content="Move - Delivery"
                 Height="60"
                 FontSize="25"
@@ -124,13 +125,12 @@
                     Height="40"
                     Margin="0 0 100 0"
                     Background="LightGray"
-                    HorizontalAlignment="Left"
-                    Click="MenuItem_Click">
+                    HorizontalAlignment="Left">
                         <MenuItem.Header>
                             <StackPanel
                             Orientation="Horizontal">
                                 <TextBlock Text="Choose kind of goods" Margin="0,0,0,0" FontSize="15"/>
-                                <Image Source="/icon1.png" Width="15" Height="15" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                                <Image Source="Icon\icon1.png" Width="15" Height="15" HorizontalAlignment="Right" Margin="0,0,10,0"/>
                             </StackPanel>
                         </MenuItem.Header>
                         <Image Source="/icon1.png"/>
@@ -165,7 +165,7 @@
                             <StackPanel
                             Orientation="Horizontal">
                                 <TextBlock Text="Trailer?" Margin="10,0,20,0" FontSize="15"/>
-                                <Image Source="/icon1.png" Width="15" Height="15" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                                <Image Source="Icon\icon1.png" Width="15" Height="15" HorizontalAlignment="Right" Margin="0,0,10,0"/>
                             </StackPanel>
                         </MenuItem.Header>
                         <MenuItem Header="Yes"/>
@@ -173,12 +173,11 @@
                     </MenuItem>
                 </Menu>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="40" Margin="20,0,0,10" 
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Height="40" Margin="20,0,0,10">
                 <TextBlock Width="100"
                     FontSize="20" Margin="0,0,30,0"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+				    HorizontalAlignment="Left">
                     Vehicle
                 </TextBlock>
                 <MenuItem Header="Choose verhicle you want"
@@ -206,7 +205,7 @@
                 Background="#70A7C0"
                 Margin="40,0"
                 Foreground="White"
-                >
+                Click="Button_Click">
              Find Transport
             </Button>
         </StackPanel>

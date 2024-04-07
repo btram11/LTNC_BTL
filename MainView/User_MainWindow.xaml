@@ -81,7 +81,7 @@
                     <StackPanel Margin="10,0,10,0"  Width="430">
                         <TextBlock Text="About Trip" FontSize="25"/>
                         <TextBlock Height="100" FontSize="20">
-                            Du lieu ve chuyen duoc ghi tai day
+                            x:Name="TripInforTextBlock" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown">
                         </TextBlock>
                         <TextBlock HorizontalAlignment="Right"
                                  FontSize="15">
@@ -143,14 +143,16 @@
                         </TextBlock>
                         <TextBlock FontSize="15"
                                  Height="35">
-                            ...
+                            
                         </TextBlock>
 
                     </StackPanel>
                 </Border>
             </StackPanel>
         </StackPanel>
-        
+		<DockPanel>
+			<Frame x:Name="main_Frame"/>
+		</DockPanel>
         
     </Grid>
 </Window>

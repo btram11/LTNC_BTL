@@ -25,9 +25,33 @@ namespace User_UI
             //InitializeComponent();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        pprivate void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            
+            var radioButton = sender as RadioButton;
+            if (radioButton == null) return;
 
+            switch (radioButton.Content.ToString())
+            {
+                case "Move - Delivery":
+                    this.NavigationService.Navigate(new Page2());
+                    break;
+
+                case "Home":
+                    User_MainWindow mainWindow = new User_MainWindow();
+                    mainWindow.Show();
+                    Window.GetWindow(this).Close();
+                    break;
+                default:
+                    break;
+
+            }
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Page22());
         }
     }
 }
