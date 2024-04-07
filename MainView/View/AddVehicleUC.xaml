@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:MainView"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="760" d:DesignWidth="1030">
+             d:DesignHeight="780" d:DesignWidth="1280">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVis"/>
     </UserControl.Resources>
@@ -15,7 +15,7 @@
         <viewModels:AddVehicleViewModel/>
     </UserControl.DataContext>
 
-    <Border CornerRadius="0 25 25 0" Background="#151f2d">
+    <Border Background="#151f2d">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>

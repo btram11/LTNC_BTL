@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="MainView.Login"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MainView"
+             Height="760" Width="1280">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="750" />
+            <ColumnDefinition Width="530" />
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <MediaElement Source="D:\LTNC\MainView\video\levitating.mp4" />
+        </Grid>
+    </Grid>
+</UserControl>

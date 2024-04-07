@@ -4,14 +4,72 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainView"
-        xmlns:viewmodels="clr-namespace:ViewModels;assembly=ViewModels"
+        xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <ContentControl Content="{Binding CurrentViewModel}">
-        <ContentControl.Resources>
-            <DataTemplate DataType="{x:Type viewmodels:AddVehicleViewModel}">
-                <local:AddVehicleUC/>
-            </DataTemplate>
-        </ContentControl.Resources>
-    </ContentControl>
+        WindowStyle="None" 
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True" 
+        Background="Transparent"
+        Title="MainWindow" Height="720" Width="1280">
+    <Window.DataContext>
+        <viewModels:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" MinHeight="25.29"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid Background="DarkGray"
+              Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="100"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Fleet Management System"
+                       Grid.Column="0"
+                       FontSize="13"
+                       Padding="16 4 0 4"
+                       TextAlignment="Left"/>
+            <Grid Grid.Row="1"
+                  HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource ButtonWindow}"
+                        Command="{Binding MainViewModel.CloseCommand}"
+                        Grid.Column="2"
+                        ToolTip="Close"
+                        Content="{materialDesign:PackIcon WindowClose}">
+                </Button>
+                <Button Content="{materialDesign:PackIcon WindowMaximize}"
+                        Style="{StaticResource ButtonWindow}"
+                        Grid.Column="1"
+                        ToolTip="Maximize" 
+                        ToolBar.OverflowMode="AsNeeded">
+                        
+                </Button>
+                <Button Content="{materialDesign:PackIcon WindowMinimize}"
+                        Style="{StaticResource ButtonWindow}"
+                        Grid.Column="0"
+                        ToolTip="Minimize" 
+                        ToolBar.OverflowMode="AsNeeded">
+                </Button>
+            </Grid>
+        </Grid>
+        <ContentControl Content="{Binding CurrentViewModel}"
+                        Grid.Row="1">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewModels:DashboardViewModel}">
+                    <local:Dashboard/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:AddVehicleViewModel}">
+                    <local:AddVehicleUC/>
+                </DataTemplate>
+                
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
 </Window>
