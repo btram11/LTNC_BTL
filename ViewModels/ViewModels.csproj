@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddVehicleViewModel.cs" />
+    <Compile Include="DashboardViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
