@@ -20,6 +20,7 @@ namespace MainView
             {
                 DataContext = new MainViewModel()
             };
+            //Window MainWindow = new UnknowWindow();
             MainWindow.Show();
             base.OnStartup(e);
         }

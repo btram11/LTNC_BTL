@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MainView.Reminders"
+﻿<UserControl x:Class="MainView.View.Reminders"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -132,7 +132,13 @@
                     <Separator Height="0.8" Margin="2 -2 2 -2" VerticalAlignment="Bottom" Background="#9ea4ad" />
                 </Grid>
             </Grid>
-            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="3" x:Name="membersDataGrid" SelectionChanged="membersDataGrid_SelectionChanged">
+            <DataGrid Style="{DynamicResource DataGridStyle1}" 
+                      CellStyle="{DynamicResource DataGridCellStyle1}" 
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                      RowStyle="{DynamicResource DataGridRowStyle1}" 
+                      Grid.Row="3" 
+                      x:Name="membersDataGrid" 
+                      SelectionChanged="membersDataGrid_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn CanUserResize="False" Width="auto">
                         <DataGridCheckBoxColumn.HeaderTemplate>

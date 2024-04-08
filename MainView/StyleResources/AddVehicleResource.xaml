@@ -12,7 +12,7 @@
     </Style>
 
 
-    <Style TargetType="{x:Type ScrollBar}">
+    <Style x:Key="RoundStyle" TargetType="{x:Type ScrollBar}">
         <Setter Property="Margin" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -30,7 +30,16 @@
     </Style>
 
     <BooleanToVisibilityConverter x:Key="boolToVis"/>
+    <!--#region Icon-->
+    <Style x:Key="menuButtonIcon" TargetType="Icon:PackIconMaterial">
+        <Setter Property="Width" Value="23"/>
+        <Setter Property="Height" Value="23"/>
+        <Setter Property="Margin" Value="35 0 20 0"/>
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Button}}}"/>
+    </Style>
+    <!--#endregion-->
 
+    <!--#region Button-->
     <Style x:Key="menubutton" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="#87b0b2" />
@@ -94,19 +103,6 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="menuButtonIcon" TargetType="Icon:PackIconMaterial">
-        <Setter Property="Width" Value="23"/>
-        <Setter Property="Height" Value="23"/>
-        <Setter Property="Margin" Value="35 0 20 0"/>
-        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Button}}}"/>
-    </Style>
-
-    <Style x:Key="menuButtonText" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="13"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"/>
-    </Style>
-
     <Style x:Key="addbutton" TargetType="Button">
         <Setter Property="Background" Value="#6741d9" />
         <Setter Property="Foreground" Value="#ffffff" />
@@ -134,31 +130,26 @@
         </Style.Triggers>
     </Style>
 
-
-    <Style x:Key="searchTextBox" TargetType="TextBox">
-        <Setter Property="Background" Value="#1e2e44"/>
-        <Setter Property="Foreground" Value="#9ea4ad"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="FontSize" Value="12"/>
-        <Setter Property="Padding" Value="40 15 15 15"/>
+    <Style x:Key="menuButtonActive" TargetType="Button">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,.5">
+                    <GradientStop Color="#31407b" Offset="0"/>
+                    <GradientStop Color="#493585" Offset="3"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="#bccaf1" />
+        <Setter Property="Margin" Value="0 0 0 5" />
+        <Setter Property="Height" Value="45" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Tag" Value="#7071f0" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="TextBoxBase">
-                    <Border x:Name="border" CornerRadius="7" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}"
-        BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
-                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
-                  VerticalScrollBarVisibility="Hidden"/>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="4 0 0 0" BorderBrush="#a5a1f5">
+                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                     </Border>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="#d9d9d9" TargetName="border"/>
-                        </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter Property="BorderBrush" Value="#d9d9d9" TargetName="border"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -202,16 +193,8 @@
                         BorderThickness="1" 
                         BorderBrush="Gray" 
                         Padding="5">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <ContentPresenter HorizontalAlignment="Left"  Grid.Column="1"
-                                              VerticalAlignment="Center"/>
-                            <ContentPresenter HorizontalAlignment="Left"  Grid.Column="0"
-                                                  VerticalAlignment="Center"/>
-                        </Grid>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -245,13 +228,44 @@
         </Style.Triggers>
     </Style>
 
-
     <Style x:Key="topmenuButtonIcon" TargetType="Icon:PackIconMaterial">
         <Setter Property="Width" Value="15"/>
         <Setter Property="Height" Value="15"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="#edeeee"/>
+    </Style>
+
+    <Style x:Key="ReturnButton"  TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#87b0b2" />
+        <Setter Property="Height" Value="45" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                            CornerRadius="5"
+                            BorderBrush="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"
+                                          Margin="4 0"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FF30486A" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--#endregion-->
+
+    <Style x:Key="menuButtonText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"/>
     </Style>
 
     <Style x:Key="mainBorder" TargetType="Border">
@@ -278,6 +292,35 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="searchTextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="#1e2e44"/>
+        <Setter Property="Foreground" Value="#9ea4ad"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Padding" Value="40 15 15 15"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBoxBase">
+                    <Border x:Name="border" CornerRadius="7" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}"
+    BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
+              VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="#d9d9d9" TargetName="border"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="#d9d9d9" TargetName="border"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="textbox" TargetType="TextBox">
         <Setter Property="Padding" Value="8 0 8 0"/>
         <Setter Property="TextAlignment" Value="Left"/>
@@ -320,30 +363,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="menuButtonActive" TargetType="Button">
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush StartPoint="0,.5" EndPoint="1,.5">
-                    <GradientStop Color="#31407b" Offset="0"/>
-                    <GradientStop Color="#493585" Offset="3"/>
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Foreground" Value="#bccaf1" />
-        <Setter Property="Margin" Value="0 0 0 5" />
-        <Setter Property="Height" Value="45" />
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Tag" Value="#7071f0" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" BorderThickness="4 0 0 0" BorderBrush="#a5a1f5">
-                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    
     <Style x:Key="menuComobox" TargetType="ComboBox">
         <Setter Property="IsManipulationEnabled" Value="True"/>
         <Setter Property="IsEditable" Value="True"/>
