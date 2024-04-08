@@ -172,6 +172,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Reminders.xaml.cs">
+      <DependentUpon>Reminders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddVehicleUC.xaml.cs">
       <DependentUpon>AddVehicleUC.xaml</DependentUpon>
     </Compile>
@@ -226,6 +229,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Reminders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StyleResources\WindowBarResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
