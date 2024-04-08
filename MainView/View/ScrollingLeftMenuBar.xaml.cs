@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MainView.View
 {
     /// <summary>
-    /// Interaction logic for Dashboard.xaml
+    /// Interaction logic for ScrollingRightMenuBar.xaml
     /// </summary>
-    public partial class Dashboard : UserControl
+    public partial class ScrollingLeftMenuBar : UserControl
     {
-        public Dashboard()
+        public ScrollingLeftMenuBar()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

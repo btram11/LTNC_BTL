@@ -14,9 +14,12 @@
                 <ResourceDictionary Source="./StyleResources/AddVehicleResource.xaml"/>
                 <ResourceDictionary Source="./StyleResources/UC_Resource.xaml"/>
                 <ResourceDictionary Source="./StyleResources/WindowBarResource.xaml"/>
+                <ResourceDictionary Source="./StyleResources/ColorUI.xaml"/>
+
                 <!--<ResourceDictionary Source="./StyleResources/MenuButtonTheme"/>-->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ObsoleteBrushes.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
 

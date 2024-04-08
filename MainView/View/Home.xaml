@@ -1,14 +1,18 @@
-﻿<UserControl x:Class="MainView.Home"
+﻿<UserControl x:Class="MainView.View.Home"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
             xmlns:local="clr-namespace:MainView"
             mc:Ignorable="d" 
             d:DesignHeight="680" d:DesignWidth="1030">
-    <Border CornerRadius="0 0 25 0" Background="#151f2d">
+    <UserControl.DataContext>
+        <viewModels:DashboardViewModel/>
+    </UserControl.DataContext>
+    <Border Background="#151f2d">
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -24,10 +28,11 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="My Dashboard" Foreground="#dfe1e3" FontSize="25" Margin="5 0 0 0" FontWeight="SemiBold"/>
                 <Grid Grid.Column="2">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="Hidden">
                         <ComboBox Text="Services/Emergency" Width="200" Style="{StaticResource menuComobox}"/>
                         <Button  Width="20" Style="{StaticResource topmenuButton}"   Margin="10">
-                            <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource topmenuButtonIcon}"/>
+                            <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource topmenuButtonIcon}" HorizontalAlignment="Right" Margin="0,0,2,0"/>
                         </Button>
                         <Button  Width="20" Style="{StaticResource topmenuButton}">
                             <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource topmenuButtonIcon}"/>
@@ -68,7 +73,7 @@
                                 </StackPanel>
                             </Button>
                             <TextBlock  Grid.Row="1" Grid.Column="0" Text="Out of Service" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                            <TextBlock  Grid.Row="2" Grid.Column="0" Text="Active" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
+                            <TextBlock  Grid.Row="2" Grid.Column="0" Text="Active" FontSize="13" Foreground="#dfe1e3" Margin="0,0,0,15" HorizontalAlignment="Right" Width="111"/>
                             <TextBlock  Grid.Row="3" Grid.Column="0" Text="Rented" FontSize="13" Foreground="#dfe1e3" />
                         </Grid>
                     </Border>
@@ -284,9 +289,7 @@
                         </Grid>
                     </Grid>
                 </Border>
-                <Border Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource mainBorder}" Margin="5">
-                    <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="0" Text="Recent Comments" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                </Border>
+                
             </Grid>
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
@@ -295,7 +298,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Border Style="{StaticResource mainBorder}" Margin="5">
+                <!--<Border Style="{StaticResource mainBorder}" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="auto"/>
@@ -304,8 +307,8 @@
                         <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="0" Text="Equipment Status by Location" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
 
                     </Grid>
-                </Border>
-                <Border Grid.Column="1" Style="{StaticResource mainBorder}" Margin="5">
+                </Border>-->
+                <!--<Border Grid.Column="1" Style="{StaticResource mainBorder}" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="auto"/>
@@ -321,30 +324,11 @@
                             <TextBlock FontWeight="Thin" Grid.Column="1" Text="of Total Scheduled" FontSize="13" Foreground="#dfe1e3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 20"/>
                         </Grid>
                     </Grid>
-                </Border>
-                <Border Grid.Column="2" Style="{StaticResource mainBorder}" Margin="5">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition  Height="*"/>
-                            <RowDefinition  Height="*"/>
-                            <RowDefinition  Height="*"/>
-                            <RowDefinition  Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="0" Text="Pending ROs by Status" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                        <Button  Height="13" Margin="0 0 0 11" HorizontalAlignment="Right" Style="{StaticResource menubutton}" Grid.Row="0" Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock  Text="Details" Style="{StaticResource menuButtonText}"/>
-                                <Icon:PackIconMaterial Kind="ChevronRight"  Height="15" Margin="0" Style="{StaticResource menuButtonIcon}"/>
-                            </StackPanel>
-                        </Button>
-                        <TextBlock  Grid.Row="1" Grid.Column="0" Text="RO Needs Approval" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                    </Grid>
-                </Border>
-                <Border Grid.Column="3" Style="{StaticResource mainBorder}" Margin="5">
+                </Border>-->
+                
+                <Border Grid.Column="2" 
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource mainBorder}" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="auto"/>
