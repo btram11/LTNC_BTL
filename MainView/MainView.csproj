@@ -180,6 +180,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\DriverManagement.xaml.cs">
+      <DependentUpon>DriverManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditServiceReminder.xaml.cs">
       <DependentUpon>EditServiceReminder.xaml</DependentUpon>
     </Compile>
@@ -248,6 +251,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StyleResources\MenuBarResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DriverManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
