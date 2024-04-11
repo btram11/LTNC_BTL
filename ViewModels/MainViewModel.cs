@@ -24,10 +24,12 @@ namespace ViewModels
             }
         }
         public ViewModelBase menuBar { get; private set; }
+        public ViewModelBase accessBar { get; private set; }
 
         public MainViewModel ()
         {
-            menuBar = new MenuLeftBarViewModel ();
+            menuBar = new MenuLeftBarViewModel();
+            accessBar = new QuickAccessButtonViewModel();
             CurrentViewModel = new DashboardViewModel();
 
             
@@ -37,6 +39,8 @@ namespace ViewModels
             MaximizeWindowCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => ExecuteMaximizeWindowCommand(p));
 
             MinimizeWindowCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => ExecuteMinimizeWindowCommand(p));
+
+            AttachmentButtonCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => AttachmentButton());
         }
 
         #region WindowCommand
@@ -81,5 +85,24 @@ namespace ViewModels
             }
         }
         #endregion
+
+        /// <summary>
+        /// The command for when the attachment button is clicked
+        /// </summary>
+        public ICommand AttachmentButtonCommand { get; set; }
+
+        /// <summary>
+        /// True to show the attachment menu, false to hide it
+        /// </summary>
+        public bool AttachmentMenuVisible { get; set; }
+
+        /// <summary>
+        /// When the attachment button is clicked show/hide the attachment popup
+        /// </summary>
+        public void AttachmentButton()
+        {
+            // Toggle menu visibility
+            AttachmentMenuVisible ^= true;
+        }
     }
 }

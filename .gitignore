@@ -362,3 +362,7 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Models/Vehicles/Trucks
+/MainView/Animations
+/MainView/AttachedProperties
+/MainView/Control
+/MainView/ValueConverters

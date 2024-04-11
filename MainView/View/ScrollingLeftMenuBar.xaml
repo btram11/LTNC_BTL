@@ -19,7 +19,7 @@
     <UserControl.DataContext>
         <viewModels:MenuLeftBarViewModel/>
     </UserControl.DataContext>
-    <Border Background ="#1e2e44"
+    <Border Background ="{StaticResource BackgroundBlueZodiacBrush}"
             Padding="0 10 0 10">
         <ScrollViewer Style="{StaticResource ScrollViewMenu}">
             <StackPanel>
@@ -67,6 +67,17 @@
                                                Style="{StaticResource MenuBarButtonIcon}"/>
                         <TextBlock  Text="Vehicles" 
                                     Style="{StaticResource MenuBarButtonText}"/>
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton Style="{StaticResource MenuBarButton}"
+                             Command="{Binding VehicleListViewCommand}"
+                             CommandParameter="{Binding ElementName=menubar}">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="AccountMultiple"
+                                               Style="{StaticResource MenuBarButtonIcon}" />
+                        <TextBlock  Text="Drivers"
+                                    Style="{StaticResource MenuBarButtonText}" />
                     </StackPanel>
                 </RadioButton>
 

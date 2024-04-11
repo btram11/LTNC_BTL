@@ -5,7 +5,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Border Background="#151f2d" Width="5" Height="50" CornerRadius="8"/>
+                    <Border Background="{DynamicResource BackgroundMainBrush}" Width="5" Height="50" CornerRadius="8"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -80,7 +80,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="#bccaf1"/>
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundTealishBlueBrush}"/>
                 <Setter Property="Tag" Value="#7071f0"/>
                 <Setter Property="Background">
                     <Setter.Value>
@@ -139,7 +139,7 @@
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground" Value="#bccaf1" />
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundTealishBlueBrush}" />
         <Setter Property="Margin" Value="0 0 0 5" />
         <Setter Property="Height" Value="45" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -175,7 +175,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#1e2e44"/>
+                <Setter Property="Background" Value="{DynamicResource BackgroundBlueZodiacBrush}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -201,7 +201,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="#bccaf1"/>
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundTealishBlueBrush}"/>
                 <Setter Property="Tag" Value="#7071f0"/>
                 <Setter Property="Background">
                     <Setter.Value>
@@ -269,7 +269,7 @@
     </Style>
 
     <Style x:Key="mainBorder" TargetType="Border">
-        <Setter Property="Background" Value="#1e2e44"/>
+        <Setter Property="Background" Value="{DynamicResource BackgroundBlueZodiacBrush}"/>
         <Setter Property="Padding" Value="10"/>
         <Setter Property="CornerRadius" Value="10"/>
     </Style>
@@ -293,7 +293,7 @@
     </Style>
 
     <Style x:Key="searchTextBox" TargetType="TextBox">
-        <Setter Property="Background" Value="#1e2e44"/>
+        <Setter Property="Background" Value="{DynamicResource BackgroundBlueZodiacBrush}"/>
         <Setter Property="Foreground" Value="#9ea4ad"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="FontSize" Value="12"/>

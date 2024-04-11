@@ -1,304 +1,455 @@
 ﻿<UserControl x:Class="MainView.View.Home"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
-            xmlns:local="clr-namespace:MainView"
-            mc:Ignorable="d" 
-            d:DesignHeight="680" d:DesignWidth="1030">
+             xmlns:local="clr-namespace:MainView"
+             mc:Ignorable="d"
+             d:DesignHeight="680"
+             d:DesignWidth="1080">
     <UserControl.DataContext>
-        <viewModels:DashboardViewModel/>
+        <viewModels:DashboardViewModel />
     </UserControl.DataContext>
-    <Border Background="#151f2d">
+    <Border Background="Transparent">
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="My Dashboard" Foreground="#dfe1e3" FontSize="25" Margin="5 0 0 0" FontWeight="SemiBold"/>
-                <Grid Grid.Column="2">
-                    <StackPanel Orientation="Horizontal"
-                                Visibility="Hidden">
-                        <ComboBox Text="Services/Emergency" Width="200" Style="{StaticResource menuComobox}"/>
-                        <Button  Width="20" Style="{StaticResource topmenuButton}"   Margin="10">
-                            <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource topmenuButtonIcon}" HorizontalAlignment="Right" Margin="0,0,2,0"/>
-                        </Button>
-                        <Button  Width="20" Style="{StaticResource topmenuButton}">
-                            <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource topmenuButtonIcon}"/>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="My Dashboard"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Foreground="{StaticResource ForegroundPearlBushBrush}"
+                       FontSize="25"
+                       Margin="5 0 0 0"
+                       FontWeight="SemiBold" />
+            <Grid Grid.Column="2"
+                  Grid.ColumnSpan="2"
+                  Grid.Row="0">
+                <StackPanel Orientation="Horizontal"
+                            Visibility="Hidden">
+                    <ComboBox Text="Services/Emergency"
+                              Width="200"
+                              Style="{StaticResource menuComobox}" />
+                    <Button  Width="20"
+                             Style="{StaticResource topmenuButton}"
+                             Margin="10">
+                        <Icon:PackIconMaterial Kind="ChevronRight"
+                                               Style="{StaticResource topmenuButtonIcon}"
+                                               HorizontalAlignment="Right"
+                                               Margin="0,0,2,0" />
+                    </Button>
+                    <Button  Width="20"
+                             Style="{StaticResource topmenuButton}">
+                        <Icon:PackIconMaterial Kind="ChevronRight"
+                                               Style="{StaticResource topmenuButtonIcon}" />
+                    </Button>
+                </StackPanel>
             </Grid>
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition  Height="auto"/>
-                    <RowDefinition  Height="auto"/>
-                </Grid.RowDefinitions>
+
+            <Border Grid.Row="1"
+                    Style="{StaticResource CardDashboard}"
+                    Grid.Column="0"
+                    Margin="5">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Border Style="{StaticResource mainBorder}" Margin="5">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition  Height="*"/>
-                                <RowDefinition  Height="*"/>
-                                <RowDefinition  Height="*"/>
-                                <RowDefinition  Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="0" Text="Vehicle Status" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                            <Button  Height="13" Margin="0 0 0 11" HorizontalAlignment="Right" Style="{StaticResource menubutton}" Grid.Row="0" Grid.Column="1">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock  Text="Details" Style="{StaticResource menuButtonText}"/>
-                                    <Icon:PackIconMaterial Kind="ChevronRight"  Height="15" Margin="0" Style="{StaticResource menuButtonIcon}"/>
-                                </StackPanel>
-                            </Button>
-                            <TextBlock  Grid.Row="1" Grid.Column="0" Text="Out of Service" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                            <TextBlock  Grid.Row="2" Grid.Column="0" Text="Active" FontSize="13" Foreground="#dfe1e3" Margin="0,0,0,15" HorizontalAlignment="Right" Width="111"/>
-                            <TextBlock  Grid.Row="3" Grid.Column="0" Text="Rented" FontSize="13" Foreground="#dfe1e3" />
-                        </Grid>
-                    </Border>
-                    <Border Grid.Column="1" Style="{StaticResource mainBorder}" Margin="5">
-                        <Grid>
-                            <TextBlock Text="Fuel Costs" FontWeight="Bold" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-
-                            <Button  Height="13" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource menubutton}" Margin="0 3 0 0">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock  Text="Details" Style="{StaticResource menuButtonText}"/>
-                                    <Icon:PackIconMaterial Kind="ChevronRight"  Height="15" Margin="0" Style="{StaticResource menuButtonIcon}"/>
-                                </StackPanel>
-                            </Button>
-
-                            <lvc:CartesianChart LegendLocation="None" Margin="0 30 0 0">
-                                <lvc:CartesianChart.DataTooltip>
-                                    <lvc:DefaultTooltip Background="#24336a" Foreground="#d5e2ff"/>
-                                </lvc:CartesianChart.DataTooltip>
-
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Foreground="#bcc0c6" ShowLabels="True" Labels="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug">
-                                        <lvc:Axis.Separator>
-                                            <lvc:Separator StrokeThickness="0" Step="1"/>
-                                        </lvc:Axis.Separator>
-                                    </lvc:Axis>
-                                </lvc:CartesianChart.AxisX>
-
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Foreground="#bcc0c6" ShowLabels="True" MinValue="0" MaxValue="30">
-                                        <lvc:Axis.Separator>
-                                            <lvc:Separator StrokeThickness="0"/>
-                                        </lvc:Axis.Separator>
-                                    </lvc:Axis>
-                                </lvc:CartesianChart.AxisY>
-
-                                <lvc:CartesianChart.Series>
-                                    <lvc:StackedColumnSeries Fill="#7166f9" MaxColumnWidth="15" Values="2,3,19,6,7,16,5,6"/>
-                                </lvc:CartesianChart.Series>
-
-                            </lvc:CartesianChart>
-
-                        </Grid>
-                    </Border>
-                    <Border Grid.Column="2" Style="{StaticResource mainBorder}" Margin="5">
-                        <Grid>
-                            <TextBlock Text="Service Costs" FontWeight="Bold" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-
-                            <Button  Height="13" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource menubutton}" Margin="0 3 0 0">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock  Text="Details" Style="{StaticResource menuButtonText}"/>
-                                    <Icon:PackIconMaterial Kind="ChevronRight"  Height="15" Margin="0" Style="{StaticResource menuButtonIcon}"/>
-                                </StackPanel>
-                            </Button>
-
-                            <lvc:CartesianChart LegendLocation="None" Margin="0 30 0 0">
-                                <lvc:CartesianChart.DataTooltip>
-                                    <lvc:DefaultTooltip Background="#24336a" Foreground="#d5e2ff"/>
-                                </lvc:CartesianChart.DataTooltip>
-
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Foreground="#bcc0c6" ShowLabels="True" Labels="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug">
-                                        <lvc:Axis.Separator>
-                                            <lvc:Separator StrokeThickness="0" Step="1"/>
-                                        </lvc:Axis.Separator>
-                                    </lvc:Axis>
-                                </lvc:CartesianChart.AxisX>
-
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Foreground="#bcc0c6" ShowLabels="True" MinValue="0" MaxValue="30">
-                                        <lvc:Axis.Separator>
-                                            <lvc:Separator StrokeThickness="0"/>
-                                        </lvc:Axis.Separator>
-                                    </lvc:Axis>
-                                </lvc:CartesianChart.AxisY>
-
-                                <lvc:CartesianChart.Series>
-                                    <lvc:StackedColumnSeries Fill="#7166f9" MaxColumnWidth="15" Values="2,3,19,6,7,16,5,6"/>
-                                </lvc:CartesianChart.Series>
-
-                            </lvc:CartesianChart>
-
-                        </Grid>
-                    </Border>
-                    <Border Grid.Column="3" Style="{StaticResource mainBorder}" Margin="5">
-                        <Grid>
-                            <TextBlock Text="Other Costs" FontWeight="Bold" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-
-                            <Button  Height="13" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource menubutton}" Margin="0 3 0 0">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock  Text="Details" Style="{StaticResource menuButtonText}"/>
-                                    <Icon:PackIconMaterial Kind="ChevronRight"  Height="15" Margin="0" Style="{StaticResource menuButtonIcon}"/>
-                                </StackPanel>
-                            </Button>
-
-                            <lvc:CartesianChart LegendLocation="None" Margin="0 30 0 0">
-                                <lvc:CartesianChart.DataTooltip>
-                                    <lvc:DefaultTooltip Background="#24336a" Foreground="#d5e2ff"/>
-                                </lvc:CartesianChart.DataTooltip>
-
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Foreground="#bcc0c6" ShowLabels="True" Labels="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug">
-                                        <lvc:Axis.Separator>
-                                            <lvc:Separator StrokeThickness="0" Step="1"/>
-                                        </lvc:Axis.Separator>
-                                    </lvc:Axis>
-                                </lvc:CartesianChart.AxisX>
-
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Foreground="#bcc0c6" ShowLabels="True" MinValue="0" MaxValue="30">
-                                        <lvc:Axis.Separator>
-                                            <lvc:Separator StrokeThickness="0"/>
-                                        </lvc:Axis.Separator>
-                                    </lvc:Axis>
-                                </lvc:CartesianChart.AxisY>
-
-                                <lvc:CartesianChart.Series>
-                                    <lvc:StackedColumnSeries Fill="#7166f9" MaxColumnWidth="15" Values="2,3,19,6,7,16,5,6"/>
-                                </lvc:CartesianChart.Series>
-
-                            </lvc:CartesianChart>
-
-                        </Grid>
-                    </Border>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="*" />
+                        <RowDefinition  Height="*" />
+                        <RowDefinition  Height="*" />
+                        <RowDefinition  Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Vehicle Status"
+                               Style="{StaticResource CardDashboardTitle}" />
+                    <Button  Height="13"
+                             Margin="0 2.5"
+                             VerticalAlignment="Top"
+                             HorizontalAlignment="Right"
+                             Style="{StaticResource menubutton}"
+                             Grid.Row="0"
+                             Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Details"
+                                        Style="{StaticResource menuButtonText}" />
+                            <Icon:PackIconMaterial Kind="ChevronRight"
+                                                   Height="10"
+                                                   Padding="2 0 2 0"
+                                                   VerticalAlignment="Bottom"
+                                                   Margin="0"
+                                                   Style="{StaticResource menuButtonIcon}" />
+                        </StackPanel>
+                    </Button>
+                    <TextBlock  Grid.Row="1"
+                                Grid.Column="0"
+                                Text="Out of Service"
+                                Style="{StaticResource CardDashboardNormalText}"/>
+                    <TextBlock  Grid.Row="2"
+                                Grid.Column="0"
+                                Text="Active"
+                                FontSize="14"
+                                Style="{StaticResource CardDashboardNormalText}" />
+                    <TextBlock  Grid.Row="3"
+                                Grid.Column="0"
+                                Text="Rented"
+                                Style="{StaticResource CardDashboardNormalText}"/>
                 </Grid>
-            </Grid>
-            <Grid Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource mainBorder}" Margin="5">
-                    <Grid>
+            </Border>
+
+            <Border Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource CardDashboard}"
+                    Margin="5">
+                <Grid>
+                    <TextBlock Text="Fuel Costs"
+                               Style="{StaticResource CardDashboardTitle}" />
+                    <Button  Height="13"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Top"
+                             Style="{StaticResource menubutton}"
+                             Margin="0 3 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Details"
+                                        Style="{StaticResource menuButtonText}" />
+                            <Icon:PackIconMaterial Kind="ChevronRight"
+                                                   Height="15"
+                                                   Margin="0"
+                                                   Style="{StaticResource menuButtonIcon}" />
+                        </StackPanel>
+                    </Button>
+                    <lvc:CartesianChart LegendLocation="None"
+                                        Margin="0 30 0 0">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip Background="#24336a"
+                                                Foreground="#d5e2ff" />
+                        </lvc:CartesianChart.DataTooltip>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Foreground="#bcc0c6"
+                                      ShowLabels="True"
+                                      Labels="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0"
+                                                   Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Foreground="#bcc0c6"
+                                      ShowLabels="True"
+                                      MinValue="0"
+                                      MaxValue="30">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                        <lvc:CartesianChart.Series>
+                            <lvc:StackedColumnSeries Fill="#7166f9"
+                                                     MaxColumnWidth="15"
+                                                     Values="2,3,19,6,7,16,5,6" />
+                        </lvc:CartesianChart.Series>
+                    </lvc:CartesianChart>
+                </Grid>
+            </Border>
+            <Border Grid.Row="1"
+                    Grid.Column="2"
+                    Style="{StaticResource CardDashboard}"
+                    Margin="5">
+                <Grid>
+                    <TextBlock Text="Service Costs"
+                               Style="{StaticResource CardDashboardTitle}" />
+
+                    <Button  Height="13"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Top"
+                             Style="{StaticResource menubutton}"
+                             Margin="0 3 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Details"
+                                        Style="{StaticResource menuButtonText}" />
+                            <Icon:PackIconMaterial Kind="ChevronRight"
+                                                   Height="15"
+                                                   Margin="0"
+                                                   Style="{StaticResource menuButtonIcon}" />
+                        </StackPanel>
+                    </Button>
+
+                    <lvc:CartesianChart LegendLocation="None"
+                                        Margin="0 30 0 0">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip Background="#24336a"
+                                                Foreground="#d5e2ff" />
+                        </lvc:CartesianChart.DataTooltip>
+
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Foreground="#bcc0c6"
+                                      ShowLabels="True"
+                                      Labels="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0"
+                                                   Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Foreground="#bcc0c6"
+                                      ShowLabels="True"
+                                      MinValue="0"
+                                      MaxValue="30">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+
+                        <lvc:CartesianChart.Series>
+                            <lvc:StackedColumnSeries Fill="#7166f9"
+                                                     MaxColumnWidth="15"
+                                                     Values="2,3,19,6,7,16,5,6" />
+                        </lvc:CartesianChart.Series>
+
+                    </lvc:CartesianChart>
+
+                </Grid>
+            </Border>
+            <Border Grid.Row="1"
+                    Grid.Column="3"
+                    Style="{StaticResource CardDashboard}"
+                    Margin="5">
+                <Grid>
+                    <TextBlock Text="Other Costs"
+                               Style="{StaticResource CardDashboardTitle}"
+                               Margin="0 0 0 15" />
+
+                    <Button  Height="13"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Top"
+                             Style="{StaticResource menubutton}"
+                             Margin="0 3 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock  Text="Details"
+                                        Style="{StaticResource menuButtonText}" />
+                            <Icon:PackIconMaterial Kind="ChevronRight"
+                                                   Height="15"
+                                                   Margin="0"
+                                                   Style="{StaticResource menuButtonIcon}" />
+                        </StackPanel>
+                    </Button>
+
+                    <lvc:CartesianChart LegendLocation="None"
+                                        Margin="0 30 0 0">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip Background="#24336a"
+                                                Foreground="#d5e2ff" />
+                        </lvc:CartesianChart.DataTooltip>
+
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Foreground="#bcc0c6"
+                                      ShowLabels="True"
+                                      Labels="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0"
+                                                   Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Foreground="#bcc0c6"
+                                      ShowLabels="True"
+                                      MinValue="0"
+                                      MaxValue="30">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+
+                        <lvc:CartesianChart.Series>
+                            <lvc:StackedColumnSeries Fill="#7166f9"
+                                                     MaxColumnWidth="15"
+                                                     Values="2,3,19,6,7,16,5,6" />
+                        </lvc:CartesianChart.Series>
+
+                    </lvc:CartesianChart>
+
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource CardDashboard}"
+                    Margin="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="*" />
+                        <RowDefinition  Height="*" />
+                        <RowDefinition  Height="*" />
+                        <RowDefinition  Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Driver Status"
+                               Style="{StaticResource CardDashboardTitle}" />
+                    <TextBlock  Grid.Row="1"
+                                Grid.Column="0"
+                                Text="In Service"
+                                Style="{StaticResource CardDashboardNormalText}"/>
+                    <TextBlock  Grid.Row="2"
+                                Grid.Column="0"
+                                Text="In-Service"
+                                Style="{StaticResource CardDashboardNormalText}" />
+                    <TextBlock  Grid.Row="3"
+                                Grid.Column="0"
+                                Text="Active"
+                                Style="{StaticResource CardDashboardNormalText}" />
+                </Grid>
+            </Border>
+            <Border Grid.Row="2"
+                    Grid.Column="1"
+                    Style="{StaticResource CardDashboard}"
+                    Margin="5">
+                <Grid>
+                    <TextBlock FontWeight="Bold"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Cost Per Meter"
+                               FontSize="13"
+                               Foreground="#dfe1e3"
+                               Margin="0 0 0 15" />
+                    <lvc:CartesianChart LegendLocation="None"
+                                        Margin="0 30 0 0">
+                        <lvc:CartesianChart.DataTooltip>
+                            <lvc:DefaultTooltip Background="#24336a"
+                                                Foreground="#d5e2ff" />
+                        </lvc:CartesianChart.DataTooltip>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Foreground="#bcc0c6"
+                                      ShowLabels="True"
+                                      Labels="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0"
+                                                   Step="1" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Foreground="#bcc0c6"
+                                      ShowLabels="True"
+                                      MinValue="0"
+                                      MaxValue="30">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator StrokeThickness="0" />
+                                </lvc:Axis.Separator>
+                            </lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </Grid>
+            </Border>
+            <Border Grid.Row="3"
+                    Grid.Column="0"
+                    Style="{StaticResource CardDashboard}"
+                    Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="auto" />
+                        <RowDefinition  Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock FontWeight="Bold"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Service Reminders"
+                               FontSize="13"
+                               Foreground="#dfe1e3"
+                               Margin="0 0 0 15" />
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition  Height="*"/>
-                            <RowDefinition  Height="*"/>
-                            <RowDefinition  Height="*"/>
-                            <RowDefinition  Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="0" Text="Equipment Status" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-
-                        <TextBlock  Grid.Row="1" Grid.Column="0" Text="In Service" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                        <TextBlock  Grid.Row="2" Grid.Column="0" Text="In-Service" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                        <TextBlock  Grid.Row="3" Grid.Column="0" Text="Active" FontSize="13" Foreground="#dfe1e3" />
+                        <TextBlock FontWeight="Thin"
+                                   Grid.Column="0"
+                                   Text="Vehicles Overdue"
+                                   FontSize="13"
+                                   Foreground="#dfe1e3"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0 20" />
+                        <TextBlock FontWeight="Thin"
+                                   Grid.Column="1"
+                                   Text="Vehicles Due Soon"
+                                   FontSize="13"
+                                   Foreground="#dfe1e3"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0 20" />
                     </Grid>
-                </Border>
-                <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource mainBorder}" Margin="5">
-                    <Grid>
-                        <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="0" Text="Cost Per Meter" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                        <lvc:CartesianChart LegendLocation="None" Margin="0 30 0 0">
-                            <lvc:CartesianChart.DataTooltip>
-                                <lvc:DefaultTooltip Background="#24336a" Foreground="#d5e2ff"/>
-                            </lvc:CartesianChart.DataTooltip>
-
-                            <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Foreground="#bcc0c6" ShowLabels="True" Labels="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug">
-                                    <lvc:Axis.Separator>
-                                        <lvc:Separator StrokeThickness="0" Step="1"/>
-                                    </lvc:Axis.Separator>
-                                </lvc:Axis>
-                            </lvc:CartesianChart.AxisX>
-
-                            <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Foreground="#bcc0c6" ShowLabels="True" MinValue="0" MaxValue="30">
-                                    <lvc:Axis.Separator>
-                                        <lvc:Separator StrokeThickness="0"/>
-                                    </lvc:Axis.Separator>
-                                </lvc:Axis>
-                            </lvc:CartesianChart.AxisY>
-
-                        </lvc:CartesianChart>
+                </Grid>
+            </Border>
+            <Border Grid.Row="3"
+                    Grid.Column="1"
+                    Style="{StaticResource CardDashboard}"
+                    Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="auto" />
+                        <RowDefinition  Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock FontWeight="Bold"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Open Issues"
+                               FontSize="13"
+                               Foreground="#dfe1e3"
+                               Margin="0 0 0 15" />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontWeight="Thin"
+                                   Grid.Column="0"
+                                   Text="Open"
+                                   FontSize="13"
+                                   Foreground="#dfe1e3"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0 20" />
+                        <TextBlock FontWeight="Thin"
+                                   Grid.Column="1"
+                                   Text="Overdue"
+                                   FontSize="13"
+                                   Foreground="#dfe1e3"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0 20" />
                     </Grid>
-                </Border>
-                <Border Grid.Row="1" Style="{StaticResource mainBorder}" Margin="5">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition  Height="auto"/>
-                            <RowDefinition  Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="0" Text="Service Reminders" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock FontWeight="Thin" Grid.Column="0" Text="Vehicles Overdue" FontSize="13" Foreground="#dfe1e3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 20"/>
-                            <TextBlock FontWeight="Thin" Grid.Column="1" Text="Vehicles Due Soon" FontSize="13" Foreground="#dfe1e3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 20"/>
-                        </Grid>
-                    </Grid>
-                </Border>
-                <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource mainBorder}" Margin="5">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition  Height="auto"/>
-                            <RowDefinition  Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="0" Text="Open Issues" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock FontWeight="Thin" Grid.Column="0" Text="Open" FontSize="13" Foreground="#dfe1e3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 20"/>
-                            <TextBlock FontWeight="Thin" Grid.Column="1" Text="Overdue" FontSize="13" Foreground="#dfe1e3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 20"/>
-                        </Grid>
-                    </Grid>
-                </Border>
-                
-            </Grid>
-            <Grid Grid.Row="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <!--<Border Style="{StaticResource mainBorder}" Margin="5">
+                </Grid>
+            </Border>
+
+            <!--<Border Style="{StaticResource CardDashboard}" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="auto"/>
@@ -308,7 +459,7 @@
 
                     </Grid>
                 </Border>-->
-                <!--<Border Grid.Column="1" Style="{StaticResource mainBorder}" Margin="5">
+            <!--<Border Grid.Column="1" Style="{StaticResource CardDashboard}" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="auto"/>
@@ -325,27 +476,48 @@
                         </Grid>
                     </Grid>
                 </Border>-->
-                
-                <Border Grid.Column="2" 
-                        Grid.ColumnSpan="2"
-                        Style="{StaticResource mainBorder}" Margin="5">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition  Height="auto"/>
-                            <RowDefinition  Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock FontWeight="Bold" Grid.Row="0" Grid.Column="0" Text="Vehicle Assignments" FontSize="13" Foreground="#dfe1e3" Margin="0 0 0 15"/>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock FontWeight="Thin" Grid.Column="0" Text="Assigned" FontSize="13" Foreground="#dfe1e3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 20"/>
-                            <TextBlock FontWeight="Thin" Grid.Column="1" Text="Unassigned" FontSize="13" Foreground="#dfe1e3" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 20"/>
-                        </Grid>
+
+            <Border Grid.Row="4"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    Style="{StaticResource CardDashboard}"
+                    Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="auto" />
+                        <RowDefinition  Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock FontWeight="Bold"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Vehicle Assignments"
+                               FontSize="13"
+                               Foreground="#dfe1e3"
+                               Margin="0 0 0 15" />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontWeight="Thin"
+                                   Grid.Column="0"
+                                   Text="Assigned"
+                                   FontSize="13"
+                                   Foreground="#dfe1e3"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0 20" />
+                        <TextBlock FontWeight="Thin"
+                                   Grid.Column="1"
+                                   Text="Unassigned"
+                                   FontSize="13"
+                                   Foreground="#dfe1e3"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   Margin="0 20" />
                     </Grid>
-                </Border>
-            </Grid>
+                </Grid>
+            </Border>
         </Grid>
     </Border>
 </UserControl>

@@ -17,14 +17,14 @@ namespace ViewModels
         #region Command Properties
         public ICommand HomeViewCommand { get; set; }
         public ICommand VehicleListViewCommand { get; set; }
+        public ICommand DriverListCommand { get; set; }
+        public ICommand VehicleAssignmentViewCommand { get; set; }
         #endregion
         public MenuLeftBarViewModel()
         {
             HomeViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
-                //FrameworkElement window = GetWindowParent(p);
                 Window window = Window.GetWindow(p);
-                //var w = window as Window;
                 var viewModel = (MainViewModel)window.DataContext;
                 viewModel.currentViewModel = new DashboardViewModel();
             });
@@ -35,16 +35,13 @@ namespace ViewModels
                 var viewModel = (MainViewModel)window.DataContext;
                 viewModel.currentViewModel = new VehicleListViewModel();
             });
-        }
 
-        private FrameworkElement GetWindowParent(UserControl p)
-        {
-            FrameworkElement parent = p;
-            while (parent.Parent != null)
+            VehicleAssignmentViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
-                parent = parent.Parent as FrameworkElement;
-            }
-            return parent;
+                Window window = Window.GetWindow(p);
+                var viewModel = (MainViewModel)window.DataContext;
+                viewModel.currentViewModel = new VehicleAssignmentViewModel();
+            });
         }
     }
 }

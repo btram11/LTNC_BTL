@@ -12,7 +12,7 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border x:Name="rectangle"
                                 SnapsToDevicePixels="True"
-                                Background="{StaticResource PrimaryHueDarkBrush}"
+                                Background="{StaticResource ForegroundLightPastelPurpleBrush}"
                                 CornerRadius="3"
                                 Height="{TemplateBinding Height}"
                                 Width="{TemplateBinding Width}"/>
@@ -192,13 +192,13 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Opacity" Value="0.5"/>
-                <Setter Property="Foreground" Value="{StaticResource ColorText3}"/>
+                <Setter Property="Foreground" Value="{StaticResource ForegroundTealishBlueBrush}"/>
                 <Setter Property="Tag" Value="#7071f0"/>
                 <Setter Property="Background">
                     <Setter.Value>
                         <LinearGradientBrush StartPoint="0,.5" EndPoint="1,.5">
-                            <GradientStop Color="#31407b" Offset="0"/>
-                            <GradientStop Color="#493585" Offset="3"/>
+                            <GradientStop Color="{StaticResource ForegroundDarkSlateBlueColor}" Offset="0"/>
+                            <GradientStop Color="{StaticResource ForegroundPurpleHazeColor}" Offset="3"/>
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
@@ -214,13 +214,13 @@
                 </Setter>
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource ColorText3}"/>
+                <Setter Property="Foreground" Value="{StaticResource ForegroundTealishBlueBrush}"/>
                 <Setter Property="Tag" Value="#7071f0"/>
                 <Setter Property="Background">
                     <Setter.Value>
                         <LinearGradientBrush StartPoint="0,.5" EndPoint="1,.5">
-                            <GradientStop Color="#31407b" Offset="0"/>
-                            <GradientStop Color="#493585" Offset="3"/>
+                            <GradientStop Color="{StaticResource ForegroundDarkSlateBlueColor}" Offset="0"/>
+                            <GradientStop Color="{StaticResource ForegroundPurpleHazeColor}" Offset="3"/>
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
@@ -229,7 +229,7 @@
                         <ControlTemplate TargetType="RadioButton">
                             <Border Background="{TemplateBinding Background}" 
                                     BorderThickness="4 0 0 0" 
-                                    BorderBrush="#a5a1f9">
+                                    BorderBrush="{StaticResource ForegroundLightPastelPurpleBrush}">
                                 <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                             </Border>
                         </ControlTemplate>
