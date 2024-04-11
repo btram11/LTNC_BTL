@@ -161,6 +161,24 @@
         </Setter>
     </Style>
 
+    <Style x:Key="menubuttonActive" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#7f7cf1" />
+        <Setter Property="Margin" Value="0 0 0 5" />
+        <Setter Property="Height" Value="45" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Tag" Value="#7071f0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="0 0 0 1" BorderBrush="#7f7cf1">
+                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="topmenuButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Width" Value="30"/>
@@ -373,7 +391,7 @@
     <Style x:Key="menuComobox" TargetType="ComboBox">
         <Setter Property="IsManipulationEnabled" Value="True"/>
         <Setter Property="IsEditable" Value="True"/>
-        <Setter Property="Foreground" Value="#493585" />
+        <Setter Property="Foreground" Value="Black" />
         <Setter Property="Height" Value="25" />
         <Setter Property="Width" Value="100"/>
         <Setter Property="Margin" Value="5 0 5 0"/>

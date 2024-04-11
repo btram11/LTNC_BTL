@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="MainView.View.MainVehicleOverview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:MainView"
+             mc:Ignorable="d" 
+             d:DesignHeight="680" d:DesignWidth="1030">
+    <Border CornerRadius="0 0 25 0" Background="#151f2d">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="220"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"  Margin="10" Style="{StaticResource mainBorder}">
+                <Grid>
+                    <StackPanel VerticalAlignment="Stretch">
+                        <Button Height="20" Margin="0 5 0 0" Style="{StaticResource menubutton}">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="ArrowLeft" 
+                                                       Height="15" 
+                                                       Margin="0 0 10 0" 
+                                                       Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock  Text="Drivers" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+                        </Button>
+                        <StackPanel Margin="10" Orientation="Horizontal">
+                            <Border CornerRadius="10" Width="40" Height="40">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                        <GradientStop Color="#7f7cf1" Offset="0"/>
+                                        <GradientStop Color="#d3b" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <TextBlock Text="EV" 
+                                           Foreground="#ffffff" 
+                                           FontSize="22" 
+                                           FontWeight="SemiBold"
+                                           TextAlignment="Center"
+                                           VerticalAlignment="Center" 
+                                           Margin="3 0 0 2"/>
+                            </Border>
+                            <StackPanel Margin="10 0 0 0" 
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="EV" 
+                                           Margin="5 0 0 0" 
+                                           FontSize="15" 
+                                           Foreground="#c2cfff"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Height="15" Style="{StaticResource menubutton}">
+                                        <TextBlock  Text="EV" Style="{StaticResource menuButtonText}"/>
+                                    </Button>
+                                    <Button Height="15" Style="{StaticResource menubutton}">
+                                        <TextBlock  Text="Date" Style="{StaticResource menuButtonText}"/>
+                                    </Button>
+                                    <Button Height="15" Style="{StaticResource menubutton}">
+                                        <TextBlock  Text="Group" Style="{StaticResource menuButtonText}"/>
+                                    </Button>
+                                    <Button Height="15" Style="{StaticResource menubutton}">
+                                        <TextBlock  Text="VIN" Style="{StaticResource menuButtonText}"/>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Height="15" 
+                                            Style="{StaticResource menubutton}">
+                                        <TextBlock  Text="95" 
+                                                    Style="{StaticResource menuButtonText}"/>
+                                    </Button>
+                                    <Button Height="15" Style="{StaticResource menubutton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Ellipse Width="8" 
+                                                     Height="8" 
+                                                     Margin="0 0 2 0" 
+                                                     Fill="#eb1700"/>
+                                            <TextBlock  Text="Active" Style="{StaticResource menuButtonText}"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="15" Style="{StaticResource menubutton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icon:PackIconMaterial Kind="Tree"  
+                                                                   Height="15" 
+                                                                   Margin="0 0 2 0" 
+                                                                   Style="{StaticResource menuButtonIcon}"/>
+                                            <TextBlock  Text="Austin" Style="{StaticResource menuButtonText}"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Height="15" Style="{StaticResource menubutton}">
+                                        <TextBlock  Text="Name" 
+                                                    Style="{StaticResource menuButtonText}"/>
+                                    </Button>
+                                </StackPanel>
+                                <Button Width="80"
+                                        Height="15"
+                                        FontSize="9" 
+                                        HorizontalAlignment="Left"
+                                        Style="{StaticResource addbutton}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Icon:PackIconMaterial Kind="Pencil" 
+                                                               Height="10"
+                                                               Margin="0" 
+                                                               Style="{StaticResource menuButtonIcon}"/>
+                                        <TextBlock Text="Edit Labels"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                        <TabControl materialDesign:ColorZoneAssist.Mode="PrimaryMid" materialDesign:RippleAssist.IsCentered="True">
+                            <TabItem Header="Overview">
+                                <!-- Your content for TAB 1 -->
+                            </TabItem>
+                            <TabItem Header="Service History">
+                                <!-- Your content for TAB 2 -->
+                            </TabItem>
+                            <TabItem Header="Specs">
+                                <!-- Your content for TAB 2 -->
+                            </TabItem>
+                            <TabItem Header="Assignment History">
+                                <!-- Your content for TAB 2 -->
+                            </TabItem>
+                            <TabItem Header="Service Reminders">
+                                <!-- Your content for TAB 2 -->
+                            </TabItem>
+                        </TabControl>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

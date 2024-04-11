@@ -180,6 +180,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\AddDriver.xaml.cs">
+      <DependentUpon>AddDriver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainVehicleOverview.xaml.cs">
+      <DependentUpon>MainVehicleOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\QuickAccessButtonView.xaml.cs">
       <DependentUpon>QuickAccessButtonView.xaml</DependentUpon>
     </Compile>
@@ -255,6 +261,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\AddDriver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainVehicleOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StyleResources\CardResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

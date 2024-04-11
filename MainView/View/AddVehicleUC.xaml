@@ -69,19 +69,25 @@
                                    FontWeight="SemiBold" />
                     </StackPanel>
 
-                    <Grid Grid.Column="2">
-                        <StackPanel Orientation="Horizontal"
+                    <Grid Grid.Column="2" Margin="10 0 10 0">
+                        <StackPanel Orientation="Horizontal" 
+                                    Height="40"  
+                                    HorizontalAlignment="Right" 
                                     VerticalAlignment="Bottom">
-
-                            <Button Content="Cancel"
-                                    Width="70" />
-                            <Button Content="Add Multiple Vehicles"
-                                    Margin="10 0 0 0">
-
+                            <Button Width="80" Style="{StaticResource addbutton}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock  Text="Cancel"/>
+                                </StackPanel>
                             </Button>
-                            <Button Content="Save Vehicle"
-                                    Margin="10 0 0 0">
-
+                            <Button Width="150" Style="{StaticResource addbutton}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock  Text="Add Multiple Vehicles"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Width="100" Style="{StaticResource addbutton}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock  Text="Save Vehicle"/>
+                                </StackPanel>
                             </Button>
                         </StackPanel>
                     </Grid>
