@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MainView"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="680"
@@ -37,33 +38,20 @@
                                    FontWeight="SemiBold" />
 
                         <StackPanel Orientation="Horizontal">
-                            <Button Height="20"
-                                    Margin="5 5 0 0"
-                                    Style="{StaticResource menubutton}">
-                                <TextBlock  Text="All"
-                                            Style="{StaticResource menuButtonText}" />
-                            </Button>
-
-                            <Button Height="20"
-                                    Margin="15 5 0 0"
-                                    Style="{StaticResource menubutton}">
-                                <TextBlock  Text="Assigned"
-                                            Style="{StaticResource menuButtonText}" />
-                            </Button>
-
-                            <Button Height="20"
-                                    Margin="15 5 0 0"
-                                    Style="{StaticResource menubutton}">
-                                <TextBlock  Text="Unassigned"
-                                            Style="{StaticResource menuButtonText}" />
-                            </Button>
-
-                            <Button Height="20"
-                                    Margin="15 5 0 0"
-                                    Style="{StaticResource menubutton}">
-                                <TextBlock  Text="Archived"
-                                            Style="{StaticResource menuButtonText}" />
-                            </Button>
+                            <TabControl materialDesign:ColorZoneAssist.Mode="PrimaryMid" materialDesign:RippleAssist.IsCentered="True">
+                                <TabItem Header="All" >
+                                    <!-- Your content for TAB 1 -->
+                                </TabItem>
+                                <TabItem Header="Assigned">
+                                    <!-- Your content for TAB 2 -->
+                                </TabItem>
+                                <TabItem Header="Unassigned">
+                                    <!-- Your content for TAB 2 -->
+                                </TabItem>
+                                <TabItem Header="Archived">
+                                    <!-- Your content for TAB 2 -->
+                                </TabItem>
+                            </TabControl>
 
                         </StackPanel>
                     </StackPanel>
@@ -143,17 +131,11 @@
                         <ComboBox Text="Filters"
                                   Style="{StaticResource menuComobox}" />
 
-                        <Button  Width="20"
-                                 Style="{StaticResource topmenuButton}"
-                                 Margin="150 0 0 0">
-                            <Icon:PackIconMaterial Kind="ChevronLeft"
-                                                   Style="{StaticResource topmenuButtonIcon}" />
+                        <Button Width="25" Height="25" Margin="150 0 0 0" Style="{StaticResource whitebutton}">
+                            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="ChevronLeft"  Width="11" Height="11"/>
                         </Button>
-                        <Button  Width="20"
-                                 Style="{StaticResource topmenuButton}"
-                                 Margin="0">
-                            <Icon:PackIconMaterial Kind="ChevronRight"
-                                                   Style="{StaticResource topmenuButtonIcon}" />
+                        <Button Width="25" Height="25" Margin="0 0 0 0" Style="{StaticResource whitebutton}">
+                            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="ChevronRight"  Width="11" Height="11"/>
                         </Button>
                         <Button  Width="20"
                                  Style="{StaticResource topmenuButton}"

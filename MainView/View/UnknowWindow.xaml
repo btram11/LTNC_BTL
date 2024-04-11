@@ -7,7 +7,6 @@
         Height="760" Width="1280" 
         WindowStyle="None" WindowStartupLocation="CenterScreen" Background="Transparent"
         xmlns:local="clr-namespace:MainView"
-        xmlns:custom="clr-namespace:MainView.Control"
         mc:Ignorable="d"
         Title="UnknowWindow">
     <Border CornerRadius="25" Background="#151f2d">

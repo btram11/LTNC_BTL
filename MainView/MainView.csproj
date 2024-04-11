@@ -168,6 +168,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes">
+      <Version>5.0.0</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.3</Version>
     </PackageReference>
@@ -177,21 +180,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Animations\FrameworkElementAnimations.cs" />
-    <Compile Include="Animations\StoryboardHelpers.cs" />
-    <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
-    <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
-    <Compile Include="Control\BubbleContent.xaml.cs">
-      <DependentUpon>BubbleContent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ValueConverters\BaseValueConverter.cs" />
-    <Compile Include="ValueConverters\HorizontalAlignmentConverter.cs" />
-    <Compile Include="ValueConverters\StringRGBToBrushConverter.cs" />
     <Compile Include="View\QuickAccessButtonView.xaml.cs">
       <DependentUpon>QuickAccessButtonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DriverManagement.xaml.cs">
+      <DependentUpon>DriverManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditServiceReminder.xaml.cs">
+      <DependentUpon>EditServiceReminder.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Reminders.xaml.cs">
       <DependentUpon>Reminders.xaml</DependentUpon>
@@ -256,10 +255,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Control\BubbleContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="StyleResources\CardResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -281,6 +276,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DriverManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditServiceReminder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

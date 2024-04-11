@@ -5,8 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainView"
         xmlns:localView="clr-namespace:MainView.View"
-        xmlns:control="clr-namespace:MainView.Control"
-        xmlns:attachedprop="clr-namespace:MainView.AttachedProperties"
         xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
