@@ -186,6 +186,9 @@
     <Compile Include="View\MainVehicleOverview.xaml.cs">
       <DependentUpon>MainVehicleOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\OverviewVehicle.xaml.cs">
+      <DependentUpon>OverviewVehicle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\QuickAccessButtonView.xaml.cs">
       <DependentUpon>QuickAccessButtonView.xaml</DependentUpon>
     </Compile>
@@ -282,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StyleResources\MenuBarResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OverviewVehicle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
