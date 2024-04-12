@@ -1,224 +1,265 @@
 ﻿<UserControl x:Class="MainView.View.EditServiceReminder"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MainView.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="680" d:DesignWidth="1030">
-    <Border CornerRadius="0 0 25 0" Background="#151f2d">
+             mc:Ignorable="d"
+             d:DesignHeight="680"
+             d:DesignWidth="1030">
+    <Border CornerRadius="0 0 25 0"
+            Background="#151f2d">
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" 
-                Style="{StaticResource mainBorder}">
+            <Border Grid.Row="0"
+                    Style="{StaticResource mainBorder}">
                 <Grid>
-                    <TextBlock Text="Edit Service Reminder" 
-                           Style="{StaticResource titleText}"/>
-                    <StackPanel Orientation="Horizontal" 
-                            HorizontalAlignment="Right" 
-                            VerticalAlignment="Top">
-                        <Button Content="Cancel" 
-                            Width="70" 
-                            Style="{StaticResource addbutton}"/>
+                    <TextBlock Text="Edit Service Reminder"
+                               Style="{StaticResource titleText}" />
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top">
+                        <Button Content="Cancel"
+                                Width="70"
+                                Style="{StaticResource addbutton}" />
                         <Button Content="Save Service Reminder"
-                            Width="140" 
-                            Style="{StaticResource addbutton}"/>
+                                Width="140"
+                                Style="{StaticResource addbutton}" />
                     </StackPanel>
                 </Grid>
             </Border>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="1.25*" />
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Row="0" Margin="50 10 50 0">
-                    <Border Style="{StaticResource mainBorder}" Margin="0 0 0 40">
+                <Grid Grid.Row="0"
+                      Margin="30 10 30 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border Style="{StaticResource mainBorder}"
+                            Padding="8"
+                            Grid.Row="0">
                         <StackPanel>
-                            <TextBlock Text="Details" 
-                                   Style="{StaticResource titleText}"/>
-                            <TextBlock Text="Vehicle" 
-                                   FontSize="14"
-                                   Margin="20 15 0 0" 
-                                   Style="{StaticResource titleText}"/>
-                            <ComboBox Text="Please choice" 
-                                  Margin="20 5 20 5" 
-                                  Width="450" 
-                                  Style="{StaticResource menuComobox}"/>
-                            <TextBlock Text="Service Task" 
-                                   FontSize="14" Margin="20 15 0 0" 
-                                   Style="{StaticResource titleText}"/>
-                            <ComboBox Text="Please choice" 
-                                  Margin="20 5 20 5" 
-                                  Width="450" 
-                                  Style="{StaticResource menuComobox}"/>
-                            <Separator Height="0.8" 
-                                   Margin="20 15 20 0"  
-                                   VerticalAlignment="Bottom" 
-                                   Background="#9ea4ad" />
-                            <Grid Height="auto" Margin="20 0 20 0">
+                            <TextBlock Text="Details"
+                                       Style="{StaticResource titleText}" />
+                            <TextBlock Text="Vehicle"
+                                       FontSize="14"
+                                       Margin="20 15 0 0"
+                                       Style="{StaticResource titleText}" />
+                            <ComboBox Text="Please choice"
+                                      Margin="20 5 20 5"
+                                      Width="450"
+                                      Style="{StaticResource menuComobox}" />
+                            <TextBlock Text="Service Task"
+                                       FontSize="14"
+                                       Margin="20 15 0 0"
+                                       Style="{StaticResource titleText}" />
+                            <ComboBox Text="Please choice"
+                                      Margin="20 5 20 5"
+                                      Width="450"
+                                      Style="{StaticResource menuComobox}" />
+                            <Separator Height="0.8"
+                                       Margin="20 15 20 0"
+                                       VerticalAlignment="Bottom"
+                                       Background="#9ea4ad" />
+                            <Grid Height="auto"
+                                  Margin="20 0 20 0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="Time Inveral" 
-                                       FontSize="14" 
-                                       Margin="0 15 0 0" 
-                                       Style="{StaticResource titleText}"/>
-                                <TextBlock Grid.Column="1" 
-                                       Text="Time Due Soon Threhold" 
-                                       FontSize="14" Margin="0 15 0 0" 
-                                       Style="{StaticResource titleText}"/>
+                                <TextBlock Text="Time Inveral"
+                                           FontSize="14"
+                                           Margin="0 15 0 0"
+                                           Style="{StaticResource titleText}" />
+                                <TextBlock Grid.Column="1"
+                                           Text="Time Due Soon Threhold"
+                                           FontSize="14"
+                                           Margin="0 15 0 0"
+                                           Style="{StaticResource titleText}" />
                                 <Grid Grid.Row="1">
-                                    <TextBlock Text="Every" 
-                                           Foreground="Gray"
-                                           FontSize="14" 
-                                           Margin="0 15 0 0" 
-                                           Style="{StaticResource titleText}"/>
-                                    <TextBox Margin="50 15 110 0" 
-                                         Style="{StaticResource searchTextBox}"/>
-                                    <ComboBox Text="month(s)" 
-                                          VerticalAlignment="Bottom" 
-                                          HorizontalAlignment="Right" 
-                                          Width="100" Margin="0 0 10 0" 
-                                          Style="{StaticResource menuComobox}"/>
+                                    <TextBlock Text="Every"
+                                               Foreground="Gray"
+                                               FontSize="14"
+                                               Margin="0 15 0 0"
+                                               Style="{StaticResource titleText}" />
+                                    <TextBox Margin="50 15 110 0"
+                                             Style="{StaticResource searchTextBox}" />
+                                    <ComboBox Text="month(s)"
+                                              VerticalAlignment="Bottom"
+                                              HorizontalAlignment="Right"
+                                              Width="100"
+                                              Margin="0 0 10 0"
+                                              Style="{StaticResource menuComobox}" />
                                 </Grid>
-                                <Grid Grid.Row="1" Grid.Column="1">
-                                    <TextBlock Text="Every" 
-                                           Foreground="Gray" 
-                                           FontSize="14" 
-                                           Margin="0 15 0 0" 
-                                           Style="{StaticResource titleText}"/>
-                                    <TextBox Margin="50 15 110 0" 
-                                         Style="{StaticResource searchTextBox}"/>
-                                    <ComboBox Text="week(s)" 
-                                          VerticalAlignment="Bottom" 
-                                          HorizontalAlignment="Right" 
-                                          Width="100" Margin="0 0 10 0" 
-                                          Style="{StaticResource menuComobox}"/>
+                                <Grid Grid.Row="1"
+                                      Grid.Column="1">
+                                    <TextBlock Text="Every"
+                                               Foreground="Gray"
+                                               FontSize="14"
+                                               Margin="0 15 0 0"
+                                               Style="{StaticResource titleText}" />
+                                    <TextBox Margin="50 15 110 0"
+                                             Style="{StaticResource searchTextBox}" />
+                                    <ComboBox Text="week(s)"
+                                              VerticalAlignment="Bottom"
+                                              HorizontalAlignment="Right"
+                                              Width="100"
+                                              Margin="0 0 10 0"
+                                              Style="{StaticResource menuComobox}" />
                                 </Grid>
-                                <TextBlock Grid.Row="2" 
-                                       Text="Primary Meter Interval" 
-                                       FontSize="14" 
-                                       Margin="0 15 0 0" 
-                                       Style="{StaticResource titleText}"/>
-                                <TextBlock Grid.Row="2" 
-                                       Grid.Column="1" 
-                                       Text="Primary Meter Due Soon Threhold" 
-                                       FontSize="14" Margin="0 15 0 0" 
-                                       Style="{StaticResource titleText}"/>
+                                <TextBlock Grid.Row="2"
+                                           Text="Primary Meter Interval"
+                                           FontSize="14"
+                                           Margin="0 15 0 0"
+                                           Style="{StaticResource titleText}" />
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="1"
+                                           Text="Primary Meter Due Soon Threhold"
+                                           FontSize="14"
+                                           Margin="0 15 0 0"
+                                           Style="{StaticResource titleText}" />
                                 <Grid Grid.Row="3">
-                                    <TextBlock Text="Every" 
-                                           Foreground="Gray" 
-                                           FontSize="14" 
-                                           Margin="0 15 0 0" 
-                                           Style="{StaticResource titleText}"/>
-                                    <TextBox Margin="50 15 30 0" 
-                                         Style="{StaticResource searchTextBox}"/>
-                                    <TextBlock Text="mi" 
-                                           Foreground="Gray" 
-                                           FontSize="14" 
-                                           VerticalAlignment="Bottom" 
-                                           HorizontalAlignment="Right" 
-                                           Margin="0 0 10 0" Style="{StaticResource titleText}"/>
+                                    <TextBlock Text="Every"
+                                               Foreground="Gray"
+                                               FontSize="14"
+                                               Margin="0 15 0 0"
+                                               Style="{StaticResource titleText}" />
+                                    <TextBox Margin="50 15 30 0"
+                                             Style="{StaticResource searchTextBox}" />
+                                    <TextBlock Text="mi"
+                                               Foreground="Gray"
+                                               FontSize="14"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Right"
+                                               Margin="0 0 10 0"
+                                               Style="{StaticResource titleText}" />
                                 </Grid>
-                                <Grid Grid.Row="3" Grid.Column="1">
-                                    <TextBlock Text="Every" 
-                                           Foreground="Gray" 
-                                           FontSize="14" 
-                                           Margin="0 15 0 0" 
-                                           Style="{StaticResource titleText}"/>
-                                    <TextBox Margin="50 15 30 0" 
-                                         Style="{StaticResource searchTextBox}"/>
-                                    <TextBlock Text="mi" 
-                                           Foreground="Gray" 
-                                           FontSize="14" 
-                                           VerticalAlignment="Bottom" 
-                                           HorizontalAlignment="Right" 
-                                           Margin="0 0 10 0" 
-                                           Style="{StaticResource titleText}"/>
+                                <Grid Grid.Row="3"
+                                      Grid.Column="1">
+                                    <TextBlock Text="Every"
+                                               Foreground="Gray"
+                                               FontSize="14"
+                                               Margin="0 15 0 0"
+                                               Style="{StaticResource titleText}" />
+                                    <TextBox Margin="50 15 30 0"
+                                             Style="{StaticResource searchTextBox}" />
+                                    <TextBlock Text="mi"
+                                               Foreground="Gray"
+                                               FontSize="14"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Right"
+                                               Margin="0 0 10 0"
+                                               Style="{StaticResource titleText}" />
                                 </Grid>
                             </Grid>
-                            <CheckBox  Margin="20 15 0 0" 
-                                   Content="Manually set the due date and/or meter for the next reminder" 
-                                   Foreground="#efefef"/>
-                            <TextBlock Text="Adjust the schedule by updating the next reminder's meter and/or date" 
-                                   Margin="40 0 0 0" 
-                                   Foreground="Gray"/>
-                            <Separator Height="0.8" 
-                                   Margin="20 15 20 0"  
-                                   VerticalAlignment="Bottom" 
-                                   Background="#9ea4ad" />
-                            <CheckBox  Margin="20 15 0 0" 
-                                   Content="Notifications" 
-                                   Foreground="#efefef"/>
-                            <TextBlock Text="If ON, and the user has Notification Settings enabled for Service Reminders, the user will receive a notification at 7:00 am once the reminder becomes Due Soon or Overdue, and then weekly until the Reminder is resolved." 
-                                   TextWrapping="Wrap" 
-                                   Margin="20 0 20 0" 
-                                   Foreground="Gray"/>
-                            <TextBlock Text="Service Task" 
-                                   FontSize="14" Margin="20 15 0 0" 
-                                   Style="{StaticResource titleText}"/>
-                            <ComboBox Text="Please choice" 
-                                  Margin="20 5 20 5" 
-                                  Width="450" 
-                                  Style="{StaticResource menuComobox}"/>
+                            <CheckBox  Margin="20 15 0 0"
+                                       Content="Manually set the due date and/or meter for the next reminder"
+                                       Foreground="#efefef" />
+                            <TextBlock Text="Adjust the schedule by updating the next reminder's meter and/or date"
+                                       Margin="40 0 0 0"
+                                       Foreground="Gray" />
+                            <Separator Height="0.8"
+                                       Margin="20 15 20 0"
+                                       VerticalAlignment="Bottom"
+                                       Background="#9ea4ad" />
+                            <CheckBox  Margin="20 15 0 0"
+                                       Content="Notifications"
+                                       Foreground="#efefef" />
+                            <TextBlock Text="If ON, and the user has Notification Settings enabled for Service Reminders, the user will receive a notification at 7:00 am once the reminder becomes Due Soon or Overdue, and then weekly until the Reminder is resolved."
+                                       TextWrapping="Wrap"
+                                       Margin="20 0 20 0"
+                                       Foreground="Gray" />
+                            <TextBlock Text="Service Task"
+                                       FontSize="14"
+                                       Margin="20 15 0 0"
+                                       Style="{StaticResource titleText}" />
+                            <ComboBox Text="Please choice"
+                                      Margin="20 5 20 5"
+                                      Width="450"
+                                      Style="{StaticResource menuComobox}" />
                         </StackPanel>
                     </Border>
-                    <Button Content="Cancel" 
-                        Width="70" 
-                        VerticalAlignment="Bottom"
-                        HorizontalAlignment="Left"
-                        Style="{StaticResource addbutton}"/>
+                    <Button Content="Cancel"
+                            Width="70"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Left"
+                            Style="{StaticResource addbutton}"
+                            Margin="0,0,0,7"
+                            Grid.Row="1" />
                     <Button Content="Save Service Reminder"
-                        Width="140" 
-                        VerticalAlignment="Bottom"
-                        Style="{StaticResource addbutton}"/>
+                            Width="140"
+                            VerticalAlignment="Bottom"
+                            Style="{StaticResource addbutton}"
+                            Grid.Row="1" />
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Text="Schedule Preview" 
-                               Style="{StaticResource titleText}"/>
+                        <TextBlock Text="Schedule Preview"
+                                   Style="{StaticResource titleText}" />
                     </Grid>
-                    <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="3" x:Name="membersDataGrid" SelectionChanged="membersDataGrid_SelectionChanged">
+                    <DataGrid Style="{DynamicResource DataGridStyle1}"
+                              CellStyle="{DynamicResource DataGridCellStyle1}"
+                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                              RowStyle="{DynamicResource DataGridRowStyle1}"
+                              Grid.Row="3"
+                              x:Name="membersDataGrid">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn CanUserResize="False" Width="auto">
+                            <DataGridCheckBoxColumn CanUserResize="False"
+                                                    Width="auto">
                                 <DataGridCheckBoxColumn.HeaderTemplate>
                                     <DataTemplate>
-                                        <CheckBox/>
+                                        <CheckBox />
                                     </DataTemplate>
                                 </DataGridCheckBoxColumn.HeaderTemplate>
                             </DataGridCheckBoxColumn>
 
 
-                            <DataGridTemplateColumn Header="Date" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn Header="Date"
+                                                    IsReadOnly="True"
+                                                    Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="Red">
-                                                <TextBlock Text="..." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                            <Border Width="25"
+                                                    Height="25"
+                                                    CornerRadius="50"
+                                                    Margin="0 0 10 0"
+                                                    Background="Red">
+                                                <TextBlock Text="..."
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           Foreground="White"
+                                                           Margin="0 0 0 1" />
                                             </Border>
-                                            <TextBlock Text="..." VerticalAlignment="Center"/>
+                                            <TextBlock Text="..."
+                                                       VerticalAlignment="Center" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
 
-                            <DataGridTextColumn Header="Primary Meter" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Primary Meter"
+                                                IsReadOnly="True"
+                                                Width="*" />
 
                         </DataGrid.Columns>
                     </DataGrid>

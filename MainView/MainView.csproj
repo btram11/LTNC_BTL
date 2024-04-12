@@ -180,6 +180,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\AddDriver.xaml.cs">
+      <DependentUpon>AddDriver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainVehicleOverview.xaml.cs">
+      <DependentUpon>MainVehicleOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OverviewVehicle.xaml.cs">
+      <DependentUpon>OverviewVehicle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuickAccessButtonView.xaml.cs">
+      <DependentUpon>QuickAccessButtonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DriverManagement.xaml.cs">
+      <DependentUpon>DriverManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditServiceReminder.xaml.cs">
       <DependentUpon>EditServiceReminder.xaml</DependentUpon>
     </Compile>
@@ -204,6 +222,9 @@
     </Compile>
     <Compile Include="View\UnknowWindow.xaml.cs">
       <DependentUpon>UnknowWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VehicleAssignment.xaml.cs">
+      <DependentUpon>VehicleAssignment.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VehicleList.xaml.cs">
       <DependentUpon>VehicleList.xaml</DependentUpon>
@@ -243,11 +264,43 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="View\AddDriver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainVehicleOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StyleResources\CardResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StyleResources\VehicleAssignmentResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StyleResources\ColorUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StyleResources\MenuBarResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OverviewVehicle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuickAccessButtonView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DriverManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -303,6 +356,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\VehicleAssignment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\VehicleList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -316,6 +373,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="video\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\truck.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\4047413.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.5.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.0.0\build\MaterialDesignThemes.targets')" />

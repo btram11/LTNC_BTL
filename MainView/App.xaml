@@ -11,15 +11,25 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="./StyleResources/AddVehicleResource.xaml"/>
-                <ResourceDictionary Source="./StyleResources/UC_Resource.xaml"/>
-                <ResourceDictionary Source="./StyleResources/WindowBarResource.xaml"/>
-                <ResourceDictionary Source="./StyleResources/ColorUI.xaml"/>
+                <ResourceDictionary Source="/StyleResources/AddVehicleResource.xaml"/>
+                <ResourceDictionary Source="/StyleResources/UC_Resource.xaml"/>
+                <ResourceDictionary Source="/StyleResources/WindowBarResource.xaml"/>
+                <ResourceDictionary Source="/StyleResources/ColorUI.xaml"/>
+                <ResourceDictionary Source="/StyleResources/CardResource.xaml"/>
+                <ResourceDictionary Source="/StyleResources/VehicleAssignmentResource.xaml" />
 
                 <!--<ResourceDictionary Source="./StyleResources/MenuButtonTheme"/>-->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ObsoleteBrushes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Calendar.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DatePicker.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TimePicker.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
 
