@@ -183,6 +183,12 @@
     <Compile Include="View\AddDriver.xaml.cs">
       <DependentUpon>AddDriver.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AssignmentHistoryVehicle.xaml.cs">
+      <DependentUpon>AssignmentHistoryVehicle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Financial.xaml.cs">
+      <DependentUpon>Financial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainVehicleOverview.xaml.cs">
       <DependentUpon>MainVehicleOverview.xaml</DependentUpon>
     </Compile>
@@ -219,6 +225,15 @@
     </Compile>
     <Compile Include="View\ScrollingLeftMenuBar.xaml.cs">
       <DependentUpon>ScrollingLeftMenuBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ServiceHistory.xaml.cs">
+      <DependentUpon>ServiceHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ServiceReminderTab.xaml.cs">
+      <DependentUpon>ServiceReminderTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Specs.xaml.cs">
+      <DependentUpon>Specs.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UnknowWindow.xaml.cs">
       <DependentUpon>UnknowWindow.xaml</DependentUpon>
@@ -265,6 +280,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\AddDriver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AssignmentHistoryVehicle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Financial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -341,6 +364,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ScrollingLeftMenuBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ServiceHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ServiceReminderTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Specs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
