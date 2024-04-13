@@ -10,7 +10,7 @@
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="522.04"/>
+
             </Grid.RowDefinitions>
             <Border Grid.Row="0" Style="{StaticResource mainBorder}">
                 <StackPanel VerticalAlignment="Stretch">
