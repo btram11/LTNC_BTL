@@ -146,6 +146,9 @@
                             <TabItem Header="Service History">
                                 --><!-- Your content for TAB 2 --><!--
                             </TabItem>
+                            <TabItem Header="Financial">
+                                <!-- Your content for TAB 2 -->
+                            </TabItem>
                             <TabItem Header="Specs">
                                 --><!-- Your content for TAB 2 --><!--
                             </TabItem>
