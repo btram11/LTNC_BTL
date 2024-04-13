@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="MainView.View.DriverAssignmentHistory"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MainView.View"
+             mc:Ignorable="d" 
+              d:DesignHeight="532" d:DesignWidth="1030">
+    <Border CornerRadius="0 0 25 0" Background="#151f2d">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="522.04"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Style="{StaticResource mainBorder}">
+                <TextBlock Foreground="White" FontSize="18"
+                       FontWeight="SemiBold">
+            Assignments</TextBlock>
+            </Border>
+            <Separator Height="1" Margin="2 0 2 -2" VerticalAlignment="Bottom" Background="#9ea4ad" />
+            <StackPanel Grid.Row="1">
+                <Border CornerRadius="10" Background="#1e2e44" Margin="10">
+                    <Grid Margin="10">
+                        <DataGrid Style="{DynamicResource DataGridStyle1}" 
+                                  CellStyle="{DynamicResource DataGridCellStyle1}" 
+                                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                                  RowStyle="{DynamicResource DataGridRowStyle1}" 
+                                  Grid.Row="3" 
+                                  SelectionChanged="membersDataGrid_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Vehicle" IsReadOnly="True" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="CadetBlue">
+                                                    <TextBlock Text="..." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="1"/>
+                                                </Border>
+                                                <TextBlock Text="..." VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTextColumn Header="Time" IsReadOnly="True" Width="2*"/>
+                                <DataGridTextColumn Header="Fuel Cost" IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="From" IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Destination" IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Path Information" IsReadOnly="True" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Grid>
+    </Border>
+
+</UserControl>

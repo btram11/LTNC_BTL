@@ -180,11 +180,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Luggagexaml.xaml.cs">
+      <DependentUpon>Luggagexaml.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddDriver.xaml.cs">
       <DependentUpon>AddDriver.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AssignmentHistoryVehicle.xaml.cs">
       <DependentUpon>AssignmentHistoryVehicle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DriverAssignmentHistory.xaml.cs">
+      <DependentUpon>DriverAssignmentHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DriverInformation.xaml.cs">
+      <DependentUpon>DriverInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DriverOverview.xaml.cs">
+      <DependentUpon>DriverOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Financial.xaml.cs">
       <DependentUpon>Financial.xaml</DependentUpon>
@@ -235,6 +247,9 @@
     <Compile Include="View\Specs.xaml.cs">
       <DependentUpon>Specs.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TripInformation.xaml.cs">
+      <DependentUpon>TripInformation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UnknowWindow.xaml.cs">
       <DependentUpon>UnknowWindow.xaml</DependentUpon>
     </Compile>
@@ -279,11 +294,27 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Luggagexaml.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddDriver.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AssignmentHistoryVehicle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DriverAssignmentHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DriverInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DriverOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -376,6 +407,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Specs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TripInformation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
