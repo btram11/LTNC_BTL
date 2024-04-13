@@ -11,14 +11,12 @@ namespace ViewModels
 {
     public class MenuLeftBarViewModel : ViewModelBase
     {
-        public MainViewModel MainViewModel { get; set; }
-        public ViewModelBase CurrentViewModel { get; private set; }
-
         #region Command Properties
-        public ICommand HomeViewCommand { get; set; }
-        public ICommand VehicleListViewCommand { get; set; }
-        public ICommand DriverListCommand { get; set; }
-        public ICommand VehicleAssignmentViewCommand { get; set; }
+        public ICommand HomeViewCommand { get; }
+        public ICommand VehicleListViewCommand { get; }
+        public ICommand DriverListViewCommand { get; }
+        public ICommand VehicleAssignmentViewCommand { get; }
+        public ICommand RemindersListViewCommand { get; }
         #endregion
         public MenuLeftBarViewModel()
         {
@@ -41,6 +39,20 @@ namespace ViewModels
                 Window window = Window.GetWindow(p);
                 var viewModel = (MainViewModel)window.DataContext;
                 viewModel.currentViewModel = new VehicleAssignmentViewModel();
+            });
+
+            RemindersListViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            {
+                Window window = Window.GetWindow(p);
+                var viewModel = (MainViewModel)window.DataContext;
+                viewModel.currentViewModel = new RemindersListViewModel();
+            });
+
+            DriverListViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            {
+                Window window = Window.GetWindow(p);
+                var viewModel = (MainViewModel)window.DataContext;
+                viewModel.currentViewModel = new DriverListViewModel();
             });
         }
     }

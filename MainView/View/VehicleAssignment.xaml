@@ -50,7 +50,7 @@
                                             Style="{StaticResource menuButtonText}" />
                             </Button>
                         </StackPanel>
-                        <TextBlock Text="Vehicle Assignment"
+                        <TextBlock Text="Trip Assignment"
                                    Foreground="{StaticResource ForegroundPearlBushBrush}"
                                    FontSize="25"
                                    FontWeight="SemiBold" />
@@ -116,7 +116,7 @@
                 </Binding>
             </TextBox.Text>-->
                                 </TextBox>
-                                
+
                             </Grid>
                         </StackPanel>
                         <StackPanel Margin="0 8">
@@ -231,8 +231,8 @@
                                 <ComboBox materialDesign:HintAssist.Hint="People/Goods"
                                           Grid.Column="1"
                                           Style="{StaticResource MainComboBox}">
-                                    <ComboBoxItem Content="Passenger" 
-                                                  Style="{StaticResource MainComboBoxItem}"/>
+                                    <ComboBoxItem Content="Passenger"
+                                                  Style="{StaticResource MainComboBoxItem}" />
                                     <ComboBoxItem Content="Cargo"
                                                   Style="{StaticResource MainComboBoxItem}" />
                                 </ComboBox>
@@ -307,9 +307,10 @@
                                           Grid.Column="1"
                                           Style="{StaticResource MainCheckBox}" />
                             </Grid>
+                            
                         </StackPanel>
                     </StackPanel>
-
+                    
                 </Border>
             </Grid>
         </Grid>

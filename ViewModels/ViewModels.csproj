@@ -119,6 +119,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\DriverListViewModel.cs" />
+    <Compile Include="ViewModels\RemindersListViewModel.cs" />
+    <Compile Include="ViewModels\AddDriverViewModel.cs" />
     <Compile Include="ViewModels\QuickAccessButtonViewModel.cs" />
     <Compile Include="ViewModels\AddVehicleViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
@@ -146,6 +149,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.5.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.0.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -12,6 +12,11 @@ namespace ViewModels
         private readonly Predicate<T> _canExecute;
         private readonly Action<T> _execute;
 
+        public RelayCommand(Action<T> execute)
+        {
+            _execute = execute;
+            _canExecute = null;
+        }
         public RelayCommand(Predicate<T> canExecute, Action<T> execute)
         {
             if (execute == null)

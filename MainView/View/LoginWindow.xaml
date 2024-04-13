@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainView"
         xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
+        xmlns:components="clr-namespace:MainView.Components"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="LoginView"
@@ -211,7 +212,8 @@
                         <TextBox x:Name="NameTextBox"
                                  Grid.Column="1"
                                  Style="{StaticResource MainTextBox}"
-                                 materialDesign:HintAssist.Hint="Username">
+                                 materialDesign:HintAssist.Hint="Username"
+                                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}">
                             <!--materialDesign:HintAssist.HelperText="Helper text longer than error"-->
                             <!--<TextBox.Text>
                                 <Binding Path="Name"
@@ -243,16 +245,11 @@
                                                  VerticalAlignment="Center"
                                                  Foreground="{StaticResource WordWhiteBrush}"
                                                  Margin="0 0 5 0" />
-                        <PasswordBox Grid.Column="1"
-                                     materialDesign:HintAssist.Hint="Password"
-                                     Foreground="{StaticResource WordWhiteBrush}"
-                                     materialDesign:PasswordBoxAssist.Password="{Binding Password1, Mode=TwoWay}"
-                                     materialDesign:TextFieldAssist.HasClearButton="True"
-                                     IsEnabled="{Binding ElementName=RevealPasswordDefaultEnabled, Path=IsChecked}"
-                                     Style="{StaticResource MaterialDesignRevealPasswordBox}" />
+                        <components:PasswordBox Grid.Column="1"
+                                                Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                     </Grid>
 
-                    <TextBlock Text="{Binding ErrorMessage}"
+                    <TextBlock Text="{Binding ErrorMessage, Mode=TwoWay}"
                                Foreground="#D7596D"
                                FontSize="12"
                                FontWeight="Medium"

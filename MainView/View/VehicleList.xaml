@@ -8,218 +8,228 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              mc:Ignorable="d"
+             Name="VehicleListView"
              d:DesignHeight="680"
-             d:DesignWidth="845">
-    <UserControl.DataContext>
-        <viewModels:VehicleListViewModel />
-    </UserControl.DataContext>
-    <Border >
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+             d:DesignWidth="800">
+	<UserControl.DataContext>
+		<viewModels:VehicleListViewModel />
+	</UserControl.DataContext>
+	<Border >
+		<Grid Margin="10">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto" />
+				<RowDefinition Height="auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
 
-            <Border Grid.Row="0"
+			<Border Grid.Row="0"
                     Style="{StaticResource mainBorder}">
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300" />
-                        <ColumnDefinition Width="*" />
+				<Grid Grid.Row="1">
+					<Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
 
-                    <StackPanel VerticalAlignment="Stretch">
-                        <TextBlock Text="Vehicles"
+					<StackPanel VerticalAlignment="Stretch">
+						<TextBlock Text="Vehicles"
                                    Foreground="{StaticResource ForegroundPearlBushBrush}"
                                    FontSize="25"
-                                   Margin="5 0 0 0"
+                                   Margin="5 0 0 8"
                                    FontWeight="SemiBold" />
 
-                        <StackPanel Orientation="Horizontal">
-                            <TabControl materialDesign:ColorZoneAssist.Mode="PrimaryMid" materialDesign:RippleAssist.IsCentered="True">
-                                <TabItem Header="All" >
-                                    <!-- Your content for TAB 1 -->
-                                </TabItem>
-                                <TabItem Header="Assigned">
-                                    <!-- Your content for TAB 2 -->
-                                </TabItem>
-                                <TabItem Header="Unassigned">
-                                    <!-- Your content for TAB 2 -->
-                                </TabItem>
-                                <TabItem Header="Archived">
-                                    <!-- Your content for TAB 2 -->
-                                </TabItem>
-                            </TabControl>
+						<StackPanel Orientation="Horizontal"
+									Margin="0 4 0 0">
+							<RadioButton Content="All"
+                                         IsChecked="True"
+                                         Style="{StaticResource MaterialDesignTabRadioButton}" />
+							<RadioButton Content="Assigned" 
+										 Style="{StaticResource MaterialDesignTabRadioButton}" />
+							<RadioButton Content="Unassigned"
+										 Style="{StaticResource MaterialDesignTabRadioButton}" />
 
-                        </StackPanel>
-                    </StackPanel>
+						</StackPanel>
+					</StackPanel>
 
-                    <Grid Grid.Column="2">
-                        <StackPanel Orientation="Horizontal"
+					<Grid Grid.Column="2">
+						<StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Top">
 
-                            <Button Width="70"
+							<Button Width="70"
                                     Style="{StaticResource addbutton}">
-                                <Icon:PackIconMaterial Kind="DotsHorizontal" />
-                            </Button>
-                            <Button Width="100"
-                                    Style="{StaticResource addbutton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial VerticalAlignment="Center"
+								<Icon:PackIconMaterial Kind="DotsHorizontal" />
+							</Button>
+							<Button Width="100"
+                                    Style="{StaticResource addbutton}"
+                                    Command="{Binding AddVehicleCommand}"
+                                    CommandParameter="{Binding ElementName=VehicleListView}">
+								<StackPanel Orientation="Horizontal">
+									<Icon:PackIconMaterial VerticalAlignment="Center"
                                                            Margin="0 1 8 0"
                                                            Kind="Plus"
                                                            Width="11"
                                                            Height="11" />
-                                    <TextBlock  Text="Add Vehicle" />
-                                </StackPanel>
-                            </Button>
+									<TextBlock  Text="Add Vehicle" />
+								</StackPanel>
+							</Button>
 
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </Border>
+						</StackPanel>
+					</Grid>
+				</Grid>
+			</Border>
 
-            <Grid Grid.Row="1"
+			<Grid Grid.Row="1"
                   Margin="0 8 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="300" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="auto" />
+				</Grid.ColumnDefinitions>
 
-                <!--Search-->
-                <Grid>
-                    <StackPanel>
-                        <Grid>
-                            <TextBlock Margin="40 0 15 0"
+				<!--Search-->
+				<Grid>
+					<StackPanel>
+						<Grid>
+							<TextBlock Margin="40 0 15 0"
                                        VerticalAlignment="Center"
                                        Foreground="#9ea4ad"
                                        Panel.ZIndex="1"
                                        IsHitTestVisible="False"
                                        Text="Search here..."
                                        Visibility="{Binding ElementName=textBox,Path=Text.Length,Converter={StaticResource boolToVis}}" />
-                            <TextBox x:Name="textBox"
+							<TextBox x:Name="textBox"
                                      Background="{StaticResource BackgroundMainBrush}"
                                      Height="30"
                                      Margin="5 0 0 0"
                                      Style="{StaticResource searchTextBox}" />
-                            <Icon:PackIconMaterial Kind="Magnify"
+							<Icon:PackIconMaterial Kind="Magnify"
                                                    Width="15"
                                                    Height="15"
                                                    VerticalAlignment="Center"
                                                    Foreground="#9ea4ad"
                                                    Margin="15 0 0 0"
                                                    HorizontalAlignment="Left" />
-                        </Grid>
-                        <Separator Height="0.8"
+						</Grid>
+						<Separator Height="0.8"
                                    Margin="20 0"
                                    Background="#9ea4ad" />
-                    </StackPanel>
-                </Grid>
-                <Grid Grid.Column="1">
+					</StackPanel>
+				</Grid>
+				<Grid Grid.Column="1">
+					<StackPanel Orientation="Horizontal">
+
+						<ComboBox Text="Vehicle Type"
+                                  Style="{StaticResource menuComobox}" />
+						<ComboBox Text="Vehicle Group"
+                                  Style="{StaticResource menuComobox}" />
+						<ComboBox Text="Vehicle Status"
+                                  Style="{StaticResource menuComobox}" />
+						<ComboBox Text="Filters"
+                                  Style="{StaticResource menuComobox}" />
+
+						
+
+					</StackPanel>
+				</Grid>
+				<Grid Grid.Column="2">
                     <StackPanel Orientation="Horizontal">
-
-                        <ComboBox Text="Vehicle Type"
-                                  Style="{StaticResource menuComobox}" />
-                        <ComboBox Text="Vehicle Group"
-                                  Style="{StaticResource menuComobox}" />
-                        <ComboBox Text="Vehicle Status"
-                                  Style="{StaticResource menuComobox}" />
-                        <ComboBox Text="Filters"
-                                  Style="{StaticResource menuComobox}" />
-
-                        <Button Width="25" Height="25" Margin="150 0 0 0" Style="{StaticResource whitebutton}">
-                            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="ChevronLeft"  Width="11" Height="11"/>
+                        <Button Width="25"
+                                Height="25"
+                                Margin="0 0 0 0"
+                                Style="{StaticResource whitebutton}">
+                            <Icon:PackIconMaterial VerticalAlignment="Center"
+                                                   Kind="ChevronLeft"
+                                                   Width="11"
+                                                   Height="11" />
                         </Button>
-                        <Button Width="25" Height="25" Margin="0 0 0 0" Style="{StaticResource whitebutton}">
-                            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="ChevronRight"  Width="11" Height="11"/>
+                        <Button Width="25"
+                                Height="25"
+                                Margin="0 0 0 0"
+                                Style="{StaticResource whitebutton}">
+                            <Icon:PackIconMaterial VerticalAlignment="Center"
+                                                   Kind="ChevronRight"
+                                                   Width="11"
+                                                   Height="11" />
                         </Button>
                         <Button  Width="20"
                                  Style="{StaticResource topmenuButton}"
-                                 Margin="10 0 0 0">
+                                 Margin="10 0 10 0">
                             <Icon:PackIconMaterial Kind="Cog"
                                                    Style="{StaticResource topmenuButtonIcon}" />
                         </Button>
-
                     </StackPanel>
-                </Grid>
-                <Grid Grid.Column="2">
-
-                </Grid>
-            </Grid>
-            <DataGrid Style="{DynamicResource DataGridStyle1}"
+				</Grid>
+			</Grid>
+			<DataGrid Style="{DynamicResource DataGridStyle1}"
                       CellStyle="{DynamicResource DataGridCellStyle1}"
                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                       RowStyle="{DynamicResource DataGridRowStyle1}"
                       Grid.Row="3"
                       x:Name="membersDataGrid">
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn CanUserResize="False"
+				<DataGrid.Columns>
+					<DataGridCheckBoxColumn CanUserResize="False"
                                             Width="auto">
-                        <DataGridCheckBoxColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <CheckBox />
-                            </DataTemplate>
-                        </DataGridCheckBoxColumn.HeaderTemplate>
-                    </DataGridCheckBoxColumn>
+						<DataGridCheckBoxColumn.HeaderTemplate>
+							<DataTemplate>
+								<CheckBox />
+							</DataTemplate>
+						</DataGridCheckBoxColumn.HeaderTemplate>
+					</DataGridCheckBoxColumn>
 
 
-                    <DataGridTemplateColumn Header="Name"
+					<DataGridTemplateColumn Header="Name"
                                             IsReadOnly="True"
                                             Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="25"
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
+									<Border Width="25"
                                             Height="25"
                                             CornerRadius="50"
                                             Margin="0 0 10 0"
                                             Background="Red">
-                                        <TextBlock Text="..."
+										<TextBlock Text="..."
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
                                                    Foreground="White"
                                                    Margin="0 0 0 1" />
-                                    </Border>
-                                    <TextBlock Text="..."
+									</Border>
+									<TextBlock Text="..."
                                                VerticalAlignment="Center" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+								</StackPanel>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
 
-                    <DataGridTextColumn Header="VIN"
+					<DataGridTextColumn Header="VIN"
                                         IsReadOnly="True"
                                         Width="*" />
-                    <DataGridTextColumn Header="License Plate"
+					<DataGridTextColumn Header="License Plate"
                                         IsReadOnly="True"
                                         Width="*" />
-                    <DataGridTextColumn Header="Status"
+					<DataGridTextColumn Header="Status"
                                         IsReadOnly="True"
                                         Width="*" />
-                    <DataGridTextColumn Header="Stye"
+					<DataGridTextColumn Header="Stye"
                                         IsReadOnly="True"
                                         Width="*" />
-                    <DataGridTextColumn Header="Group"
+					<DataGridTextColumn Header="Group"
                                         IsReadOnly="True"
                                         Width="*" />
-                    <DataGridTextColumn Header="Current"
+					<DataGridTextColumn Header="Current"
                                         IsReadOnly="True"
                                         Width="*" />
-                    <DataGridTextColumn Header="Meter Entry Date"
+					<DataGridTextColumn Header="Meter Entry Date"
                                         IsReadOnly="True"
                                         Width="*" />
-                    <DataGridTextColumn Header="Operator"
+					<DataGridTextColumn Header="Operator"
                                         IsReadOnly="True"
                                         Width="*" />
 
 
 
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
-    </Border>
+				</DataGrid.Columns>
+			</DataGrid>
+		</Grid>
+	</Border>
 </UserControl>

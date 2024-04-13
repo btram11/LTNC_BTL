@@ -21,6 +21,13 @@ namespace ViewModels
                 var viewModel = (MainViewModel)window.DataContext;
                 viewModel.currentViewModel = new AddVehicleViewModel();
             });
+
+            OpenAddDriverViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            {
+                Window window = Window.GetWindow(p);
+                var viewModel = (MainViewModel)window.DataContext;
+                viewModel.currentViewModel = new AddDriverViewModel();
+            });
         }
     }
 }

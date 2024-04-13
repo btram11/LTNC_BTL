@@ -71,7 +71,7 @@
                 </RadioButton>
 
                 <RadioButton Style="{StaticResource MenuBarButton}"
-                             Command="{Binding VehicleListViewCommand}"
+                             Command="{Binding DriverListViewCommand}"
                              CommandParameter="{Binding ElementName=menubar}">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="AccountMultiple"
@@ -81,12 +81,23 @@
                     </StackPanel>
                 </RadioButton>
 
-                <RadioButton Style="{StaticResource MenuBarButton}">
+                <!--<RadioButton Style="{StaticResource MenuBarButton}">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Devices" 
                                                Style="{StaticResource MenuBarButtonIcon}"/>
                         <TextBlock  Text="Equipment" 
                                     Style="{StaticResource MenuBarButtonText}"/>
+                    </StackPanel>
+                </RadioButton>-->
+
+                <RadioButton Style="{StaticResource MenuBarButton}"
+                             Command="{Binding VehicleAssignmentViewCommand}"
+                             CommandParameter="{Binding ElementName=menubar}">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="TruckFastOutline"
+                                               Style="{StaticResource MenuBarButtonIcon}" />
+                        <TextBlock  Text="Trip Assignment"
+                                    Style="{StaticResource MenuBarButtonText}" />
                     </StackPanel>
                 </RadioButton>
 
@@ -108,7 +119,9 @@
                     </StackPanel>
                 </RadioButton>
 
-                <RadioButton Style="{StaticResource MenuBarButton}">
+                <RadioButton Style="{StaticResource MenuBarButton}"
+							 Command="{Binding RemindersListViewCommand}"
+							 CommandParameter="{Binding ElementName=menubar}">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="ClockAlertOutline" 
                                                Style="{StaticResource MenuBarButtonIcon}"/>

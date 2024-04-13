@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using ViewModels;
+using MainView.View;
 
 namespace MainView
 {
@@ -20,7 +21,7 @@ namespace MainView
             {
                 DataContext = new MainViewModel()
             };
-            //Window MainWindow = new UnknowWindow();
+            //Window MainWindow = new LoginWindow();
             MainWindow.Show();
             base.OnStartup(e);
         }

@@ -35,6 +35,19 @@
     <SolidColorBrush x:Key="ForegroundGreyNickelBrush"
                      Color="{StaticResource ForegroundGreyNickelColor}" />
 
+    <Color x:Key="ForegroundNormalBlackColor">Black</Color>
+    <SolidColorBrush x:Key="ForegroundNormalBlackBrush"
+                     Color="{StaticResource ForegroundNormalBlackColor}" />
+
+    <Color x:Key="ForegroundBrightGrayColor">#efefef</Color>
+    <SolidColorBrush x:Key="ForegroundBrightGrayBrush"
+                     Color="{StaticResource ForegroundBrightGrayColor}" />
+
+    <Color x:Key="ForegroundGrayColor">Gray</Color>
+    <SolidColorBrush x:Key="ForegroundGrayBrush"
+                     Color="{StaticResource ForegroundGrayColor}" />
+
+
     <!--Window Border Colors-->
     <Color x:Key="winBorderColor1">#0D3157</Color>
     <Color x:Key="winBorderColor2">#004B8D</Color>

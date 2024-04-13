@@ -23,8 +23,8 @@ namespace ViewModels
                 OnPropertyChanged(nameof(CurrentViewModel));
             }
         }
-        public ViewModelBase menuBar { get; private set; }
-        public ViewModelBase accessBar { get; private set; }
+        public ViewModelBase menuBar { get; }
+        public ViewModelBase accessBar { get; }
 
         public MainViewModel ()
         {
@@ -40,13 +40,16 @@ namespace ViewModels
 
             MinimizeWindowCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => ExecuteMinimizeWindowCommand(p));
 
+            MouseMoveWindowCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => ExecuteMouseMoveWindowCommand(p));
+
             AttachmentButtonCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => AttachmentButton());
         }
 
         #region WindowCommand
-        public ICommand CloseWindowCommand { get; set; }
-        public ICommand MinimizeWindowCommand { get; set; }
-        public ICommand MaximizeWindowCommand { get; set; }
+        public ICommand CloseWindowCommand { get; }
+        public ICommand MinimizeWindowCommand { get; }
+        public ICommand MaximizeWindowCommand { get; }
+        public ICommand MouseMoveWindowCommand { get; }
         private void ExecuteCloseWindowCommand(Window curwindow)
         {
             if (curwindow != null)
@@ -82,6 +85,14 @@ namespace ViewModels
                 {
                     curwindow.WindowState = WindowState.Normal;
                 }
+            }
+        }
+
+        private void ExecuteMouseMoveWindowCommand(Window curwindow)
+        {
+            if (curwindow != null)
+            {
+                curwindow.DragMove();
             }
         }
         #endregion

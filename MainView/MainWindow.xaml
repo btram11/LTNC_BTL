@@ -7,13 +7,22 @@
         xmlns:localView="clr-namespace:MainView.View"
         xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         WindowStyle="None" 
+        ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" 
         Background="Transparent"
         Name="curWindow" 
         Height="720" Width="1080">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
+                                   CommandParameter="{Binding ElementName=curWindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Window.DataContext>
         <viewModels:MainViewModel/>
     </Window.DataContext>
@@ -25,61 +34,70 @@
         </ResourceDictionary>
     </Window.Resources>
     <Border BorderThickness="6"
-            BorderBrush="Transparent">
+            CornerRadius="6">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="30*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0"
-                  Background="#FF747F9D"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Fleet Management System"
-                           Grid.Column="0"
-                           FontSize="13"
-                           Padding="16 4 0 4"
-                           VerticalAlignment="Center"
-                           TextAlignment="Left"/>
-                <Grid Grid.Column="1"
-                      VerticalAlignment="Stretch"
-                      HorizontalAlignment="Right">
+            <Border Grid.Row="0"
+                    Background="#FF747F9D">
+                <Grid HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button Padding="0 0 6 0"
-                            Style="{StaticResource ButtonWindow}"
-                            Command="{Binding CloseWindowCommand}"
-                            CommandParameter="{Binding ElementName=curWindow}"
-                            Grid.Column="2"
-                            ToolTip="Close"
-                            Content="{materialDesign:PackIcon WindowClose}">
-                    </Button>
-                    <Button Command="{Binding MaximizeWindowCommand}"
-                            CommandParameter="{Binding ElementName=curWindow}"
-                            Content="{materialDesign:PackIcon WindowMaximize}"
-                            Style="{StaticResource ButtonWindow}"
-                            Grid.Column="1"
-                            ToolTip="Maximize" 
-                            ToolBar.OverflowMode="AsNeeded">
-
-                    </Button>
-                    <Button Command="{Binding MinimizeWindowCommand}"
-                            CommandParameter="{Binding ElementName=curWindow}"
-                            Content="{materialDesign:PackIcon WindowMinimize}"
-                            Style="{StaticResource ButtonWindow}"
-                            Grid.Column="0"
-                            ToolTip="Minimize" 
-                            ToolBar.OverflowMode="AsNeeded">
-                    </Button>
+                    <TextBlock Text="Fleet Management System"
+                               Grid.Column="0"
+                               FontSize="13"
+                               Padding="16 4 0 4"
+                               VerticalAlignment="Center"
+                               TextAlignment="Left" />
+                    <Grid Grid.Column="1"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Padding="0 0 6 0"
+                                Style="{StaticResource ButtonWindow}"
+                                Command="{Binding CloseWindowCommand}"
+                                CommandParameter="{Binding ElementName=curWindow}"
+                                Content="{materialDesign:PackIcon WindowCLose}"
+                                Grid.Column="2"
+                                ToolTip="Close">
+                            <!--<Icon:PackIconMaterial Kind="WindowClose"
+                                                       Height="10"
+                                                       Width="10"/>-->
+                        </Button>
+                        <Button Command="{Binding MaximizeWindowCommand}"
+                                CommandParameter="{Binding ElementName=curWindow}"
+                                Style="{StaticResource ButtonWindow}"
+                                Content="{materialDesign:PackIcon WindowMaximize}"
+                                Grid.Column="1"
+                                ToolTip="Maximize"
+                                ToolBar.OverflowMode="AsNeeded">
+                            <!--<Icon:PackIconMaterial Kind="WindowMaximize"
+                                                       Height="10"
+                                                       Width="10" />-->
+                        </Button>
+                        <Button Command="{Binding MinimizeWindowCommand}"
+                                CommandParameter="{Binding ElementName=curWindow}"
+                                Style="{StaticResource ButtonWindow}"
+                                Content="{materialDesign:PackIcon WindowMinimize}"
+                                Grid.Column="0"
+                                ToolTip="Minimize"
+                                ToolBar.OverflowMode="AsNeeded">
+                            <!--<Icon:PackIconMaterial Kind="WindowMinimize" 
+                                                       Height="10"
+                                                       Width="10"/>-->
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Border>
             <Grid Grid.Row="1"
                   HorizontalAlignment="Stretch"
                   >
@@ -147,11 +165,14 @@ Visibility="{Binding ElementName=textBox,Path=Text.Length,Converter={StaticResou
                                     Panel.ZIndex="0"
                                     Grid.Row="3">
                         <ContentControl.Resources>
-                            <DataTemplate DataType="{x:Type viewModels:DashboardViewModel}">
-                                <localView:Home/>
-                            </DataTemplate>
                             <DataTemplate DataType="{x:Type viewModels:AddVehicleViewModel}">
-                                <localView:AddVehicleUC/>
+                                <localView:AddVehicleUC />
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:AddDriverViewModel}">
+                                <localView:AddDriver/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:DashboardViewModel}">
+                                <localView:Home />
                             </DataTemplate>
                             <DataTemplate DataType="{x:Type viewModels:VehicleListViewModel}">
                                 <localView:VehicleList/>
@@ -159,6 +180,12 @@ Visibility="{Binding ElementName=textBox,Path=Text.Length,Converter={StaticResou
                             <DataTemplate DataType="{x:Type viewModels:VehicleAssignmentViewModel}">
                                 <localView:VehicleAssignment />
                             </DataTemplate>
+							<DataTemplate DataType="{x:Type viewModels:RemindersListViewModel}">
+								<localView:Reminders />
+							</DataTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:DriverListViewModel}">
+                                <localView:DriverManagement />
+                            </DataTemplate>                                                                                                     
                         </ContentControl.Resources>
                     </ContentControl>
                 </Grid>

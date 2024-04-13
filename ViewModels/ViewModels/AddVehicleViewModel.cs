@@ -17,8 +17,8 @@ namespace ViewModels
         private ObservableCollection<Vehicle> listVehicle;
         public ObservableCollection<Vehicle> ListVehicle
         {
-            get { return ListVehicle; }
-            set { ListVehicle = value; }
+            get { return listVehicle; }
+            set { listVehicle = value; }
         }
 
         public AddVehicleViewModel()
@@ -34,9 +34,9 @@ namespace ViewModels
 
         }
 
-        public ICommand AddVehicleCommand { get; set; }
-        public ICommand DecodeVinCommand { get; set; }
+        public ICommand AddVehicleCommand { get; }
+        public ICommand DecodeVinCommand { get; }
 
-        public ICommand BackToVehicleListView { get; set; }
+        public ICommand BackToVehicleListView { get; }
     }
 }
