@@ -63,23 +63,6 @@
         </Style.Resources>
     </Style>
 
-    <Style x:Key="MainRadioCircleButton"
-           BasedOn="{StaticResource MaterialDesignRadioButton}"
-           TargetType="{x:Type RadioButton}">
-        <Setter Property="Foreground" Value="{StaticResource WordWhiteBrush}"/>
-        <Setter Property="FontSize"
-                Value="14" />
-        <Style.Resources>
-
-            <SolidColorBrush x:Key="MaterialDesign.Brush.RadioButton.Outline"
-                             Color="{StaticResource ForegroundGreyNickelColor}" />
-
-            <SolidColorBrush x:Key="MaterialDesign.Brush.Primary"
-                             Color="{StaticResource ForegroundArtyClickYellowColor}" />
-            <SolidColorBrush x:Key=" MaterialDesign.Brush.ForegroundLight"
-                             Color="{StaticResource ForegroundLightPastelPurpleColor}" />
-
-        </Style.Resources>
-    </Style>
+    
 
 </ResourceDictionary>

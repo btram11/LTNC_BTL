@@ -97,7 +97,8 @@
 
             <!--Identification-->
             <!--<Grid Grid.Row="2">-->
-            <ScrollViewer Grid.Row="2">
+            <ScrollViewer Grid.Row="2"
+                          Style="{StaticResource NormalScrollViewMenu}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="25*"/>

@@ -13,13 +13,13 @@ namespace ViewModels
 {
     public class MainViewModel : ViewModelBase 
     {
-        public ViewModelBase CurrentViewModel { get; private set; }
-        public ViewModelBase currentViewModel
+        private ViewModelBase currentViewModel;
+        public ViewModelBase CurrentViewModel
         {
-            get => CurrentViewModel;
+            get => currentViewModel;
             set
             {
-                CurrentViewModel = value;
+                currentViewModel = value;
                 OnPropertyChanged(nameof(CurrentViewModel));
             }
         }
@@ -30,8 +30,8 @@ namespace ViewModels
         {
             menuBar = new MenuLeftBarViewModel();
             accessBar = new QuickAccessButtonViewModel();
-            CurrentViewModel = new DashboardViewModel();
-
+            //CurrentViewModel = new DashboardViewModel();
+            currentViewModel = new MainVehicleOverviewViewModel();
             
 
             CloseWindowCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => ExecuteCloseWindowCommand(p));

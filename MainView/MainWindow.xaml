@@ -99,8 +99,7 @@
                 </Grid>
             </Border>
             <Grid Grid.Row="1"
-                  HorizontalAlignment="Stretch"
-                  >
+                  HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="235"/>
                     <ColumnDefinition Width="*"/>
@@ -120,9 +119,10 @@
                     </Grid.RowDefinitions>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" MinWidth="50"/>
-                            <ColumnDefinition MinWidth="400"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"
+                                              MinWidth="50" />
+                            <ColumnDefinition MinWidth="400" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <!--logo-->
 
@@ -141,7 +141,7 @@ Visibility="{Binding ElementName=textBox,Path=Text.Length,Converter={StaticResou
                         </Grid>-->
 
                         <!--icon-->
-                        <Grid Grid.Column="3" 
+                        <Grid Grid.Column="3"
                               HorizontalAlignment="Right"
                               Panel.ZIndex="3">
                             <ContentControl Content="{Binding accessBar}">
@@ -154,12 +154,6 @@ Visibility="{Binding ElementName=textBox,Path=Text.Length,Converter={StaticResou
                         </Grid>
                     </Grid>
 
-                    <!--<control:BubbleContent Grid.Row="1"
-                                           VerticalAlignment="Top"
-                                           HorizontalAlignment="Center"
-                                           Margin="0 2 8 0"
-                                           attachedprop:AnimateSlideInFromTopProperty.Value="{Binding AttachmentMenuVisible}" />-->
-                    
                     <ContentControl Content="{Binding CurrentViewModel}"
                                     VerticalAlignment="Stretch"
                                     Panel.ZIndex="0"
@@ -185,7 +179,10 @@ Visibility="{Binding ElementName=textBox,Path=Text.Length,Converter={StaticResou
 							</DataTemplate>
                             <DataTemplate DataType="{x:Type viewModels:DriverListViewModel}">
                                 <localView:DriverManagement />
-                            </DataTemplate>                                                                                                     
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type viewModels:MainVehicleOverviewViewModel}">
+                                <localView:MainVehicleOverview />
+                            </DataTemplate>
                         </ContentControl.Resources>
                     </ContentControl>
                 </Grid>

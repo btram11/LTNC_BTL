@@ -1,21 +1,19 @@
-﻿<UserControl x:Class="MainView.View.MainVehicleOverview"
+﻿<UserControl x:Class="MainView.View.MainDriverOverview"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
-             xmlns:specificVehicleVM="clr-namespace:ViewModels.VehicleViewModel;assembly=ViewModels"
+             xmlns:specificDriverVM="clr-namespace:ViewModels.DriverViewModel;assembly=ViewModels"
              xmlns:local="clr-namespace:MainView.View"
-             mc:Ignorable="d"
-             Name="CurView"
-             d:DesignHeight="680"
-             d:DesignWidth="1030">
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
-        <viewModels:MainVehicleOverviewViewModel />
+        <viewModels:MainDriverOverviewViewModel />
     </UserControl.DataContext>
-    <Border >
+    <Border>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -39,7 +37,7 @@
                                                        Width="auto"
                                                        Margin="0 0 8 0"
                                                        Style="{StaticResource menuButtonIcon}" />
-                                <TextBlock  Text="Vehicles"
+                                <TextBlock  Text="Driver"
                                             Style="{StaticResource menuButtonText}" />
                             </StackPanel>
                         </Button>
@@ -67,65 +65,32 @@
                             </Border>
                             <StackPanel Margin="10 0 0 0"
                                         VerticalAlignment="Center">
-                                <TextBlock Text="EV"
+                                <TextBlock Text="Robert N"
                                            Margin="5 0 0 0"
                                            FontSize="15"
                                            Foreground="#c2cfff" />
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="EV"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="Date"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="Group"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="VIN"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
+                                    <Label Content="Work number:" />
+                                    <TextBlock Text="{Binding workNumbe}" 
+                                               />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="95"
+
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="8"
+                                                 Height="8"
+                                                 Margin="0 0 2 0"
+                                                 Fill="#eb1700" />
+                                        <TextBlock Text="Active"
+                                                   Style="{StaticResource menuButtonText}" />
+                                    </StackPanel>
+                                    <!--<StackPanel Orientation="Horizontal">
+                                        <TextBlock  Text="Austin"
                                                     Style="{StaticResource menuButtonText}" />
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Ellipse Width="8"
-                                                     Height="8"
-                                                     Margin="0 0 2 0"
-                                                     Fill="#eb1700" />
-                                            <TextBlock  Text="Active"
-                                                        Style="{StaticResource menuButtonText}" />
-                                        </StackPanel>
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="Tree"
-                                                                   Height="15"
-                                                                   Margin="0 0 2 0"
-                                                                   Style="{StaticResource menuButtonIcon}" />
-                                            <TextBlock  Text="Austin"
-                                                        Style="{StaticResource menuButtonText}" />
-                                        </StackPanel>
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="Name"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
+                                    </StackPanel>
+                                    <TextBlock  Text="Name"
+                                                Style="{StaticResource menuButtonText}" />-->
                                 </StackPanel>
                                 <Button Width="75"
                                         Padding="0"
@@ -146,25 +111,35 @@
                             </StackPanel>
                         </StackPanel>
                         <!--<TabControl materialDesign:ColorZoneAssist.Mode="PrimaryMid"
-                                    materialDesign:RippleAssist.IsCentered="True">
-                            <TabItem Header="Overview">
-                            </TabItem>
-                            <TabItem Header="Service History">
-                               --><!-- Your content for TAB 2 --><!--
-                            </TabItem>
-                            <TabItem Header="Financial">
-                                --><!-- Your content for TAB 2 --><!--
-                            </TabItem>
-                            <TabItem Header="Specs">
-                                --><!-- Your content for TAB 2 --><!--
-                            </TabItem>
-                            <TabItem Header="Assignment History">
-                                 --><!--Your content for TAB 2--><!-- 
-                            </TabItem>
-                            <TabItem Header="Service Reminders">
-                                 --><!--Your content for TAB 2--><!-- 
-                            </TabItem>
-                        </TabControl>-->
+                                materialDesign:RippleAssist.IsCentered="True">
+                        <TabItem Header="Overview">
+                        </TabItem>
+                        <TabItem Header="Service History">
+                           -->
+                        <!-- Your content for TAB 2 -->
+                        <!--
+                        </TabItem>
+                        <TabItem Header="Financial">
+                            -->
+                        <!-- Your content for TAB 2 -->
+                        <!--
+                        </TabItem>
+                        <TabItem Header="Specs">
+                            -->
+                        <!-- Your content for TAB 2 -->
+                        <!--
+                        </TabItem>
+                        <TabItem Header="Assignment History">
+                             -->
+                        <!--Your content for TAB 2-->
+                        <!-- 
+                        </TabItem>
+                        <TabItem Header="Service Reminders">
+                             -->
+                        <!--Your content for TAB 2-->
+                        <!-- 
+                        </TabItem>
+                    </TabControl>-->
                         <StackPanel Orientation="Horizontal"
                                     Margin="0 4 0 0">
                             <RadioButton Content="Overview"
@@ -173,24 +148,24 @@
                                          IsChecked="True"
                                          Width="160"
                                          Style="{StaticResource MainOverviewRadioButtonTab}" />
-                            <RadioButton Content="Service History"
+                            <!--<RadioButton Content="Service History"
                                          Command="{Binding ServiceHistoryTabCommand}"
                                          CommandParameter="{Binding ElementName=CurView}"
                                          Width="160"
-                                         Style="{StaticResource MainOverviewRadioButtonTab}" />
+                                         Style="{StaticResource MaterialDesignTabRadioButton}" />
                             <RadioButton Content="Specs"
                                          Command="{Binding SpecsTabCommand}"
                                          CommandParameter="{Binding ElementName=CurView}"
                                          Width="160"
-                                         Style="{StaticResource MainOverviewRadioButtonTab}" />
+                                         Style="{StaticResource MaterialDesignTabRadioButton}" />-->
                             <RadioButton Content="Assignment History"
                                          Command="{Binding AssignmentHistoryTabCommand}"
                                          CommandParameter="{Binding ElementName=CurView}"
-                                         Width="160"
+                                         Width="170"
                                          Style="{StaticResource MainOverviewRadioButtonTab}" />
-                            <RadioButton Content="Service Reminders"
+                            <!--<RadioButton Content="Service Reminders"
                                          Width="160"
-                                         Style="{StaticResource MainOverviewRadioButtonTab}" />
+                                         Style="{StaticResource MaterialDesignTabRadioButton}" />-->
 
                         </StackPanel>
                     </StackPanel>
@@ -200,17 +175,11 @@
             <ContentControl Grid.Row="1"
                             Content="{Binding TabView}">
                 <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type specificVehicleVM:AssignmentHistoryViewModel}">
-                        <local:AssignmentHistoryVehicle />
+                    <DataTemplate DataType="{x:Type specificDriverVM:OverviewDriverViewModel}">
+                        <local:OverviewDriver />
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type specificVehicleVM:ServiceHistoryViewModel}">
-                        <local:ServiceHistory />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type specificVehicleVM:SpecsViewModel}">
-                        <local:Specs />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type specificVehicleVM:OverviewVehicleViewModel}">
-                        <local:OverviewVehicle />
+                    <DataTemplate DataType="{x:Type specificDriverVM:AssignmentHistoryViewModel}">
+                        <local:AssignmentHistoryDriver />
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>

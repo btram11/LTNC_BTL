@@ -13,7 +13,7 @@ namespace ViewModels
             {
                 Window window = Window.GetWindow(p);
                 var viewModel = (MainViewModel)window.DataContext;
-                viewModel.currentViewModel = new AddDriverViewModel();
+                viewModel.CurrentViewModel = new AddDriverViewModel();
             });
         }
     }

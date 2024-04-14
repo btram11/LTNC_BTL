@@ -9,13 +9,7 @@
              mc:Ignorable="d" 
              Name="menubar"
              d:DesignHeight="720" d:DesignWidth="235">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source = "../StyleResources/MenuBarResource.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
+   
     <UserControl.DataContext>
         <viewModels:MenuLeftBarViewModel/>
     </UserControl.DataContext>

@@ -29,7 +29,7 @@ namespace ViewModels
             {
                 Window window = Window.GetWindow(p);
                 var viewModel = (MainViewModel)window.DataContext;
-                viewModel.currentViewModel = new VehicleListViewModel();
+                viewModel.CurrentViewModel = new VehicleListViewModel();
             });
 
         }

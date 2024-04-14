@@ -180,20 +180,32 @@
     <Compile Include="Components\PasswordBox.xaml.cs">
       <DependentUpon>PasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="temp\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValidationRules\LoginValidationRule.cs" />
     <Compile Include="View\AddDriver.xaml.cs">
       <DependentUpon>AddDriver.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AssignmentHistoryVehicle.xaml.cs">
+    <Compile Include="View\SpecificDriverView\OverviewDriver.xaml.cs">
+      <DependentUpon>OverviewDriver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SpecificDriverView\AssignmentHistoryDriver.xaml.cs">
+      <DependentUpon>AssignmentHistoryDriver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainDriverOverview.xaml.cs">
+      <DependentUpon>MainDriverOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SpecificVehicleView\AssignmentHistoryVehicle.xaml.cs">
       <DependentUpon>AssignmentHistoryVehicle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Financial.xaml.cs">
+    <Compile Include="View\SpecificVehicleView\Financial.xaml.cs">
       <DependentUpon>Financial.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainVehicleOverview.xaml.cs">
       <DependentUpon>MainVehicleOverview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\OverviewVehicle.xaml.cs">
+    <Compile Include="View\SpecificVehicleView\OverviewVehicle.xaml.cs">
       <DependentUpon>OverviewVehicle.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\QuickAccessButtonView.xaml.cs">
@@ -227,13 +239,13 @@
     <Compile Include="View\ScrollingLeftMenuBar.xaml.cs">
       <DependentUpon>ScrollingLeftMenuBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ServiceHistory.xaml.cs">
+    <Compile Include="View\SpecificVehicleView\ServiceHistory.xaml.cs">
       <DependentUpon>ServiceHistory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ServiceReminderTab.xaml.cs">
+    <Compile Include="View\SpecificVehicleView\ServiceReminderTab.xaml.cs">
       <DependentUpon>ServiceReminderTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Specs.xaml.cs">
+    <Compile Include="View\SpecificVehicleView\Specs.xaml.cs">
       <DependentUpon>Specs.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UnknowWindow.xaml.cs">
@@ -284,6 +296,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="StyleResources\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StyleResources\ComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -292,7 +308,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="StyleResources\ScrollBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StyleResources\TextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="temp\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -300,11 +324,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AssignmentHistoryVehicle.xaml">
+    <Page Include="View\SpecificDriverView\OverviewDriver.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Financial.xaml">
+    <Page Include="View\SpecificDriverView\AssignmentHistoryDriver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainDriverOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SpecificVehicleView\AssignmentHistoryVehicle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SpecificVehicleView\Financial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -324,11 +360,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StyleResources\MenuBarResource.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\OverviewVehicle.xaml">
+    <Page Include="View\SpecificVehicleView\OverviewVehicle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -384,15 +416,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ServiceHistory.xaml">
+    <Page Include="View\SpecificVehicleView\ServiceHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ServiceReminderTab.xaml">
+    <Page Include="View\SpecificVehicleView\ServiceReminderTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Specs.xaml">
+    <Page Include="View\SpecificVehicleView\Specs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

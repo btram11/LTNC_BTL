@@ -5,10 +5,9 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             xmlns:local="clr-namespace:MainView"
-             Height="460" Width="1030">
+             xmlns:local="clr-namespace:MainView">
     <Border CornerRadius="0 0 25 0" Background="#151f2d">
-        <ScrollViewer>
+        <ScrollViewer Style="{StaticResource NormalScrollViewMenu}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

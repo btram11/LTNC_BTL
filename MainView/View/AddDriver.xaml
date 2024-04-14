@@ -91,7 +91,7 @@
 
             <!--Identification-->
             <Grid Grid.Row="1">
-                <ScrollViewer>
+                <ScrollViewer Style="{StaticResource NormalScrollViewMenu}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />

@@ -15,11 +15,13 @@
                 <ResourceDictionary Source="/StyleResources/UC_Resource.xaml"/>
                 <ResourceDictionary Source="/StyleResources/WindowBarResource.xaml"/>
                 <ResourceDictionary Source="/StyleResources/ColorUI.xaml"/>
+                <ResourceDictionary Source="/StyleResources/Button.xaml" />
                 <ResourceDictionary Source="/StyleResources/CardResource.xaml"/>
                 <ResourceDictionary Source="/StyleResources/VehicleAssignmentResource.xaml" />
                 <ResourceDictionary Source="/StyleResources/TextBox.xaml" />
                 <ResourceDictionary Source="/StyleResources/DateTimePicker.xaml" />
                 <ResourceDictionary Source="/StyleResources/ComboBox.xaml" />
+                <ResourceDictionary Source="/StyleResources/ScrollBar.xaml" />
 
                 <!--<ResourceDictionary Source="./StyleResources/MenuButtonTheme"/>-->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />

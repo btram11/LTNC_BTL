@@ -24,35 +24,35 @@ namespace ViewModels
             {
                 Window window = Window.GetWindow(p);
                 var viewModel = (MainViewModel)window.DataContext;
-                viewModel.currentViewModel = new DashboardViewModel();
+                viewModel.CurrentViewModel = new DashboardViewModel();
             });
 
             VehicleListViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 Window window = Window.GetWindow(p);
                 var viewModel = (MainViewModel)window.DataContext;
-                viewModel.currentViewModel = new VehicleListViewModel();
+                viewModel.CurrentViewModel = new VehicleListViewModel();
             });
 
             VehicleAssignmentViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 Window window = Window.GetWindow(p);
                 var viewModel = (MainViewModel)window.DataContext;
-                viewModel.currentViewModel = new VehicleAssignmentViewModel();
+                viewModel.CurrentViewModel = new VehicleAssignmentViewModel();
             });
 
             RemindersListViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 Window window = Window.GetWindow(p);
                 var viewModel = (MainViewModel)window.DataContext;
-                viewModel.currentViewModel = new RemindersListViewModel();
+                viewModel.CurrentViewModel = new RemindersListViewModel();
             });
 
             DriverListViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
                 Window window = Window.GetWindow(p);
                 var viewModel = (MainViewModel)window.DataContext;
-                viewModel.currentViewModel = new DriverListViewModel();
+                viewModel.CurrentViewModel = new DriverListViewModel();
             });
         }
     }
