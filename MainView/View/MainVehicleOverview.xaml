@@ -65,82 +65,57 @@
                                            VerticalAlignment="Center"
                                            Margin="3 0 0 2" />
                             </Border>
-                            <StackPanel Margin="10 0 0 0"
+                            <StackPanel Margin="10 0 0 0" 
                                         VerticalAlignment="Center">
-                                <TextBlock Text="EV"
-                                           Margin="5 0 0 0"
+                                <TextBlock Text="EV" 
+                                           Margin="5 0 0 0" 
                                            FontSize="15"
-                                           Foreground="#c2cfff" />
+                                           Foreground="#c2cfff"/>
+                                <TextBlock  Text="EV Date Group VIN" 
+                                            Margin="5 0 0 0" 
+                                            FontSize="13" 
+                                            Foreground="#87b0b2" />
+
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="EV"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="Date"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="Group"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="VIN"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
+                                    <TextBlock  Text="95" 
+                                                Margin="2" 
+                                                FontSize="13" 
+                                                Foreground="#87b0b2"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="8" 
+                                                 Height="8" 
+                                                 Margin="2"
+                                                 Fill="#eb1700"/>
+                                        <TextBlock  Text="Active"
+                                                    Margin="2"
+                                                    FontSize="13"
+                                                    Foreground="#87b0b2"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Icon:PackIconMaterial Kind="Tree" 
+                                                               Height="15" 
+                                                               Margin="2" 
+                                                               Foreground="#87b0b2"/>
+                                        <TextBlock  Text="Austin"
+                                                    Margin="2"
+                                                    FontSize="13"
+                                                    Foreground="#87b0b2"/>
+                                    </StackPanel>
+                                    <TextBlock  Text="Name"
+                                                Margin="2" 
+                                                FontSize="13"
+                                                Foreground="#87b0b2"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="95"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Ellipse Width="8"
-                                                     Height="8"
-                                                     Margin="0 0 2 0"
-                                                     Fill="#eb1700" />
-                                            <TextBlock  Text="Active"
-                                                        Style="{StaticResource menuButtonText}" />
-                                        </StackPanel>
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="Tree"
-                                                                   Height="15"
-                                                                   Margin="0 0 2 0"
-                                                                   Style="{StaticResource menuButtonIcon}" />
-                                            <TextBlock  Text="Austin"
-                                                        Style="{StaticResource menuButtonText}" />
-                                        </StackPanel>
-                                    </Button>
-                                    <Button Height="15"
-                                            Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="Name"
-                                                    Style="{StaticResource menuButtonText}" />
-                                    </Button>
-                                </StackPanel>
-                                <Button Width="75"
-                                        Padding="0"
-                                        Height="15"
+                                <Button Width="80"
+                                        Height="15" 
                                         FontSize="9"
-                                        HorizontalAlignment="Left"
+                                        HorizontalAlignment="Left" 
                                         Style="{StaticResource addbutton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="Pencil"
-                                                               Height="10"
-                                                               Width="10"
-                                                               VerticalAlignment="Center"
-                                                               Margin="0 0 4 0"
-                                                               Style="{StaticResource menuButtonIcon}" />
-                                        <TextBlock Text="Edit Labels" />
+                                        <Icon:PackIconMaterial Kind="Pencil" 
+                                                               Height="10" Margin="0"
+                                                               Style="{StaticResource menuButtonIcon}"/>
+                                        <TextBlock Text="Edit Labels"/>
                                     </StackPanel>
                                 </Button>
                             </StackPanel>

@@ -55,44 +55,24 @@
                     </StackPanel>
                 </Grid>
             </Grid>
-            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" x:Name="membersDataGrid">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Work Order" IsReadOnly="True" Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="Red">
-                                        <TextBlock Text="..." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                    </Border>
-                                    <TextBlock Text="..." VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+            <ListView Grid.Row="1">
+                <ListView.View>
 
-                    <DataGridTextColumn Header="Completed" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Meter" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Service Tasks" IsReadOnly="True" Width="2*"/>
-                    <DataGridTextColumn Header="Issues" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Vendor" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Label" IsReadOnly="True" Width="2*"/>
-                    <DataGridTextColumn Header="Total" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Watchers" IsReadOnly="True" Width="*"/>
-
-                    <DataGridTemplateColumn Header="Edit" IsReadOnly="True" Width="auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Width="25" Height="25" Margin="5 0 5 0" Style="{StaticResource addbutton}">
-                                        <Icon:PackIconMaterial VerticalAlignment="Center" Kind="PencilOutline"  Width="11" Height="11"/>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                </DataGrid.Columns>
-            </DataGrid>
+                    <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
+                        <!--<GridViewColumn CellTemplate="{StaticResource FirstCell}" Width="30"/>-->
+                        <GridViewColumn Header="Work Order" Width="200" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Completed" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Meter" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Service Tasks" Width="150" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Issues" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Vendor" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Label" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Total" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Watchers" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Edit" Width="70" CellTemplate="{StaticResource myCellTemplateEdit}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </Border>
 </UserControl>

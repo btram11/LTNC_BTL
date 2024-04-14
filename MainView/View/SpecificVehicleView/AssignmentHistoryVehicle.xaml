@@ -54,44 +54,23 @@
                     </StackPanel>
                 </Grid>
             </Grid>
-            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" x:Name="membersDataGrid">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Contact" IsReadOnly="True" Width="2*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="Red">
-                                        <TextBlock Text="..." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                    </Border>
-                                    <TextBlock Text="..." VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+            <Grid Grid.Row="1">
+                <ListView>
+                    <ListView.View>
 
-                    <DataGridTextColumn Header="Start" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="End" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Duration" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Start Meter" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="End Meter" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Operator"
-                                        IsReadOnly="True"
-                                        Width="*" />
-                    <DataGridTemplateColumn Header="Edit" IsReadOnly="True" Width="auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Width="25" Height="25" Margin="5 0 5 0" Style="{StaticResource addbutton}">
-                                        <Icon:PackIconMaterial VerticalAlignment="Center" Kind="PencilOutline"  Width="11" Height="11"/>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-
-                </DataGrid.Columns>
-            </DataGrid>
+                        <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
+                            <!--<GridViewColumn CellTemplate="{StaticResource FirstCell}" Width="30"/>-->
+                            <GridViewColumn Header="Contact" Width="200" CellTemplate="{StaticResource myCellTemplate}"/>
+                            <GridViewColumn Header="Start" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                            <GridViewColumn Header="End" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                            <GridViewColumn Header="Duration" Width="150" CellTemplate="{StaticResource myCellTemplate}"/>
+                            <GridViewColumn Header="Start Meter" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                            <GridViewColumn Header="End Meter" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                            <GridViewColumn Header="Edit" Width="70" CellTemplate="{StaticResource myCellTemplateEdit}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
         </Grid>
     </Border>
 </UserControl>
