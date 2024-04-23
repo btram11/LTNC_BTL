@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:MainView">
+             xmlns:local="clr-namespace:MainView"
+             xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
+             xmlns:localView="clr-namespace:MainView.View">
 
     <Application.Resources>
         
@@ -11,12 +13,12 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/StyleResources/AddVehicleResource.xaml"/>
-                <ResourceDictionary Source="/StyleResources/UC_Resource.xaml"/>
-                <ResourceDictionary Source="/StyleResources/WindowBarResource.xaml"/>
-                <ResourceDictionary Source="/StyleResources/ColorUI.xaml"/>
+                <ResourceDictionary Source="/StyleResources/AddVehicleResource.xaml" />
+                <ResourceDictionary Source="/StyleResources/UC_Resource.xaml" />
+                <ResourceDictionary Source="/StyleResources/WindowBarResource.xaml" />
+                <ResourceDictionary Source="/StyleResources/ColorUI.xaml" />
                 <ResourceDictionary Source="/StyleResources/Button.xaml" />
-                <ResourceDictionary Source="/StyleResources/CardResource.xaml"/>
+                <ResourceDictionary Source="/StyleResources/CardResource.xaml" />
                 <ResourceDictionary Source="/StyleResources/VehicleAssignmentResource.xaml" />
                 <ResourceDictionary Source="/StyleResources/TextBox.xaml" />
                 <ResourceDictionary Source="/StyleResources/DateTimePicker.xaml" />
@@ -34,12 +36,34 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Calendar.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DatePicker.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TimePicker.xaml" />
-				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PasswordBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PasswordBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type viewModels:AddVehicleViewModel}">
+                <localView:AddVehicleUC />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:AddDriverViewModel}">
+                <localView:AddDriver />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:DashboardViewModel}">
+                <localView:Home />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:VehicleListViewModel}">
+                <localView:VehicleList />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:VehicleAssignmentViewModel}">
+                <localView:VehicleAssignment />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:RemindersListViewModel}">
+                <localView:Reminders />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:DriverListViewModel}">
+                <localView:DriverManagement />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:MainVehicleOverviewViewModel}">
+                <localView:MainVehicleOverview />
+            </DataTemplate>
 
-
-           
         </ResourceDictionary>
 
 

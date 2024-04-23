@@ -4,6 +4,12 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ComboBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="MainComboBoxItem"
+           BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}"
+           TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Foreground"
+                Value="{StaticResource ForegroundDarkSlateBlueBrush}" />
+    </Style>
     <Style x:Key="MainComboBox"
            BasedOn="{StaticResource MaterialDesignComboBox}"
            TargetType="{x:Type ComboBox}">
@@ -15,6 +21,8 @@
                 Value="{StaticResource WordWhiteBrush}" />
         <Setter Property="BorderBrush"
                 Value="{StaticResource ForegroundTealishBlueBrush}" />
+        <Setter Property="materialDesign:ValidationAssist.Background"
+                Value="Transparent" />
         <Style.Resources>
             <SolidColorBrush x:Key="MaterialDesign.Brush.Background"
                              Color="{StaticResource ForegroundTealishBlueColor}" />
@@ -45,9 +53,19 @@
         <Setter Property="BorderBrush"
                 Value="{StaticResource ForegroundGreyNickelBrush}" />
         <Setter Property="Padding"
-                Value="8" />
+                Value="0 4 8 4" />
+        <Setter Property="materialDesign:TextFieldAssist.TextBoxViewMargin"
+                Value="8 0 8 0" />
         <Setter Property="Margin"
-                Value="0 8 0 16" />
+                Value="0 8 0 6" />
+        <Setter Property="materialDesign:ValidationAssist.Background"
+                Value="Transparent" />
+        <Setter Property="ItemContainerStyle"
+                Value="{StaticResource MainComboBoxItem}" />
+        <Setter Property="materialDesign:ValidationAssist.Background"
+                Value="{StaticResource BackgroundBlueZodiacBrush}" />
+        <Setter Property="materialDesign:ValidationAssist.FontSize"
+                Value="12" />
         <Style.Resources>
             <SolidColorBrush x:Key="MaterialDesign.Brush.Background"
                              Color="{StaticResource ForegroundTealishBlueColor}" />

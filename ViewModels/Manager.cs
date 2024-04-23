@@ -97,7 +97,7 @@ namespace ViewModels
                 #endregion
                 //VINDecoderService service = new VINDecoderService();
                 //VehicleAPI Vehicle = service.GetVehicleDataByVIN(VIN).Result.Results.ElementAt(0);
-                new VINDecoderService().GetVehicleDataByVIN(VIN);
+                //new VINDecoderService().GetVehicleDataByVIN(VIN);
 
                 //if (Vehicle.ErrorCode.Contains(";") == false)
                 //{

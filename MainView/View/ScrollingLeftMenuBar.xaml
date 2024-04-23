@@ -4,15 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              xmlns:local="clr-namespace:MainView.View"
              mc:Ignorable="d" 
              Name="menubar"
              d:DesignHeight="720" d:DesignWidth="235">
    
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <viewModels:MenuLeftBarViewModel/>
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     <Border Background ="{StaticResource BackgroundBlueZodiacBrush}"
             Padding="0 10 0 10">
         <ScrollViewer Style="{StaticResource ScrollViewMenu}">
@@ -43,8 +44,8 @@
                 <!--menu-->
                 <RadioButton Style="{StaticResource MenuBarButton}"
                              IsChecked="True"
-                             Command="{Binding HomeViewCommand}"
-                             CommandParameter="{Binding ElementName=menubar}">
+                             Command="{Binding UpdateViewModelCommand}"
+                             CommandParameter="{x:Static nav:ViewType.Home }">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Home" 
                                                Style="{StaticResource MenuBarButtonIcon}"/>
@@ -54,8 +55,8 @@
                 </RadioButton>
 
                 <RadioButton Style="{StaticResource MenuBarButton}"
-                             Command="{Binding VehicleListViewCommand}"
-                             CommandParameter="{Binding ElementName=menubar}">
+                             Command="{Binding UpdateViewModelCommand}"
+                             CommandParameter="{x:Static nav:ViewType.VehicleList }">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Car" 
                                                Style="{StaticResource MenuBarButtonIcon}"/>
@@ -65,8 +66,8 @@
                 </RadioButton>
 
                 <RadioButton Style="{StaticResource MenuBarButton}"
-                             Command="{Binding DriverListViewCommand}"
-                             CommandParameter="{Binding ElementName=menubar}">
+                             Command="{Binding UpdateViewModelCommand}"
+                             CommandParameter="{x:Static nav:ViewType.DriverList }">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="AccountMultiple"
                                                Style="{StaticResource MenuBarButtonIcon}" />
@@ -85,8 +86,8 @@
                 </RadioButton>-->
 
                 <RadioButton Style="{StaticResource MenuBarButton}"
-                             Command="{Binding VehicleAssignmentViewCommand}"
-                             CommandParameter="{Binding ElementName=menubar}">
+                             Command="{Binding UpdateViewModelCommand}"
+                             CommandParameter="{x:Static nav:ViewType.VehicleAssignment }">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="TruckFastOutline"
                                                Style="{StaticResource MenuBarButtonIcon}" />
@@ -114,8 +115,8 @@
                 </RadioButton>
 
                 <RadioButton Style="{StaticResource MenuBarButton}"
-							 Command="{Binding RemindersListViewCommand}"
-							 CommandParameter="{Binding ElementName=menubar}">
+                             Command="{Binding UpdateViewModelCommand}"
+                             CommandParameter="{x:Static nav:ViewType.Reminders }">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="ClockAlertOutline" 
                                                Style="{StaticResource MenuBarButtonIcon}"/>

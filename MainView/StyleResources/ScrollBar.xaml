@@ -20,7 +20,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style  TargetType="{x:Type ScrollBar}">
+    <Style x:Key="ScrollBar"  TargetType="{x:Type ScrollBar}">
         <Setter Property="Stylus.IsPressAndHoldEnabled"
                 Value="false" />
         <Setter Property="Stylus.IsFlicksEnabled"
@@ -129,6 +129,7 @@
                                                 Margin="{TemplateBinding Padding}"
                                                 Grid.Row="0" />
                         <ScrollBar x:Name="PART_VerticalScrollBar"
+                                   Style="{StaticResource ScrollBar}"
                                    Opacity="0"
                                    AutomationProperties.AutomationId="VerticalScrollBar"
                                    Cursor="Arrow"
@@ -140,6 +141,7 @@
                                    Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
                                    ViewportSize="{TemplateBinding ViewportHeight}" />
                         <ScrollBar x:Name="PART_HorizontalScrollBar"
+                                   Style="{StaticResource ScrollBar}"
                                    Opacity="0"
                                    AutomationProperties.AutomationId="HorizontalScrollBar"
                                    Cursor="Arrow"

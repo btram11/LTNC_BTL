@@ -29,12 +29,7 @@
 
     
 
-    <Style x:Key="MainComboBoxItem"
-           BasedOn="{StaticResource MaterialDesignComboBoxItemStyle}"
-           TargetType="{x:Type ComboBoxItem}">
-        <Setter Property="Foreground"
-                Value="{StaticResource ForegroundDarkSlateBlueBrush}" />
-    </Style>
+    
 
     <Style x:Key="MainPasswordBox"
            BasedOn="{StaticResource MaterialDesignRevealPasswordBox}"

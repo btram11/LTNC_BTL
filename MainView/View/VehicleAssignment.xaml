@@ -3,12 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:MainView.View"
+             xmlns:converter="clr-namespace:MainView.Converters"
              mc:Ignorable="d"
              d:DesignHeight="700"
              d:DesignWidth="800"
              MinHeight="500">
+    <UserControl.Resources>
+        <converter:TransportationTypeVisibilityConverter x:Key="VisibilityConverter"/>
+    </UserControl.Resources>
     <Border>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -182,6 +187,10 @@
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </DatePicker.SelectedDate>-->
+                                    <DatePicker.BlackoutDates>
+                                        <CalendarDateRange End="{x:Static sys:DateTime.Now}"
+                                                           Start="{x:Static sys:DateTime.MinValue}" />
+                                    </DatePicker.BlackoutDates>
                                 </DatePicker>
                             </Grid>
                         </StackPanel>
@@ -228,7 +237,8 @@
                                            FontSize="16"
                                            Margin="0 0 40 5"
                                            Foreground="{StaticResource WordWhiteBrush}" />
-                                <ComboBox materialDesign:HintAssist.Hint="People/Goods"
+                                <ComboBox Name="TransTypeComboBox"
+                                          materialDesign:HintAssist.Hint="People/Goods"
                                           Grid.Column="1"
                                           Style="{StaticResource MainComboBox}">
                                     <ComboBoxItem Content="Passenger"
@@ -240,6 +250,20 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                     Margin="0 8">
+                            <StackPanel.Style>
+                                <Style TargetType="{x:Type StackPanel}">
+                                    <Setter Property="Visibility"
+                                            Value="{Binding SelectedItem.Content, ElementName=TransTypeComboBox, Converter={StaticResource VisibilityConverter}, ConverterParameter=Passenger}" />
+                                    <Style.Triggers>
+                                        <!-- Trigger để kiểm tra khi ComboBoxItem được chọn -->
+                                        <DataTrigger Binding="{Binding SelectedItem.Content, ElementName=TransTypeComboBox}"
+                                                     Value="{x:Null}">
+                                            <Setter Property="StackPanel.Visibility"
+                                                    Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
                             <Grid MinWidth="450">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
@@ -268,6 +292,20 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                     Margin="0 8">
+                            <StackPanel.Style>
+                                <Style TargetType="{x:Type StackPanel}">
+                                    <Setter Property="Visibility"
+                                            Value="{Binding SelectedItem.Content, ElementName=TransTypeComboBox, Converter={StaticResource VisibilityConverter}, ConverterParameter=Cargo}" />
+                                    <Style.Triggers>
+                                        <!-- Trigger để kiểm tra khi ComboBoxItem được chọn -->
+                                        <DataTrigger Binding="{Binding SelectedItem.Content, ElementName=TransTypeComboBox}"
+                                                     Value="{x:Null}">
+                                            <Setter Property="StackPanel.Visibility"
+                                                    Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
                             <Grid MinWidth="450">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
@@ -304,8 +342,23 @@
                                 <CheckBox Content="Returned?"
                                           Style="{DynamicResource MainCheckBox}" />
                                 <CheckBox Content="Need Trailer?"
-                                          Grid.Column="1"
-                                          Style="{StaticResource MainCheckBox}" />
+                                          Grid.Column="1">
+                                    <CheckBox.Style>
+                                        <Style TargetType="{x:Type CheckBox}"
+                                               BasedOn="{StaticResource MainCheckBox}">
+                                            <Setter Property="Visibility"
+                                                    Value="{Binding SelectedItem.Content, ElementName=TransTypeComboBox, Converter={StaticResource VisibilityConverter}, ConverterParameter=Cargo}" />
+                                            <Style.Triggers>
+                                                <!-- Trigger để kiểm tra khi ComboBoxItem được chọn -->
+                                                <DataTrigger Binding="{Binding SelectedItem.Content, ElementName=TransTypeComboBox}"
+                                                             Value="{x:Null}">
+                                                    <Setter Property="StackPanel.Visibility"
+                                                            Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </CheckBox.Style>
+                                </CheckBox>
                             </Grid>
                             
                         </StackPanel>

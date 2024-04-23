@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                    xmlns:local="clr-namespace:MainView.Control">
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -99,4 +98,13 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+
+    <!--<ControlTemplate x:Key="errorMess">
+        <Grid>
+            <AdornedElementPlaceholder />
+            <TextBlock Text="{Binding ErrorContent}"
+        </Grid>
+    </ControlTemplate>-->
+
 </ResourceDictionary>

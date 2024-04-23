@@ -43,6 +43,10 @@
     <SolidColorBrush x:Key="ForegroundBrightGrayBrush"
                      Color="{StaticResource ForegroundBrightGrayColor}" />
 
+    <Color x:Key="ForegroundBrightGray2Color">#FFBEBEBE</Color>
+    <SolidColorBrush x:Key="ForegroundBrightGray2Brush"
+                     Color="{StaticResource ForegroundBrightGray2Color}" />
+
     <Color x:Key="ForegroundGrayColor">Gray</Color>
     <SolidColorBrush x:Key="ForegroundGrayBrush"
                      Color="{StaticResource ForegroundGrayColor}" />

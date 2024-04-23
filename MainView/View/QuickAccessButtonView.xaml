@@ -6,13 +6,14 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
              xmlns:local="clr-namespace:MainView.View"
              mc:Ignorable="d" 
              Name="QuickAccessBar"
              d:DesignHeight="450" d:DesignWidth="1080">
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <viewModels:QuickAccessButtonViewModel />
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     <Border>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -49,12 +50,12 @@
                     <StackPanel>
                         <Button Content="Add Vehicles"
                                 Style="{StaticResource ButtonInsidePopupBox}"
-                                Command="{Binding OpenAddVehicleViewCommand}"
-                                CommandParameter="{Binding ElementName=QuickAccessBar}"/>
+                                Command="{Binding UpdateViewModelCommand}"
+                                CommandParameter="{x:Static nav:ViewType.AddVehicle }"/>
                         <Button Content="Add Drivers"
                                 Style="{StaticResource ButtonInsidePopupBox}"
-                                Command="{Binding OpenAddDriverViewCommand}"
-                                CommandParameter="{Binding ElementName=QuickAccessBar}" />
+                                Command="{Binding UpdateViewModelCommand}"
+                                CommandParameter="{x:Static nav:ViewType.AddDriver }"/>
                     </StackPanel>
                 </Border>
 

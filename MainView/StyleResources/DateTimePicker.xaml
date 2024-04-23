@@ -3,6 +3,7 @@
                     xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Calendar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DatePicker.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TimePicker.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -16,6 +17,8 @@
                 Value="30" />
         <Setter Property="BorderBrush"
                 Value="{StaticResource ForegroundTealishBlueBrush}" />
+        <Setter Property="materialDesign:ValidationAssist.Background"
+                Value="Transparent" />
         <Style.Resources>
 
             <SolidColorBrush x:Key="MaterialDesign.Brush.TextBox.Border"
@@ -46,7 +49,7 @@
         <Setter Property="Padding"
                 Value="8" />
         <Setter Property="Margin"
-                Value="0 8 0 16" />
+                Value="0 8 0 0" />
         <Style.Resources>
 
             <SolidColorBrush x:Key="MaterialDesign.Brush.TextBox.HoverBackground"
@@ -54,11 +57,11 @@
 
             <SolidColorBrush x:Key="MaterialDesign.Brush.Primary"
                              Color="{StaticResource ForegroundLightPastelPurpleColor}" />
-            <SolidColorBrush x:Key=" MaterialDesign.Brush.ForegroundLight"
-                             Color="{StaticResource ForegroundLightPastelPurpleColor}" />
             <SolidColorBrush x:Key="MaterialDesign.Brush.Header.Foreground"
                              Color="{StaticResource ForegroundGreyNickelColor}" />
-            <Style TargetType="{x:Type DatePickerTextBox}"
+
+            <Style x:Key="MaterialDesignDatePickerTextBox"
+                   TargetType="{x:Type DatePickerTextBox}"
                    BasedOn="{StaticResource MaterialDesignDatePickerTextBox}">
                 <Setter Property="Foreground"
                         Value="{StaticResource WordWhiteBrush}" />

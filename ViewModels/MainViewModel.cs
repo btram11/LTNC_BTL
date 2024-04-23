@@ -8,31 +8,45 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
+using ViewModels.State.Navigators;
 
 namespace ViewModels
 {
     public class MainViewModel : ViewModelBase 
     {
-        private ViewModelBase currentViewModel;
-        public ViewModelBase CurrentViewModel
+        private INavigator _navigation;
+        public INavigator Navigation
         {
-            get => currentViewModel;
+            get => _navigation;
             set
             {
-                currentViewModel = value;
-                OnPropertyChanged(nameof(CurrentViewModel));
+                _navigation = value;
+                OnPropertyChanged(nameof(Navigation));
             }
         }
-        public ViewModelBase menuBar { get; }
-        public ViewModelBase accessBar { get; }
 
-        public MainViewModel ()
+        //private ViewModelBase currentViewModel;
+        //public ViewModelBase CurrentViewModel
+        //{
+        //    get => Navigation.CurrentViewModel;
+        //    set
+        //    {
+        //        currentViewModel?.Dispose();
+        //        currentViewModel = value;
+        //        OnPropertyChanged(nameof(CurrentViewModel));
+        //    }
+        //}
+        //public ViewModelBase menuBar { get; }
+        //public ViewModelBase accessBar { get; }
+
+        public MainViewModel (INavigator navigator)
         {
-            menuBar = new MenuLeftBarViewModel();
-            accessBar = new QuickAccessButtonViewModel();
-            //CurrentViewModel = new DashboardViewModel();
-            currentViewModel = new MainVehicleOverviewViewModel();
-            
+            Navigation = navigator;
+            //menuBar = new MenuLeftBarViewModel();
+            //accessBar = new QuickAccessButtonViewModel();
+            ////CurrentViewModel = new DashboardViewModel();
+            //currentViewModel = new MainVehicleOverviewViewModel();
+            Navigator.NavigateSwitch(Navigation, ViewType.Home);
 
             CloseWindowCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => ExecuteCloseWindowCommand(p));
 
@@ -42,7 +56,8 @@ namespace ViewModels
 
             MouseMoveWindowCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => ExecuteMouseMoveWindowCommand(p));
 
-            AttachmentButtonCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => AttachmentButton());
+            //AttachmentButtonCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => AttachmentButton());
+            UpdateViewModelCommand = new RelayCommand<object>((p) => { return true; }, (p) => Navigator.NavigateSwitch(Navigation, p));
         }
 
         #region WindowCommand
@@ -50,6 +65,7 @@ namespace ViewModels
         public ICommand MinimizeWindowCommand { get; }
         public ICommand MaximizeWindowCommand { get; }
         public ICommand MouseMoveWindowCommand { get; }
+        public ICommand UpdateViewModelCommand { get; }
         private void ExecuteCloseWindowCommand(Window curwindow)
         {
             if (curwindow != null)
@@ -97,23 +113,23 @@ namespace ViewModels
         }
         #endregion
 
-        /// <summary>
-        /// The command for when the attachment button is clicked
-        /// </summary>
-        public ICommand AttachmentButtonCommand { get; set; }
+        ///// <summary>
+        ///// The command for when the attachment button is clicked
+        ///// </summary>
+        //public ICommand AttachmentButtonCommand { get; set; }
 
-        /// <summary>
-        /// True to show the attachment menu, false to hide it
-        /// </summary>
-        public bool AttachmentMenuVisible { get; set; }
+        ///// <summary>
+        ///// True to show the attachment menu, false to hide it
+        ///// </summary>
+        //public bool AttachmentMenuVisible { get; set; }
 
-        /// <summary>
-        /// When the attachment button is clicked show/hide the attachment popup
-        /// </summary>
-        public void AttachmentButton()
-        {
-            // Toggle menu visibility
-            AttachmentMenuVisible ^= true;
-        }
+        ///// <summary>
+        ///// When the attachment button is clicked show/hide the attachment popup
+        ///// </summary>
+        //public void AttachmentButton()
+        //{
+        //    // Toggle menu visibility
+        //    AttachmentMenuVisible ^= true;
+        //}
     }
 }

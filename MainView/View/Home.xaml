@@ -10,9 +10,9 @@
              mc:Ignorable="d"
              d:DesignHeight="680"
              d:DesignWidth="1080">
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <viewModels:DashboardViewModel />
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     <Border Background="Transparent">
         <Grid Margin="10">
             <Grid.RowDefinitions>

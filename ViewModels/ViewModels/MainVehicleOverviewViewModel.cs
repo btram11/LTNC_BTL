@@ -55,5 +55,10 @@ namespace ViewModels
                 TabView = new AssignmentHistoryViewModel();
             });
         }
+
+        ~MainVehicleOverviewViewModel()
+        {
+
+        }
     }
 }

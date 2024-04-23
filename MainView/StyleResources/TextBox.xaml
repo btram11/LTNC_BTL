@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -30,6 +31,8 @@
            TargetType="{x:Type TextBox}">
         <Setter Property="FontSize"
                 Value="14" />
+        <Setter Property="Background"
+                Value="{StaticResource BackgroundBlueZodiacBrush}" />
         <Setter Property="Foreground"
                 Value="{StaticResource WordWhiteBrush}" />
         <Setter Property="VerticalAlignment"
@@ -37,11 +40,22 @@
         <Setter Property="HorizontalAlignment"
                 Value="Stretch" />
         <Setter Property="Padding"
-                Value="8 8 8 0" />
+                Value="0 8 0 0" />
+        <Setter Property="materialDesign:TextFieldAssist.TextBoxViewMargin"
+                Value="8 0 8 0" />
         <Setter Property="Margin"
-                Value="0 8 0 16" />
+                Value="0 8 0 6" />
         <Setter Property="Height"
                 Value="35" />
+        <Setter Property="materialDesign:ValidationAssist.Background"
+                Value="{StaticResource BackgroundBlueZodiacBrush}" />
+        <Setter Property="materialDesign:ValidationAssist.FontSize"
+                Value="12" />
+
+        <!--<Setter Property="materialDesign:HintAssist.HelperTextStyle"
+                Value="{StaticResource HintTextBlock}" />-->
+        <Setter Property="materialDesign:HintAssist.Foreground"
+                Value="{StaticResource ForegroundBrightGray2Brush}" />
         <Style.Resources>
 
             <SolidColorBrush x:Key="MaterialDesign.Brush.TextBox.OutlineBorder"
@@ -51,6 +65,12 @@
                              Color="{StaticResource ForegroundLightPastelPurpleColor}" />
             <SolidColorBrush x:Key=" MaterialDesign.Brush.Primary.Light.Foreground"
                              Color="{StaticResource ForegroundLightPastelPurpleColor}" />
+            <!--<Style x:Name="HelperTextTextBlock"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource HintTextBlock}">
+                <Setter Property="Margin"
+                        Value="0 8 0 0" />
+            </Style>-->
         </Style.Resources>
     </Style>
 
@@ -161,6 +181,22 @@
                 Value="{StaticResource WordWhiteBrush}" />
         <Setter Property="FontWeight"
                 Value="Bold" />
+    </Style>
+
+    <Style x:Key="HintTextBlock"
+           TargetType="TextBlock"
+           BasedOn="{StaticResource MaterialDesignHelperTextBlock}">
+        <Setter Property="Foreground"
+                Value="{StaticResource ForegroundBrightGray2Brush}" />
+        <Setter Property="FontSize"
+                Value="12" />
+        
+    </Style>
+
+    <Style x:Key="StackPanelInclued"
+           TargetType="{x:Type StackPanel}">
+        <Setter Property="Margin"
+                Value="0 0 0 16" />
     </Style>
 
 </ResourceDictionary>
