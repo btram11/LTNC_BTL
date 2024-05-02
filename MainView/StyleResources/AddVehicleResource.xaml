@@ -393,4 +393,29 @@
         </Style.Triggers>
     </Style>
 
+    <!--ListView-->
+    <DataTemplate x:Key="FirstCell">
+        <StackPanel Orientation="Horizontal">
+            <CheckBox Style="{StaticResource checkbox}" IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"/>
+        </StackPanel>
+    </DataTemplate>
+    <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+        <Setter Property="Background" Value="#1e2e44"/>
+        <Setter Property="Foreground" Value="#ffffff"/>
+    </Style>
+    <DataTemplate x:Key="myCellTemplate">
+        <DockPanel>
+            <TextBlock Foreground="#ffffff" HorizontalAlignment="Center"/>
+        </DockPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="myCellTemplateCheckbox">
+        <CheckBox Style="{StaticResource checkbox}"/>
+    </DataTemplate>
+    <DataTemplate x:Key="myCellTemplateEdit">
+        <Button Width="25" Height="25" Margin="0" Style="{StaticResource whitebutton}">
+            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="ChevronLeft"  Width="11" Height="11"/>
+        </Button>
+    </DataTemplate>
+    <!--ListView-->
+
 </ResourceDictionary>

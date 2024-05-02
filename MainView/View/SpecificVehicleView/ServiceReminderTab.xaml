@@ -55,43 +55,23 @@
                     </StackPanel>
                 </Grid>
             </Grid>
-            <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" x:Name="membersDataGrid">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Service Task" IsReadOnly="True" Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="Red">
-                                        <TextBlock Text="..." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                    </Border>
-                                    <TextBlock Text="..." VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+            <ListView Grid.Row="1">
+                <ListView.View>
 
-                    <DataGridTextColumn Header="Status" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Next Due" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Active Work Order" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Service Program" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Last Completed" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Compliance" IsReadOnly="True" Width="2*"/>
-                    <DataGridTextColumn Header="Watchers" IsReadOnly="True" Width="*"/>
-
-                    <DataGridTemplateColumn Header="Edit" IsReadOnly="True" Width="auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Width="25" Height="25" Margin="5 0 5 0" Style="{StaticResource addbutton}">
-                                        <Icon:PackIconMaterial VerticalAlignment="Center" Kind="PencilOutline"  Width="11" Height="11"/>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                </DataGrid.Columns>
-            </DataGrid>
+                    <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
+                        <!--<GridViewColumn CellTemplate="{StaticResource FirstCell}" Width="30"/>-->
+                        <GridViewColumn Header="Service Task" Width="200" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Status" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Next Due" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Active Work Order" Width="150" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Service Program" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Last Completed" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Compliance" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Watchers" Width="100" CellTemplate="{StaticResource myCellTemplate}"/>
+                        <GridViewColumn Header="Edit" Width="70" CellTemplate="{StaticResource myCellTemplateEdit}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </Border>
 </UserControl>
