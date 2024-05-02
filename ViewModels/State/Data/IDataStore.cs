@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Model
+namespace ViewModels.State.Data
 {
-    public interface IFirebaseEntity
+    public interface IDataStore
     {
-        string Id { get; set; }
+
     }
 }

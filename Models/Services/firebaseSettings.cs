@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace API.Model
+namespace Models.Services
 {
     public class FirebaseSettings
     {

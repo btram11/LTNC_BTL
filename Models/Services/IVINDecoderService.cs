@@ -9,6 +9,6 @@ namespace Models.Services
 {
     public interface IVINDecoderService
     {
-        Task<VehicleData> GetVehicleDataByVIN(string VIN);
+        Task<VehicleInfo> GetVehicleDataByVIN(string VIN);
     }
 }

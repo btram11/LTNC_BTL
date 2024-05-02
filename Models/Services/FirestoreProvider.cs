@@ -1,4 +1,5 @@
 ﻿using Google.Cloud.Firestore;
+using Models.ModelFirebase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace API.Model
+namespace Models.Services
 {
     public class FirestoreProvider
     {

@@ -181,10 +181,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Model\MakeDataFromNHTSA.cs" />
-    <Compile Include="Model\firebaseSettings.cs" />
-    <Compile Include="Model\FirestoreProvider.cs" />
     <Compile Include="Model\GeneralDataFromNHTSA.cs" />
-    <Compile Include="Model\IFirebaseEntity.cs" />
     <Compile Include="Model\ModelData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DistanceService.cs" />

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using API;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Headers;
+using GoogleApi.Extensions;
 
 namespace MainView.HostBuilder
 {
@@ -21,6 +22,7 @@ namespace MainView.HostBuilder
                     c.BaseAddress = new Uri("https://vpic.nhtsa.dot.gov/api/vehicles/");
                     c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 });
+                services.AddGoogleApiClients();
             });
             return host;
         }

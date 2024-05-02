@@ -35,9 +35,9 @@ namespace ViewModels.Commands
 
             public event EventHandler CanExecuteChanged;
 
-            protected AsyncCommandBase(Action<Exception> onException)
+            protected AsyncCommandBase(/*Action<Exception> onException*/)
             {
-                this._onException = onException;
+                //this._onException = onException;
             }
 
             public virtual bool CanExecute(object parameter)
@@ -48,17 +48,11 @@ namespace ViewModels.Commands
             public async void Execute(object parameter)
             {
                 IsExecuting = true;
-                try
-                {
-                    await ExecuteAsync(parameter);
-                }
-                catch (Exception ex)
-                {
-                    _onException?.Invoke(ex);
-                }
-
-
+                
+                await ExecuteAsync(parameter);
+                
                 IsExecuting = false;
+                
             }
 
             public abstract Task ExecuteAsync(object parameter);

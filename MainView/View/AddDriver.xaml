@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -15,6 +15,11 @@
     <!--<UserControl.DataContext>
         <viewModels:AddDriverViewModel />
     </UserControl.DataContext>-->
+    <Behaviors:Interaction.Triggers>
+        <Behaviors:EventTrigger EventName="Loaded">
+            <Behaviors:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </Behaviors:EventTrigger>
+    </Behaviors:Interaction.Triggers>
     <Border BorderBrush="Transparent"
             BorderThickness="0"
             HorizontalAlignment="Stretch"
@@ -67,20 +72,23 @@
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom">
                             <Button Width="80"
+                                    Margin="0 0 16 0"
                                     Style="{StaticResource addbutton}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock  Text="Cancel" />
                                 </StackPanel>
                             </Button>
                             <Button Width="150"
+                                    Visibility="Collapsed"
                                     Style="{StaticResource addbutton}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock  Text="Add Multiple Drivers" />
                                 </StackPanel>
                             </Button>
                             <Button Width="100"
+                                    Margin="0"
                                     Style="{StaticResource addbutton}"
-                                    Command="{Binding SaveVehicleCommand}">
+                                    Command="{Binding AddDriverCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock  Text="Save Driver" />
                                 </StackPanel>
@@ -200,7 +208,7 @@
                                                            FontSize="14"
                                                            Style="{StaticResource titleText}" />
                                                 <TextBox Style="{StaticResource MainOutlinedTextBox}"
-                                                         Text="{Binding Id, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+                                                         Text="{Binding ID, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
                                                 </TextBox>
                                             </StackPanel>
                                         </Grid>
@@ -321,10 +329,13 @@
                                                     </ComboBox.SelectedItem>--><!-- 
                                                 
                                             </ComboBox>-->
-                                            <TextBox Style="{StaticResource MainOutlinedTextBox}" 
+                                            <TextBox Style="{StaticResource MainOutlinedTextBox}"
+                                                     materialDesign:HintAssist.IsFloating="False"
+                                                     materialDesign:HintAssist.Hint="Ex: E, FC"
+                                                     ToolTip="Note that we only support Vietnamese Commercial Driver’s License: B2, C, D, E, FC "
                                                      Margin="0 8 0 8"
-                                                     Text="{Binding DLClass, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
-                                            <TextBlock Text="If more than 1, please enter all and seperate each by a semicolon. Ex: E, FC"
+                                                     Text="{Binding DrivingLicenseClass, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
+                                            <TextBlock Text="If there is more than one, please enter all and separate each by a comma. Additionally, please note that we currently only support Vietnamese Commercial Driver's Licenses for the following classess: B2, C, D, E, and FC."
                                                        FontSize="10"
                                                        TextWrapping="Wrap"
                                                        Style="{StaticResource HintTextBlock}" />
@@ -337,7 +348,7 @@
                                                        FontSize="14"
                                                        Style="{StaticResource titleText}" />
                                             <TextBox Style="{StaticResource MainOutlinedTextBox}"
-                                                     Text="{Binding DLNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
+                                                     Text="{Binding DrivingLicenseNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="2">

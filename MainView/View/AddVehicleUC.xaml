@@ -255,7 +255,7 @@
                                                   Style="{StaticResource MainOutlinedComboBox}">
 
                                         </ComboBox>-->
-                                        <TextBox Text="{Binding Model}"
+                                        <TextBox Text="{Binding Model, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"
                                                  Style="{StaticResource MainOutlinedTextBox}" />
                                         <TextBlock Text="e.g. 4Runner, Yukon, Silverado, etc."
                                                    Style="{StaticResource HintTextBlock}" />
@@ -418,10 +418,18 @@
                                                Height="50"
                                                Style="{StaticResource titleText}" />
                                     <StackPanel Margin="0 24 0 0">
-                                        <TextBlock Text="Fuel Efficiency (Liter per km)"
+                                        <TextBlock Text="Fuel Efficiency (Liter per 100 km/ kwh per 100 km)"
                                                    FontSize="14"
                                                    Style="{StaticResource titleText}" />
                                         <TextBox Text="{Binding FuelEfficiency, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                                                 Style="{StaticResource MainOutlinedTextBox}" />
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0 24 0 0">
+                                        <TextBlock Text="Fuel Capacity (Liter or Kwh)"
+                                                   FontSize="14"
+                                                   Style="{StaticResource titleText}" />
+                                        <TextBox Text="{Binding FuelCapacity, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                                                  Style="{StaticResource MainOutlinedTextBox}" />
 
                                     </StackPanel>

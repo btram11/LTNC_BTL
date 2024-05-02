@@ -30,39 +30,39 @@ namespace ViewModels
 
         private string Key = Environment.GetEnvironmentVariable("GOOGLEAPI_KEY");
         public Manager() { }
-        public async void MakeNewTrip(string Origin, string Destination, DateTime DepartureTime)
-        {
-            try
-            {
-                Element element = await DistanceService.GetDistance(Origin, Destination);
+        //public async void MakeNewTrip(string Origin, string Destination, DateTime DepartureTime)
+        //{
+        //    try
+        //    {
+        //        Element element = await DistanceService.GetDistance(Origin, Destination);
 
-                double distance = element.Distance.Value;
-                distance /= 1000;
+        //        double distance = element.Distance.Value;
+        //        distance /= 1000;
 
-                int day = 0, hour = 0, minute = 0, second = 0;
-                second = element.Duration.Value;
-                day = (int)Math.Floor(second / (Math.Pow(60, 2) * 24));
-                hour = (int)Math.Floor(second / Math.Pow(60, 2));
-                minute = second / 60;
-                second %= 60;
-                TimeSpan duration = new TimeSpan(day, hour, minute, second);
-                DateTime ArrivingTime = DepartureTime + duration;
+        //        int day = 0, hour = 0, minute = 0, second = 0;
+        //        second = element.Duration.Value;
+        //        day = (int)Math.Floor(second / (Math.Pow(60, 2) * 24));
+        //        hour = (int)Math.Floor(second / Math.Pow(60, 2));
+        //        minute = second / 60;
+        //        second %= 60;
+        //        TimeSpan duration = new TimeSpan(day, hour, minute, second);
+        //        DateTime ArrivingTime = DepartureTime + duration;
 
-                Trip trip = new Trip
-                {
-                    Origin = Origin,
-                    Destination = Destination,
-                    DepartureTime = DepartureTime,
-                    duration = duration,
-                    _Distance = distance,
-                };
-                _manager.addTrip(trip, TripType.people);
-            }
-            catch (Exception ex)
-            {
-                // Xử lý
-            }
-        }
+        //        Trip trip = new Trip
+        //        {
+        //            Origin = Origin,
+        //            Destination = Destination,
+        //            DepartureTime = DepartureTime,
+        //            duration = duration,
+        //            _Distance = distance,
+        //        };
+        //        _manager.addTrip(trip, TripType.people);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Xử lý
+        //    }
+        //}
 
         public void CreateVehicle()
         {

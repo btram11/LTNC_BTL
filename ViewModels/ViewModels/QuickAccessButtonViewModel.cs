@@ -29,17 +29,11 @@ namespace ViewModels
             Navigation = navigator;
             OpenAddVehicleViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
-                //Window window = Window.GetWindow(p);
-                //var viewModel = (MainViewModel)window.DataContext;
-                //viewModel.CurrentViewModel = new AddVehicleViewModel();
                 Navigation.NavigateTo<AddVehicleViewModel>();
             });
 
             OpenAddDriverViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
             {
-                //Window window = Window.GetWindow(p);
-                //var viewModel = (MainViewModel)window.DataContext;
-                //viewModel.CurrentViewModel = new AddDriverViewModel();
                 Navigation.NavigateTo<AddDriverViewModel>();
             });
         }

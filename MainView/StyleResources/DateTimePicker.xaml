@@ -34,7 +34,7 @@
                 <Setter Property="Foreground"
                         Value="{StaticResource WordWhiteBrush}" />
             </Style>
-
+            
 
         </Style.Resources>
     </Style>
@@ -65,6 +65,14 @@
                    BasedOn="{StaticResource MaterialDesignDatePickerTextBox}">
                 <Setter Property="Foreground"
                         Value="{StaticResource WordWhiteBrush}" />
+            </Style>
+            <Style TargetType="{x:Type materialDesign:SmartHint}">
+                <!--<Setter Property="HorizontalAlignment"
+            Value="Center" />-->
+                <Setter Property="FontSize"
+                        Value="5" />
+                <Setter Property="Margin"
+                        Value="8 0 8 0" />
             </Style>
         </Style.Resources>
         

@@ -189,8 +189,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ModelFirebase\Account.cs" />
     <Compile Include="MakeData.cs" />
+    <Compile Include="ModelFirebase\DriverFirebase.cs" />
+    <Compile Include="ModelFirebase\IVehicleDataFirebase.cs" />
+    <Compile Include="ModelFirebase\TrailerFirebase.cs" />
+    <Compile Include="ModelFirebase\TripFirebase.cs" />
+    <Compile Include="ModelFirebase\VehicleFirebase.cs" />
+    <Compile Include="Services\AuthenticationServices\AuthenticationService.cs" />
+    <Compile Include="Services\AuthenticationServices\IAuthenticationService.cs" />
+    <Compile Include="Services\firebaseSettings.cs" />
+    <Compile Include="Services\Firebase\AccountDataService.cs" />
+    <Compile Include="Services\Firebase\IAccountDataService.cs" />
+    <Compile Include="Services\Firebase\IStoringDataManagementService.cs" />
+    <Compile Include="Services\Firebase\StoringDataManagementService.cs" />
+    <Compile Include="Services\FirestoreProvider.cs" />
     <Compile Include="Services\IDataFromNHTSAService.cs" />
+    <Compile Include="ModelFirebase\IFirebaseEntity.cs" />
+    <Compile Include="Services\IDistanceService.cs" />
     <Compile Include="Services\IVINDecoderService.cs" />
     <Compile Include="Vehicles\Car.cs" />
     <Compile Include="Vehicles\Trailer.cs" />

@@ -16,7 +16,7 @@ namespace API.Services
         {
             _client = Client;
         }
-        public async Task<VehicleData> GetVehicleDataByVIN(string VIN)
+        public async Task<VehicleInfo> GetVehicleDataByVIN(string VIN)
         {
             //if (VIN == string.Empty || VIN.Length < 17)
             //{
@@ -25,11 +25,11 @@ namespace API.Services
             string url = $"decodevinvaluesextended/{VIN}?format=json";
             VehicleData data = await _client.GetAsync<VehicleData>(url);
 
-            //if (data.Results.ElementAt(0).ErrorCode != "0")
-            //{
-            //    throw new Exception(data.Results.ElementAt(0).ErrorText);
-            //}
-            return data;
+            if (!data.Results.ElementAt(0).ErrorCode.Contains("0"))
+            {
+                throw new Exception(data.Results.ElementAt(0).ErrorText);
+            }
+            return data.Results.ElementAt(0);
         }
     }
 }

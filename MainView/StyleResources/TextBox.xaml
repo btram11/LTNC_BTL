@@ -51,9 +51,8 @@
                 Value="{StaticResource BackgroundBlueZodiacBrush}" />
         <Setter Property="materialDesign:ValidationAssist.FontSize"
                 Value="12" />
-
-        <!--<Setter Property="materialDesign:HintAssist.HelperTextStyle"
-                Value="{StaticResource HintTextBlock}" />-->
+        <Setter Property="materialDesign:HintAssist.HelperTextFontSize"
+                Value="5" />
         <Setter Property="materialDesign:HintAssist.Foreground"
                 Value="{StaticResource ForegroundBrightGray2Brush}" />
         <Style.Resources>
@@ -71,6 +70,14 @@
                 <Setter Property="Margin"
                         Value="0 8 0 0" />
             </Style>-->
+            <Style TargetType="{x:Type materialDesign:SmartHint}">
+                <!--<Setter Property="HorizontalAlignment"
+                        Value="Center" />-->
+                <Setter Property="FontSize"
+                        Value="5" />
+                <Setter Property="Margin"
+                        Value="8 0 8 0" />
+            </Style>
         </Style.Resources>
     </Style>
 
@@ -86,6 +93,7 @@
                 Value="12" />
         <Setter Property="Padding"
                 Value="40 15 15 15" />
+        
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBoxBase">

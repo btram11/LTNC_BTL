@@ -14,12 +14,21 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Xml.Linq;
+using GoogleApi;
+using GoogleApi.Interfaces.Maps;
+using Models.Services;
 
 namespace API.Services
 {
-    public class DistanceService
+    public class DistanceService: IDistanceService
     {
-        public static async Task<Element> GetDistance(string Origin, string Destination)
+        private IDistanceMatrixApi _distanceMatrixApi;
+
+        public DistanceService(IDistanceMatrixApi distanceMatrixApi)
+        {
+            _distanceMatrixApi = distanceMatrixApi;
+        }
+        public async Task<Element> GetDistance(string Origin, string Destination)
         {
             var origin = new Address(Origin);
             var destination = new Address(Destination);
@@ -35,7 +44,8 @@ namespace API.Services
                     new LocationEx(destination)
                 }
             };
-            var response = await GoogleApi.GoogleMaps.DistanceMatrix.QueryAsync(request);
+            DistanceMatrixResponse response = await _distanceMatrixApi.QueryAsync(request);
+            //var response = await GoogleApi.GoogleMaps.DistanceMatrix.QueryAsync(request);
 
             if (response.Status == Status.Ok)
             {

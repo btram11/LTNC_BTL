@@ -102,17 +102,12 @@
             <Grid Grid.Row="1"
                   HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="235"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="235" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <!--<ContentControl Content="{Binding menuBar}">
-                    <ContentControl.Resources>
-                        <DataTemplate DataType="{x:Type viewModels:MenuLeftBarViewModel}">
-                            <localView:ScrollingLeftMenuBar />
-                        </DataTemplate>
-                    </ContentControl.Resources>
-                </ContentControl>-->
+                
                 <localView:ScrollingLeftMenuBar />
+                
                 <Grid Grid.Column="1" 
                       Background="{StaticResource BackgroundMainBrush}">
                     <Grid.RowDefinitions>
@@ -146,16 +141,11 @@ Visibility="{Binding ElementName=textBox,Path=Text.Length,Converter={StaticResou
                         <Grid Grid.Column="3"
                               HorizontalAlignment="Right"
                               Panel.ZIndex="3">
-                            <!--<ContentControl Content="{Binding accessBar}">
-                                <ContentControl.Resources>
-                                    <DataTemplate DataType="{x:Type viewModels:QuickAccessButtonViewModel}">
-                                        <localView:QuickAccessButtonView />
-                                    </DataTemplate>
-                                </ContentControl.Resources>
-                            </ContentControl>-->
                             <localView:QuickAccessButtonView />
                         </Grid>
                     </Grid>
+                    
+                    
 
                     <ContentControl Content="{Binding Navigation.CurrentViewModel}"
                                     VerticalAlignment="Stretch"

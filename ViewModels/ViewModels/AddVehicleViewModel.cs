@@ -18,6 +18,12 @@ using ViewModels.State.Navigators;
 using API;
 using Models.Services;
 using ViewModels.Commands;
+using Google.Cloud.Firestore.V1;
+using API.Model;
+using Models.Services.Firebase;
+using Models.ModelFirebase;
+using GoogleApi.Entities.Maps.Directions.Response;
+using System.Windows.Documents;
 
 namespace ViewModels
 {
@@ -27,12 +33,15 @@ namespace ViewModels
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         private readonly IDataFromNHTSAService _dataFromNHTSAService;
         private readonly IVINDecoderService _vinDecoderService;
+        private readonly IStoringDataManagementService _storingDataManagementService;
         private readonly ValidationHelper Helper = new ValidationHelper();
+        #region Lists
         public ObservableCollection<string> MakeList { get; private set; } 
         public ObservableCollection<string> VehicleTypeList { get; private set; }
         public ObservableCollection<string> BodyTypeList { get; private set; }
         public ObservableCollection<string> TrailerTypeList { get; private set; }
-
+        #endregion
+        private bool _IsLoaded { get; set; } = false;
         public bool HasErrors => Helper.HasErrors;
         public IEnumerable GetErrors(string propertyName)
         {
@@ -69,9 +78,11 @@ namespace ViewModels
         private string _gcwr;
 
         private string _fuelEfficiency;
+        private string _fuelCapacity;
         private string _totalSeats;
         private string _bodyType;
         private string _trailerType;
+
         #endregion
 
         #region Properties
@@ -107,10 +118,6 @@ namespace ViewModels
             {
                 _vehicleType = value;
                 Helper.ClearErrors(nameof(VehicleType));
-                //if (/*value == "(None)" ||*/ string.IsNullOrWhiteSpace(value))
-                //{
-                //    Helper.AddError("Vehicle Type is required", nameof(VehicleType));
-                //}
                 ValidateComboBox("Vehicle Type", value);
                 OnPropertyChanged(nameof(VehicleType));
             } 
@@ -125,7 +132,7 @@ namespace ViewModels
                 _year = value;
                 Helper.ClearErrors(nameof(Year));
                 Validate(nameof(Year), value);
-                //OnPropertyChanged(nameof(Year));
+                OnPropertyChanged(nameof(Year));
             }
         }
         public string Make
@@ -166,7 +173,6 @@ namespace ViewModels
                 OnPropertyChanged(nameof(Model));
             }
         }
-        
         public string Trim
         {
             get => _trim; set => _trim = value;
@@ -183,6 +189,7 @@ namespace ViewModels
         #region Weight Props
         [Required(ErrorMessage = "Curb Weight is required")]
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter valid Number")]
+        [MaxLength(25, ErrorMessage = "The number is a little bit too long, isnt it?")]
         public string CurbWeight 
         { 
             get => _curbWeight; 
@@ -197,6 +204,7 @@ namespace ViewModels
 
         [Required(ErrorMessage = "Gross Vehicle Weight Rating is required")]
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter valid Number")]
+        [MaxLength(25, ErrorMessage = "The number is a little bit too long, isnt it?")]
         public string GVWR 
         {
             get => _gvwr; 
@@ -210,6 +218,7 @@ namespace ViewModels
         }
         
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter valid Number")]
+        [MaxLength(25, ErrorMessage = "The number is a little bit too long, isnt it?")]
         public string GCWR {
             get => _gcwr; 
             set
@@ -224,6 +233,7 @@ namespace ViewModels
 
         #region Additional Detail Props
         [Required(ErrorMessage = "Fuel Efficiency is required")]
+        [MaxLength(25, ErrorMessage = "The number is a little bit too long, isnt it?")]
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter valid FLOAT NUMBER")]
         public string FuelEfficiency 
         {
@@ -237,7 +247,23 @@ namespace ViewModels
             }
         }
 
+        [Required(ErrorMessage = "Fuel Capacity is required")]
+        [MaxLength(25, ErrorMessage = "The number is a little bit too long, isnt it?")]
+        [RegularExpression("^[0-9]*", ErrorMessage = "Please enter valid NUMBER")]
+        public string FuelCapacity
+        {
+            get => _fuelCapacity;
+            set
+            {
+                _fuelCapacity = value;
+                Helper.ClearErrors(nameof(FuelCapacity));
+                Validate(nameof(FuelCapacity), value);
+                OnPropertyChanged(nameof(FuelCapacity));
+            }
+        }
+
         [Required(ErrorMessage = "Total Seats is required")]
+        [MaxLength(25, ErrorMessage = "The number is a little bit too long, isnt it?")]
         [RegularExpression("([2-9][0-9]*)", ErrorMessage = "Please enter valid INTERGER Number starting at 2")]
         public string TotalSeats
         {
@@ -289,45 +315,65 @@ namespace ViewModels
         #endregion
         #endregion
 
-        public AddVehicleViewModel(INavigator navigator, IDataFromNHTSAService dataFromNHTSA, IVINDecoderService vinDecoderService, I)
+        public AddVehicleViewModel(INavigator navigator, IDataFromNHTSAService dataFromNHTSA, IVINDecoderService vinDecoderService, IStoringDataManagementService storingDataManagementService)
         {
             Navigation = navigator;
             _dataFromNHTSAService = dataFromNHTSA;
             _vinDecoderService = vinDecoderService;
-            //VehicleTypeList = new List<string>() {"(None)", "Passenger Car", "Bus", "Truck", "Incomplete Vehicle", "Motorcycle"};
-            //VehicleType = VehicleTypeList.FirstOrDefault();
+            _storingDataManagementService = storingDataManagementService;
 
-            //MakeList = new ObservableCollection<string>();
+            AddVehicleCommand = new AsyncRelayCommand(ExcuteAddVehicle);
 
-            BackToVehicleListView = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
-            {
-                Navigation.NavigateTo<VehicleListViewModel>();
-            });
+            BackToVehicleListView = new RelayCommand<UserControl>((p) => { return true; }, (p) => Navigation.NavigateTo<VehicleListViewModel>());
+
+            DecodeVINCommand = new AsyncRelayCommand(ExcuteDecodeVIN);
+
+            LoadCommand = new AsyncRelayCommand(ExcuteloadViewCommand);
 
             Helper.ErrorsChanged += (sender, e) =>
             {
                 OnPropertyChanged(nameof(Helper));
                 ErrorsChanged?.Invoke(this, e);
             };
-
-            DecodeVINCommand = new AsyncRelayCommand(ExcuteDecodeVIN, (ex) => { });
-
-            AddVehicleCommand = new RelayCommand<object>((p) => { return true; }, ExcuteAddVehicle);
-
-            LoadCommand = new AsyncRelayCommand(ExcuteloadViewCommand, (ex) => { });
         }
+
+        private void ClearingAllInputField()
+        {
+            Name = string.Empty;
+            VIN = string.Empty;
+            LicensePlate = string.Empty;
+            Year = string.Empty;
+            Model = string.Empty;
+            Trim = string.Empty;
+            RegisState = string.Empty;
+            CurbWeight = string.Empty;
+            GCWR = string.Empty;
+            GVWR = string.Empty;
+            FuelEfficiency = string.Empty;
+            FuelCapacity = string.Empty;
+            TotalSeats = string.Empty;
+            //Color = string.Empty;
+            //BodySubType = string.Empty;
+
+            VehicleType = "(None)";
+            Make = "(None)";
+            BodyType = "(None)";
+            TrailerType = "(None)";
+            Helper.ClearAllErrors();
+        } 
 
         #region Commands
         public ICommand AddVehicleCommand { get; }
-        public ICommand DecodeVINCommand { get; }
-        public ICommand SaveVehicleCommand { get; set; }
         public ICommand BackToVehicleListView { get; }
+        public ICommand DecodeVINCommand { get; }
         public ICommand LoadCommand { get; }
+        public ICommand SaveVehicleCommand { get; set; }
 
-        private void ExcuteAddVehicle(object obj)
+
+        private async Task ExcuteAddVehicle()
         {
             bool HasValidationError = false;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 11; i++)
             {
                 if (ValidationSwitch(i))
                 {
@@ -339,8 +385,95 @@ namespace ViewModels
                 MessageBox.Show("Please fill in the required fields or fix the fields with errors.");
                 return;
             }
+            IReadOnlyCollection<VehicleFirebase> temp = await _storingDataManagementService.WhereEqualToVehicle<VehicleFirebase>(nameof(VIN), VIN);
+            if (temp.Count > 0)
+            {
+                MessageBox.Show("Please check your VIN number as there is a vehicle with that VIN");
+                return;
+            }
+            //IVehicleDataFirebase vehicleDataFirebase = new VehicleFirebase
+            //{
+            //    test = Test.Approved,
+            //};
+            //await _storingDataManagementService.AddOrUpdateVehicle(vehicleDataFirebase);
 
+            //IVehicleDataFirebase temp1 = await _storingDataManagementService.GetVehicleById<VehicleFirebase>(vehicleDataFirebase.Id);
+
+            IVehicleDataFirebase vehicle = await CreateVehicle();
+
+            await _storingDataManagementService.AddOrUpdateVehicle(vehicle);
+            ClearingAllInputField();
+               
         }
+        private async Task<IVehicleDataFirebase> CreateVehicle()
+        {
+            IVehicleDataFirebase vehicle;
+            VehicleInfo data = await _vinDecoderService.GetVehicleDataByVIN(VIN);
+            if (VehicleType.Equals("Trailer", StringComparison.OrdinalIgnoreCase))
+            {
+                vehicle = new TrailerFirebase
+                {
+                    Name = Name,
+                    VIN = VIN,
+                    VehicleType = VehicleType,
+                    LicensePlate = LicensePlate,
+                    VehicleStatus = Status,
+                    Make = Make,
+                    Models = Model,
+                    Year = Year,
+                    RegisState = RegisState,
+                    Ownership = Ownership,
+                    GVWR = int.Parse(GVWR),
+                    CurbWeight = int.Parse(CurbWeight),
+                    BodyType = BodyType,
+                    TrailerType = TrailerType,
+                };
+                IVehicleDataFirebase duplicatedIdVehicle = await _storingDataManagementService.GetVehicleById<TrailerFirebase>(vehicle.Id);
+                while (duplicatedIdVehicle != null)
+                {
+                    vehicle.Id = Guid.NewGuid().ToString("N");
+                    duplicatedIdVehicle = await _storingDataManagementService.GetVehicleById<TrailerFirebase>(vehicle.Id);
+                }
+            }
+            else
+            {
+                vehicle = new VehicleFirebase
+                {
+                    Name = Name,
+                    VIN = VIN,
+                    LicensePlate = LicensePlate,
+                    VehicleType = VehicleType,
+                    VehicleStatus = Status,
+                    Make = Make,
+                    Models = Model,
+                    Year = Year,
+                    Trim = Trim,
+                    RegisState = RegisState,
+                    Ownership = Ownership,
+                    FuelEfficiency = double.Parse(FuelEfficiency),
+                    FuelCapacity = int.Parse(FuelCapacity),
+                    GCWR = float.TryParse(GCWR, out float parsedGCWR) ? parsedGCWR : (float?)null,
+                    GVWR = int.Parse(GVWR),
+                    CurbWeight = int.Parse(CurbWeight),
+                    BodyType = BodyType,
+                    Length = float.TryParse(data.BusLength, out float parsedLength) ? parsedLength : (float?)null,
+                    EngineCylinders = data.EngineCylinders,
+                    EnginePower = data.EngineHP,
+                    FuelTypePrimary = data.FuelTypePrimary,
+                    DisplacementCC = data.DisplacementCC,
+                    DisplacementCI = data.DisplacementCI,
+                    DisplacementL = data.DisplacementL,
+                };
+                IVehicleDataFirebase duplicatedIdVehicle = await _storingDataManagementService.GetVehicleById<VehicleFirebase>(vehicle.Id);
+                while (duplicatedIdVehicle != null)
+                {
+                    vehicle.Id = Guid.NewGuid().ToString("N");
+                    duplicatedIdVehicle = await _storingDataManagementService.GetVehicleById<VehicleFirebase>(vehicle.Id);
+                }
+            }
+            return vehicle;
+        }
+
         private async Task ExcuteDecodeVIN()
         {
             if (Validate(nameof(VIN), VIN))
@@ -350,14 +483,14 @@ namespace ViewModels
             }
             try
             {
-                VehicleData data = await _vinDecoderService.GetVehicleDataByVIN(VIN);
-                VehicleType = VehicleTypeList.FirstOrDefault(s => s.Equals(data.Results.ElementAt(0).VehicleType, StringComparison.OrdinalIgnoreCase));
-                Year = data.Results.ElementAt(0).ModelYear;
-                Make = MakeList.FirstOrDefault(s => s.Equals(data.Results.ElementAt(0).Make, StringComparison.OrdinalIgnoreCase));
-                Model = data.Results.ElementAt(0).Model;
-                Trim = data.Results.ElementAt(0).Trim;
-                TotalSeats = data.Results.ElementAt(0).Seats;
-                BodyType = data.Results.ElementAt(0).BodyClass;
+                VehicleInfo data = await _vinDecoderService.GetVehicleDataByVIN(VIN);
+                VehicleType = VehicleTypeList.FirstOrDefault(s => s.Equals(data.VehicleType, StringComparison.OrdinalIgnoreCase));
+                Year = data.ModelYear;
+                Make = MakeList.FirstOrDefault(s => s.Equals(data.Make, StringComparison.OrdinalIgnoreCase));
+                Model = data.Model;
+                Trim = data.Trim;
+                TotalSeats = data.Seats;
+                BodyType = data.BodyClass;
 
             }
             catch (Exception ex)
@@ -370,11 +503,8 @@ namespace ViewModels
         {
             try
             {
-                VehicleType = "(None)";
-                Make = "(None)";
-                BodyType = "(None)";
-                TrailerType = "(None)";
-                
+                ClearingAllInputField();
+                if (_IsLoaded) return;
 
                 VehicleTypeList = await _dataFromNHTSAService.GetDataListByNameFromNHTSA("Vehicle Type");
                 VehicleTypeList.Insert(0, "(None)");
@@ -391,6 +521,7 @@ namespace ViewModels
                 TrailerTypeList = await _dataFromNHTSAService.GetDataListByNameFromNHTSA("Trailer Body Type");
                 TrailerTypeList.Insert(0, "(None)");
                 OnPropertyChanged(nameof(TrailerTypeList));
+                _IsLoaded = true;
             }
             catch (Exception ex)
             {
@@ -438,6 +569,9 @@ namespace ViewModels
                     break;
                 case 9:
                     error = Validate(nameof(TotalSeats), TotalSeats);
+                    break;
+                case 10:
+                    error = Validate(nameof(FuelCapacity), FuelCapacity);
                     break;
             }
             return error;

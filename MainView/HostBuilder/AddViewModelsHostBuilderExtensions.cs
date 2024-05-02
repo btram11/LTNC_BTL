@@ -11,6 +11,7 @@ using API.Model;
 using Google.Cloud.Firestore;
 using MainView;
 using ViewModels;
+using Models.Services;
 
 namespace MainView.HostBuilder
 {
@@ -20,11 +21,10 @@ namespace MainView.HostBuilder
         {
             host.ConfigureServices(services =>
             {
-                var jsonString = File.ReadAllText("D:/Misa/Code/fleetmanagement-8b359-firebase-adminsdk-r32vj-cab42b1a38.json");
                 
                 services.AddSingleton<MainViewModel>();
                 services.AddSingleton<INavigator, Navigator>();
-                services.AddTransient<DashboardViewModel>();
+                services.AddSingleton<DashboardViewModel>();
                 services.AddSingleton<AddDriverViewModel>();
                 services.AddSingleton<AddVehicleViewModel>();
                 services.AddSingleton<VehicleAssignmentViewModel>();
@@ -35,13 +35,20 @@ namespace MainView.HostBuilder
                 services.AddSingleton<RemindersListViewModel>();
                 services.AddSingleton<VehicleMakeListingViewModel>();
                 services.AddSingleton<Func<Type, ViewModelBase>>(serviceProvider => viewModelType => (ViewModelBase)serviceProvider.GetRequiredService(viewModelType));
-                services.AddSingleton(_ => new FirestoreProvider(
-                    new FirestoreDbBuilder
-                    {
-                        ProjectId = "fleetmanagement-8b359",
-                        JsonCredentials = jsonString // <-- service account json file
-                    }.Build()
-                ));
+
+                //services.AddSingleton(_ => new FirestoreProvider(
+                //    new FirestoreDbBuilder
+                //    {
+                //        ProjectId = "fleetmanagement-8b359",
+                //        JsonCredentials = jsonString // <-- service account json file
+                //    }.Build()
+                //));
+                //services.AddSingleton<FirestoreProvider>();
+                //services.AddSingleton<FirestoreDb>(_ => new FirestoreDbBuilder
+                //{
+                //    ProjectId = "fleetmanagement-8b359",
+                //    JsonCredentials = jsonString // <-- service account json file
+                //}.Build());
 
                 services.AddSingleton<MainWindow>(provider => new MainWindow(provider.GetRequiredService<MainViewModel>()));
             });

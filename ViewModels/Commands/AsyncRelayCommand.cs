@@ -11,7 +11,7 @@ namespace ViewModels.Commands
     {
         private readonly Func<Task> _callback;
 
-        public AsyncRelayCommand(Func<Task> callback, Action<Exception> onException) : base(onException)
+        public AsyncRelayCommand(Func<Task> callback/*, Action<Exception> onException*/) /*: base(onException)*/
         {
             _callback = callback;
         }

@@ -46,6 +46,17 @@ namespace ViewModels
             }
         }
 
+        public void ClearAllErrors()
+        {
+            var propertiesWithErrors = _propertyErrors.Keys.ToList();
+            foreach (var property in propertiesWithErrors)
+            {
+                _propertyErrors.Remove(property);
+                OnErrorsChanged(property);
+            }
+        }
+
+
         private void OnErrorsChanged(string propertyName)
         {
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));

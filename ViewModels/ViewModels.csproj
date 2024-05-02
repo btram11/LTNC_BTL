@@ -244,6 +244,12 @@
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\AsyncRelayCommand.cs" />
     <Compile Include="ObservableObject.cs" />
+    <Compile Include="State\Accounts\AccountStore.cs" />
+    <Compile Include="State\Accounts\IAccountStore.cs" />
+    <Compile Include="State\Authentication\Authenticator.cs" />
+    <Compile Include="State\Authentication\IAuthenticator.cs" />
+    <Compile Include="State\Data\DataStore.cs" />
+    <Compile Include="State\Data\IDataStore.cs" />
     <Compile Include="State\Navigators\INavigator.cs" />
     <Compile Include="State\Navigators\IRenavigator.cs" />
     <Compile Include="State\Navigators\Navigator.cs" />

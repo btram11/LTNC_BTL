@@ -14,6 +14,13 @@ using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 using ViewModels.State.Navigators;
 using ViewModels.Commands;
 using Models.Services;
+using Models.Services.Firebase;
+using Models.ModelFirebase;
+using GoogleApi.Entities.Translate.Common.Enums;
+using System.Reflection;
+using MaterialDesignThemes.Wpf.Internal;
+using Models;
+using System.Xml.Linq;
 
 namespace ViewModels
 {
@@ -29,8 +36,16 @@ namespace ViewModels
                 OnPropertyChanged(nameof(Navigation));
             }
         }
+
+        private readonly IStoringDataManagementService _storingDataManagementService;
         private readonly ValidationHelper Helper = new ValidationHelper();
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        public bool HasErrors => Helper.HasErrors;
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return Helper.GetErrors(propertyName);
+        }
+
 
         #region Fields
         private string _firstName;
@@ -87,15 +102,15 @@ namespace ViewModels
         }
         
         [Required(ErrorMessage = "Identification Number is required")]
-        public string Id
+        public string ID
         {
             get => _id ; 
             set
             {
                 _id = value;
-                Helper.ClearErrors(nameof(Id));
-                Validate(nameof(Id), value);
-                OnPropertyChanged(nameof(Id));
+                Helper.ClearErrors(nameof(ID));
+                Validate(nameof(ID), value);
+                OnPropertyChanged(nameof(ID));
             }
         }
         public string PlaceOfIssue
@@ -111,10 +126,13 @@ namespace ViewModels
             {
                 _phone = value;
                 Helper.ClearErrors(nameof(Phone));
-                ValidatePhoneNumber(nameof(Phone), value);
+                Validate(nameof(Phone), Phone);
+                ValidatePhoneNumber(nameof(Phone), Phone);
                 OnPropertyChanged(nameof(Phone));
             }
         }
+
+        [Required(ErrorMessage = "Email is required")]
         public string Email
         {
             get => _email;
@@ -122,66 +140,87 @@ namespace ViewModels
             {
                 _email = value;
                 Helper.ClearErrors(nameof(Email));
+                Validate(nameof(Email), value);
                 ValidateEmail(nameof(Email), value);
                 OnPropertyChanged(nameof(Email));
             }
         }
+
+        [Required(ErrorMessage = "Address is required")]
         public string Address
         {
-            get => _address; set => _address = value;
+            get => _address;
+            set
+            {
+                _address = value;
+                Validate(nameof(Address), value);
+                OnPropertyChanged(nameof(Address));
+            }
         }
         public string City
         {
-            get => _city; set => _city = value;
+            get => _city;
+            set
+            {
+                _city = value;
+                OnPropertyChanged(nameof(City));
+            }
         }
         public string Country
         {
-            get => _country; set => _country = value;
+            get => _country;
+            set
+            {
+                _country = value;
+                OnPropertyChanged(nameof(Country));
+            }
         }
         #endregion
 
-        [Required(ErrorMessage = "Driver License Class is required")]
-        public string DLClass
+        [Required(ErrorMessage = "Driving License Class is required")]
+        public string DrivingLicenseClass
         {
             get => _dLClass;
             set
             {
                 _dLClass = value;
-                Helper.ClearErrors(nameof(DLClass));
-                Validate(nameof(DLClass), value);
-                OnPropertyChanged(nameof(DLClass));
+                Helper.ClearErrors(nameof(DrivingLicenseClass));
+                Validate(nameof(DrivingLicenseClass), value);
+                OnPropertyChanged(nameof(DrivingLicenseClass));
             }
         }
 
-        [Required(ErrorMessage = "Driver License Number is required")]
-        public string DLNumber
+        [Required(ErrorMessage = "Driving License Number is required")]
+        public string DrivingLicenseNumber
         {
             get => _dLNumber;
             set
             {
                 _dLNumber = value;
-                Helper.ClearErrors(nameof(DLNumber));
-                Validate(nameof(DLNumber), value);
-                OnPropertyChanged(nameof(DLNumber));
+                Helper.ClearErrors(nameof(DrivingLicenseNumber));
+                Validate(nameof(DrivingLicenseNumber), value);
+                OnPropertyChanged(nameof(DrivingLicenseNumber));
             }
         }
+
+        public string CriminalRecord { get; set; }
         #endregion
 
-        public AddDriverViewModel(INavigator navigator, IDataFromNHTSAService dataFromNHTSA)
+        public AddDriverViewModel(INavigator navigator, IStoringDataManagementService storingDataManagementService)
         {
             Navigation = navigator;
-            BackToDriverListView = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
-            {
-                //Window window = Window.GetWindow(p);
-                //var viewModel = (MainViewModel)window.DataContext;
-                //viewModel.CurrentViewModel = new DriverListViewModel();
-                Navigation.NavigateTo<VehicleListViewModel>();
-            });
+            _storingDataManagementService = storingDataManagementService;
+
+            AddDriverCommand = new AsyncRelayCommand(ExcuteAddDriver);
+
+            BackToDriverListView = new RelayCommand<UserControl>((p) => { return true; }, (p) => Navigation.NavigateTo<VehicleListViewModel>());
 
             GetGenderCommand = new RelayCommand<object>((p) => { return p != null ? true : false; }, (p) => 
             {
                 Gender = (string)p;
             });
+
+            LoadCommand = new RelayCommand<object>((p) => { return true; }, (p) => ExcuteLoadViewCommand());
 
             Helper.ErrorsChanged += (sender, e) =>
             {
@@ -192,21 +231,96 @@ namespace ViewModels
             
         }
 
+        private void ClearingAllInputField()
+        {
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            DateOfBirth = null;
+            ID = string.Empty;
+            PlaceOfIssue = string.Empty;
+            Phone = string.Empty;
+            Email = string.Empty;
+            Address = string.Empty;
+            City = string.Empty;
+            Country = string.Empty;
+            DrivingLicenseClass = string.Empty;
+            DrivingLicenseNumber = string.Empty;
+            CriminalRecord = string.Empty;
+            Helper.ClearAllErrors();
+        }
         
+
+
         #region Command
-        public ICommand AddVehicleCommand { get; }
+        public ICommand AddDriverCommand { get; }
         public ICommand BackToDriverListView { get; }
+        public ICommand LoadCommand { get; set; }
         public ICommand GetGenderCommand { get; }
+
+        private async Task ExcuteAddDriver()
+        {
+            bool HasValidationError = false;
+            for (int i = 0; i < 10; i++)
+            {
+                if (ValidationSwitch(i))
+                {
+                    HasValidationError = true;
+                }
+            }
+            if (HasValidationError)
+            {
+                MessageBox.Show("Please fill in the required fields or fix the fields with errors.");
+                return;
+            }
+            IReadOnlyCollection<DriverFirebase> temp = await _storingDataManagementService.WhereEqualToDriver(nameof(ID), ID);
+            if (temp.Count > 0)
+            {
+                MessageBox.Show("Please check Identification number as there is a driver with that ID");
+                return;
+            }
+            DriverFirebase driver = new DriverFirebase
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                DateOfBirth = DateOfBirth.ToString(),
+                Gender = Gender,
+                ID = ID,
+                PlaceOfIssue = PlaceOfIssue,
+                Phone = Phone,
+                Email = Email,
+                Address = Address,
+                City = City,
+                Country = Country,
+                DrivingLicenseClass = DrivingLicenseClass,
+                DrivingLicenseNumber = DrivingLicenseNumber,
+                CriminalRecord = CriminalRecord,
+            };
+            DriverFirebase duplicatedIdVehicle = await _storingDataManagementService.GetDriverById(driver.Id);
+            while (duplicatedIdVehicle != null)
+            {
+                driver.Id = Guid.NewGuid().ToString("N");
+                duplicatedIdVehicle = await _storingDataManagementService.GetDriverById(driver.Id);
+            }
+            try
+            {
+                await _storingDataManagementService.AddOrUpdateDriver(driver);
+                MessageBox.Show("Successfully added");
+                ClearingAllInputField();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
+        }
+        private void ExcuteLoadViewCommand()
+        {
+            ClearingAllInputField();
+        }
 
         #endregion
 
-        public bool HasErrors => Helper.HasErrors;
-
-        public IEnumerable GetErrors(string propertyName)
-        {
-            return Helper.GetErrors(propertyName);
-        }
-
+        
 
         #region Validate Methods
         public bool Validate(string propertyName, object propertyValue)
@@ -222,7 +336,7 @@ namespace ViewModels
             return false;
         }
 
-        public void ValidateEmail(string propertyName, string emailAddress)
+        public bool ValidateEmail(string propertyName, string emailAddress)
         {
             var pattern = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
                           @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
@@ -233,22 +347,63 @@ namespace ViewModels
             if (!regex.IsMatch(emailAddress))
             {
                 Helper.AddError("Invalid email address", propertyName);
+                return true;
             }
-
+            return false;
         }
-        public void ValidatePhoneNumber(string propertyName, string pNumber)
+        public bool ValidatePhoneNumber(string propertyName, string pNumber)
         {
-            if (!Validate(propertyName, pNumber))
+            
+            var pattern = @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})";
+
+            var regex = new Regex(pattern);
+
+            if (!regex.IsMatch(pNumber))
             {
-                var pattern = @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})";
-
-                var regex = new Regex(pattern);
-
-                if (!regex.IsMatch(pNumber))
-                {
-                    Helper.AddError("Invalid phone number", propertyName);
-                }
+                Helper.AddError("Invalid phone number", propertyName);
+                return true;
             }
+            return false;
+        }
+        private bool ValidationSwitch(int index)
+        {
+            bool error = false;
+            switch (index)
+            {
+                case 0:
+                    error = Validate(nameof(FirstName), FirstName);
+                    break;
+                case 1:
+                    error = Validate(nameof(LastName), LastName);
+                    break;
+                case 2:
+                    error = Validate(nameof(ID), ID);
+                    break;
+                case 3:
+                    error = Validate(nameof(Phone), Phone);
+                    error = ValidatePhoneNumber(nameof(Phone), Phone);
+                    break;
+                case 4:
+                    error = Validate(nameof(Email), Email);
+                    error = ValidateEmail(nameof(Email), Email);
+                    break;
+                case 5:
+                    error = Validate(nameof(Address), Address);
+                    break;
+                case 6:
+                    error = Validate(nameof(DrivingLicenseClass), DrivingLicenseClass);
+                    break;
+                case 7:
+                    error = Validate(nameof(DrivingLicenseNumber), DrivingLicenseNumber);
+                    break;
+                    //case 8:
+                    //    error = Validate(nameof(FuelEfficiency), FuelEfficiency);
+                    //    break;
+                    //case 9:
+                    //    error = Validate(nameof(TotalSeats), TotalSeats);
+                    //    break;
+            }
+            return error;
         }
         #endregion
 
