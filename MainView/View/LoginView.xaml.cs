@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace User_UI
+namespace MainView.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class User_MainWindow : Window
+    public partial class LoginView : UserControl
     {
-        public User_MainWindow()
+        public LoginView()
         {
             InitializeComponent();
         }

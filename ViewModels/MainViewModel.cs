@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
+using ViewModels.State.Authentication;
 using ViewModels.State.Navigators;
 
 namespace ViewModels
@@ -25,28 +26,18 @@ namespace ViewModels
             }
         }
 
-        //private ViewModelBase currentViewModel;
-        //public ViewModelBase CurrentViewModel
-        //{
-        //    get => Navigation.CurrentViewModel;
-        //    set
-        //    {
-        //        currentViewModel?.Dispose();
-        //        currentViewModel = value;
-        //        OnPropertyChanged(nameof(CurrentViewModel));
-        //    }
-        //}
-        //public ViewModelBase menuBar { get; }
-        //public ViewModelBase accessBar { get; }
+        private readonly IAuthenticator _authenticator;
 
-        public MainViewModel (INavigator navigator)
+        public bool IsLoggedIn => _authenticator._isLogin;
+        //public bool IsLoggedIn = true;
+
+        public MainViewModel (INavigator navigator, IAuthenticator authenticator)
         {
             Navigation = navigator;
-            //menuBar = new MenuLeftBarViewModel();
-            //accessBar = new QuickAccessButtonViewModel();
-            ////CurrentViewModel = new DashboardViewModel();
-            //currentViewModel = new MainVehicleOverviewViewModel();
-            Navigator.NavigateSwitch(Navigation, ViewType.Home);
+            _authenticator = authenticator;
+            Navigator.NavigateSwitch(Navigation, ViewType.Login);
+
+            _authenticator.StateChanged += Authenticator_StateChanged;
 
             CloseWindowCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => ExecuteCloseWindowCommand(p));
 
@@ -56,7 +47,6 @@ namespace ViewModels
 
             MouseMoveWindowCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => ExecuteMouseMoveWindowCommand(p));
 
-            //AttachmentButtonCommand = new RelayCommand<Window>((p) => { return p != null ? true : false; }, (p) => AttachmentButton());
             UpdateViewModelCommand = new RelayCommand<object>((p) => { return true; }, (p) => Navigator.NavigateSwitch(Navigation, p));
         }
 
@@ -112,24 +102,16 @@ namespace ViewModels
             }
         }
         #endregion
+        private void Authenticator_StateChanged()
+        {
+            OnPropertyChanged(nameof(IsLoggedIn));
+        }
+        public override void Dispose()
+        {
+            _authenticator.StateChanged -= Authenticator_StateChanged;
 
-        ///// <summary>
-        ///// The command for when the attachment button is clicked
-        ///// </summary>
-        //public ICommand AttachmentButtonCommand { get; set; }
+            base.Dispose();
+        }
 
-        ///// <summary>
-        ///// True to show the attachment menu, false to hide it
-        ///// </summary>
-        //public bool AttachmentMenuVisible { get; set; }
-
-        ///// <summary>
-        ///// When the attachment button is clicked show/hide the attachment popup
-        ///// </summary>
-        //public void AttachmentButton()
-        //{
-        //    // Toggle menu visibility
-        //    AttachmentMenuVisible ^= true;
-        //}
     }
 }

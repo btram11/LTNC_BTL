@@ -24,6 +24,6 @@ namespace MainView.View
         {
             InitializeComponent();
         }
-    
+
     }
 }

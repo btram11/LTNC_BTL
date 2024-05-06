@@ -31,10 +31,10 @@ namespace ViewModels
     public class AddVehicleViewModel : ViewModelBase, INotifyDataErrorInfo
     {
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        private readonly ValidationHelper Helper = new ValidationHelper();
         private readonly IDataFromNHTSAService _dataFromNHTSAService;
         private readonly IVINDecoderService _vinDecoderService;
         private readonly IStoringDataManagementService _storingDataManagementService;
-        private readonly ValidationHelper Helper = new ValidationHelper();
         #region Lists
         public ObservableCollection<string> MakeList { get; private set; } 
         public ObservableCollection<string> VehicleTypeList { get; private set; }

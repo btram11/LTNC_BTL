@@ -20,7 +20,10 @@ namespace Models.Services.Firebase
         Task<DriverFirebase> GetDriverById(string id);
         Task<IReadOnlyCollection<DriverFirebase>> GetAllDrivers();
         Task<T> GetVehicleById<T>(string id) where T : IVehicleDataFirebase;
-        
+        Task<List<IVehicleDataFirebase>> GetAllVehicles();
+        Task<TripFirebase> GetTripById(string id);
+
+
 
         Task<IReadOnlyCollection<DriverFirebase>> WhereEqualToDriver(string fieldPath, object value);
         Task<IReadOnlyCollection<T>> WhereEqualToVehicle<T>(string fieldPath, object value) where T : IVehicleDataFirebase;

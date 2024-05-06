@@ -18,11 +18,11 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
     <!--xmlns:customcontrols="clr-namespace:WPF_LoginForm.CustomControls"-->
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <viewModels:LoginViewModel />
-    </Window.DataContext>
+    </Window.DataContext>-->
 
-    <Window.Resources>
+    <!--<Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
     </Window.Resources>
 
@@ -214,7 +214,7 @@
                                  Style="{StaticResource MainTextBox}"
                                  materialDesign:HintAssist.Hint="Username"
                                  Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}">
-                            <!--materialDesign:HintAssist.HelperText="Helper text longer than error"-->
+                            --><!--materialDesign:HintAssist.HelperText="Helper text longer than error"-->
                             <!--<TextBox.Text>
                                 <Binding Path="Name"
                                          UpdateSourceTrigger="PropertyChanged">
@@ -223,7 +223,7 @@
                                                                        xmlns:domain="clr-namespace:MaterialDesignDemo.Domain" />
                                     </Binding.ValidationRules>
                                 </Binding>
-                            </TextBox.Text>-->
+                            </TextBox.Text>--><!--
                         </TextBox>
                     </Grid>
 
@@ -320,5 +320,5 @@
 
         </Border>
 
-    </Border>
+    </Border>-->
 </Window>

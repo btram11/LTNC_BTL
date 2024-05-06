@@ -11,5 +11,6 @@ namespace Models.Services.Firebase
     {
         Task<List<Account>> GetByUsername(string username);
         Task<List<Account>> GetByEmail(string email);
+        Task Register(Account entity);
     }
 }

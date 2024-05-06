@@ -28,5 +28,8 @@ namespace Models.ModelFirebase
 
         [FirestoreProperty]
         public string Username { get; set; }
+
+        [FirestoreProperty]
+        public string DataUid { get; set; } = Guid.NewGuid().ToString("N");
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Models;
 using Models.ModelFirebase;
+using Models.Services.AuthenticationServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,10 @@ namespace ViewModels.State.Authentication
     {
         Account CurrentAccount { get; }
         bool _isLogin {  get; }
-
+        event Action StateChanged;
 
         Task Login(string username, string password);
+        Task<RegistrationResult> Register(Account newUser);
         void LogOut();
     }
 }

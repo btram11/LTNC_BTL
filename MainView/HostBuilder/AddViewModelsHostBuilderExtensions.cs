@@ -34,21 +34,10 @@ namespace MainView.HostBuilder
                 services.AddSingleton<MainVehicleOverviewViewModel>();
                 services.AddSingleton<RemindersListViewModel>();
                 services.AddSingleton<VehicleMakeListingViewModel>();
+                services.AddSingleton<LoginViewModel>();
+                services.AddSingleton<SignUpViewModel>();
                 services.AddSingleton<Func<Type, ViewModelBase>>(serviceProvider => viewModelType => (ViewModelBase)serviceProvider.GetRequiredService(viewModelType));
 
-                //services.AddSingleton(_ => new FirestoreProvider(
-                //    new FirestoreDbBuilder
-                //    {
-                //        ProjectId = "fleetmanagement-8b359",
-                //        JsonCredentials = jsonString // <-- service account json file
-                //    }.Build()
-                //));
-                //services.AddSingleton<FirestoreProvider>();
-                //services.AddSingleton<FirestoreDb>(_ => new FirestoreDbBuilder
-                //{
-                //    ProjectId = "fleetmanagement-8b359",
-                //    JsonCredentials = jsonString // <-- service account json file
-                //}.Build());
 
                 services.AddSingleton<MainWindow>(provider => new MainWindow(provider.GetRequiredService<MainViewModel>()));
             });

@@ -69,6 +69,12 @@ namespace ViewModels.State.Navigators
                     case ViewType.VehicleMainOverview:
                         navigator.NavigateTo<MainVehicleOverviewViewModel>();
                         break;
+                    case ViewType.Login:
+                        navigator.NavigateTo<LoginViewModel>();
+                        break;
+                    case ViewType.Register:
+                        navigator.NavigateTo<SignUpViewModel>();
+                        break;
                 }
             }
         }

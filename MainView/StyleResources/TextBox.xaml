@@ -14,6 +14,10 @@
                 Value="30" />
         <Setter Property="Foreground"
                 Value="{StaticResource WordWhiteBrush}" />
+        <Setter Property="materialDesign:ValidationAssist.Background"
+                Value="Transparent" />
+        <Setter Property="materialDesign:ValidationAssist.FontSize"
+                Value="12" />
         <Style.Resources>
 
             <SolidColorBrush x:Key="MaterialDesign.Brush.TextBox.Border"
@@ -40,7 +44,7 @@
         <Setter Property="HorizontalAlignment"
                 Value="Stretch" />
         <Setter Property="Padding"
-                Value="0 8 0 0" />
+                Value="4 8 0 0" />
         <Setter Property="materialDesign:TextFieldAssist.TextBoxViewMargin"
                 Value="8 0 8 0" />
         <Setter Property="Margin"
@@ -76,7 +80,7 @@
                 <Setter Property="FontSize"
                         Value="5" />
                 <Setter Property="Margin"
-                        Value="8 0 8 0" />
+                        Value="8 0 4 0" />
             </Style>
         </Style.Resources>
     </Style>

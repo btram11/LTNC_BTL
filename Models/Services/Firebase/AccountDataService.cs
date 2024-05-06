@@ -37,5 +37,11 @@ namespace Models.Services.Firebase
             List<Account> accounts = snapshot.Documents.Select(x => x.ConvertTo<Account>()).ToList();
             return accounts;
         }
+
+        public async Task Register(Account entity)
+        {
+            DocumentReference doc = _firestoreDb.Collection("Users").Document(entity.Id);
+            await doc.SetAsync(entity);
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace ViewModels.State.Navigators
     public enum ViewType
     {
         Login,
+        Register,
         Home,
         AddVehicle,
         VehicleList,

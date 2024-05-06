@@ -119,6 +119,7 @@ namespace ViewModels
         }
 
         [Required(ErrorMessage = "Phone Number is required")]
+        [RegularExpression(@"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})", ErrorMessage = "Invalid phone number")]
         public string Phone
         {
             get => _phone;
@@ -127,12 +128,15 @@ namespace ViewModels
                 _phone = value;
                 Helper.ClearErrors(nameof(Phone));
                 Validate(nameof(Phone), Phone);
-                ValidatePhoneNumber(nameof(Phone), Phone);
+                //ValidatePhoneNumber(nameof(Phone), Phone);
                 OnPropertyChanged(nameof(Phone));
             }
         }
 
         [Required(ErrorMessage = "Email is required")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                          @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                          @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Invalid email address")]
         public string Email
         {
             get => _email;
@@ -141,7 +145,7 @@ namespace ViewModels
                 _email = value;
                 Helper.ClearErrors(nameof(Email));
                 Validate(nameof(Email), value);
-                ValidateEmail(nameof(Email), value);
+                //ValidateEmail(nameof(Email), value);
                 OnPropertyChanged(nameof(Email));
             }
         }
@@ -325,6 +329,7 @@ namespace ViewModels
         #region Validate Methods
         public bool Validate(string propertyName, object propertyValue)
         {
+            Helper.ClearErrors(propertyName);
             var results = new List<ValidationResult>();
             Validator.TryValidateProperty(propertyValue, new ValidationContext(this) { MemberName = propertyName }, results);
 
@@ -336,35 +341,35 @@ namespace ViewModels
             return false;
         }
 
-        public bool ValidateEmail(string propertyName, string emailAddress)
-        {
-            var pattern = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
-                          @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
-                          @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+        //public bool ValidateEmail(string propertyName, string emailAddress)
+        //{
+        //    var pattern = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+        //                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+        //                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
 
-            var regex = new Regex(pattern);
+        //    var regex = new Regex(pattern);
 
-            if (!regex.IsMatch(emailAddress))
-            {
-                Helper.AddError("Invalid email address", propertyName);
-                return true;
-            }
-            return false;
-        }
-        public bool ValidatePhoneNumber(string propertyName, string pNumber)
-        {
+        //    if (!regex.IsMatch(emailAddress))
+        //    {
+        //        Helper.AddError("Invalid email address", propertyName);
+        //        return true;
+        //    }
+        //    return false;
+        //}
+        //public bool ValidatePhoneNumber(string propertyName, string pNumber)
+        //{
             
-            var pattern = @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})";
+        //    var pattern = @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})";
 
-            var regex = new Regex(pattern);
+        //    var regex = new Regex(pattern);
 
-            if (!regex.IsMatch(pNumber))
-            {
-                Helper.AddError("Invalid phone number", propertyName);
-                return true;
-            }
-            return false;
-        }
+        //    if (!regex.IsMatch(pNumber))
+        //    {
+        //        Helper.AddError("Invalid phone number", propertyName);
+        //        return true;
+        //    }
+        //    return false;
+        //}
         private bool ValidationSwitch(int index)
         {
             bool error = false;
@@ -381,11 +386,9 @@ namespace ViewModels
                     break;
                 case 3:
                     error = Validate(nameof(Phone), Phone);
-                    error = ValidatePhoneNumber(nameof(Phone), Phone);
                     break;
                 case 4:
                     error = Validate(nameof(Email), Email);
-                    error = ValidateEmail(nameof(Email), Email);
                     break;
                 case 5:
                     error = Validate(nameof(Address), Address);

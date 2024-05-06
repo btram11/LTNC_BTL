@@ -12,9 +12,6 @@
              mc:Ignorable="d"
              d:DesignHeight="680"
              d:DesignWidth="1030">
-    <!--<UserControl.DataContext>
-        <viewModels:AddDriverViewModel />
-    </UserControl.DataContext>-->
     <Behaviors:Interaction.Triggers>
         <Behaviors:EventTrigger EventName="Loaded">
             <Behaviors:InvokeCommandAction Command="{Binding LoadCommand}" />
@@ -99,7 +96,8 @@
             </Border>
 
             <!--Identification-->
-            <Grid Grid.Row="1">
+            <Border Grid.Row="1"
+                    CornerRadius="0 0 16 16">
                 <ScrollViewer Style="{StaticResource NormalScrollViewMenu}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -419,7 +417,7 @@
                         </Grid>
                     </Grid>
                 </ScrollViewer>
-            </Grid>
+            </Border>
 
         </Grid>
     </Border>

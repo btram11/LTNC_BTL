@@ -16,9 +16,9 @@ namespace Models.Services.Firebase
         private readonly FirestoreDb _firestoreDb;
         private string _datauid;
 
-        CollectionReference driversRef => _firestoreDb.Collection("Data").Document(_datauid).Collection("Drivers");
-        CollectionReference vehiclesRef => _firestoreDb.Collection("Data").Document(_datauid).Collection("Vehicles");
-        CollectionReference tripRef => _firestoreDb.Collection("Data").Document(_datauid).Collection("Trips");
+        private CollectionReference driversRef => _firestoreDb.Collection("Data").Document(_datauid).Collection("Drivers");
+        private CollectionReference vehiclesRef => _firestoreDb.Collection("Data").Document(_datauid).Collection("Vehicles");
+        private CollectionReference tripRef => _firestoreDb.Collection("Data").Document(_datauid).Collection("Trips");
 
         public string DataUid 
         { 
@@ -36,11 +36,10 @@ namespace Models.Services.Firebase
 
         public async Task AddOrUpdateVehicle(IVehicleDataFirebase vehicle)
         {
-            //DocumentReference doc = vehiclesRef.Document(vehicle.Id);
-            var doc = _firestoreDb.Collection("Data").Document(vehicle.Id);
+            DocumentReference doc = vehiclesRef.Document(vehicle.Id);
+            //var doc = _firestoreDb.Collection("Data").Document(vehicle.Id);
             await doc.SetAsync(vehicle);
         }
-
         public async Task AddToArrayVehicle(string documentPath, string arrayField, object newValue)
         {
             DocumentReference docRef = vehiclesRef.Document(documentPath);
@@ -51,25 +50,25 @@ namespace Models.Services.Firebase
             };
             await docRef.UpdateAsync(updates);
         }
-
         public async Task AddOrUpdateDriver(DriverFirebase driver)
         {
-            //DocumentReference doc = driversRef.Document(driver.Id);
-            var doc = _firestoreDb.Collection("Data").Document(driver.Id);
+            DocumentReference doc = driversRef.Document(driver.Id);
+            //var doc = _firestoreDb.Collection("Data").Document(driver.Id);
             await doc.SetAsync(driver);
         }
-
         public async Task AddOrUpdateTrip(TripFirebase trip)
         {
-            //DocumentReference doc = tripRef.Document(trip.Id);
-            var doc = _firestoreDb.Collection("Data").Document(trip.Id);
+            DocumentReference doc = tripRef.Document(trip.Id);
+            //var doc = _firestoreDb.Collection("Data").Document(trip.Id);
             await doc.SetAsync(trip);
         }
 
+
+
         public async Task<DriverFirebase> GetDriverById(string id)  
         {
-            //DocumentReference doc = driversRef.Document(id);
-            var doc = _firestoreDb.Collection("Data").Document(id);
+            DocumentReference doc = driversRef.Document(id);
+            //var doc = _firestoreDb.Collection("Data").Document(id);
             var snapshot = await doc.GetSnapshotAsync();
             return snapshot.ConvertTo<DriverFirebase>();
         }
@@ -80,10 +79,18 @@ namespace Models.Services.Firebase
         }
         public async Task<T> GetVehicleById<T>(string id) where T : IVehicleDataFirebase
         {
-            //DocumentReference doc = vehiclesRef.Document(id);
-            var doc = _firestoreDb.Collection("Data").Document(id);
+            DocumentReference doc = vehiclesRef.Document(id);
+            //var doc = _firestoreDb.Collection("Data").Document(id);
             var snapshot = await doc.GetSnapshotAsync();
             return snapshot.ConvertTo<T>();
+        }
+        public async Task<List<IVehicleDataFirebase>> GetAllVehicles()
+        {
+            IReadOnlyCollection<IVehicleDataFirebase> drivingVehicles = await WhereEqualToTrailer("VehicleType", "Trailer");
+            List<IVehicleDataFirebase> allVehicles = new List<IVehicleDataFirebase>(drivingVehicles);
+            drivingVehicles = await WhereNotEqualToVehicle("VehicleType", "Trailer");
+            allVehicles.AddRange(drivingVehicles);
+            return allVehicles;
         }
         public async Task<TripFirebase> GetTripById(string id)
         {
@@ -92,37 +99,39 @@ namespace Models.Services.Firebase
             return snapshot.ConvertTo<TripFirebase>();
         }
 
-       
+
+
         public async Task<IReadOnlyCollection<DriverFirebase>> WhereEqualToDriver(string fieldPath, object value) 
         {
-            //return await GetList<DriverFirebase>(_firestoreDb.Collection("Data").Document(_datauid).Collection("Drivers").WhereEqualTo(fieldPath, value));
-            return await GetList<DriverFirebase>(_firestoreDb.Collection("Data").WhereEqualTo(fieldPath, value));
+            return await GetList<DriverFirebase>(driversRef.WhereEqualTo(fieldPath, value));
+            //return await GetList<DriverFirebase>(_firestoreDb.Collection("Data").WhereEqualTo(fieldPath, value));
         }
         public async Task<IReadOnlyCollection<VehicleFirebase>> WhereEqualToVehicle(string fieldPath, object value)
         {
-            //return await GetList<VehicleFirebase>(_firestoreDb.Collection("Data").Document(_datauid).Collection("Vehicles").WhereEqualTo(fieldPath, value));
-            return await GetList<VehicleFirebase>(_firestoreDb.Collection("Data").WhereEqualTo(fieldPath, value));
+            return await GetList<VehicleFirebase>(vehiclesRef.WhereEqualTo(fieldPath, value));
+            //return await GetList<VehicleFirebase>(_firestoreDb.Collection("Data").WhereEqualTo(fieldPath, value));
         }
         public async Task<IReadOnlyCollection<VehicleFirebase>> WhereNotEqualToVehicle(string fieldPath, object value)
         {
-            //return await GetList<VehicleFirebase>(_firestoreDb.Collection("Data").Document(_datauid).Collection("Vehicles").WhereNotEqualTo(fieldPath, value));
-            return await GetList<VehicleFirebase>(_firestoreDb.Collection("Data").WhereNotEqualTo(fieldPath, value));
+            return await GetList<VehicleFirebase>(vehiclesRef.WhereNotEqualTo(fieldPath, value));
+            //return await GetList<VehicleFirebase>(_firestoreDb.Collection("Data").WhereNotEqualTo(fieldPath, value));
         }
         public async Task<IReadOnlyCollection<TrailerFirebase>> WhereEqualToTrailer(string fieldPath, object value)
         {
-            //return await GetList<VehicleFirebase>(_firestoreDb.Collection("Data").Document(_datauid).Collection("Vehicles").WhereEqualTo(fieldPath, value));
-            return await GetList<TrailerFirebase>(_firestoreDb.Collection("Data").WhereEqualTo("VehicleType", "Trailer").WhereGreaterThanOrEqualTo(fieldPath, value));
+            return await GetList<TrailerFirebase>(vehiclesRef.WhereEqualTo(fieldPath, value));
+            //return await GetList<TrailerFirebase>(_firestoreDb.Collection("Data").WhereEqualTo("VehicleType", "Trailer").WhereGreaterThanOrEqualTo(fieldPath, value));
         }
         public async Task<IReadOnlyCollection<T>> WhereEqualToVehicle<T>(string fieldPath, object value) where T : IVehicleDataFirebase
         {
-            //return await GetList<T>(_firestoreDb.Collection("Data").Document(_datauid).Collection("Vehicles").WhereEqualTo(fieldPath, value));
-            return await GetList<T>(_firestoreDb.Collection("Data").WhereEqualTo(fieldPath, value));
+            return await GetList<T>(vehiclesRef.WhereEqualTo(fieldPath, value));
+            //return await GetList<T>(_firestoreDb.Collection("Data").WhereEqualTo(fieldPath, value));
         }
-
         public async Task<IReadOnlyCollection<TripFirebase>> WhereEqualToTrip(string fieldPath, object value)
         {
-            return await GetList<TripFirebase>(_firestoreDb.Collection("Data").WhereEqualTo(fieldPath, value));
+            return await GetList<TripFirebase>(tripRef.WhereEqualTo(fieldPath, value));
         }
+
+
         public async Task<IReadOnlyCollection<T>> GetList<T>(Query query) where T : IFirebaseEntity
         {
             var snapshot = await query.GetSnapshotAsync();

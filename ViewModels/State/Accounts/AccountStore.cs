@@ -23,7 +23,7 @@ namespace ViewModels.State.Accounts
             set
             {
                 _currentAccount = value;
-                _storingDataManagementService.DataUid = _currentAccount.Id;
+                _storingDataManagementService.DataUid = _currentAccount.DataUid;
                 StateChanged?.Invoke();
             }
         }

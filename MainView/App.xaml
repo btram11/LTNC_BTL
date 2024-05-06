@@ -8,13 +8,11 @@
              xmlns:localView="clr-namespace:MainView.View">
 
     <Application.Resources>
-        
-
-
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/StyleResources/AddVehicleResource.xaml" />
-                <ResourceDictionary Source="/StyleResources/UC_Resource.xaml" />
+                <ResourceDictionary Source="/StyleResources/DataGrid.xaml" />
+                <ResourceDictionary Source="/StyleResources/ListView.xaml" />
                 <ResourceDictionary Source="/StyleResources/WindowBarResource.xaml" />
                 <ResourceDictionary Source="/StyleResources/ColorUI.xaml" />
                 <ResourceDictionary Source="/StyleResources/Button.xaml" />
@@ -64,6 +62,12 @@
                 <localView:MainVehicleOverview />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModels:LoginViewModel}">
+                <localView:LoginView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SignUpViewModel}">
+                <localView:SignUp />
+            </DataTemplate>
         </ResourceDictionary>
 
 

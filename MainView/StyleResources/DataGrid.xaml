@@ -1,7 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+                    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <!--datagrid-->
+
+    <Style x:Key="MaterialDesignDataGridCheckBoxColumnEditingStyle"
+           TargetType="{x:Type CheckBox}"
+           BasedOn="{StaticResource MaterialDesignCheckBox}">
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+    </Style>
+
     <SolidColorBrush x:Key="{x:Static DataGrid.FocusBorderBrushKey}"
                      Color="#FF000000" />
     <Style x:Key="ColumnHeaderGripperStyle"
@@ -182,7 +191,7 @@
             </MultiTrigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="DataGridCellStyle1"
+    <Style x:Key="DataGridCellStyle"
            TargetType="{x:Type DataGridCell}">
         <Setter Property="Background"
                 Value="Transparent" />
@@ -239,9 +248,10 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="DataGridColumnHeaderStyle1"
-           TargetType="{x:Type DataGridColumnHeader}">
-        <Setter Property="VerticalContentAlignment"
+    <Style x:Key="DataGridColumnHeaderStyle"
+           TargetType="{x:Type DataGridColumnHeader}"
+           BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+        <!--<Setter Property="VerticalContentAlignment"
                 Value="Center" />
         <Setter Property="Background"
                 Value="Transparent" />
@@ -275,8 +285,15 @@
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
+        <Style.Resources>
+            <SolidColorBrush x:Key="MaterialDesign.Brush.Header.Foreground"
+                             Color="White" />
+            <SolidColorBrush x:Key="MaterialDesign.Brush.Foreground"
+                             Color="White" />
+        </Style.Resources>
     </Style>
+    
     <Style x:Key="DataGridRowStyle1"
            TargetType="{x:Type DataGridRow}">
         <Setter Property="Background"
@@ -360,5 +377,29 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="DefaultTextBlockStyle"
+           TargetType="{x:Type TextBlock}">
+        <Setter Property="Text"
+                Value="-" />
+    </Style>
+
+    <Style x:Key="DataGridTextColumnElementStyle"
+           TargetType="{x:Type TextBlock}"
+           BasedOn="{StaticResource DefaultTextBlockStyle}">
+        <Setter Property="Foreground"
+                Value="White" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}"
+                         Value="">
+                <Setter Property="Text"
+                        Value="-" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}"
+                         Value="{x:Null}">
+                <Setter Property="Text"
+                        Value="-" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
     <!--datagrid-->
 </ResourceDictionary>

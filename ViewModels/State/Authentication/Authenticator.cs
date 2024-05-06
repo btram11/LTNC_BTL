@@ -17,13 +17,12 @@ namespace ViewModels.State.Authentication
         private readonly IAuthenticationService _authenticationService;
         private readonly IAccountStore _accountStore;
 
-        //private readonly FirestoreProvider _firestoreProvider;
 
         public Account CurrentAccount
         {
             get
             {
-                return CurrentAccount;
+                return _accountStore.CurrentAccount;
             }
             private set
             {
@@ -34,16 +33,20 @@ namespace ViewModels.State.Authentication
         public bool _isLogin => CurrentAccount != null;
         public event Action StateChanged;
 
-        public Authenticator(IAuthenticationService authenticationService, IAccountStore accountStore/*, FirestoreProvider firestoreProvider*/)
+        public Authenticator(IAuthenticationService authenticationService, IAccountStore accountStore)
         {
             _authenticationService = authenticationService;
             _accountStore = accountStore;
-            //_firestoreProvider = firestoreProvider;
         }
 
         public async Task Login(string username, string password)
         {
             CurrentAccount = await _authenticationService.Login(username, password);
+        }
+
+        public async Task<RegistrationResult> Register(Account newUser)
+        {
+            return await _authenticationService.Register(newUser);
         }
 
         public void LogOut()

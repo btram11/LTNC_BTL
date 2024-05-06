@@ -48,6 +48,10 @@
                 Value="14" />
         <Setter Property="Height"
                 Value="35" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Stretch" />
         <Setter Property="Foreground"
                 Value="{StaticResource WordWhiteBrush}" />
         <Setter Property="BorderBrush"
@@ -80,6 +84,14 @@
 
             <SolidColorBrush x:Key="MaterialDesign.Brush.Foreground"
                              Color="{StaticResource ForegroundGreyNickelColor}" />
+            <Style TargetType="{x:Type materialDesign:SmartHint}">
+                <!--<Setter Property="HorizontalAlignment"
+            Value="Center" />-->
+                <Setter Property="FontSize"
+                        Value="5" />
+                <Setter Property="Margin"
+                        Value="8 0 4 0" />
+            </Style>
 
         </Style.Resources>
     </Style>

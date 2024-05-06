@@ -11,6 +11,9 @@
                      Color="{StaticResource BackgroundBlueZodiacColor}" />
 
     <!--Foreground Colors-->
+    <Color x:Key="MainForeground">#87b0b2</Color>
+    <SolidColorBrush x:Key="MainForegroundBrush"
+                     Color="{StaticResource MainForeground}" />
     <Color x:Key="ForegroundPurpleHazeColor">#493585</Color>
     <SolidColorBrush x:Key="ForegroundPurpleHazeBrush"
                      Color="{StaticResource ForegroundPurpleHazeColor}" />
