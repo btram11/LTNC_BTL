@@ -1,0 +1,65 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using ViewModels;
+using MainView.View;
+using Microsoft.Extensions.DependencyInjection;
+using ViewModels.State.Navigators;
+using Google.Cloud.Firestore;
+using API.Model;
+using System.IO;
+using Microsoft.Extensions.Hosting;
+using MainView.HostBuilder;
+
+namespace MainView
+{
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application
+    {
+        private readonly IHost _host;
+        public App()
+        {
+            _host = CreateHostBuilder().Build();
+            //Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "D:/Misa/Code/fleetmanagement-8b359-firebase-adminsdk-r32vj-cab42b1a38.json");
+            
+            //FirestoreDb Database = FirestoreDb.Create();
+
+            
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args = null)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .AddVehicleAPI()
+                .AddServices()
+                .AddViewModels();
+        }
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            _host.Start();
+            //MainWindow = new MainWindow()
+            //{
+            //    DataContext = new MainViewModel()
+            //};
+            //Window MainWindow = new LoginWindow();
+            var MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            MainWindow.Show();
+            base.OnStartup(e);
+        }
+
+
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            await _host.StopAsync();
+            _host.Dispose();
+
+            base.OnExit(e);
+        }
+    }
+}

@@ -1,0 +1,482 @@
+﻿<UserControl x:Class="MainView.View.OverviewDriver"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:MainView.View"
+             mc:Ignorable="d" >
+    <Border>
+        <ScrollViewer Style="{StaticResource NormalScrollViewMenu}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <StackPanel>
+                        <materialDesign:Card UniformCornerRadius="10"
+                                             Background="#1e2e44"
+                                             Margin="10 5">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Driver Information" 
+                                       Grid.ColumnSpan="2"
+                                           Style="{StaticResource CardTextBoxInfoTitle}" />
+                                <StackPanel Grid.Row="1">
+                                    <TextBlock Text="First Name"
+                                               Style="{StaticResource CardTextBoxInfo}"/>
+                                    <TextBlock Text="Last Name"
+                                               Style="{StaticResource CardTextBoxInfo}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1"
+                                            Grid.Column="1">
+                                    <TextBlock Text="{Binding }"
+                                               Style="{StaticResource CardTextBoxInfo}" />
+                                    <TextBlock Text="{Binding }"
+                                               Style="{StaticResource CardTextBoxInfo}" />
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="2"
+                                           Text="Date of Birth"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="1"
+                                           Text="{Binding }"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <TextBlock Grid.Row="3"
+                                           Text="Gender"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="3"
+                                           Grid.Column="1"
+                                           Text="{Binding }"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <TextBlock Grid.Row="4"
+                                           Text="Phone Number"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="4"
+                                           Grid.Column="1"
+                                           Text="Gender"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <TextBlock Grid.Row="5"
+                                           Text="Email"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="5"
+                                           Grid.Column="1"
+                                           Text="Gender"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <TextBlock Grid.Row="6"
+                                           Text="Address"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="6"
+                                           Grid.Column="1"
+                                           Text="Gender"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <TextBlock Grid.Row="7"
+                                           Text="City"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="7"
+                                           Grid.Column="1"
+                                           Text="Gender"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                
+                                <TextBlock Grid.Row="8"
+                                           Text="Country"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="8"
+                                           Grid.Column="1"
+                                           Text="Gender"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                            </Grid>
+                        </materialDesign:Card>
+                        <materialDesign:Card UniformCornerRadius="10"
+                                             Background="#1e2e44"
+                                             Margin="10 5">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Additional Driver Details"
+                                           Grid.ColumnSpan="2"
+                                           Style="{StaticResource CardTextBoxInfoTitle}" />
+
+
+                                <TextBlock Grid.Row="1"
+                                           Text="Criminal History"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="{Binding }"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <TextBlock Grid.Row="2"
+                                           Text="Addicted"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="1"
+                                           Text="{Binding }"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <TextBlock Grid.Row="3"
+                                           Text="Health"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="3"
+                                           Grid.Column="1"
+                                           Text="Gender"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <!--<TextBlock Grid.Row="4"
+                                           Text="License Class"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="4"
+                                           Grid.Column="1"
+                                           Text="{Binding }"
+                                           Style="{StaticResource CardTextBoxInfo}" />-->
+
+
+                            </Grid>
+                        </materialDesign:Card>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <StackPanel>
+                        <materialDesign:Card UniformCornerRadius="10"
+                                             Background="#1e2e44"
+                                             Margin="10 5">
+                            <StackPanel Margin="10">
+                                <!--sua lai home-->
+                                <Grid>
+                                    <TextBlock Text="Driving Record"
+                                               Style="{StaticResource CardTextBoxInfoTitle}" />
+                                    <!--<Button  Height="20"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center"
+                                             Margin="10 15 70 15"
+                                             Style="{StaticResource menubutton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icon:PackIconMaterial Kind="Plus"
+                                                                   Height="10"
+                                                                   Margin="0"
+                                                                   VerticalAlignment="Center"
+                                                                   Style="{StaticResource menuButtonIcon}" />
+                                            <TextBlock  Text="Add Issue"
+                                                        Style="{StaticResource menuButtonText}" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button  Height="20"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center"
+                                             Margin="10 15"
+                                             Style="{StaticResource menubutton}">
+                                        <TextBlock  Text="View All"
+                                                    Style="{StaticResource menuButtonText}" />
+                                    </Button>-->
+                                </Grid>
+                                <materialDesign:Card UniformCornerRadius="10"
+                                                     BorderBrush="Gray"
+                                                     Margin="10"
+                                                     Background="#1e2e44">
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock  Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Text="Traffic Violations"
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3"
+                                                    Margin="0 0 0 15" />
+                                        <TextBlock  Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Text="Traffic Accidents"
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3"
+                                                    Margin="0 0 0 15" />
+
+                                        <TextBlock  Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Text="$"
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3" />
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Text="$"
+                                                   FontSize="13"
+                                                   Foreground="#dfe1e3" />
+                                    </Grid>
+                                </materialDesign:Card>
+                                <Grid Margin="8 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Trips Completed"
+                                               Style="{StaticResource CardTextBoxInfo}" />
+
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding }"
+                                               Style="{StaticResource CardTextBoxInfo}" />
+                                </Grid>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card UniformCornerRadius="10"
+                                             Background="#1e2e44"
+                                             Margin="10 5">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Driver's License Information"
+                                           Grid.ColumnSpan="2"
+                                           Style="{StaticResource CardTextBoxInfoTitle}" />
+                                
+
+                                <TextBlock Grid.Row="1"
+                                           Text="License No"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="{Binding }"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <TextBlock Grid.Row="2"
+                                           Text="Date of Issue"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="1"
+                                           Text="{Binding }"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <TextBlock Grid.Row="3"
+                                           Text="Expiration Date"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="3"
+                                           Grid.Column="1"
+                                           Text="Gender"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                <TextBlock Grid.Row="4"
+                                           Text="License Class"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+                                <TextBlock Grid.Row="4"
+                                           Grid.Column="1"
+                                           Text="{Binding }"
+                                           Style="{StaticResource CardTextBoxInfo}" />
+
+                                
+                            </Grid>
+                        </materialDesign:Card>
+                        <materialDesign:Card UniformCornerRadius="10"
+                                             Background="#1e2e44"
+                                             Margin="10 5">
+                            <StackPanel>
+                                <!--sua lai home-->
+                                <Grid>
+                                    <TextBlock FontWeight="Bold"
+                                               Text="Renewal Reminders"
+                                               FontSize="15"
+                                               Foreground="#dfe1e3"
+                                               Margin="10 15" />
+                                    <!--<Button  Height="20"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center"
+                                             Margin="10 15 70 15"
+                                             Style="{StaticResource menubutton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icon:PackIconMaterial Kind="Plus"
+                                                                   Height="10"
+                                                                   Margin="0"
+                                                                   VerticalAlignment="Center"
+                                                                   Style="{StaticResource menuButtonIcon}" />
+                                            <TextBlock  Text="Add Renewal Reminder"
+                                                        Style="{StaticResource menuButtonText}" />
+                                        </StackPanel>
+                                    </Button>-->
+                                    <Button  Height="20"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center"
+                                             Margin="10 15"
+                                             Style="{StaticResource menubutton}">
+                                        <TextBlock  Text="View All"
+                                                    Style="{StaticResource menuButtonText}" />
+                                    </Button>
+                                </Grid>
+                                <materialDesign:Card UniformCornerRadius="10"
+                                                     BorderBrush="Gray"
+                                                     Margin="10"
+                                                     Background="#1e2e44">
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock  Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Text="Overdue"
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3"
+                                                    Margin="0 0 0 15" />
+                                        <TextBlock  Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Text="Due Soon"
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3"
+                                                    Margin="0 0 0 15" />
+
+                                        <TextBlock  Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Text="$"
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3" />
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Text="$"
+                                                   FontSize="13"
+                                                   Foreground="#dfe1e3" />
+                                    </Grid>
+                                </materialDesign:Card>
+                                <Grid>
+                                    <TextBlock  Text="Flat Tire"
+                                                FontSize="13"
+                                                Foreground="#dfe1e3"
+                                                Margin="10 15" />
+                                    <Button  Height="20"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center"
+                                             Margin="10 15"
+                                             Style="{StaticResource menubutton}">
+                                        <Icon:PackIconMaterial Kind="DotsHorizontal"
+                                                               Height="10"
+                                                               Margin="0"
+                                                               VerticalAlignment="Center"
+                                                               Style="{StaticResource menuButtonIcon}" />
+                                    </Button>
+                                </Grid>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card UniformCornerRadius="10"
+                                             Background="#1e2e44"
+                                             Margin="10 5">
+                            <StackPanel>
+                                <!--sua lai home-->
+                                <Grid>
+                                    <TextBlock FontWeight="Bold"
+                                               Text="Incomplete Work Orders"
+                                               FontSize="15"
+                                               Foreground="#dfe1e3"
+                                               Margin="10 15" />
+                                    <Button  Height="20"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center"
+                                             Margin="10 15 70 15"
+                                             Style="{StaticResource menubutton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icon:PackIconMaterial Kind="Plus"
+                                                                   Height="10"
+                                                                   Margin="0"
+                                                                   VerticalAlignment="Center"
+                                                                   Style="{StaticResource menuButtonIcon}" />
+                                            <TextBlock  Text="Add Work Order"
+                                                        Style="{StaticResource menuButtonText}" />
+                                        </StackPanel>
+                                    </Button>
+                                    <Button  Height="20"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center"
+                                             Margin="10 15"
+                                             Style="{StaticResource menubutton}">
+                                        <TextBlock  Text="View All"
+                                                    Style="{StaticResource menuButtonText}" />
+                                    </Button>
+                                </Grid>
+                                <Grid Height="100">
+                                    <TextBlock Text="There are no Work Orders active for this Vehicle"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="#dfe1e3" />
+                                </Grid>
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card UniformCornerRadius="10"
+                                             Background="#1e2e44"
+                                             Margin="10 5">
+                            <StackPanel>
+                                <!--sua lai home-->
+                                <Grid>
+                                    <TextBlock FontWeight="Bold"
+                                               Grid.Row="0"
+                                               Grid.Column="0"
+                                               Text="Inspections"
+                                               FontSize="15"
+                                               Foreground="#dfe1e3"
+                                               Margin="10 15" />
+                                    <Button  Height="20"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center"
+                                             Margin="10 15"
+                                             Style="{StaticResource menubutton}">
+                                        <TextBlock  Text="View All"
+                                                    Style="{StaticResource menuButtonText}" />
+                                    </Button>
+                                </Grid>
+                                <Grid Height="100">
+                                    <TextBlock Text="There are no Inspections due soon for this Vehicle"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="#dfe1e3" />
+                                </Grid>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Border>
+</UserControl>

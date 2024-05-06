@@ -1,0 +1,75 @@
+﻿<Application x:Class="MainView.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:MainView"
+             xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
+             xmlns:localView="clr-namespace:MainView.View">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/StyleResources/AddVehicleResource.xaml" />
+                <ResourceDictionary Source="/StyleResources/DataGrid.xaml" />
+                <ResourceDictionary Source="/StyleResources/ListView.xaml" />
+                <ResourceDictionary Source="/StyleResources/WindowBarResource.xaml" />
+                <ResourceDictionary Source="/StyleResources/ColorUI.xaml" />
+                <ResourceDictionary Source="/StyleResources/Button.xaml" />
+                <ResourceDictionary Source="/StyleResources/CardResource.xaml" />
+                <ResourceDictionary Source="/StyleResources/VehicleAssignmentResource.xaml" />
+                <ResourceDictionary Source="/StyleResources/TextBox.xaml" />
+                <ResourceDictionary Source="/StyleResources/DateTimePicker.xaml" />
+                <ResourceDictionary Source="/StyleResources/ComboBox.xaml" />
+                <ResourceDictionary Source="/StyleResources/ScrollBar.xaml" />
+
+                <!--<ResourceDictionary Source="./StyleResources/MenuButtonTheme"/>-->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ObsoleteBrushes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Calendar.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DatePicker.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TimePicker.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PasswordBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type viewModels:AddVehicleViewModel}">
+                <localView:AddVehicleUC />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:AddDriverViewModel}">
+                <localView:AddDriver />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:DashboardViewModel}">
+                <localView:Home />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:VehicleListViewModel}">
+                <localView:VehicleList />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:VehicleAssignmentViewModel}">
+                <localView:VehicleAssignment />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:RemindersListViewModel}">
+                <localView:Reminders />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:DriverListViewModel}">
+                <localView:DriverManagement />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:MainVehicleOverviewViewModel}">
+                <localView:MainVehicleOverview />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:LoginViewModel}">
+                <localView:LoginView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SignUpViewModel}">
+                <localView:SignUp />
+            </DataTemplate>
+        </ResourceDictionary>
+
+
+    </Application.Resources>
+</Application>

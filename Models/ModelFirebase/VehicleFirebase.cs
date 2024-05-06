@@ -25,10 +25,10 @@ namespace Models.ModelFirebase
         public string Name { get; set; }
 
         [FirestoreProperty]
-        public string VIN {  get; set; }
+        public string VIN {  get; set; } 
 
         [FirestoreProperty]
-        public string LicensePlate { get; set; }
+        public string LicensePlate { get; set; } =  string.Empty;
 
         [FirestoreProperty]
         public string VehicleStatus { get; set; }
@@ -46,13 +46,13 @@ namespace Models.ModelFirebase
         public string Year { get; set; }
 
         [FirestoreProperty]
-        public string Trim { get; set; }
+        public string Trim { get; set; } = string.Empty;
 
         [FirestoreProperty]
-        public string RegisState { get; set; }
+        public string RegisState { get; set; } =  string.Empty;
 
         [FirestoreProperty]
-        public string Ownership { get; set; }
+        public string Ownership { get; set; } = string.Empty;
 
 
 
@@ -64,16 +64,16 @@ namespace Models.ModelFirebase
         public int FuelCapacity { get; set; }
 
         [FirestoreProperty]
-        public string EnginePower { get; set; }
+        public string? EnginePower { get; set; } = string.Empty;
 
         [FirestoreProperty]
-        public string EngineSize { get; set; }
+        public string EngineSize { get; set; } = string.Empty;
 
         [FirestoreProperty]
-        public string EngineCylinders { get; set; }
+        public string EngineCylinders { get; set; } = string.Empty;
 
         [FirestoreProperty]
-        public float? GCWR { get; set; } //Gross Combined Weight Rating
+        public float? GCWR { get; set; } //Gross Combined Weight Rating 
 
         [FirestoreProperty]
         public float GVWR { get; set; } //Gross Vehicle Weight Rating
@@ -82,43 +82,40 @@ namespace Models.ModelFirebase
         public float CurbWeight { get; set; }
 
         [FirestoreProperty]
-        public string Color { get; set; }
+        public string Color { get; set; } = string.Empty;
 
         [FirestoreProperty]
-        public string BodyType { get; set; }
+        public string BodyType { get; set; } = string.Empty;
 
         [FirestoreProperty]
-        public string BusType { get; set; }
+        public string BusType { get; set; } = string.Empty;
 
         [FirestoreProperty]
-        public string DisplacementCC { get; set; }
+        public string DisplacementCC { get; set; } = string.Empty;
 
         [FirestoreProperty]
-        public string DisplacementCI { get; set; }
+        public string DisplacementCI { get; set; } = string.Empty;
 
         [FirestoreProperty]
-        public string DisplacementL {  get; set; }
+        public string DisplacementL {  get; set; } = string.Empty;
 
         [FirestoreProperty]
         public float? Length { get; set; }
 
         [FirestoreProperty]
-        public int TotalSeats { get; set; }
+        public int TotalSeats { get; set; } = 0;
 
         [FirestoreProperty]
-        public string FuelTypePrimary { get; set; }
+        public string FuelTypePrimary { get; set; } = string.Empty;
 
 
         [FirestoreProperty]
-        public DocumentReference AttachedVehicle { get; set; }
+        public DocumentReference AttachedVehicle { get; set; } = null;
 
         [FirestoreProperty]
         public int OngoingTrip { get; set; } = 0;
 
         [FirestoreProperty]
-        public List<Dictionary<string, object>> OngoingTripList { get; set; }
-
-        [FirestoreProperty]
-        public Test test { get; set; }
+        public List<Dictionary<string, object>> OngoingTripList { get; set; } = null;
     }
 }
