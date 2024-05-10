@@ -13,7 +13,7 @@
             <Behaviors:InvokeCommandAction Command="{Binding LoadCommand}" />
         </Behaviors:EventTrigger>
     </Behaviors:Interaction.Triggers>
-    <Border CornerRadius="15"
+    <Border CornerRadius="10"
             BorderThickness="0"
             x:Name="MainBorder">
         <Border.Background>

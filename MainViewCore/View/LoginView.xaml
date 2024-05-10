@@ -17,8 +17,8 @@
         </Behaviors:EventTrigger>
     </Behaviors:Interaction.Triggers>
     <Border BorderThickness="0"
-            x:Name="MainBorder"
-            CornerRadius="15">
+            CornerRadius="10"
+            x:Name="MainBorder">
         <Border.Background>
             <ImageBrush ImageSource="/Images/truck.jpg"
                         Stretch="UniformToFill" />

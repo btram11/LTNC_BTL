@@ -32,10 +32,10 @@ namespace MainView
         public bool IsLoggedIn => _authenticator._isLogin;
         //public bool IsLoggedIn = true;
         #region Private Fields
-        private WindowResizer resizer;
+        //private WindowResizer resizer;
         private Window curWindow;
-        private int curWindowRadius = 12;
-        private int curOuterMarginSize = 6;
+        private int curWindowRadius = 10;
+        private int curOuterMarginSize = 10;
         /// <summary>
         /// The last known dock position
         /// </summary>
@@ -55,7 +55,7 @@ namespace MainView
         /// <summary>
         /// The padding of the inner content of the main window
         /// </summary>
-        public Thickness InnerContentPadding { get { return new Thickness(ResizeBorder); } }
+        public Thickness InnerContentPadding { get { return new Thickness(0); } }
 
         /// <summary>
         /// The margin around the window to allow for a drop shadow
@@ -90,14 +90,23 @@ namespace MainView
             }
         }
 
-        //public WindowState WindowState
-        //{
-        //    set
-        //    {
-        //        _windowState = value;
-        //    }
-        //}
         public CornerRadius WindowCornerRadius { get { return new CornerRadius(WindowRadius); } }
+
+
+        /// <summary>
+        /// The height of the title bar / caption of the window
+        /// </summary>
+        public int TitleHeight { get; set; } = 35;
+        /// <summary>
+        /// The height of the title bar / caption of the window
+        /// </summary>
+        public GridLength TitleHeightGridLength 
+        { 
+            get 
+            {
+                return new GridLength(TitleHeight + ResizeBorder); 
+            } 
+        }
         #endregion
 
         public MainViewModel(INavigator navigator, IAuthenticator authenticator, MainWindow window)
@@ -107,6 +116,13 @@ namespace MainView
             curWindow = window;
             Navigator.NavigateSwitch(Navigation, ViewType.Login);
             _authenticator.StateChanged += Authenticator_StateChanged;
+            // Listen out for the window resizing
+            curWindow.StateChanged += (sender, e) =>
+            {
+                // Fire off events for all properties that are affected by a resize
+                WindowResized();
+            };
+
 
             CloseWindowCommand = new RelayCommand((p) => curWindow.Close());
 
@@ -119,15 +135,7 @@ namespace MainView
             UpdateViewModelCommand = new RelayCommand<ViewType>((p) => Navigator.NavigateSwitch(Navigation, p));
 
 
-            // Listen out for the window resizing
-            curWindow.StateChanged += (sender, e) =>
-            {
-                // Fire off events for all properties that are affected by a resize
-                WindowResized();
-            };
-
-
-            resizer = new WindowResizer(curWindow);
+            var resizer = new WindowResizer(curWindow);
 
             // Listen out for dock changes
             resizer.WindowDockChanged += (dock) =>

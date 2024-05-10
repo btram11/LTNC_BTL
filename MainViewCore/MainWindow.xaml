@@ -7,9 +7,6 @@
         xmlns:localView="clr-namespace:MainView.View"
         xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="CanResize"
@@ -17,19 +14,13 @@
         AllowsTransparency="True"
         Background="Transparent"
         Name="curWindow"
-        Height="720"
-        Width="1080">
-
-    <!--d:DesignHeight="720"
-        d:DesignWidth="1080"-->
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseLeftButtonDown">
-            <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
-                                   CommandParameter="{Binding ElementName=curWindow}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+        MinHeight="600"
+        MinWidth="900"
+        Height="600"
+        Width="900">
     <WindowChrome.WindowChrome>
         <WindowChrome ResizeBorderThickness="{Binding ResizeBorderThickness}"
+                      CaptionHeight="{Binding TitleHeight}"
                       CornerRadius="0"
                       GlassFrameThickness="0" />
     </WindowChrome.WindowChrome>
@@ -39,31 +30,36 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Window}">
 
-                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}"
-                                CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}">
+                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}">
                             <Grid>
                                 <Border x:Name="Container"
-                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}">
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Setter Property="Background"
-                                                    Value="#FF747F9D" />
-                                        </Style>
-                                    </Border.Style>
-                                </Border>
-                                <Grid >
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
+                                        Background="#FF747F9D"
+                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}" />
+                                <Grid>
                                     <Grid.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=Container}" />
                                     </Grid.OpacityMask>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition>
+                                            <RowDefinition.Style>
+                                                <Style TargetType="RowDefinition">
+                                                    <Setter Property="Height"
+                                                            Value="{Binding TitleHeightGridLength, FallbackValue=auto}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsLoggedIn}"
+                                                                     Value="False">
+                                                            <Setter Property="Height"
+                                                                    Value="auto" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </RowDefinition.Style>
+                                        </RowDefinition>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
 
                                     <Grid Panel.ZIndex="1"
-                                          Grid.Row="0"
-                                          Height="35"
-                                          VerticalAlignment="Stretch">
+                                          Grid.Row="0">
                                         <Grid.Style>
                                             <Style TargetType="Grid">
                                                 <Style.Triggers>
@@ -76,16 +72,20 @@
                                             </Style>
                                         </Grid.Style>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="658*" />
-                                            <ColumnDefinition Width="100*" />
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="Fleet Management System"
-                                                   Grid.Column="0"
-                                                   FontSize="13"
-                                                   Padding="16 4 0 4"
-                                                   VerticalAlignment="Center"
-                                                   TextAlignment="Left"/>
-                                        <StackPanel Grid.Column="1"
+                                        <Viewbox Grid.Column="1">
+                                            <TextBlock Text="Fleet Management System"
+                                                       Grid.Column="0"
+                                                       FontSize="13"
+                                                       Padding="16 4 0 4"
+                                                       VerticalAlignment="Center"
+                                                       TextAlignment="Left" />
+                                        </Viewbox>
+
+                                        <StackPanel Grid.Column="2"
                                                     Orientation="Horizontal"
                                                     HorizontalAlignment="Right">
                                             <Button Command="{Binding MinimizeWindowCommand}"
@@ -109,7 +109,7 @@
                                     <Border Grid.Row="2"
                                             CornerRadius="0"
                                             SnapsToDevicePixels="true"
-                                            Padding="10">
+                                            Padding="{Binding InnerContentPadding}">
                                         <ContentPresenter Content="{TemplateBinding Content}" />
                                     </Border>
                                 </Grid>
@@ -122,19 +122,6 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid.Style>
-            <Style TargetType="Grid">
-                <Setter Property="Background"
-                        Value="{StaticResource BackgroundMainBrush}" />
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsLoggedIn}"
-                                 Value="False">
-                        <Setter Property="Background"
-                                Value="Transparent" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </Grid.Style>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"
                               MaxWidth="235" />
@@ -155,17 +142,21 @@
                                      Value="True">
                             <Setter Property="MinWidth"
                                     Value="210" />
+                            <Setter Property="Background"
+                                    Value="{StaticResource BackgroundBlueZodiacBrush}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
-            <localView:ScrollingLeftMenuBar Panel.ZIndex="1"/>
+            <localView:ScrollingLeftMenuBar Panel.ZIndex="1" />
         </Grid>
 
 
         <Grid Grid.Column="1">
             <Grid.Style>
                 <Style TargetType="Grid">
+                    <Setter Property="Background"
+                            Value="{StaticResource BackgroundMainBrush}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsLoggedIn}"
                                      Value="false">
@@ -175,66 +166,52 @@
                                     Value="0" />
                             <Setter Property="Grid.ColumnSpan"
                                     Value="2" />
+                            <Setter Property="Margin"
+                                    Value="0" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid>
-                <Grid.Style>
-                    <Style TargetType="Grid">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsLoggedIn}"
-                                         Value="False">
-                                <Setter Property="Visibility"
-                                        Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"
-                                      MinWidth="50" />
-                    <ColumnDefinition MinWidth="400" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <!--logo-->
-
-                <Grid>
-
-                </Grid >
-
-                <!--Search-->
-
-                <!--icon-->
-                <Grid Grid.Column="3"
-                      HorizontalAlignment="Right"
-                      Panel.ZIndex="3">
-                    <localView:QuickAccessButtonView />
-                </Grid>
-            </Grid>
-
 
 
             <ContentControl Content="{Binding Navigation.CurrentViewModel}"
                             Grid.Row="2"
                             x:Name="View">
-                <!--<ContentControl.Style>
-    <Style TargetType="ContentControl">
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding IsLoggedIn}"
-                         Value="False">
-                <Setter Property="B"
-                        Value="Collapsed" />
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
-</ContentControl.Style>-->
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Setter Property="Margin"
+                                Value="0 25 0 0" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLoggedIn}"
+                                         Value="False">
+                                <Setter Property="Margin"
+                                        Value="0" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
             </ContentControl>
-            <!--<localView:LoginView Grid.Row="2"/>-->
         </Grid>
+        <Canvas HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Grid.Column="1"
+                Height="30">
+            <Canvas.Style>
+                <Style TargetType="Canvas">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoggedIn}"
+                                     Value="False">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Canvas.Style>
+
+            <Grid Canvas.Right="8"
+                  Canvas.Top="4">
+                <localView:QuickAccessButtonView />
+            </Grid>
+        </Canvas>
     </Grid>
 </Window>
