@@ -94,6 +94,7 @@ namespace ViewModels
             }
         }
 
+        [DataType(DataType.Password)]
         [Required(ErrorMessage = "Please enter your password")]
         public string Password
         {
@@ -107,7 +108,9 @@ namespace ViewModels
             }
         }
 
+        [DataType(DataType.Password)]
         [Required(ErrorMessage = "Please enter your password again")]
+        [Compare(nameof(Password), ErrorMessage = "Password and Confirm Password do not match")]
         public string ConfirmPassword 
         {
             get => _confirmPassword;
@@ -126,15 +129,15 @@ namespace ViewModels
             _authenticator = authenticator;
             _navigator = navigator;
             SignUpCommand = new AsyncRelayCommand(ExecuteSignUpCommand);
-            LoadCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            LoadCommand = new RelayCommand((p) =>
             {
                 ClearingAllInputField();
             });
 
-            WindowMinimizeCommand = new RelayCommand<UserControl>((p) => { return p != null ? true : false; }, (p) => ExecuteMinimizeWindowCommand(p));
-            WindowCloseCommand = new RelayCommand<UserControl>((p) => { return p != null ? true : false; }, (p) => ExecuteCloseWindowCommand(p));
+            WindowMinimizeCommand = new RelayCommand<UserControl>((p) => ExecuteMinimizeWindowCommand(p), (p) => { return p != null ? true : false; });
+            WindowCloseCommand = new RelayCommand<UserControl>((p) => ExecuteCloseWindowCommand(p), (p) => { return p != null ? true : false; });
 
-            UpdateViewModelCommand = new RelayCommand<object>((p) => { return true; }, (p) => Navigator.NavigateSwitch(_navigator, p));
+            UpdateViewModelCommand = new RelayCommand<ViewType>((p) => Navigator.NavigateSwitch(_navigator, p));
 
 
             Helper.ErrorsChanged += (sender, e) =>

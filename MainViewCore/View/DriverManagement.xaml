@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MainView.View"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              Name="DriverListView"
              mc:Ignorable="d"
@@ -62,8 +63,8 @@
                             </Button>
                             <Button Width="100"
                                     Style="{StaticResource addbutton}"
-                                    Command="{Binding AddDriverCommand}"
-                                    CommandParameter="{Binding ElementName=DriverListView}">
+                                    Command="{Binding UpdateViewCommand}"
+                                    CommandParameter="{x:Static nav:ViewType.AddDriver}">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial VerticalAlignment="Center"
                                                            Margin="0 1 8 0"

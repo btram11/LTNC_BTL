@@ -20,10 +20,9 @@ namespace MainView
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(object datacontext)
+        public MainWindow()
         {
             InitializeComponent();
-            DataContext = datacontext;
         }
     }
 }

@@ -33,7 +33,6 @@
             </Button>
 
             <materialDesign:PopupBox Grid.Column="2"
-                                     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                      PlacementMode="BottomAndAlignRightEdges"
                                      Height="30"
                                      Width="30"
@@ -42,7 +41,6 @@
                                      Background="Transparent"
                                      BorderBrush="Transparent"
                                      Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-                                     ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox"
                                      ToolTipService.Placement="Right">
                 <Border CornerRadius="15"
                         Padding="0 10"

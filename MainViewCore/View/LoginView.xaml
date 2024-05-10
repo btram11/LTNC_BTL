@@ -88,6 +88,8 @@
 
                                 <Button.Style>
                                     <Style TargetType="Button">
+                                        <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
+                                                Value="True" />
                                         <Setter Property="Background"
                                                 Value="#ff0000" />
                                         <Style.Triggers>
@@ -127,6 +129,8 @@
 
                                 <Button.Style>
                                     <Style TargetType="Button">
+                                        <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
+                                                Value="True" />
                                         <Setter Property="Background"
                                                 Value="#ff0000" />
                                         <Style.Triggers>

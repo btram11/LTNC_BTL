@@ -17,16 +17,13 @@ namespace ViewModels
                 OnPropertyChanged(nameof(Navigation));
             }
         }
-        public ICommand AddDriverCommand { get; }
+        public ICommand UpdateViewCommand { get; }
         public DriverListViewModel(INavigator navigator)
         {
             Navigation = navigator;
-            AddDriverCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            UpdateViewCommand = new RelayCommand<ViewType>((p) =>
             {
-                //Window window = Window.GetWindow(p);
-                //var viewModel = (MainViewModel)window.DataContext;
-                //viewModel.CurrentViewModel = new AddDriverViewModel();
-                Navigation.NavigateTo<AddDriverViewModel>();
+                Navigator.NavigateSwitch(Navigation, p);
             });
         }
     }

@@ -7,9 +7,7 @@
              xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:components="clr-namespace:MainView.Components"
-             x:Name="SignUpView"
-             MinHeight="650"
-             Width="550">
+             x:Name="SignUpView">
     <Behaviors:Interaction.Triggers>
         <Behaviors:EventTrigger EventName="Loaded">
             <Behaviors:InvokeCommandAction Command="{Binding LoadCommand}" />
@@ -63,6 +61,8 @@
                                 CommandParameter="{Binding ElementName=SignUpView}">
                             <Button.Style>
                                 <Style TargetType="Button">
+                                    <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
+                                            Value="True" />
                                     <Setter Property="Background"
                                             Value="{StaticResource ForegroundDarkSlateBlueBrush}" />
                                     <Style.Triggers>
@@ -101,6 +101,8 @@
                                 CommandParameter="{Binding ElementName=SignUpView}">
                             <Button.Style>
                                 <Style TargetType="Button">
+                                    <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
+                                            Value="True" />
                                     <Setter Property="Background"
                                             Value="{StaticResource ForegroundDarkSlateBlueBrush}" />
                                     <Style.Triggers>
@@ -155,7 +157,8 @@
                             </Hyperlink>
                         </TextBlock>
                     </StackPanel>
-                    <Grid Margin="20 40 20 10">
+                    <Grid Margin="20 40 20 10"
+                          Width="550">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
@@ -271,6 +274,7 @@
                         <TextBlock Text="Sign Up" />
                     </Button>
                     <Separator Height="0.8"
+                               Width="550"
                                Margin="20 3"
                                Background="#9ea4ad" />
                     <Button HorizontalAlignment="Center"

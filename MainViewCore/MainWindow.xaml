@@ -9,7 +9,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="CanResize"
@@ -19,7 +19,7 @@
         Name="curWindow"
         Height="720"
         Width="1080">
-        
+
     <!--d:DesignHeight="720"
         d:DesignWidth="1080"-->
     <i:Interaction.Triggers>
@@ -28,46 +28,164 @@
                                    CommandParameter="{Binding ElementName=curWindow}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Window.Style>
-        <Style TargetType="Window">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsLoggedIn}"
-                             Value="false">
-                    <Setter Property="Width"
-                            Value="auto" />
-                    <Setter Property="Height"
-                            Value="auto" />
-                    <Setter Property="Background"
-                            Value="Transparent" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding IsLoggedIn}"
-                             Value="true">
-                    <Setter Property="Width"
-                            Value="1080" />
-                    <Setter Property="Height"
-                            Value="720" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Style>
+    <WindowChrome.WindowChrome>
+        <WindowChrome ResizeBorderThickness="{Binding ResizeBorderThickness}"
+                      CornerRadius="0"
+                      GlassFrameThickness="0" />
+    </WindowChrome.WindowChrome>
     <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/StyleResources/ColorUI.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+
+                        <Border Padding="{Binding OuterMarginSizeThickness, FallbackValue=10}"
+                                CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}">
+                            <Grid>
+                                <Border x:Name="Container"
+                                        CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background"
+                                                    Value="#FF747F9D" />
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                                <Grid >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=Container}" />
+                                    </Grid.OpacityMask>
+
+                                    <Grid Panel.ZIndex="1"
+                                          Grid.Row="0"
+                                          Height="35"
+                                          VerticalAlignment="Stretch">
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsLoggedIn}"
+                                                                 Value="False">
+                                                        <Setter Property="Visibility"
+                                                                Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="658*" />
+                                            <ColumnDefinition Width="100*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Fleet Management System"
+                                                   Grid.Column="0"
+                                                   FontSize="13"
+                                                   Padding="16 4 0 4"
+                                                   VerticalAlignment="Center"
+                                                   TextAlignment="Left"/>
+                                        <StackPanel Grid.Column="1"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Right">
+                                            <Button Command="{Binding MinimizeWindowCommand}"
+                                                    Style="{StaticResource ButtonWindow}"
+                                                    Content="{materialDesign:PackIcon WindowMinimize}"
+                                                    ToolTip="Minimize" />
+
+                                            <Button Command="{Binding MaximizeWindowCommand}"
+                                                    Style="{StaticResource ButtonWindow}"
+                                                    Content="{materialDesign:PackIcon WindowMaximize}"
+                                                    ToolTip="Maximize" />
+
+                                            <Button Style="{StaticResource ButtonWindow}"
+                                                    Command="{Binding CloseWindowCommand}"
+                                                    Content="{materialDesign:PackIcon WindowCLose}"
+                                                    ToolTip="Close" />
+
+
+                                        </StackPanel>
+                                    </Grid>
+                                    <Border Grid.Row="2"
+                                            CornerRadius="0"
+                                            SnapsToDevicePixels="true"
+                                            Padding="10">
+                                        <ContentPresenter Content="{TemplateBinding Content}" />
+                                    </Border>
+                                </Grid>
+                            </Grid>
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
-    <Border BorderThickness="6">
-        <Grid>
+    <Grid>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Setter Property="Background"
+                        Value="{StaticResource BackgroundMainBrush}" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsLoggedIn}"
+                                 Value="False">
+                        <Setter Property="Background"
+                                Value="Transparent" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"
+                              MaxWidth="235" />
+            <ColumnDefinition Width="423*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Width"
+                            Value="auto" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoggedIn}"
+                                     Value="False">
+                            <Setter Property="Visibility"
+                                    Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsLoggedIn}"
+                                     Value="True">
+                            <Setter Property="MinWidth"
+                                    Value="210" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <localView:ScrollingLeftMenuBar Panel.ZIndex="1"/>
+        </Grid>
+
+
+        <Grid Grid.Column="1">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoggedIn}"
+                                     Value="false">
+                            <Setter Property="Background"
+                                    Value="Transparent" />
+                            <Setter Property="Grid.Column"
+                                    Value="0" />
+                            <Setter Property="Grid.ColumnSpan"
+                                    Value="2" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="30*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Border Grid.Row="0"
-                    Height="35"
-                    Background="#FF747F9D">
-                <Border.Style>
-                    <Style TargetType="Border">
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsLoggedIn}"
                                          Value="False">
@@ -76,154 +194,47 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </Border.Style>
-                <Grid HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Fleet Management System"
-                               Grid.Column="0"
-                               FontSize="13"
-                               Padding="16 4 0 4"
-                               VerticalAlignment="Center"
-                               TextAlignment="Left" />
-                    <Grid Grid.Column="1"
-                          VerticalAlignment="Stretch"
-                          HorizontalAlignment="Right">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Padding="0 0 6 0"
-                                Style="{StaticResource ButtonWindow}"
-                                Command="{Binding CloseWindowCommand}"
-                                CommandParameter="{Binding ElementName=curWindow}"
-                                Content="{materialDesign:PackIcon WindowCLose}"
-                                Grid.Column="2"
-                                ToolTip="Close" />
-
-                        <Button Command="{Binding MaximizeWindowCommand}"
-                                CommandParameter="{Binding ElementName=curWindow}"
-                                Style="{StaticResource ButtonWindow}"
-                                Content="{materialDesign:PackIcon WindowMaximize}"
-                                Grid.Column="1"
-                                ToolTip="Maximize"
-                                ToolBar.OverflowMode="AsNeeded" />
-
-                        <Button Command="{Binding MinimizeWindowCommand}"
-                                CommandParameter="{Binding ElementName=curWindow}"
-                                Style="{StaticResource ButtonWindow}"
-                                Content="{materialDesign:PackIcon WindowMinimize}"
-                                Grid.Column="0"
-                                ToolTip="Minimize"
-                                ToolBar.OverflowMode="AsNeeded" />
-
-                    </Grid>
-                </Grid>
-            </Border>
-            <Grid Grid.Row="1"
-                  HorizontalAlignment="Stretch">
+                </Grid.Style>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="100"
+                                      MinWidth="50" />
+                    <ColumnDefinition MinWidth="400" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                <!--logo-->
+
                 <Grid>
-                    <Grid.Style>
-                        <Style TargetType="Grid">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsLoggedIn}"
-                                             Value="False">
-                                    <Setter Property="Visibility"
-                                            Value="Collapsed" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsLoggedIn}"
-                                             Value="True">
-                                    <Setter Property="Width"
-                                            Value="235" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Style>
-                    <localView:ScrollingLeftMenuBar/>
-                </Grid>
 
+                </Grid >
 
-                <Grid Grid.Column="1"
-                      Grid.ColumnSpan="3">
-                    <Grid.Style>
-                        <Style TargetType="Grid">
-                            <Setter Property="Background"
-                                    Value="{StaticResource BackgroundMainBrush}" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsLoggedIn}"
-                                             Value="false">
-                                    <Setter Property="Background"
-                                            Value="Transparent" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Style>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid >
-                        <Grid.Style>
-                            <Style TargetType="Grid">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsLoggedIn}"
-                                                 Value="False">
-                                        <Setter Property="Visibility"
-                                                Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Grid.Style>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"
-                                              MinWidth="50" />
-                            <ColumnDefinition MinWidth="400" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <!--logo-->
+                <!--Search-->
 
-                        <Grid>
-
-                        </Grid >
-
-                        <!--Search-->
-
-                        <!--icon-->
-                        <Grid Grid.Column="3"
-                              HorizontalAlignment="Right"
-                              Panel.ZIndex="3">
-                            <localView:QuickAccessButtonView />
-                        </Grid>
-                    </Grid>
-
-
-
-                    <ContentControl Content="{Binding Navigation.CurrentViewModel}"
-                                    Grid.Row="3"
-                                    x:Name="View">
-                        <!--<ContentControl.Style>
-                            <Style TargetType="ContentControl">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsLoggedIn}"
-                                                 Value="False">
-                                        <Setter Property="B"
-                                                Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ContentControl.Style>-->
-                    </ContentControl>
-                    <!--<localView:LoginView Grid.Row="2"/>-->
+                <!--icon-->
+                <Grid Grid.Column="3"
+                      HorizontalAlignment="Right"
+                      Panel.ZIndex="3">
+                    <localView:QuickAccessButtonView />
                 </Grid>
             </Grid>
+
+
+
+            <ContentControl Content="{Binding Navigation.CurrentViewModel}"
+                            Grid.Row="2"
+                            x:Name="View">
+                <!--<ContentControl.Style>
+    <Style TargetType="ContentControl">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsLoggedIn}"
+                         Value="False">
+                <Setter Property="B"
+                        Value="Collapsed" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ContentControl.Style>-->
+            </ContentControl>
+            <!--<localView:LoginView Grid.Row="2"/>-->
         </Grid>
-    </Border>
+    </Grid>
 </Window>

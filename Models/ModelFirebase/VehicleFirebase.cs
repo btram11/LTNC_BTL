@@ -31,7 +31,7 @@ namespace Models.ModelFirebase
         public string LicensePlate { get; set; } =  string.Empty;
 
         [FirestoreProperty]
-        public string VehicleStatus { get; set; }
+        public VehicleStatus VehicleStatus { get; set; }
 
         [FirestoreProperty]
         public string VehicleType { get; set; }
@@ -64,7 +64,7 @@ namespace Models.ModelFirebase
         public int FuelCapacity { get; set; }
 
         [FirestoreProperty]
-        public string? EnginePower { get; set; } = string.Empty;
+        public string EnginePower { get; set; } = string.Empty;
 
         [FirestoreProperty]
         public string EngineSize { get; set; } = string.Empty;
@@ -117,5 +117,11 @@ namespace Models.ModelFirebase
 
         [FirestoreProperty]
         public List<Dictionary<string, object>> OngoingTripList { get; set; } = null;
+
+        [FirestoreProperty]
+        public bool IsOperating { get; set; } = false;
+
+        [FirestoreProperty]
+        public Dictionary<string, object> Driver { get; set; } = null;
     }
 }

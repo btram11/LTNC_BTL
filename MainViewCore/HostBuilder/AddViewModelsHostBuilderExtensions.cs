@@ -12,6 +12,8 @@ using Google.Cloud.Firestore;
 using MainView;
 using ViewModels;
 using Models.Services;
+using System.Windows;
+using Models;
 
 namespace MainView.HostBuilder
 {
@@ -21,7 +23,7 @@ namespace MainView.HostBuilder
         {
             host.ConfigureServices(services =>
             {
-                
+                services.AddSingleton<MainWindow>();
                 services.AddSingleton<MainViewModel>();
                 services.AddSingleton<INavigator, Navigator>();
                 services.AddSingleton<DashboardViewModel>();
@@ -39,7 +41,7 @@ namespace MainView.HostBuilder
                 services.AddSingleton<Func<Type, ViewModelBase>>(serviceProvider => viewModelType => (ViewModelBase)serviceProvider.GetRequiredService(viewModelType));
 
 
-                services.AddSingleton<MainWindow>(provider => new MainWindow(provider.GetRequiredService<MainViewModel>()));
+                
             });
             return host;
         }

@@ -4,28 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ViewModels.Commands;
 
 namespace ViewModels
 {
-    class RelayCommand<T> : ICommand
+    public class RelayCommand<T> : RelayCommandBase
     {
-        private readonly Predicate<T> _canExecute;
-        private readonly Action<T> _execute;
-
-        public RelayCommand(Action<T> execute)
+        public RelayCommand(Action<T> execute, Predicate<T> canExecute = null)
+        : base(obj => execute((T)obj), obj => canExecute?.Invoke((T)obj) ?? true)
         {
-            _execute = execute;
-            _canExecute = null;
         }
-        public RelayCommand(Predicate<T> canExecute, Action<T> execute)
-        {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-            _canExecute = canExecute;
-            _execute = execute;
-        }
-
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
             try
             {
@@ -37,15 +26,16 @@ namespace ViewModels
             }
         }
 
-        public void Execute(object parameter)
+        public override void Execute(object parameter) => _execute((T)parameter);
+    }
+
+    public class RelayCommand : RelayCommandBase
+    {
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+            : base(execute, canExecute)
         {
-            _execute((T)parameter);
         }
 
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
+        public override void Execute(object parameter) => _execute(parameter);
     }
 }

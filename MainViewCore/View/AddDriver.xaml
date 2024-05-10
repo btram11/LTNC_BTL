@@ -7,6 +7,7 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
              xmlns:local="clr-namespace:MainView"
              Name="AddDriverView"
              mc:Ignorable="d"
@@ -41,8 +42,8 @@
                                 Width="auto"
                                 HorizontalAlignment="Left"
                                 Style="{StaticResource ReturnButton}"
-                                Command="{Binding BackToDriverListView}"
-                                CommandParameter="{Binding ElementName=AddDriverView}">
+                                Command="{Binding UpdateViewCommand}"
+                                CommandParameter="{x:Static nav:ViewType.DriverList}">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="ArrowLeft"
                                                        VerticalAlignment="Center"

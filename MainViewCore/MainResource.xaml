@@ -3,5 +3,5 @@
                     xmlns:local="clr-namespace:MainView"
                     xmlns:viewmodel="clr-namespace:ViewModels;assembly=ViewModels">
 
-    <viewmodel:MainViewModel x:Key="MainVM"/>
+    <!--<viewmodel:MainViewModel x:Key="MainVM"/>-->
 </ResourceDictionary>

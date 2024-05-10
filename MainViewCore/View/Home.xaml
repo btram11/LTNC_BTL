@@ -12,8 +12,9 @@
     <!--<UserControl.DataContext>
         <viewModels:DashboardViewModel />
     </UserControl.DataContext>-->
-    <Border CornerRadius="45">
-        <Grid Margin="10">
+    <Border Padding="0 10 0 10">
+        <Grid Margin="10"
+              SnapsToDevicePixels="true">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition />

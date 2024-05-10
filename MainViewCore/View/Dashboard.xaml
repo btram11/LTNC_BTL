@@ -9,7 +9,7 @@
              Height="760"
              Width="1280"
              Background="Transparent">
-    <Border Background="#151f2d">
+    <Border >
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250" />

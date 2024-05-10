@@ -16,10 +16,10 @@ namespace Models.Services.Firebase
         {
             _firestoreDb = firestoreDb;
         }
-        public async Task<bool> CreateOrUpdate(Account entity)
+        public async Task<bool> Update(Account entity)
         {
             DocumentReference doc = _firestoreDb.Collection("Users").Document(entity.Id);
-            await doc.SetAsync(entity);
+            await doc.SetAsync(entity, SetOptions.MergeAll);
             return true;
         }
         public async Task<List<Account>> GetByEmail(string email)
@@ -42,6 +42,14 @@ namespace Models.Services.Firebase
         {
             DocumentReference doc = _firestoreDb.Collection("Users").Document(entity.Id);
             await doc.SetAsync(entity);
+            await AddDataset(entity.DataUid);
+        }
+
+        private async Task AddDataset(string id)
+        {
+            DocumentReference doc = _firestoreDb.Collection("Data").Document(id);
+
+            await doc.SetAsync(new DatasetFirebase());
         }
     }
 }

@@ -33,24 +33,24 @@ namespace ViewModels
         {
             TabView = new OverviewVehicleViewModel();
 
-            OverviewTabCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            OverviewTabCommand = new RelayCommand<UserControl>((p) =>
             {
                 TabView = new OverviewVehicleViewModel();
             });
 
-            ServiceHistoryTabCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            ServiceHistoryTabCommand = new RelayCommand<UserControl>((p) =>
             {
 
                 //MainVehicleOverviewViewModel cur = (MainVehicleOverviewViewModel)p.DataContext;
                 TabView = new ServiceHistoryViewModel();
             });
 
-            SpecsTabCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            SpecsTabCommand = new RelayCommand<UserControl>((p) =>
             {
                 TabView = new SpecsViewModel();
             });
 
-            AssignmentHistoryTabCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            AssignmentHistoryTabCommand = new RelayCommand<UserControl>((p) =>
             {
                 TabView = new AssignmentHistoryViewModel();
             });

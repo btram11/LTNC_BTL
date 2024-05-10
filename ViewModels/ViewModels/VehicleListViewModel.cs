@@ -13,6 +13,8 @@ using System.ComponentModel;
 using ViewModels.Commands;
 using Models.Services.Firebase;
 using System.Windows.Data;
+using Models.Services;
+using API.Services;
 
 namespace ViewModels
 {
@@ -30,8 +32,13 @@ namespace ViewModels
         }
 
         private readonly IStoringDataManagementService _storingDataManagementService;
-        private List<IVehicleDataFirebase> _listVehicles = new List<IVehicleDataFirebase>();
-        public List<IVehicleDataFirebase> ListVehicles
+        private readonly IDataFromNHTSAService _dataFromNHTSAService;
+
+        private bool _IsLoaded { get; set; } = false;
+        public ObservableCollection<string> VehicleTypeList { get; private set; }
+
+        private ObservableCollection<IVehicleDataFirebase> _listVehicles = new ObservableCollection<IVehicleDataFirebase>();
+        public ObservableCollection<IVehicleDataFirebase> ListVehicles
         {
             get => _listVehicles;
             set
@@ -49,26 +56,41 @@ namespace ViewModels
             {
                 _vehiclesCollection = value;
                 OnPropertyChanged(nameof(VehiclesCollection));
+                _vehiclesCollection.Refresh();
             }
         }
 
-        public VehicleListViewModel(INavigator navigator, IStoringDataManagementService storingDataManagementService)
+        private string _vehicleType;
+        public string VehicleTypeFilter
+        {
+            get => _vehicleType;
+            set
+            {
+                _vehicleType = value;
+                OnPropertyChanged(nameof(VehicleTypeFilter));
+                _vehiclesCollection.Refresh();
+            }
+        }
+
+        public VehicleListViewModel(INavigator navigator, IStoringDataManagementService storingDataManagementService, IDataFromNHTSAService dataFromNHTSAService)
         {
             Navigation = navigator;
             _storingDataManagementService = storingDataManagementService;
-            VehiclesCollection = CollectionViewSource.GetDefaultView(ListVehicles);
+            _dataFromNHTSAService = dataFromNHTSAService;
+            //VehiclesCollection = CollectionViewSource.GetDefaultView(ListVehicles);
 
-            UpdateViewModelCommand = new RelayCommand<ViewType>((p) => { return true; }, (p) =>
-            {
-                Navigator.NavigateSwitch(Navigation, p);
-            });
+            UpdateViewModelCommand = new RelayCommand<ViewType>((p) => Navigator.NavigateSwitch(Navigation, p));
             LoadCommand = new AsyncRelayCommand(ExecuteLoadCommand);
-            VehiclesCollection.Filter = Filter;
+            
         }
 
         private bool Filter(object ve)
         {
             IVehicleDataFirebase vehicle = ve as IVehicleDataFirebase;
+            if (!string.IsNullOrEmpty(VehicleTypeFilter) && VehicleTypeFilter != "(None)")
+            {
+                return vehicle.VehicleType.Contains(VehicleTypeFilter);
+            }
             return true;
             //you can write logic for filter here
             //if (!string.IsNullOrEmpty(EmployeeName) && !string.IsNullOrEmpty(DepartmentName))
@@ -81,8 +103,35 @@ namespace ViewModels
 
         private async Task ExecuteLoadCommand()
         {
-            ListVehicles = await _storingDataManagementService.GetAllVehicles();
-            VehiclesCollection = CollectionViewSource.GetDefaultView(ListVehicles);
+            try
+            {
+                //ClearingAllInputField();
+                if (_IsLoaded == false)
+                {
+                    VehicleTypeList = await _dataFromNHTSAService.GetDataListByNameFromNHTSA("Vehicle Type");
+                    VehicleTypeList.Insert(0, "(None)");
+                    OnPropertyChanged(nameof(VehicleTypeList));
+
+                    List<IVehicleDataFirebase> temp = await _storingDataManagementService.GetAllVehicles();
+                    if (temp != null)
+                    {
+                        ListVehicles = new ObservableCollection<IVehicleDataFirebase>(temp);
+                    }
+                    VehiclesCollection = CollectionViewSource.GetDefaultView(ListVehicles);
+                    VehiclesCollection.Filter = Filter;
+                    _IsLoaded = true;
+                }
+
+
+                
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+            
         }
 
         public ICommand UpdateViewModelCommand { get; }

@@ -26,7 +26,6 @@ namespace MainView
         public App()
         {
             _host = CreateHostBuilder().Build();
-            //Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "D:/Misa/Code/fleetmanagement-8b359-firebase-adminsdk-r32vj-cab42b1a38.json");
             
             //FirestoreDb Database = FirestoreDb.Create();
 
@@ -49,6 +48,7 @@ namespace MainView
             //};
             //Window MainWindow = new LoginWindow();
             var MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            MainWindow.DataContext = _host.Services.GetRequiredService<MainViewModel>();
             MainWindow.Show();
             base.OnStartup(e);
         }

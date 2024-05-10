@@ -92,10 +92,10 @@ namespace ViewModels
             _navigator = navigator;
             _authenticator = authenticator;
             LoginCommand = new AsyncRelayCommand(ExecuteLoginCommand);
-            LoadCommand = new RelayCommand<object>((p) => { return true; }, (p) => ClearingAllInputField());
-            UpdateViewModelCommand = new RelayCommand<object>((p) => { return true; }, (p) => Navigator.NavigateSwitch(_navigator, p));
-            WindowCloseCommand = new RelayCommand<UserControl>((p) => { return p != null ? true : false; }, (p) => ExecuteCloseWindowCommand(p));
-            WindowMinimizeCommand = new RelayCommand<UserControl>((p) => { return p != null ? true : false; }, (p) => ExecuteMinimizeWindowCommand(p));
+            LoadCommand = new RelayCommand((p) => ClearingAllInputField());
+            UpdateViewModelCommand = new RelayCommand<ViewType>((p) => Navigator.NavigateSwitch(_navigator, p));
+            WindowCloseCommand = new RelayCommand<UserControl>((p) => ExecuteCloseWindowCommand(p), (p) => { return p != null ? true : false; });
+            WindowMinimizeCommand = new RelayCommand<UserControl>((p) => ExecuteMinimizeWindowCommand(p), (p) => { return p != null ? true : false; });
 
             Helper.ErrorsChanged += (sender, e) =>
             {
@@ -144,11 +144,7 @@ namespace ViewModels
                 ClearingAllInputField();
                 Navigator.NavigateSwitch(_navigator, ViewType.Home);
             }
-            catch (UserNotFoundException)
-            {
-                ErrorMessage = "Invalid Username or Password";
-            }
-            catch (InvalidPasswordException)
+            catch (Exception)
             {
                 ErrorMessage = "Invalid Username or Password";
             }

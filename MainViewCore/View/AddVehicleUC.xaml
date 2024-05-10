@@ -7,6 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:MainView.View"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              xmlns:converter="clr-namespace:MainView.Converters"
              mc:Ignorable="d"
@@ -57,8 +58,8 @@
                                 Width="auto"
                                 HorizontalAlignment="Left"
                                 Style="{StaticResource ReturnButton}"
-                                Command="{Binding BackToVehicleListView}"
-                                CommandParameter="{Binding ElementName=AddVehicleView}">
+                                Command="{Binding UpdateViewCommand}"
+                                CommandParameter="{x:Static nav:ViewType.VehicleList}">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="ArrowLeft"
                                                        VerticalAlignment="Center"
@@ -78,26 +79,31 @@
                                    FontWeight="SemiBold" />
                     </StackPanel>
 
-                    <Grid Grid.Column="2" Margin="10 0 10 0">
-                        <StackPanel Orientation="Horizontal" 
-                                    Height="40"  
-                                    HorizontalAlignment="Right" 
+                    <Grid Grid.Column="2"
+                          Margin="10 0 10 0">
+                        <StackPanel Orientation="Horizontal"
+                                    Height="40"
+                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Bottom">
-                            <Button Width="80" Style="{StaticResource addbutton}">
+                            <Button Width="80"
+                                    Margin="0 0 16 0"
+                                    Style="{StaticResource addbutton}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock  Text="Cancel"/>
+                                    <TextBlock  Text="Cancel" />
                                 </StackPanel>
                             </Button>
-                            <Button Width="150" Style="{StaticResource addbutton}">
+                            <!--<Button Width="150" Style="{StaticResource addbutton}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock  Text="Add Multiple Vehicles"/>
                                 </StackPanel>
-                            </Button>
-                            <Button Width="100" Style="{StaticResource addbutton}"
+                            </Button>-->
+                            <Button Width="100"
+                                    Margin="0"
+                                    Style="{StaticResource addbutton}"
                                     Command="{Binding AddVehicleCommand}"
                                     CommandParameter="{Binding ElementName=AddVehicleView}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock  Text="Save Vehicle"/>
+                                    <TextBlock  Text="Save Vehicle" />
                                 </StackPanel>
                             </Button>
                         </StackPanel>
@@ -111,9 +117,9 @@
                           Style="{StaticResource NormalScrollViewMenu}">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="650"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="650" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -142,7 +148,7 @@
                                         <TextBox Text="{Binding Name}"
                                                  Style="{StaticResource MainOutlinedTextBox}" />
 
-                                        <TextBlock Text="Enter a nickname to distinguish this vehicle. Learn more"
+                                        <TextBlock Text="Enter a nickname to distinguish this vehicle. The default name is in the form: {Year} {Make} {Model} "
                                                    Style="{StaticResource HintTextBlock}"
                                                    Foreground="#FFBEBEBE" />
 
@@ -160,7 +166,7 @@
                                                 <ColumnDefinition Width="auto" />
                                             </Grid.ColumnDefinitions>
                                             <TextBox Text="{Binding VIN, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
-                                                     Style="{StaticResource MainOutlinedTextBox}"/>
+                                                     Style="{StaticResource MainOutlinedTextBox}" />
 
                                             <Button Grid.Column="1"
                                                     Style="{StaticResource buttonIconBorder}"
@@ -203,7 +209,7 @@
                                                   ItemsSource="{Binding VehicleTypeList, UpdateSourceTrigger=PropertyChanged}"
                                                   SelectedItem="{Binding VehicleType, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"
                                                   Style="{StaticResource MainOutlinedComboBox}">
-                                            
+
                                         </ComboBox>
                                         <TextBlock Text="Categorize this vehicle"
                                                    Style="{StaticResource HintTextBlock}" />
@@ -211,9 +217,9 @@
 
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*" />
                                             <ColumnDefinition Width="0.3*" />
-                                            <ColumnDefinition Width="4*"/>
+                                            <ColumnDefinition Width="4*" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Margin="0 24 8 0">
                                             <TextBlock Text="Year"
@@ -236,7 +242,7 @@
                                                       Text="{Binding NewMake, UpdateSourceTrigger=LostFocus}"
                                                       SelectedItem="{Binding Make, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"
                                                       Style="{StaticResource MainOutlinedComboBox}">
-                                                
+
                                             </ComboBox>
                                             <TextBlock Text="e.g. Toyota, GMC, Chevrolet, etc."
                                                        Style="{StaticResource HintTextBlock}" />
@@ -301,7 +307,8 @@
                                                    Style="{StaticResource titleText}" />
                                         <ComboBox Margin="0 8 0 8"
                                                   materialDesign:TextFieldAssist.HasClearButton="True"
-                                                  ItemsSource="{Binding ShortStringList}"
+                                                  ItemsSource="{Binding VehicleStatusList}"
+                                                  SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
                                                   Style="{StaticResource MainOutlinedComboBox}">
 
                                         </ComboBox>
@@ -377,9 +384,9 @@
                                     </StackPanel>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="5*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="5*"/>
+                                            <ColumnDefinition Width="5*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="5*" />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Margin="0 24 0 0"
                                                     Grid.Column="0">
@@ -448,7 +455,7 @@
                                                    FontSize="14"
                                                    Style="{StaticResource titleText}" />
                                         <TextBox Style="{StaticResource MainOutlinedTextBox}"
-                                                 Text="{Binding Color, UpdateSourceTrigger=PropertyChanged}"/>
+                                                 Text="{Binding Color, UpdateSourceTrigger=PropertyChanged}" />
 
                                     </StackPanel>
 
@@ -458,7 +465,9 @@
                                                 <Setter Property="Visibility"
                                                         Value="{Binding SelectedItem.Content, ElementName=VehicleTypeComboBox, Converter={StaticResource VehicleTypeVisibilityConverter}}" />
                                                 <!--<Style.Triggers>
-                                                    --><!-- Trigger để kiểm tra khi ComboBoxItem được chọn --><!--
+                                                    -->
+                                                <!-- Trigger để kiểm tra khi ComboBoxItem được chọn -->
+                                                <!--
                                                     <DataTrigger Binding="{Binding SelectedItem.Content, ElementName=VehicleTypeComboBox}"
                                                                  Value="{x:Null}">
                                                         <Setter Property="StackPanel.Visibility"
@@ -475,7 +484,7 @@
                                                   ItemsSource="{Binding BodyTypeList}"
                                                   SelectedItem="{Binding BodyType, UpdateSourceTrigger=PropertyChanged}"
                                                   Style="{StaticResource MainOutlinedComboBox}">
-                                            
+
                                         </ComboBox>
                                         <TextBlock Text="e.g. Convertible, Coupe, Pickup, Sedan, etc."
                                                    Style="{StaticResource HintTextBlock}" />

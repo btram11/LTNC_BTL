@@ -98,7 +98,12 @@ namespace ViewModels
         }
         public string Gender
         {
-            get => _gender; set => _gender = value;
+            get => _gender; 
+            set
+            {
+                _gender = value;
+                OnPropertyChanged(nameof(Gender));
+            }
         }
         
         [Required(ErrorMessage = "Identification Number is required")]
@@ -217,14 +222,11 @@ namespace ViewModels
 
             AddDriverCommand = new AsyncRelayCommand(ExcuteAddDriver);
 
-            BackToDriverListView = new RelayCommand<UserControl>((p) => { return true; }, (p) => Navigation.NavigateTo<VehicleListViewModel>());
+            UpdateViewCommand = new RelayCommand<ViewType>((p) => Navigator.NavigateSwitch(Navigation, p));
 
-            GetGenderCommand = new RelayCommand<object>((p) => { return p != null ? true : false; }, (p) => 
-            {
-                Gender = (string)p;
-            });
+            GetGenderCommand = new RelayCommand<object>((p) => { Gender = (string)p; }, (p) => { return p != null ? true : false; });
 
-            LoadCommand = new RelayCommand<object>((p) => { return true; }, (p) => ExcuteLoadViewCommand());
+            LoadCommand = new RelayCommand((p) => ExcuteLoadViewCommand());
 
             Helper.ErrorsChanged += (sender, e) =>
             {
@@ -257,9 +259,9 @@ namespace ViewModels
 
         #region Command
         public ICommand AddDriverCommand { get; }
-        public ICommand BackToDriverListView { get; }
         public ICommand LoadCommand { get; set; }
         public ICommand GetGenderCommand { get; }
+        public ICommand UpdateViewCommand { get; }
 
         private async Task ExcuteAddDriver()
         {

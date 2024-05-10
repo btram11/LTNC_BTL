@@ -26,7 +26,7 @@ namespace Models.ModelFirebase
         public string LicensePlate { get; set; } 
 
         [FirestoreProperty]
-        public string VehicleStatus { get; set; } 
+        public VehicleStatus VehicleStatus { get; set; } 
 
         [FirestoreProperty]
         public string VehicleType { get; set; }
@@ -94,6 +94,12 @@ namespace Models.ModelFirebase
 
         [FirestoreProperty]
         public bool Returned { get; set; }
+
+        [FirestoreProperty]
+        public bool IsOperating { get; set; } = false;
+
+        [FirestoreProperty]
+        public Dictionary<string, object> Driver { get; set; } = null;
 
         private void UpdatePayloadCapacity ()
         {

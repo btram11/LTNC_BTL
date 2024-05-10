@@ -16,9 +16,11 @@ namespace Models.Services.Firebase
         private readonly FirestoreDb _firestoreDb;
         private string _datauid;
 
-        private CollectionReference driversRef => _firestoreDb.Collection("Data").Document(_datauid).Collection("Drivers");
-        private CollectionReference vehiclesRef => _firestoreDb.Collection("Data").Document(_datauid).Collection("Vehicles");
-        private CollectionReference tripRef => _firestoreDb.Collection("Data").Document(_datauid).Collection("Trips");
+
+        private DocumentReference _data => _firestoreDb.Collection("Data").Document(_datauid);
+        private CollectionReference driversRef => _data.Collection("Drivers");
+        private CollectionReference vehiclesRef => _data.Collection("Vehicles");
+        private CollectionReference tripRef => _data.Collection("Trips");
 
         public string DataUid 
         { 
@@ -34,9 +36,20 @@ namespace Models.Services.Firebase
             _firestoreDb = firestoreDb;
         }
 
+        private async Task<DatasetFirebase> GetRootDoc ()
+        {
+            var snapshot = await _data.GetSnapshotAsync();
+            return snapshot.ConvertTo<DatasetFirebase>();
+        }
+
         public async Task AddOrUpdateVehicle(IVehicleDataFirebase vehicle)
         {
             DocumentReference doc = vehiclesRef.Document(vehicle.Id);
+            DocumentSnapshot snapshot = await doc.GetSnapshotAsync();
+            if (!snapshot.Exists)
+            {
+                await _data.UpdateAsync(nameof(DatasetFirebase.CountVehicles), FieldValue.Increment(1));
+            }
             //var doc = _firestoreDb.Collection("Data").Document(vehicle.Id);
             await doc.SetAsync(vehicle);
         }
@@ -74,6 +87,11 @@ namespace Models.Services.Firebase
         }
         public async Task<IReadOnlyCollection<DriverFirebase>> GetAllDrivers()
         {
+            DatasetFirebase curData = await GetRootDoc();
+            if (curData == null || curData.CountDrivers <= 0) // Cần check lại coi có cái nào bị trừ dư ko
+            {
+                return null;
+            }
             var snapshot = await driversRef.GetSnapshotAsync();
             return snapshot.Documents.Select(x => x.ConvertTo<DriverFirebase>()).ToList();
         }
@@ -86,6 +104,11 @@ namespace Models.Services.Firebase
         }
         public async Task<List<IVehicleDataFirebase>> GetAllVehicles()
         {
+            DatasetFirebase curData = await GetRootDoc();
+            if (curData == null || curData.CountVehicles == 0)
+            {
+                return null;
+            }
             IReadOnlyCollection<IVehicleDataFirebase> drivingVehicles = await WhereEqualToTrailer("VehicleType", "Trailer");
             List<IVehicleDataFirebase> allVehicles = new List<IVehicleDataFirebase>(drivingVehicles);
             drivingVehicles = await WhereNotEqualToVehicle("VehicleType", "Trailer");
@@ -97,6 +120,17 @@ namespace Models.Services.Firebase
             DocumentReference doc = tripRef.Document(id);
             var snapshot = await doc.GetSnapshotAsync();
             return snapshot.ConvertTo<TripFirebase>();
+        }
+
+        public async Task<IReadOnlyCollection<TripFirebase>> GetAllTrips()
+        {
+            DatasetFirebase curData = await GetRootDoc();
+            if (curData == null || curData.CountTrips == 0)
+            {
+                return null;
+            }
+            var snapshot = await tripRef.GetSnapshotAsync();
+            return snapshot.Documents.Select(x => x.ConvertTo<TripFirebase>()).ToList();
         }
 
 
@@ -137,11 +171,5 @@ namespace Models.Services.Firebase
             var snapshot = await query.GetSnapshotAsync();
             return snapshot.Documents.Select(x => x.ConvertTo<T>()).ToList();
         }
-
-        
-
-        
-
-        
     }
 }

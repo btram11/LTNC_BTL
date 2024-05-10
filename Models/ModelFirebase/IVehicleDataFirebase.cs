@@ -8,13 +8,23 @@ using System.Threading.Tasks;
 
 namespace Models.ModelFirebase
 {
+    public enum VehicleStatus
+    {
+        Available,          
+        NotAvailable,
+        Scheduled,
+        OnGoing,
+        Repairing,
+        Returning,
+        UnderMaintenance,
+    }
     public interface IVehicleDataFirebase : IFirebaseEntity
     {
         int OngoingTrip { get; set; }
         string Name { get; set; }
         string VIN { get; set; }
         string LicensePlate { get; set; }
-        string VehicleStatus { get; set; }
+        VehicleStatus VehicleStatus { get; set; }
         string VehicleType { get; set; }
         string Make { get; set; }
         string Models { get; set; }
@@ -24,6 +34,10 @@ namespace Models.ModelFirebase
         string Color { get; set; }
         string BodyType { get; set; }
         float? Length { get; set; }
+
+        bool IsOperating { get; set; }
+
+        Dictionary<string, object> Driver { get; set; }
         //DocumentReference AttachedVehicle { get; set; }
     }
 }

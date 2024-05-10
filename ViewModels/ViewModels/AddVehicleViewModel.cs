@@ -24,6 +24,11 @@ using Models.Services.Firebase;
 using Models.ModelFirebase;
 using GoogleApi.Entities.Maps.Directions.Response;
 using System.Windows.Documents;
+using Google.Protobuf.WellKnownTypes;
+using ViewModels.ValidationAttrs;
+using System.Xml.Linq;
+using System.Net.Http;
+using Models;
 
 namespace ViewModels
 {
@@ -40,6 +45,7 @@ namespace ViewModels
         public ObservableCollection<string> VehicleTypeList { get; private set; }
         public ObservableCollection<string> BodyTypeList { get; private set; }
         public ObservableCollection<string> TrailerTypeList { get; private set; }
+        public ObservableCollection<VehicleStatus> VehicleStatusList { get; private set; } = new ObservableCollection<VehicleStatus>(System.Enum.GetValues(typeof(VehicleStatus)).Cast<VehicleStatus>());
         #endregion
         private bool _IsLoaded { get; set; } = false;
         public bool HasErrors => Helper.HasErrors;
@@ -70,7 +76,7 @@ namespace ViewModels
         private string _trim;
         private string _regisState;
 
-        private string _status;
+        private VehicleStatus _status;
         private string _ownership;
 
         private string _curbWeight;
@@ -93,6 +99,7 @@ namespace ViewModels
             set => _name = value; 
         }
 
+       
         [Required(ErrorMessage = "VIN is required")]
         [StringLength(17, ErrorMessage = "VIN cannot be longer than 17 charaters")]
         public string VIN 
@@ -183,13 +190,21 @@ namespace ViewModels
             set => _regisState = value;
         }
         #endregion
-        public string Status { get => _status; set => _status = value; }
+        public VehicleStatus Status 
+        { 
+            get => _status;
+            set
+            {
+                _status = value;
+                OnPropertyChanged(nameof(Status));
+            }
+        }
         public string Ownership { get => _ownership; set => _ownership = value; }
 
         #region Weight Props
         [Required(ErrorMessage = "Curb Weight is required")]
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter valid Number")]
-        [MaxLength(25, ErrorMessage = "The number is a little bit too long, isnt it?")]
+        [MaxLength(9, ErrorMessage = "Personally, I dont think it can weight this much in kilograms, isnt it?")]
         public string CurbWeight 
         { 
             get => _curbWeight; 
@@ -204,7 +219,8 @@ namespace ViewModels
 
         [Required(ErrorMessage = "Gross Vehicle Weight Rating is required")]
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter valid Number")]
-        [MaxLength(25, ErrorMessage = "The number is a little bit too long, isnt it?")]
+        [MaxLength(9, ErrorMessage = "Personally, I dont think it can weight this much in kilograms, isnt it?")]
+        [WeightStringGreaterThan(nameof(CurbWeight), ErrorMessage = "Gross Vehicle Weight Rating must larger than Curb Weight")]
         public string GVWR 
         {
             get => _gvwr; 
@@ -216,16 +232,21 @@ namespace ViewModels
                 OnPropertyChanged(nameof(GVWR));
             }
         }
-        
+
+        [Required(ErrorMessage = "Gross Combined Weight Rating is required")]
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter valid Number")]
-        [MaxLength(25, ErrorMessage = "The number is a little bit too long, isnt it?")]
+        [MaxLength(9, ErrorMessage = "Personally, I dont think it can weight this much in kilograms, isnt it?")]
+        [WeightStringGreaterThan(nameof(GVWR), ErrorMessage = "GCWR must larger than GVWR")]
         public string GCWR {
             get => _gcwr; 
             set
             {
                 _gcwr = value;
                 Helper.ClearErrors(nameof(GCWR));
-                Validate(nameof(GCWR), value);
+                if (VehicleType != "Trailer")
+                {
+                    Validate(nameof(GCWR), value);
+                }
                 OnPropertyChanged(nameof(GCWR));
             }
         }
@@ -324,7 +345,7 @@ namespace ViewModels
 
             AddVehicleCommand = new AsyncRelayCommand(ExcuteAddVehicle);
 
-            BackToVehicleListView = new RelayCommand<UserControl>((p) => { return true; }, (p) => Navigation.NavigateTo<VehicleListViewModel>());
+            UpdateViewCommand = new RelayCommand<ViewType>((p) => Navigator.NavigateSwitch(Navigation,p));
 
             DecodeVINCommand = new AsyncRelayCommand(ExcuteDecodeVIN);
 
@@ -364,9 +385,9 @@ namespace ViewModels
 
         #region Commands
         public ICommand AddVehicleCommand { get; }
-        public ICommand BackToVehicleListView { get; }
         public ICommand DecodeVINCommand { get; }
         public ICommand LoadCommand { get; }
+        public ICommand UpdateViewCommand { get; }
         public ICommand SaveVehicleCommand { get; set; }
 
 
@@ -388,7 +409,7 @@ namespace ViewModels
             IReadOnlyCollection<VehicleFirebase> temp = await _storingDataManagementService.WhereEqualToVehicle<VehicleFirebase>(nameof(VIN), VIN);
             if (temp.Count > 0)
             {
-                MessageBox.Show("Please check your VIN number as there is a vehicle with that VIN");
+                MessageBox.Show("Please check your VIN number as there is a vehicle with that VIN", string.Empty, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             //IVehicleDataFirebase vehicleDataFirebase = new VehicleFirebase
@@ -402,7 +423,9 @@ namespace ViewModels
             IVehicleDataFirebase vehicle = await CreateVehicle();
 
             await _storingDataManagementService.AddOrUpdateVehicle(vehicle);
+            MessageBox.Show("Adding success");
             ClearingAllInputField();
+            
                
         }
         private async Task<IVehicleDataFirebase> CreateVehicle()
@@ -488,6 +511,7 @@ namespace ViewModels
                 Year = data.ModelYear;
                 Make = MakeList.FirstOrDefault(s => s.Equals(data.Make, StringComparison.OrdinalIgnoreCase));
                 Model = data.Model;
+                if (Name == string.Empty || Name == null) Name = $"{Year} {Make} {Model}";
                 Trim = data.Trim;
                 TotalSeats = data.Seats;
                 BodyType = data.BodyClass;
@@ -495,7 +519,7 @@ namespace ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, string.Empty, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -523,9 +547,9 @@ namespace ViewModels
                 OnPropertyChanged(nameof(TrailerTypeList));
                 _IsLoaded = true;
             }
-            catch (Exception ex)
+            catch (HttpRequestException)
             {
-
+                MessageBox.Show("Please check your internet and loading it again", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
         }
@@ -562,7 +586,7 @@ namespace ViewModels
                     error = Validate(nameof(GVWR), GVWR);
                     break;
                 case 7:
-                    error = Validate(nameof(GCWR), GCWR);
+                    if (!VehicleType.Contains("Trailer")) error = Validate(nameof(GCWR), GCWR);
                     break;
                 case 8:
                     error = Validate(nameof(FuelEfficiency), FuelEfficiency);

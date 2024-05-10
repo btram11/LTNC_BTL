@@ -8,6 +8,7 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
+             xmlns:converter="clr-namespace:MainView.Converters"
              xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
              mc:Ignorable="d"
              Name="VehicleListView"
@@ -18,6 +19,10 @@
             <Behaviors:InvokeCommandAction Command="{Binding LoadCommand}" />
         </Behaviors:EventTrigger>
     </Behaviors:Interaction.Triggers>
+    <UserControl.Resources>
+        <converter:RegularVisibilityConverter x:Key="VisibilityConverter" />
+        <converter:EmptyStringConverter x:Key="EmptyStringConverter" />
+    </UserControl.Resources>
     <Border>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -69,7 +74,7 @@
                             <Button Width="100"
                                     Style="{StaticResource addbutton}"
                                     Command="{Binding UpdateViewModelCommand}"
-                                    CommandParameter="{x:Static nav:ViewType.AddDriver }">
+                                    CommandParameter="{x:Static nav:ViewType.AddVehicle}">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial VerticalAlignment="Center"
                                                            Margin="0 1 8 0"
@@ -100,8 +105,10 @@
                         </StackPanel.Resources>
                         <TextBox Text="{Binding Name}"
                                  Width="250"
+                                 Padding="4 8 0 0"
                                  Margin="0 0 16 0"
-                                 materialDesign:TextFieldAssist.HasLeadingIcon ="True"
+                                 materialDesign:TextFieldAssist.TextBoxViewMargin ="0 0 8 0"
+                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
                                  materialDesign:TextFieldAssist.LeadingIcon="{StaticResource LeadingIcon}"
                                  Style="{StaticResource MainOutlinedTextBox}" />
                         <ComboBox Width="120"
@@ -109,7 +116,7 @@
                                   materialDesign:HintAssist.IsFloating="False"
                                   materialDesign:HintAssist.Hint="Vehicle Type"
                                   ItemsSource="{Binding VehicleTypeList, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding VehicleType, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"
+                                  SelectedItem="{Binding VehicleTypeFilter, UpdateSourceTrigger=PropertyChanged}"
                                   Style="{StaticResource MainOutlinedComboBox}" />
                         <!--<ComboBox Text="Vehicle Group"
           Style="{StaticResource menuComobox}" />-->
@@ -126,7 +133,7 @@
                 <Grid Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
 
-                        
+
 
 
 
@@ -162,6 +169,9 @@
                 </Grid>
             </Grid>
             <DataGrid AutoGenerateColumns="False"
+                      ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
                       Background="Transparent"
                       ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
                       CanUserAddRows="False"
@@ -176,7 +186,7 @@
                         <DataGridCheckBoxColumn.Header>
                             <Border Background="Transparent">
                                 <CheckBox Style="{StaticResource MainCheckBox}"
-                                          Height="auto"/>
+                                          Height="auto" />
                             </Border>
                         </DataGridCheckBoxColumn.Header>
                         <DataGridCheckBoxColumn.HeaderStyle>
@@ -187,7 +197,8 @@
                             </Style>
                         </DataGridCheckBoxColumn.HeaderStyle>
                         <DataGridCheckBoxColumn.ElementStyle>
-                            <Style TargetType="CheckBox" BasedOn="{StaticResource MainCheckBox}">
+                            <Style TargetType="CheckBox"
+                                   BasedOn="{StaticResource MainCheckBox}">
                             </Style>
                         </DataGridCheckBoxColumn.ElementStyle>
                     </DataGridCheckBoxColumn>
@@ -221,9 +232,9 @@
 
                     <DataGridTextColumn Header="VIN"
                                         IsReadOnly="True"
-                                        Width="auto"
-                                        MinWidth="100"
-                                        Binding="{Binding VIN}">
+                                        CanUserResize="False"
+                                        Width="160"
+                                        Binding="{Binding VIN, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource EmptyStringConverter}}">
                         <DataGridTextColumn.ElementStyle>
                             <StaticResource ResourceKey="DataGridTextColumnElementStyle" />
                         </DataGridTextColumn.ElementStyle>
@@ -231,30 +242,42 @@
                     <DataGridTextColumn Header="License Plate"
                                         IsReadOnly="True"
                                         Width="auto"
-                                        MinWidth="100"
-                                        Binding="{Binding LicensePlate}">
+                                        MinWidth="110"
+                                        Binding="{Binding LicensePlate, Converter={StaticResource EmptyStringConverter}}">
                         <DataGridTextColumn.ElementStyle>
-                            <StaticResource ResourceKey="DataGridTextColumnElementStyle" />
+                            <Style TargetType="{x:Type TextBlock}"
+                                   BasedOn="{StaticResource DataGridTextColumnElementStyle}" />
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="Status"
                                         IsReadOnly="True"
                                         Width="auto"
                                         MinWidth="100"
-                                        Binding="{Binding Status}">
+                                        Binding="{Binding VehicleStatus,  Converter={StaticResource EmptyStringConverter}}">
                         <DataGridTextColumn.ElementStyle>
                             <StaticResource ResourceKey="DataGridTextColumnElementStyle" />
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Style"
+                    <DataGridTextColumn Header="Vehicle Type"
                                         IsReadOnly="True"
-                                        Width="auto" />
-                    <DataGridTextColumn Header="Current"
+                                        Width="auto"
+                                        MinWidth="150"
+                                        MaxWidth="250"
+                                        Binding="{Binding VehicleType,  Converter={StaticResource EmptyStringConverter}}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource DataGridTextColumnElementStyle}">
+                                <Setter Property="TextWrapping"
+                                        Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <!--<DataGridTextColumn Header="Current"
                                         IsReadOnly="True"
                                         Width="auto" />
                     <DataGridTextColumn Header="Meter Entry Date"
                                         IsReadOnly="True"
-                                        Width="auto" />
+                                        Width="auto" />-->
                     <DataGridTemplateColumn Header="Operator"
                                             IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
@@ -264,18 +287,20 @@
                                         <Style TargetType="{x:Type ContentControl}">
                                             <Setter Property="Content">
                                                 <Setter.Value>
-                                                    <TextBlock Text="-" />
+                                                    <TextBlock Text="Unassigned" 
+                                                               Foreground="White"/>
                                                 </Setter.Value>
                                             </Setter>
                                             <Style.Triggers>
-                                                
+
                                                 <DataTrigger Binding="{Binding IsOperating}"
                                                              Value="True">
                                                     <Setter Property="Content">
                                                         <Setter.Value>
                                                             <Hyperlink Command="{Binding DriverNavigateCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                                                        CommandParameter="{Binding}">
-                                                                <TextBlock Text="{Binding Driver[Name]}" />
+                                                                <TextBlock Text="{Binding Driver[Name]}" 
+                                                                           VerticalAlignment="Center"/>
                                                             </Hyperlink>
                                                         </Setter.Value>
                                                     </Setter>
@@ -289,6 +314,26 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            <TextBlock Text="Seems like you havent added any vehicles"
+                       Grid.Row="3"
+                       FontSize="16"
+                       Foreground="Wheat"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility"
+                                Value="{Binding ListVehicles, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource VisibilityConverter}}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ListVehicles}"
+                                         Value="{x:Null}">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
             <!--<ListView ItemsSource="{Binding VehiclesCollection}"
                       Grid.Row="3">
                 <ListView.Resources>

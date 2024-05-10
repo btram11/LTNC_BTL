@@ -22,19 +22,13 @@ namespace ViewModels
                 OnPropertyChanged(nameof(Navigation));
             }
         }
-        public ICommand OpenAddVehicleViewCommand { get; set; }
-        public ICommand OpenAddDriverViewCommand { get; set; }
+        public ICommand UpdateViewModelCommand { get; }
         public QuickAccessButtonViewModel(INavigator navigator)
         {
             Navigation = navigator;
-            OpenAddVehicleViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
+            UpdateViewModelCommand = new RelayCommand<ViewType>((p) =>
             {
-                Navigation.NavigateTo<AddVehicleViewModel>();
-            });
-
-            OpenAddDriverViewCommand = new RelayCommand<UserControl>((p) => { return true; }, (p) =>
-            {
-                Navigation.NavigateTo<AddDriverViewModel>();
+                Navigator.NavigateSwitch(Navigation, p);
             });
         }
     }

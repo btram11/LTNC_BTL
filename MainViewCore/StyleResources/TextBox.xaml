@@ -44,7 +44,7 @@
         <Setter Property="HorizontalAlignment"
                 Value="Stretch" />
         <Setter Property="Padding"
-                Value="4 8 0 0" />
+                Value="0 8 0 0" />
         <Setter Property="materialDesign:TextFieldAssist.TextBoxViewMargin"
                 Value="8 0 8 0" />
         <Setter Property="Margin"
