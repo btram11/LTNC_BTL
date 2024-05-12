@@ -20,4 +20,21 @@ namespace ViewModels.Commands
             await _callback();
         }
     }
+
+
+    public class AsyncRelayCommand<T> : AsyncCommandBase
+    {
+        private readonly Func<T, Task> _callback;
+
+        public AsyncRelayCommand(Func<T, Task> callback)
+        {
+            _callback = callback;
+        }
+
+        public override async Task ExecuteAsync(object parameter)
+        {
+            await _callback((T)parameter);
+        }
+    }
+
 }

@@ -17,12 +17,8 @@
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch">
     <UserControl.Resources>
-        <!--<BooleanToVisibilityConverter x:Key="boolToVis" />-->
         <converter:VehicleTypeVisibilityConverter x:Key="VehicleTypeVisibilityConverter" />
     </UserControl.Resources>
-    <!--<UserControl.DataContext>
-        <viewModels:AddVehicleViewModel />
-    </UserControl.DataContext>-->
     <Behaviors:Interaction.Triggers>
         <Behaviors:EventTrigger EventName="Loaded">
             <Behaviors:InvokeCommandAction Command="{Binding LoadCommand}" />
@@ -38,10 +34,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-
-
-
-
+            
             <Border Grid.Row="0"
                     Margin="16 8"
                     Style="{StaticResource mainBorder}">
@@ -87,6 +80,7 @@
                                     VerticalAlignment="Bottom">
                             <Button Width="80"
                                     Margin="0 0 16 0"
+                                    Command="{Binding ClearingCommand}"
                                     Style="{StaticResource addbutton}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock  Text="Cancel" />
@@ -112,14 +106,14 @@
             </Border>
 
             <!--Identification-->
-            <!--<Grid Grid.Row="2">-->
             <ScrollViewer Grid.Row="2"
                           Style="{StaticResource NormalScrollViewMenu}">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="650" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="650*" 
+                                          MaxWidth="650"/>
+                        <ColumnDefinition Width="100*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -145,10 +139,10 @@
                                                    FontSize="14"
                                                    Style="{StaticResource titleText}" />
 
-                                        <TextBox Text="{Binding Name}"
+                                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                  Style="{StaticResource MainOutlinedTextBox}" />
 
-                                        <TextBlock Text="Enter a nickname to distinguish this vehicle. The default name is in the form: {Year} {Make} {Model} "
+                                        <TextBlock Text="Enter a nickname to distinguish this vehicle. The default name is in the form of &quot;{Year} {Make} {Model}&quot; "
                                                    Style="{StaticResource HintTextBlock}"
                                                    Foreground="#FFBEBEBE" />
 
@@ -253,14 +247,7 @@
                                         <TextBlock Text="Model"
                                                    FontSize="14"
                                                    Style="{StaticResource titleText}" />
-                                        <!--<ComboBox materialDesign:TextFieldAssist.HasClearButton="True"
-                                                  IsEditable="True"
-                                                  Text="{Binding NewModel, UpdateSourceTrigger=LostFocus}"
-                                                  ItemsSource="{Binding ModelList, UpdateSourceTrigger=LostFocus}"
-                                                  SelectedItem="{Binding Model, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"
-                                                  Style="{StaticResource MainOutlinedComboBox}">
 
-                                        </ComboBox>-->
                                         <TextBox Text="{Binding Model, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"
                                                  Style="{StaticResource MainOutlinedTextBox}" />
                                         <TextBlock Text="e.g. 4Runner, Yukon, Silverado, etc."
@@ -306,7 +293,7 @@
                                                    FontSize="14"
                                                    Style="{StaticResource titleText}" />
                                         <ComboBox Margin="0 8 0 8"
-                                                  materialDesign:TextFieldAssist.HasClearButton="True"
+                                                  materialDesign:TextFieldAssist.HasClearButton="False"
                                                   ItemsSource="{Binding VehicleStatusList}"
                                                   SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
                                                   Style="{StaticResource MainOutlinedComboBox}">
@@ -317,53 +304,18 @@
 
                                     </StackPanel>
 
-                                    <!--<StackPanel Margin="0 24 0 0">
-                                        <TextBlock Text="Group"
-                                                   FontSize="14"
-                                                   Style="{StaticResource titleText}" />
-                                        <ComboBox Height="30"
-                                                  Margin="0 8 0 8"
-                                                  Style="{StaticResource combobox}" />
-                                        <TextBlock Text="Vehicle's Group. Learn more"
-                                                   FontSize="14"
-                                                   Style="{StaticResource titleText}" />
-
-                                    </StackPanel>-->
-
-                                    <!--<StackPanel Margin="0 24 0 0">
-                                        <TextBlock Text="Operator"
-                                                   FontSize="14"
-                                                   Style="{StaticResource titleText}" />
-                                        <ComboBox Height="30"
-                                                  Margin="0 8 0 0"
-                                                  Style="{StaticResource combobox}" />
-
-                                    </StackPanel>-->
-
                                     <StackPanel Margin="0 24 0 0">
                                         <TextBlock Text="Ownership"
                                                    FontSize="14"
                                                    Style="{StaticResource titleText}" />
                                         <ComboBox materialDesign:TextFieldAssist.HasClearButton="True"
                                                   ItemsSource="{Binding ShortStringList}"
-                                                  Style="{StaticResource MainOutlinedComboBox}">
-                                            <!--<ComboBox.SelectedItem>
-                                                <Binding Mode="TwoWay"
-                                                         Path="SelectedValidationOutlined"
-                                                         UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <colorsDomain:NotEmptyValidationRule ValidatesOnTargetUpdated="True"
-                                                                                             xmlns:colorsDomain="clr-namespace:MaterialDesignDemo.Domain" />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                            </ComboBox.SelectedItem>-->
-                                        </ComboBox>
+                                                  Style="{StaticResource MainOutlinedComboBox}" />
 
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
                         </Grid>
-
                         <Grid Grid.Row="2"
                               Margin="0 64 0 0">
                             <Border Style="{StaticResource mainBorder}">
@@ -464,16 +416,6 @@
                                             <Style TargetType="{x:Type StackPanel}">
                                                 <Setter Property="Visibility"
                                                         Value="{Binding SelectedItem.Content, ElementName=VehicleTypeComboBox, Converter={StaticResource VehicleTypeVisibilityConverter}}" />
-                                                <!--<Style.Triggers>
-                                                    -->
-                                                <!-- Trigger để kiểm tra khi ComboBoxItem được chọn -->
-                                                <!--
-                                                    <DataTrigger Binding="{Binding SelectedItem.Content, ElementName=VehicleTypeComboBox}"
-                                                                 Value="{x:Null}">
-                                                        <Setter Property="StackPanel.Visibility"
-                                                                Value="Collapsed" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>-->
                                             </Style>
                                         </StackPanel.Style>
                                         <TextBlock Text="Body Type"
@@ -522,26 +464,11 @@
                                         <TextBlock Text="Body SubType"
                                                    FontSize="14"
                                                    Style="{StaticResource titleText}" />
-                                        <TextBox Style="{StaticResource MainOutlinedTextBox}" />
+                                        <TextBox Style="{StaticResource MainOutlinedTextBox}" 
+                                                 Text="{Binding BodySubType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                                         <TextBlock Text="e.g. Extended Cab, Crew Cab, etc."
                                                    Style="{StaticResource HintTextBlock}" />
                                     </StackPanel>
-
-                                    <!--<StackPanel Margin="0 24 0 0">
-                                        <TextBlock Text="MSRP"
-                                                   FontSize="14"
-                                                   Style="{StaticResource titleText}" />
-                                        <TextBox Margin="0 8 0 8"
-                                                 Style="{StaticResource MainOutlinedTextBox}" />
-                                    </StackPanel>-->
-                                    <!--<StackPanel Margin="0 24 0 0">
-                                        <TextBlock Text="Linked Vehicle"
-                                                   FontSize="14"
-                                                   Style="{StaticResource titleText}" />
-                                        <TextBox Height="30"
-                                                 Margin="0 8 0 0"
-                                                 Style="{StaticResource textbox}" />
-                                    </StackPanel>-->
 
                                 </StackPanel>
                             </Border>
@@ -549,7 +476,6 @@
                     </Grid>
                 </Grid>
             </ScrollViewer>
-            <!--</Grid>-->
 
         </Grid>
     </Border>

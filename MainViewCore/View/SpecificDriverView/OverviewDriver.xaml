@@ -46,9 +46,10 @@
                                 </StackPanel>
                                 <StackPanel Grid.Row="1"
                                             Grid.Column="1">
-                                    <TextBlock Text="{Binding }"
+                                    <TextBlock Text="{Binding Driver.FirstName, TargetNullValue=Robert, FallbackValue=Henry}"
+                                               TextWrapping="Wrap"
                                                Style="{StaticResource CardTextBoxInfo}" />
-                                    <TextBlock Text="{Binding }"
+                                    <TextBlock Text="{Binding Driver.LastName, TargetNullValue=Ng, FallbackValue=Bird}"
                                                Style="{StaticResource CardTextBoxInfo}" />
                                 </StackPanel>
 
@@ -57,7 +58,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="2"
                                            Grid.Column="1"
-                                           Text="{Binding }"
+                                           Text="{Binding Driver.DateOfBirth, FallbackValue='dd/mm/yyyy', TargetNullValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="3"
@@ -65,7 +66,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="3"
                                            Grid.Column="1"
-                                           Text="{Binding }"
+                                           Text="{Binding Driver.Gender, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="4"
@@ -73,7 +74,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="4"
                                            Grid.Column="1"
-                                           Text="Gender"
+                                           Text="{Binding Driver.Phone, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="5"
@@ -81,7 +82,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="5"
                                            Grid.Column="1"
-                                           Text="Gender"
+                                           Text="{Binding Driver.Email, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="6"
@@ -89,7 +90,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="6"
                                            Grid.Column="1"
-                                           Text="Gender"
+                                           Text="{Binding Driver.Address, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="7"
@@ -97,7 +98,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="7"
                                            Grid.Column="1"
-                                           Text="Gender"
+                                           Text="{Binding Driver.City, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 
                                 <TextBlock Grid.Row="8"
@@ -105,7 +106,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="8"
                                            Grid.Column="1"
-                                           Text="Gender"
+                                           Text="{Binding Driver.Country, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                             </Grid>
@@ -135,7 +136,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="1"
                                            Grid.Column="1"
-                                           Text="{Binding }"
+                                           Text="{Binding CriminalHistory, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="2"
@@ -143,7 +144,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="2"
                                            Grid.Column="1"
-                                           Text="{Binding }"
+                                           Text="{Binding Addicted, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="3"
@@ -151,7 +152,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="3"
                                            Grid.Column="1"
-                                           Text="Gender"
+                                           Text="{Binding Health, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <!--<TextBlock Grid.Row="4"
@@ -230,12 +231,12 @@
 
                                         <TextBlock  Grid.Row="1"
                                                     Grid.Column="0"
-                                                    Text="$"
+                                                    Text="{Binding Driver.Violations, TargetNullValue='-', FallbackValue='-'}"
                                                     FontSize="13"
                                                     Foreground="#dfe1e3" />
                                         <TextBlock Grid.Row="1"
                                                    Grid.Column="1"
-                                                   Text="$"
+                                                   Text="{Binding Driver.Accidents, TargetNullValue='-', FallbackValue='-'}"
                                                    FontSize="13"
                                                    Foreground="#dfe1e3" />
                                     </Grid>
@@ -249,7 +250,8 @@
                                                Style="{StaticResource CardTextBoxInfo}" />
 
                                     <TextBlock Grid.Column="1"
-                                               Text="{Binding }"
+                                               TextAlignment="Justify"
+                                               Text="{Binding Driver.CompletedTrip, TargetNullValue='0', FallbackValue='0'}"
                                                Style="{StaticResource CardTextBoxInfo}" />
                                 </Grid>
                             </StackPanel>
@@ -279,7 +281,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="1"
                                            Grid.Column="1"
-                                           Text="{Binding }"
+                                           Text="{Binding Driver.DrivingLicenseNumber, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="2"
@@ -287,7 +289,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="2"
                                            Grid.Column="1"
-                                           Text="{Binding }"
+                                           Text="{Binding Driver.DateOfIssue, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="3"
@@ -295,7 +297,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="3"
                                            Grid.Column="1"
-                                           Text="Gender"
+                                           Text="{Binding Driver.LicenseDate, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="4"
@@ -303,7 +305,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="4"
                                            Grid.Column="1"
-                                           Text="{Binding }"
+                                           Text="{Binding Driver.DrivingLicenseClass, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 
@@ -311,6 +313,7 @@
                         </materialDesign:Card>
                         <materialDesign:Card UniformCornerRadius="10"
                                              Background="#1e2e44"
+                                             Visibility="Collapsed"
                                              Margin="10 5">
                             <StackPanel>
                                 <!--sua lai home-->
@@ -403,6 +406,7 @@
                         </materialDesign:Card>
                         <materialDesign:Card UniformCornerRadius="10"
                                              Background="#1e2e44"
+                                             Visibility="Collapsed"
                                              Margin="10 5">
                             <StackPanel>
                                 <!--sua lai home-->
@@ -445,6 +449,7 @@
                             </StackPanel>
                         </materialDesign:Card>
                         <materialDesign:Card UniformCornerRadius="10"
+                                             Visibility="Collapsed"
                                              Background="#1e2e44"
                                              Margin="10 5">
                             <StackPanel>

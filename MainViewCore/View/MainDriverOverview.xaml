@@ -1,18 +1,29 @@
 ﻿<UserControl x:Class="MainView.View.MainDriverOverview"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              xmlns:specificDriverVM="clr-namespace:ViewModels.DriverViewModel;assembly=ViewModels"
              xmlns:local="clr-namespace:MainView.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <viewModels:MainDriverOverviewViewModel />
-    </UserControl.DataContext>
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
+             xmlns:converter="clr-namespace:MainView.Converters"
+             x:Name="CurView"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <Behaviors:Interaction.Triggers>
+        <Behaviors:EventTrigger EventName="Loaded">
+            <Behaviors:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </Behaviors:EventTrigger>
+    </Behaviors:Interaction.Triggers>
+    <UserControl.Resources>
+        <converter:ObjectToStringConverter x:Key="ObjectToStringConverter" />
+        <converter:StringEqualConverter x:Key="StringEqualConverter" />
+    </UserControl.Resources>
     <Border>
         <Grid>
             <Grid.RowDefinitions>
@@ -28,8 +39,8 @@
                                 Width="auto"
                                 HorizontalAlignment="Left"
                                 Style="{StaticResource ReturnButton}"
-                                Command="{Binding BackToDriverListView}"
-                                CommandParameter="{Binding ElementName=AddVehicleView}">
+                                Command="{Binding UpdateViewCommand}"
+                                CommandParameter="{x:Static nav:ViewType.DriverList}">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="ArrowLeft"
                                                        VerticalAlignment="Center"
@@ -65,24 +76,25 @@
                             </Border>
                             <StackPanel Margin="10 0 0 0"
                                         VerticalAlignment="Center">
-                                <TextBlock Text="Robert N"
-                                           Margin="5 0 0 0"
+                                <TextBlock Margin="5 0 0 0"
                                            FontSize="15"
-                                           Foreground="#c2cfff" />
-                                <StackPanel Orientation="Horizontal">
+                                           Foreground="#c2cfff">
+                                    <Run Text="{Binding Driver.FirstName, TargetNullValue='Robert', FallbackValue='Henry'}" />
+                                    <Run Text="{Binding Driver.LastName, TargetNullValue='Ng', FallbackValue='Bird'}" />
+                                </TextBlock>
+                                <StackPanel Orientation="Horizontal"
+                                            Visibility="Collapsed">
                                     <Label Content="Work number:" />
-                                    <TextBlock Text="{Binding workNumbe}" 
-                                               />
+                                    <TextBlock Text="{Binding workNumbe}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-
-
+                                <StackPanel Orientation="Horizontal" Margin="0 2">
                                     <StackPanel Orientation="Horizontal">
                                         <Ellipse Width="8"
                                                  Height="8"
                                                  Margin="0 0 2 0"
                                                  Fill="#eb1700" />
-                                        <TextBlock Text="Active"
+                                        <TextBlock Text="{Binding Driver.Status, FallbackValue='Active', TargetNullValue='Active'}"
+                                                   Foreground="White"
                                                    Style="{StaticResource menuButtonText}" />
                                     </StackPanel>
                                     <!--<StackPanel Orientation="Horizontal">
@@ -110,57 +122,18 @@
                                 </Button>
                             </StackPanel>
                         </StackPanel>
-                        <!--<TabControl materialDesign:ColorZoneAssist.Mode="PrimaryMid"
-                                materialDesign:RippleAssist.IsCentered="True">
-                        <TabItem Header="Overview">
-                        </TabItem>
-                        <TabItem Header="Service History">
-                           -->
-                        <!-- Your content for TAB 2 -->
-                        <!--
-                        </TabItem>
-                        <TabItem Header="Financial">
-                            -->
-                        <!-- Your content for TAB 2 -->
-                        <!--
-                        </TabItem>
-                        <TabItem Header="Specs">
-                            -->
-                        <!-- Your content for TAB 2 -->
-                        <!--
-                        </TabItem>
-                        <TabItem Header="Assignment History">
-                             -->
-                        <!--Your content for TAB 2-->
-                        <!-- 
-                        </TabItem>
-                        <TabItem Header="Service Reminders">
-                             -->
-                        <!--Your content for TAB 2-->
-                        <!-- 
-                        </TabItem>
-                    </TabControl>-->
                         <StackPanel Orientation="Horizontal"
                                     Margin="0 4 0 0">
                             <RadioButton Content="Overview"
-                                         Command="{Binding OverviewTabCommand}"
-                                         CommandParameter="{Binding ElementName=CurView}"
-                                         IsChecked="True"
+                                         Command="{Binding UpdateTabCommand}"
+                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                                         IsChecked="{Binding TabName, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringEqualConverter}, ConverterParameter='Overview'}"
                                          Width="160"
                                          Style="{StaticResource MainOverviewRadioButtonTab}" />
-                            <!--<RadioButton Content="Service History"
-                                         Command="{Binding ServiceHistoryTabCommand}"
-                                         CommandParameter="{Binding ElementName=CurView}"
-                                         Width="160"
-                                         Style="{StaticResource MaterialDesignTabRadioButton}" />
-                            <RadioButton Content="Specs"
-                                         Command="{Binding SpecsTabCommand}"
-                                         CommandParameter="{Binding ElementName=CurView}"
-                                         Width="160"
-                                         Style="{StaticResource MaterialDesignTabRadioButton}" />-->
                             <RadioButton Content="Assignment History"
-                                         Command="{Binding AssignmentHistoryTabCommand}"
-                                         CommandParameter="{Binding ElementName=CurView}"
+                                         Command="{Binding UpdateTabCommand}"
+                                         CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Content}"
+                                         IsChecked="{Binding TabName, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringEqualConverter}, ConverterParameter='Assignment History'}"
                                          Width="170"
                                          Style="{StaticResource MainOverviewRadioButtonTab}" />
                             <!--<RadioButton Content="Service Reminders"
@@ -175,13 +148,29 @@
             <ContentControl Grid.Row="1"
                             Content="{Binding TabView}">
                 <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type specificDriverVM:OverviewDriverViewModel}">
-                        <local:OverviewDriver />
+                    <DataTemplate x:Key="Overview">
+                        <local:OverviewDriver DataContext="{Binding DataContext, ElementName=CurView}"/>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type specificDriverVM:AssignmentHistoryViewModel}">
                         <local:AssignmentHistoryDriver />
                     </DataTemplate>
                 </ContentControl.Resources>
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding TabView}"
+                                         Value="{x:Null}">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource Overview}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding TabView, Converter={StaticResource ObjectToStringConverter}}"
+                                         Value="Overview">
+                                <Setter Property="ContentTemplate"
+                                        Value="{StaticResource Overview}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
             </ContentControl>
         </Grid>
     </Border>

@@ -24,7 +24,17 @@ namespace Models.ModelFirebase
         public string Destination { get; set; }
 
         [FirestoreProperty]
+        public double Distance { get; set; }
+
+        //[FirestoreProperty]
+        //public int EstimateDistance { get; set; }
+
+        [FirestoreProperty]
         public double EstimatedCost { get; set; }
+
+        [FirestoreProperty]
+        public int WeightPassenger { get; set; }
+
 
         [FirestoreProperty]
         public double Duration { get; set; }
@@ -33,19 +43,22 @@ namespace Models.ModelFirebase
         public Timestamp ScheduledDepartureTime { get; set; }
 
         [FirestoreProperty]
-        public Timestamp DepartureTime { get; set; }
+        public Timestamp? DepartureTime { get; set; }
 
         [FirestoreProperty]
         public Timestamp ScheduledArrivalTime { get; set; }
 
         [FirestoreProperty]
-        public Timestamp ArrivalTime { get; set; }
+        public Timestamp? ArrivalTime { get; set; }
 
         [FirestoreProperty]
         public bool HasTrailer { get; set; }
 
         [FirestoreProperty]
         public bool Returned { get; set; }
+
+        [FirestoreProperty]
+        public string TransportationType { get; set; }
 
         [FirestoreProperty]
         public Dictionary<string, object> Driver { get; set; }

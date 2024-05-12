@@ -38,6 +38,10 @@ namespace MainView.HostBuilder
                 services.AddSingleton<VehicleMakeListingViewModel>();
                 services.AddSingleton<LoginViewModel>();
                 services.AddSingleton<SignUpViewModel>();
+                services.AddSingleton<AssignmentListViewModel>();
+                services.AddSingleton<TripInformationViewModel>();
+                services.AddSingleton<ViewModels.DriverViewModel.AssignmentHistoryViewModel>();
+                services.AddSingleton<ViewModels.VehicleViewModel.AssignmentHistoryViewModel>();
                 services.AddSingleton<Func<Type, ViewModelBase>>(serviceProvider => viewModelType => (ViewModelBase)serviceProvider.GetRequiredService(viewModelType));
 
 

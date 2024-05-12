@@ -71,6 +71,7 @@
                                     VerticalAlignment="Bottom">
                             <Button Width="80"
                                     Margin="0 0 16 0"
+                                    Command="{Binding ClearingCommand}"
                                     Style="{StaticResource addbutton}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock  Text="Cancel" />
@@ -101,11 +102,17 @@
                     CornerRadius="0 0 16 16">
                 <ScrollViewer Style="{StaticResource NormalScrollViewMenu}">
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*" />
+                        <ColumnDefinition Width="650*"
+                                          MaxWidth="650" />
+                        <ColumnDefinition Width="100*" />
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        <Grid>
+                        <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
@@ -113,8 +120,7 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0"
                                   Margin="0 20 0 32"
-                                  Width="650"
-                                  HorizontalAlignment="Center">
+                                  MaxWidth="650">
                                 <Border Style="{StaticResource mainBorder}">
                                     <Grid Margin="15">
                                         <Grid.RowDefinitions>
@@ -132,7 +138,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="5*" />
                                             <ColumnDefinition Width="*"
-                                                              MinWidth="10"/>
+                                                              MinWidth="10" />
                                             <ColumnDefinition Width="5*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid>
@@ -144,12 +150,12 @@
                                         <Grid Grid.Row="1">
                                             <StackPanel Margin="0 0 0 16">
                                                 <TextBlock Text="First Name"
-                                                       FontSize="14"
-                                                       Style="{StaticResource titleText}" />
+                                                           FontSize="14"
+                                                           Style="{StaticResource titleText}" />
                                                 <TextBox Style="{StaticResource MainOutlinedTextBox}"
-                                                         Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
+                                                         Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
                                             </StackPanel>
-                                            
+
                                         </Grid>
                                         <Grid Grid.Row="1"
                                               Grid.Column="3">
@@ -170,7 +176,7 @@
                                                 <DatePicker Style="{StaticResource MainOutlinedDatePicker}"
                                                             materialDesign:ValidationAssist.Background="Transparent"
                                                             SelectedDate="{Binding DateOfBirth}">
-                                                    
+
                                                 </DatePicker>
                                             </StackPanel>
                                         </Grid>
@@ -217,8 +223,8 @@
                                                 <TextBlock Text="Place of Issue"
                                                            FontSize="14"
                                                            Style="{StaticResource titleText}" />
-                                                <TextBox Style="{StaticResource MainOutlinedTextBox}" 
-                                                         Text="{Binding PlaceOfIssue}"/>
+                                                <TextBox Style="{StaticResource MainOutlinedTextBox}"
+                                                         Text="{Binding PlaceOfIssue}" />
                                             </StackPanel>
 
                                         </Grid>
@@ -240,7 +246,7 @@
                                                            FontSize="14"
                                                            Style="{StaticResource titleText}" />
                                                 <TextBox Style="{StaticResource MainOutlinedTextBox}"
-                                                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"/>
+                                                         Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}" />
                                             </StackPanel>
                                         </Grid>
                                         <Grid Grid.Row="5"
@@ -250,7 +256,7 @@
                                                            FontSize="14"
                                                            Style="{StaticResource titleText}" />
                                                 <TextBox Style="{StaticResource MainOutlinedTextBox}"
-                                                         Text="{Binding Address}" />
+                                                         Text="{Binding Address, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
                                             </StackPanel>
                                         </Grid>
                                         <Grid Grid.Row="6"
@@ -259,8 +265,8 @@
                                                 <TextBlock Text="City"
                                                            FontSize="14"
                                                            Style="{StaticResource titleText}" />
-                                                <TextBox Style="{StaticResource MainOutlinedTextBox}" 
-                                                         Text="{Binding City}"/>
+                                                <TextBox Style="{StaticResource MainOutlinedTextBox}"
+                                                         Text="{Binding City}" />
                                             </StackPanel>
 
                                         </Grid>
@@ -282,7 +288,8 @@
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1"
-                              Width="650"
+                              Grid.Column="1"
+                              MaxWidth="650"
                               Margin="0 20 0 32">
                             <Border Style="{StaticResource mainBorder}">
                                 <Grid Margin="15">
@@ -313,27 +320,12 @@
                                             <TextBlock Text="Driving License Class"
                                                        FontSize="14"
                                                        Style="{StaticResource titleText}" />
-                                            <!--<ComboBox materialDesign:TextFieldAssist.HasClearButton="True"
-                                                      ItemsSource="{Binding ShortStringList}"
-                                                      Style="{StaticResource MainOutlinedComboBox}">
-                                                --><!--<ComboBox.SelectedItem>
-                                                    <Binding Mode="TwoWay"
-                                                             Path="SelectedValidationOutlined"
-                                                             UpdateSourceTrigger="PropertyChanged">
-                                                        <Binding.ValidationRules>
-                                                            <colorsDomain:NotEmptyValidationRule ValidatesOnTargetUpdated="True"
-                                                                                                 xmlns:colorsDomain="clr-namespace:MaterialDesignDemo.Domain" />
-                                                        </Binding.ValidationRules>
-                                                    </Binding>
-                                                    </ComboBox.SelectedItem>--><!-- 
-                                                
-                                            </ComboBox>-->
                                             <TextBox Style="{StaticResource MainOutlinedTextBox}"
                                                      materialDesign:HintAssist.IsFloating="False"
                                                      materialDesign:HintAssist.Hint="Ex: E, FC"
                                                      ToolTip="Note that we only support Vietnamese Commercial Driver’s License: B2, C, D, E, FC "
                                                      Margin="0 8 0 8"
-                                                     Text="{Binding DrivingLicenseClass, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
+                                                     Text="{Binding DrivingLicenseClass, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" />
                                             <TextBlock Text="If there is more than one, please enter all and separate each by a comma. Additionally, please note that we currently only support Vietnamese Commercial Driver's Licenses for the following classess: B2, C, D, E, and FC."
                                                        FontSize="10"
                                                        TextWrapping="Wrap"
@@ -355,20 +347,12 @@
                                             <TextBlock Text="Education"
                                                        FontSize="14"
                                                        Style="{StaticResource titleText}" />
-                                            <ComboBox materialDesign:TextFieldAssist.HasClearButton="True"
-                                                      ItemsSource="{Binding ShortStringList}"
-                                                      Style="{StaticResource MainOutlinedComboBox}">
-                                                <!--<ComboBox.SelectedItem>
-                                            <Binding Mode="TwoWay"
-                                                     Path="SelectedValidationOutlined"
-                                                     UpdateSourceTrigger="PropertyChanged">
-                                                <Binding.ValidationRules>
-                                                    <colorsDomain:NotEmptyValidationRule ValidatesOnTargetUpdated="True"
-                                                                                         xmlns:colorsDomain="clr-namespace:MaterialDesignDemo.Domain" />
-                                                </Binding.ValidationRules>
-                                            </Binding>
-                                            </ComboBox.SelectedItem>-->
-                                            </ComboBox>
+                                            <TextBox Style="{StaticResource MainOutlinedTextBox}"
+                                                     Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+                                            </TextBox>
+                                            <TextBlock Text="Example: &quot;High School&quot; or &quot;College&quot;."
+                                                       TextWrapping="Wrap"
+                                                       Style="{StaticResource HintTextBlock}" />
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="2"
@@ -377,41 +361,43 @@
                                             <TextBlock Text="Criminal Record"
                                                        FontSize="14"
                                                        Style="{StaticResource titleText}" />
-                                            <ComboBox materialDesign:TextFieldAssist.HasClearButton="True"
-                                                      ItemsSource="{Binding ShortStringList}"
-                                                      Style="{StaticResource MainOutlinedComboBox}">
-                                                <!--<ComboBox.SelectedItem>
-                                                <Binding Mode="TwoWay"
-                                                         Path="SelectedValidationOutlined"
-                                                         UpdateSourceTrigger="PropertyChanged">
-                                                    <Binding.ValidationRules>
-                                                        <colorsDomain:NotEmptyValidationRule ValidatesOnTargetUpdated="True"
-                                                                                             xmlns:colorsDomain="clr-namespace:MaterialDesignDemo.Domain" />
-                                                    </Binding.ValidationRules>
-                                                </Binding>
-                                                </ComboBox.SelectedItem>-->
-                                            </ComboBox>
+                                            <TextBox Style="{StaticResource MainOutlinedTextBox}"
+                                                     Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+                                            </TextBox>
+                                            <TextBlock Text="Example: &quot;Convicted of theft in 2015&quot; or &quot;None&quot;."
+                                                       TextWrapping="Wrap"
+                                                       Style="{StaticResource HintTextBlock}" />
                                         </StackPanel>
                                     </Grid>
-                                    <Grid Grid.Row="3" >
-                                        <TextBlock Text="Education"
-                                                   FontSize="14"
-                                                   Style="{StaticResource titleText}" />
+                                    <Grid Grid.Row="3"
+                                          Grid.ColumnSpan="3">
+                                        <StackPanel Style="{StaticResource StackPanelInclued}">
+                                            <TextBlock Text="Health"
+                                                       materialDesign:HintAssist.Hint="Describe your health status"
+                                                       materialDesign:HintAssist.IsFloating="False"
+                                                       FontSize="14"
+                                                       Style="{StaticResource titleText}" />
+                                            <TextBox Style="{StaticResource MainOutlinedTextBox}"
+                                                     Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+                                            </TextBox>
+                                            <TextBlock Text="Describe your health status"
+                                                       TextWrapping="Wrap"
+                                                       Style="{StaticResource HintTextBlock}" />
+                                        </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="4"
                                           Grid.ColumnSpan="3">
-                                        <TextBox Style="{StaticResource MainOutlinedTextBox}" />
-                                    </Grid>
-                                    <Grid Grid.Row="5">
-                                        <TextBlock Text="Skill"
-                                                   FontSize="14"
-                                                   Style="{StaticResource titleText}" />
-                                    </Grid>
-                                    <Grid Grid.Row="6"
-                                          Grid.ColumnSpan="2">
-                                        <TextBox Margin="0 5 20 10"
-                                                 Height="30"
-                                                 Style="{StaticResource textbox}" />
+                                        <StackPanel>
+                                            <TextBlock Text="Years of driving experience"
+                                                       FontSize="14"
+                                                       materialDesign:HintAssist.Hint=""
+                                                       materialDesign:HintAssist.IsFloating="False"
+                                                       Style="{StaticResource titleText}" />
+                                            <TextBox Style="{StaticResource MainOutlinedTextBox}"
+                                                     Text="{Binding ExYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+                                            </TextBox>
+                                            
+                                        </StackPanel>
                                     </Grid>
                                 </Grid>
                             </Border>

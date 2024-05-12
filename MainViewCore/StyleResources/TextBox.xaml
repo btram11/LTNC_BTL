@@ -179,6 +179,8 @@
                 Value="13" />
         <Setter Property="Margin"
                 Value="0 8" />
+        <Setter Property="TextWrapping"
+                Value="Wrap" />
         <Setter Property="Foreground"
                 Value="{StaticResource WordWhiteBrush}" />
     </Style>

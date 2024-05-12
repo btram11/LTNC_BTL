@@ -15,10 +15,12 @@ using Models.Services.Firebase;
 using System.Windows.Data;
 using Models.Services;
 using API.Services;
+using System.Net.Http;
+using ViewModels.State.Data;
 
 namespace ViewModels
 {
-    public class VehicleListViewModel: ViewModelBase
+    public class VehicleListViewModel : ViewModelBase
     {
         private INavigator _navigation;
         public INavigator Navigation
@@ -33,9 +35,11 @@ namespace ViewModels
 
         private readonly IStoringDataManagementService _storingDataManagementService;
         private readonly IDataFromNHTSAService _dataFromNHTSAService;
+        private IDataStore _dataStore;
 
         private bool _IsLoaded { get; set; } = false;
         public ObservableCollection<string> VehicleTypeList { get; private set; }
+        public ObservableCollection<object> StatusList { get; private set; }
 
         private ObservableCollection<IVehicleDataFirebase> _listVehicles = new ObservableCollection<IVehicleDataFirebase>();
         public ObservableCollection<IVehicleDataFirebase> ListVehicles
@@ -60,7 +64,20 @@ namespace ViewModels
             }
         }
 
+        private string _name;
         private string _vehicleType;
+        private object _status;
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
+                _vehiclesCollection.Refresh();
+            }
+        }
         public string VehicleTypeFilter
         {
             get => _vehicleType;
@@ -71,27 +88,57 @@ namespace ViewModels
                 _vehiclesCollection.Refresh();
             }
         }
+        public object StatusFilter
+        {
+            get => _status;
+            set
+            {
+                _status = value;
+                OnPropertyChanged(nameof(StatusFilter));
+                _vehiclesCollection.Refresh();
+            }
+        }
 
-        public VehicleListViewModel(INavigator navigator, IStoringDataManagementService storingDataManagementService, IDataFromNHTSAService dataFromNHTSAService)
+        public VehicleListViewModel(INavigator navigator, IStoringDataManagementService storingDataManagementService, IDataFromNHTSAService dataFromNHTSAService, IDataStore dataStore)
         {
             Navigation = navigator;
             _storingDataManagementService = storingDataManagementService;
             _dataFromNHTSAService = dataFromNHTSAService;
+            _dataStore = dataStore;
             //VehiclesCollection = CollectionViewSource.GetDefaultView(ListVehicles);
+            StatusList = new ObservableCollection<object>(Enum.GetValues(typeof(VehicleStatus)).Cast<object>().ToList());
+            StatusList.Insert(0, "(None)");
 
             UpdateViewModelCommand = new RelayCommand<ViewType>((p) => Navigator.NavigateSwitch(Navigation, p));
+
+            DriverNavigateCommand = new AsyncRelayCommand<object>((p) => ExecuteDriverNavigateCommand(p));
+
             LoadCommand = new AsyncRelayCommand(ExecuteLoadCommand);
-            
+            NavigateToMainVehicleOverviewCommand = new RelayCommand<IVehicleDataFirebase>((vehicle) => { 
+                _dataStore.CurrentObject = vehicle;
+                Navigator.NavigateSwitch(Navigation, ViewType.VehicleMainOverview);
+            });
+
         }
 
         private bool Filter(object ve)
         {
             IVehicleDataFirebase vehicle = ve as IVehicleDataFirebase;
+            bool IsTrue = true;
             if (!string.IsNullOrEmpty(VehicleTypeFilter) && VehicleTypeFilter != "(None)")
             {
-                return vehicle.VehicleType.Contains(VehicleTypeFilter);
+                IsTrue = IsTrue && vehicle.VehicleType.Contains(VehicleTypeFilter);
             }
-            return true;
+            if (StatusFilter != null && StatusFilter.ToString() != "(None)" && !string.IsNullOrEmpty(StatusFilter.ToString()))
+            {
+                IsTrue = IsTrue && vehicle.VehicleStatus == (VehicleStatus)StatusFilter;
+            }
+            if (!string.IsNullOrEmpty(Name))
+            {
+                IsTrue = IsTrue && vehicle.Name.Contains(Name);
+                IsTrue = IsTrue && vehicle.VIN.Contains(Name);
+            }
+            return IsTrue;
             //you can write logic for filter here
             //if (!string.IsNullOrEmpty(EmployeeName) && !string.IsNullOrEmpty(DepartmentName))
             //    return vehicle.Department.Contains(DepartmentName) && employee.EmployeeName.Contains(EmployeeName);
@@ -100,6 +147,14 @@ namespace ViewModels
             //else
             //    return employee.EmployeeName.Contains(EmployeeName);
         }
+
+
+        #region Commands
+        public ICommand UpdateViewModelCommand { get; }
+        public ICommand DriverNavigateCommand { get; }
+        public ICommand LoadCommand { get; }
+        public ICommand NavigateToMainVehicleOverviewCommand { get; }
+
 
         private async Task ExecuteLoadCommand()
         {
@@ -123,18 +178,38 @@ namespace ViewModels
                 }
 
 
-                
+
             }
-            catch (Exception ex)
+            catch (HttpRequestException ex)
             {
-
+                MessageBoxResult result = MessageBox.Show("Please check your internet and try again", "", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                if (result == MessageBoxResult.OK)
+                {
+                    Navigator.NavigateSwitch(Navigation, ViewType.VehicleList);
+                }
             }
 
 
-            
+
         }
 
-        public ICommand UpdateViewModelCommand { get; }
-        public ICommand LoadCommand { get; }
+        private async Task ExecuteDriverNavigateCommand(object p)
+        {
+            try
+            {
+                if (p == null) return;
+                string id = p as string;
+                Navigator.NavigateSwitch(Navigation, ViewType.DriverMainOverview);
+
+                DriverFirebase temp = await _storingDataManagementService.GetDriverById(id);
+                _dataStore.CurrentObject = temp;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("There is an error in loading data. We will direct you back to previous page");
+                Navigator.NavigateSwitch(Navigation, ViewType.VehicleList);
+            }
+        }
+        #endregion
     }
 }

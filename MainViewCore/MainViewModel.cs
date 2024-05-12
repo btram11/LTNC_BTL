@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.ModelFirebase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,7 @@ namespace MainView
 
         private readonly IAuthenticator _authenticator;
         public bool IsLoggedIn => _authenticator._isLogin;
-        //public bool IsLoggedIn = true;
+        public Account CurrentAccount => _authenticator.CurrentAccount;
         #region Private Fields
         //private WindowResizer resizer;
         private Window curWindow;
@@ -40,7 +41,6 @@ namespace MainView
         /// The last known dock position
         /// </summary>
         private WindowDockPosition curDockPosition = WindowDockPosition.Undocked;
-        //private WindowState _windowState;
         #endregion
 
         #region Properties
@@ -130,9 +130,13 @@ namespace MainView
 
             MinimizeWindowCommand = new RelayCommand((p) => curWindow.WindowState = WindowState.Minimized);
 
-            MouseMoveWindowCommand = new RelayCommand((p) => curWindow.DragMove());
-
-            UpdateViewModelCommand = new RelayCommand<ViewType>((p) => Navigator.NavigateSwitch(Navigation, p));
+            UpdateViewModelCommand = new RelayCommand<ViewType>((p) => {
+                if (p == ViewType.Login)
+                {
+                    _authenticator.LogOut();
+                }
+                Navigator.NavigateSwitch(Navigation, p);
+             });
 
 
             var resizer = new WindowResizer(curWindow);
@@ -152,57 +156,12 @@ namespace MainView
         public ICommand CloseWindowCommand { get; }
         public ICommand MinimizeWindowCommand { get; }
         public ICommand MaximizeWindowCommand { get; }
-        public ICommand MouseMoveWindowCommand { get; }
         public ICommand UpdateViewModelCommand { get; }
-        private void ExecuteCloseWindowCommand(Window curwindow)
-        {
-            if (curwindow != null)
-            {
-                curwindow.Close();
-            }
-        }
-
-        private void ExecuteMinimizeWindowCommand(Window curwindow)
-        {
-            if (curwindow != null)
-            {
-                if (curwindow.WindowState != WindowState.Minimized)
-                {
-                    curwindow.WindowState = WindowState.Minimized;
-                }
-                else
-                {
-                    curwindow.WindowState = WindowState.Maximized;
-                }
-            }
-        }
-
-        private void ExecuteMaximizeWindowCommand(Window curwindow)
-        {
-            if (curwindow != null)
-            {
-                if (curwindow.WindowState != WindowState.Maximized)
-                {
-                    curwindow.WindowState = WindowState.Maximized;
-                }
-                else
-                {
-                    curwindow.WindowState = WindowState.Normal;
-                }
-            }
-        }
-
-        private void ExecuteMouseMoveWindowCommand(Window curwindow)
-        {
-            if (curwindow != null)
-            {
-                curwindow.DragMove();
-            }
-        }
         #endregion
         private void Authenticator_StateChanged()
         {
             OnPropertyChanged(nameof(IsLoggedIn));
+            OnPropertyChanged(nameof(CurrentAccount));
         }
 
         private void WindowResized()
@@ -217,6 +176,12 @@ namespace MainView
         public override void Dispose()
         {
             _authenticator.StateChanged -= Authenticator_StateChanged;
+
+            curWindow.StateChanged -= (sender, e) =>
+            {
+                // Fire off events for all properties that are affected by a resize
+                WindowResized();
+            };
 
             base.Dispose();
         }

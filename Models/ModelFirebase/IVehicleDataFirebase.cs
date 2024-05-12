@@ -24,7 +24,7 @@ namespace Models.ModelFirebase
         string Name { get; set; }
         string VIN { get; set; }
         string LicensePlate { get; set; }
-        VehicleStatus VehicleStatus { get; set; }
+        VehicleStatus? VehicleStatus { get; set; }
         string VehicleType { get; set; }
         string Make { get; set; }
         string Models { get; set; }

@@ -5,274 +5,389 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:MainView"
-             >
-    <Border >
+             xmlns:local="clr-namespace:MainView">
+    <Border>
         <ScrollViewer Style="{StaticResource NormalScrollViewMenu}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="70*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="70*" />
                 </Grid.ColumnDefinitions>
                 <Grid>
                     <StackPanel>
-                        <materialDesign:Card UniformCornerRadius="10" Background="#1e2e44" Margin="10 5">
+                        <materialDesign:Card UniformCornerRadius="10"
+                                             Background="#1e2e44"
+                                             Margin="10 ">
                             <StackPanel>
                                 <!--sua lai home-->
                                 <Grid>
                                     <TextBlock FontWeight="Bold"
-                                               Text="Vehicle Status" 
-                                               FontSize="15" 
-                                               Foreground="#dfe1e3" 
-                                               Margin="10 15"/>
-                                    <Button  Height="20" 
-                                             HorizontalAlignment="Right" 
-                                             VerticalAlignment="Center" 
-                                             Margin="10 15" 
+                                               Text="Cost"
+                                               FontSize="18"
+                                               Foreground="#dfe1e3"
+                                               Margin="10 15" />
+                                    <Button  Height="20"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center"
+                                             Margin="10 15"
                                              Style="{StaticResource menubutton}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="Calendar"  
-                                                                   Height="10" 
-                                                                   Margin="0" 
-                                                                   VerticalAlignment="Center" 
-                                                                   Style="{StaticResource menuButtonIcon}"/>
-                                            <TextBlock  Text="All time" 
-                                                        Style="{StaticResource menuButtonText}"/>
-                                            <Icon:PackIconMaterial Kind="ChevronDown"  
-                                                                   Height="8" 
-                                                                   Margin="0" 
-                                                                   VerticalAlignment="Center" 
-                                                                   Style="{StaticResource menuButtonIcon}"/>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Visibility="Collapsed">
+                                            <Icon:PackIconMaterial Kind="Calendar"
+                                                                   Height="10"
+                                                                   Margin="0"
+                                                                   VerticalAlignment="Center"
+                                                                   Style="{StaticResource menuButtonIcon}" />
+                                            <TextBlock  Text="All time"
+                                                        Style="{StaticResource menuButtonText}" />
+                                            <Icon:PackIconMaterial Kind="ChevronDown"
+                                                                   Height="8"
+                                                                   Margin="0"
+                                                                   VerticalAlignment="Center"
+                                                                   Style="{StaticResource menuButtonIcon}" />
                                         </StackPanel>
                                     </Button>
                                 </Grid>
-                                <materialDesign:Card UniformCornerRadius="10" 
+                                <materialDesign:Card UniformCornerRadius="10"
                                                      BorderBrush="Gray"
-                                                     Margin="10" 
+                                                     Margin="10"
                                                      Background="#1e2e44">
                                     <Grid Margin="10">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
-                                        <TextBlock  Grid.Row="0" Grid.Column="0" 
-                                                    Text="Total Costs" 
-                                                    FontSize="13" 
-                                                    Foreground="#dfe1e3" 
-                                                    Margin="0 0 0 15"/>
-                                        <TextBlock  Grid.Row="0" Grid.Column="1" 
-                                                    Text="Cost Per Meter" 
-                                                    FontSize="13" 
-                                                    Foreground="#dfe1e3" 
-                                                    Margin="0 0 0 15"/>
-
-                                        <TextBlock  Grid.Row="1" Grid.Column="0" 
-                                                    Text="$" FontSize="13" 
+                                        <TextBlock  Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Text="Total Costs"
+                                                    FontSize="13"
                                                     Foreground="#dfe1e3"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="1" 
-                                                   Text="$" FontSize="13" 
-                                                   Foreground="#dfe1e3"/>
+                                        <TextBlock  Grid.Row="0"
+                                                    Grid.Column="1"
+                                                    Text="Cost Per Meter"
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3"/>
+
+                                        <TextBlock  Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Text="$"
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3" />
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Text="$"
+                                                   FontSize="13"
+                                                   Foreground="#dfe1e3" />
                                     </Grid>
                                 </materialDesign:Card>
-                                <Grid Height="100">
-                                    
+                                <Grid Height="100"
+                                      Visibility="Collapsed">
+
                                 </Grid>
                                 <WrapPanel HorizontalAlignment="Center">
-                                    <materialDesign:Card UniformCornerRadius="10" 
-                                                         BorderBrush="Gray" 
-                                                         Margin="10" 
+                                    <materialDesign:Card UniformCornerRadius="10"
+                                                         BorderBrush="Gray"
+                                                         Margin="10"
                                                          Background="#1e2e44">
                                         <StackPanel Margin="10">
                                             <WrapPanel>
-                                                <Ellipse Width="8" 
-                                                         Height="8" 
-                                                         Margin="3 3" 
-                                                         Fill="#7166f9"/>
-                                                <TextBlock  Text="Fuel Costs" 
-                                                            FontSize="13" 
-                                                            Foreground="#dfe1e3"/>
+                                                <Ellipse Width="8"
+                                                         Height="8"
+                                                         Margin="3 3"
+                                                         Fill="#7166f9" />
+                                                <TextBlock  Text="Fuel Costs"
+                                                            FontSize="13"
+                                                            Foreground="#dfe1e3" />
                                             </WrapPanel>
-                                            <TextBlock  Text="$" 
-                                                        FontSize="13" 
-                                                        Foreground="#dfe1e3"/>
+                                            <TextBlock  Text="$"
+                                                        FontSize="13"
+                                                        Foreground="#dfe1e3" />
                                         </StackPanel>
                                     </materialDesign:Card>
-                                    <materialDesign:Card UniformCornerRadius="10" 
-                                                         BorderBrush="Gray" 
-                                                         Margin="10" 
+                                    <materialDesign:Card UniformCornerRadius="10"
+                                                         BorderBrush="Gray"
+                                                         Margin="10"
                                                          Background="#1e2e44">
                                         <StackPanel Margin="10">
                                             <WrapPanel>
-                                                <Ellipse Width="8" 
-                                                         Height="8" 
-                                                         Margin="3 3" 
-                                                         Fill="#101a28"/>
-                                                <TextBlock  Text="Service Costs" 
-                                                            FontSize="13" 
-                                                            Foreground="#dfe1e3"/>
+                                                <Ellipse Width="8"
+                                                         Height="8"
+                                                         Margin="3 3"
+                                                         Fill="#101a28" />
+                                                <TextBlock  Text="Service Costs"
+                                                            FontSize="13"
+                                                            Foreground="#dfe1e3" />
                                             </WrapPanel>
-                                            <TextBlock  Text="$" 
-                                                        FontSize="13" 
-                                                        Foreground="#dfe1e3"/>
+                                            <TextBlock  Text="$"
+                                                        FontSize="13"
+                                                        Foreground="#dfe1e3" />
                                         </StackPanel>
                                     </materialDesign:Card>
-                                    <materialDesign:Card UniformCornerRadius="10" 
-                                                         BorderBrush="Gray" 
-                                                         Margin="10" 
+                                    <materialDesign:Card UniformCornerRadius="10"
+                                                         BorderBrush="Gray"
+                                                         Margin="10"
                                                          Background="#1e2e44">
                                         <StackPanel Margin="10">
                                             <WrapPanel>
-                                                <Ellipse Width="8" 
-                                                         Height="8" 
-                                                         Margin="3 3" 
-                                                         Fill="Red"/>
-                                                <TextBlock  Text="Other Costs" 
-                                                            FontSize="13" 
-                                                            Foreground="#dfe1e3"/>
+                                                <Ellipse Width="8"
+                                                         Height="8"
+                                                         Margin="3 3"
+                                                         Fill="Red" />
+                                                <TextBlock  Text="Other Costs"
+                                                            FontSize="13"
+                                                            Foreground="#dfe1e3" />
                                             </WrapPanel>
-                                            <TextBlock  Text="$" 
-                                                        FontSize="13" 
-                                                        Foreground="#dfe1e3"/>
+                                            <TextBlock  Text="$"
+                                                        FontSize="13"
+                                                        Foreground="#dfe1e3" />
                                         </StackPanel>
                                     </materialDesign:Card>
                                 </WrapPanel>
                             </StackPanel>
                         </materialDesign:Card>
-                        <materialDesign:Card UniformCornerRadius="10" 
-                                             Background="#1e2e44" 
-                                             Margin="10 5">
-                            <StackPanel>
-                                <TextBlock FontWeight="Bold" 
-                                           Text="Details" 
-                                           FontSize="15" 
-                                           Foreground="#dfe1e3" 
-                                           Margin="10 15"/>
-                                <TextBlock FontWeight="Bold" 
-                                           Text="All Fields" 
-                                           FontSize="13" 
-                                           Foreground="#dfe1e3" 
-                                           Margin="10"/>
-                                <Grid>
-                                    <TextBlock Text="Name" 
-                                               FontSize="13" 
-                                               Foreground="#dfe1e3" 
-                                               Margin="10 10"/>
-                                    <TextBlock Text="SR5" 
-                                               FontSize="13" 
-                                               HorizontalAlignment="Center" 
-                                               Foreground="#dfe1e3" 
-                                               Margin="10 10"/>
-                                </Grid>
-                                <Grid>
-                                    <TextBlock Text="Meter" 
-                                               FontSize="13" 
-                                               Foreground="#dfe1e3"
-                                               Margin="10 10"/>
-                                    <TextBlock Text="96"
-                                               FontSize="13"
-                                               HorizontalAlignment="Center" 
-                                               Foreground="#dfe1e3"
-                                               Margin="10 10"/>
-                                </Grid>
-                                <Grid>
-                                    <TextBlock Text="Status" 
-                                               FontSize="13" 
-                                               Foreground="#dfe1e3"
-                                               Margin="10 10"/>
-                                    <WrapPanel HorizontalAlignment="Center"
-                                               Margin="10 15">
-                                        <Ellipse Width="8"
-                                                 Height="8"
-                                                 Margin="3 3"
-                                                 Fill="Green"/>
-                                        <TextBlock  Text="Active"
-                                                    FontSize="13"
-                                                    Foreground="#dfe1e3"/>
-                                    </WrapPanel>
-                                    <Button  Height="20"
-                                             HorizontalAlignment="Right" 
-                                             VerticalAlignment="Center"
-                                             Margin="10 10" 
-                                             Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="History"
-                                                    Style="{StaticResource menuButtonText}"/>
-                                    </Button>
-                                </Grid>
-                                <Grid>
-                                    <TextBlock Text="Group"
-                                               FontSize="13"
-                                               Foreground="#dfe1e3" 
-                                               Margin="10 10"/>
-                                    <TextBlock Text="Austin" 
-                                               FontSize="13" 
-                                               HorizontalAlignment="Center"  
-                                               Foreground="#dfe1e3"
-                                               Margin="10 10"/>
-                                    <Button  Height="20"
-                                             HorizontalAlignment="Right"
-                                             VerticalAlignment="Center"
-                                             Margin="10 10"
-                                             Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="History" 
-                                                    Style="{StaticResource menuButtonText}"/>
-                                    </Button>
-                                </Grid>
-                                <Grid>
-                                    <TextBlock Text="Operator" 
-                                               FontSize="13" 
-                                               Foreground="#dfe1e3" 
-                                               Margin="10 10"/>
-                                    <TextBlock Text="Linda"
-                                               FontSize="13" 
-                                               HorizontalAlignment="Center" 
-                                               Foreground="#dfe1e3"
-                                               Margin="10 10"/>
-                                </Grid>
-                                <Grid>
-                                    <TextBlock Text="Type"
-                                               FontSize="13"
-                                               Foreground="#dfe1e3"
-                                               Margin="10 10 10 15"/>
-                                    <TextBlock Text="SUY"
-                                               FontSize="13" 
-                                               HorizontalAlignment="Center"
-                                               Foreground="#dfe1e3"
-                                               Margin="10 10"/>
-                                </Grid>
-                            </StackPanel>
-                        </materialDesign:Card>
+
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="2" MinWidth="200">
+                    <materialDesign:Card UniformCornerRadius="10"
+                                         Background="#1e2e44"
+                                         Margin="10 10">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold"
+                                       Text="Details"
+                                       FontSize="18"
+                                       Foreground="#dfe1e3"
+                                       Margin="10 15" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Name"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <TextBlock Text="{Binding Vehicle.Name, FallbackValue='-', TargetNullValue='-'}"
+                                           FontSize="13"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Meter"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <TextBlock Text="96"
+                                           Grid.Column="1"
+                                           FontSize="13"
+                                           HorizontalAlignment="Left"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Status"
+                                           FontSize="13"
+                                           VerticalAlignment="Center"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <WrapPanel HorizontalAlignment="Left"
+                                           Grid.Column="1"
+                                           Margin="10 10">
+                                    <Ellipse Width="8"
+                                             Height="8"
+                                             Margin="3 3"
+                                             Fill="Green" />
+                                    <TextBlock  Text="{Binding Vehicle.VehicleStatus, FallbackValue='Active', TargetNullValue='Active'}"
+                                                FontSize="13"
+                                                Foreground="#dfe1e3" />
+                                </WrapPanel>
+                                <Button  Height="20"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Center"
+                                         Margin="10 10"
+                                         Style="{StaticResource menubutton}">
+                                    <TextBlock  Text="History"
+                                                Visibility="Hidden"
+                                                Style="{StaticResource menuButtonText}" />
+                                </Button>
+                            </Grid>
+                            <Grid Visibility="Collapsed">
+                                <TextBlock Text="Group"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <TextBlock Text="Austin"
+                                           FontSize="13"
+                                           HorizontalAlignment="Left"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <Button  Height="20"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Center"
+                                         Margin="10 10"
+                                         Style="{StaticResource menubutton}">
+                                    <TextBlock  Text="History"
+                                                Style="{StaticResource menuButtonText}" />
+                                </Button>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Operator"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <TextBlock Text="{Binding Vehicle.Driver[Name], FallbackValue='-', TargetNullValue='-'}"
+                                           FontSize="13"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Type"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <TextBlock Text="{Binding Vehicle.VehicleType, TargetNullValue='-', FallbackValue='-'}"
+                                           FontSize="13"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="VIN/SN"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <TextBlock Text="{Binding Vehicle.VIN, TargetNullValue='-', FallbackValue='-'}"
+                                           FontSize="13"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Year"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <TextBlock Text="{Binding Vehicle.Year, TargetNullValue='-', FallbackValue='-'}"
+                                           FontSize="13"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Make"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <TextBlock Text="{Binding Vehicle.Make, TargetNullValue='-', FallbackValue='-'}"
+                                           FontSize="13"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Model"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <TextBlock Text="{Binding Vehicle.Models, TargetNullValue='-', FallbackValue='-'}"
+                                           FontSize="13"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Body Class"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10" />
+                                <TextBlock FontSize="13"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Left"
+                                           Foreground="#dfe1e3"
+                                           Margin="10 10">
+                                    <Run Text="{Binding Vehicle.BodyType, TargetNullValue='-', FallbackValue='-'}" />
+                                    <Run Text="{Binding Vehicle.TrailerType}" />
+                                </TextBlock>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
                     <StackPanel>
                         <materialDesign:Card UniformCornerRadius="10"
-                                             Background="#1e2e44" Margin="10 5">
+                                             Visibility="Collapsed"
+                                             Background="#1e2e44"
+                                             Margin="10 5">
                             <StackPanel>
                                 <!--sua lai home-->
                                 <Grid>
                                     <TextBlock FontWeight="Bold"
-                                               Text="Open Issues" 
-                                               FontSize="15" 
+                                               Text="Open Issues"
+                                               FontSize="15"
                                                Foreground="#dfe1e3"
-                                               Margin="10 15"/>
-                                    <Button  Height="20" 
+                                               Margin="10 15" />
+                                    <Button  Height="20"
                                              HorizontalAlignment="Right"
                                              VerticalAlignment="Center"
-                                             Margin="10 15 70 15" 
+                                             Margin="10 15 70 15"
                                              Style="{StaticResource menubutton}">
                                         <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="Plus" 
+                                            <Icon:PackIconMaterial Kind="Plus"
                                                                    Height="10"
                                                                    Margin="0"
                                                                    VerticalAlignment="Center"
-                                                                   Style="{StaticResource menuButtonIcon}"/>
-                                            <TextBlock  Text="Add Issue" 
-                                                        Style="{StaticResource menuButtonText}"/>
+                                                                   Style="{StaticResource menuButtonIcon}" />
+                                            <TextBlock  Text="Add Issue"
+                                                        Style="{StaticResource menuButtonText}" />
                                         </StackPanel>
                                     </Button>
                                     <Button  Height="20"
@@ -281,64 +396,68 @@
                                              Margin="10 15"
                                              Style="{StaticResource menubutton}">
                                         <TextBlock  Text="View All"
-                                                    Style="{StaticResource menuButtonText}"/>
+                                                    Style="{StaticResource menuButtonText}" />
                                     </Button>
                                 </Grid>
-                                <materialDesign:Card UniformCornerRadius="10" 
-                                                     BorderBrush="Gray" 
+                                <materialDesign:Card UniformCornerRadius="10"
+                                                     BorderBrush="Gray"
                                                      Margin="10"
                                                      Background="#1e2e44">
                                     <Grid Margin="10">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
-                                        <TextBlock  Grid.Row="0" Grid.Column="0" 
-                                                    Text="Overdue" 
-                                                    FontSize="13" 
+                                        <TextBlock  Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Text="Overdue"
+                                                    FontSize="13"
                                                     Foreground="#dfe1e3"
-                                                    Margin="0 0 0 15"/>
-                                        <TextBlock  Grid.Row="0" Grid.Column="1"
+                                                    Margin="0 0 0 15" />
+                                        <TextBlock  Grid.Row="0"
+                                                    Grid.Column="1"
                                                     Text="Open"
-                                                    FontSize="13" 
-                                                    Foreground="#dfe1e3" 
-                                                    Margin="0 0 0 15"/>
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3"
+                                                    Margin="0 0 0 15" />
 
-                                        <TextBlock  Grid.Row="1" Grid.Column="0" 
-                                                    Text="$" 
-                                                    FontSize="13" 
-                                                    Foreground="#dfe1e3"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="1" 
-                                                   Text="$" 
-                                                   FontSize="13" 
-                                                   Foreground="#dfe1e3"/>
+                                        <TextBlock  Grid.Row="1"
+                                                    Grid.Column="0"
+                                                    Text="$"
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3" />
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Text="$"
+                                                   FontSize="13"
+                                                   Foreground="#dfe1e3" />
                                     </Grid>
                                 </materialDesign:Card>
                                 <Grid>
-                                    <TextBlock
-                                        Text="Flat Tire" 
-                                        FontSize="13" 
-                                        Foreground="#dfe1e3"
-                                        Margin="10 15"/>
+                                    <TextBlock Text="Flat Tire"
+                                               FontSize="13"
+                                               Foreground="#dfe1e3"
+                                               Margin="10 15" />
                                     <Button  Height="20"
                                              HorizontalAlignment="Right"
                                              VerticalAlignment="Center"
                                              Margin="10 15"
                                              Style="{StaticResource menubutton}">
-                                        <Icon:PackIconMaterial Kind="DotsHorizontal" 
+                                        <Icon:PackIconMaterial Kind="DotsHorizontal"
                                                                Height="10"
                                                                Margin="0"
                                                                VerticalAlignment="Center"
-                                                               Style="{StaticResource menuButtonIcon}"/>
+                                                               Style="{StaticResource menuButtonIcon}" />
                                     </Button>
                                 </Grid>
                             </StackPanel>
                         </materialDesign:Card>
                         <materialDesign:Card UniformCornerRadius="10"
+                                             Visibility="Collapsed"
                                              Background="#1e2e44"
                                              Margin="10 5">
                             <StackPanel>
@@ -348,7 +467,7 @@
                                                Text="Service Reminders"
                                                FontSize="15"
                                                Foreground="#dfe1e3"
-                                               Margin="10 15"/>
+                                               Margin="10 15" />
                                     <Button  Height="20"
                                              HorizontalAlignment="Right"
                                              VerticalAlignment="Center"
@@ -357,11 +476,11 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Icon:PackIconMaterial Kind="Plus"
                                                                    Height="10"
-                                                                   Margin="0" 
+                                                                   Margin="0"
                                                                    VerticalAlignment="Center"
-                                                                   Style="{StaticResource menuButtonIcon}"/>
+                                                                   Style="{StaticResource menuButtonIcon}" />
                                             <TextBlock  Text="Add Service Reminder"
-                                                        Style="{StaticResource menuButtonText}"/>
+                                                        Style="{StaticResource menuButtonText}" />
                                         </StackPanel>
                                     </Button>
                                     <Button  Height="20"
@@ -370,107 +489,113 @@
                                              Margin="10 15"
                                              Style="{StaticResource menubutton}">
                                         <TextBlock  Text="View All"
-                                                    Style="{StaticResource menuButtonText}"/>
+                                                    Style="{StaticResource menuButtonText}" />
                                     </Button>
                                 </Grid>
                                 <Grid Height="100">
                                     <TextBlock Text="There are no Service Reminders due soon for this Vehicle"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
-                                               Foreground="#dfe1e3"/>
+                                               Foreground="#dfe1e3" />
                                 </Grid>
                             </StackPanel>
                         </materialDesign:Card>
                         <materialDesign:Card UniformCornerRadius="10"
-                                             Background="#1e2e44" 
+                                             Visibility="Collapsed"
+                                             Background="#1e2e44"
                                              Margin="10 5">
                             <StackPanel>
                                 <!--sua lai home-->
                                 <Grid>
-                                    <TextBlock FontWeight="Bold" 
-                                               Text="Renewal Reminders" 
-                                               FontSize="15" 
+                                    <TextBlock FontWeight="Bold"
+                                               Text="Renewal Reminders"
+                                               FontSize="15"
                                                Foreground="#dfe1e3"
-                                               Margin="10 15"/>
+                                               Margin="10 15" />
                                     <Button  Height="20"
                                              HorizontalAlignment="Right"
                                              VerticalAlignment="Center"
-                                             Margin="10 15 70 15" 
+                                             Margin="10 15 70 15"
                                              Style="{StaticResource menubutton}">
                                         <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="Plus" 
-                                                                   Height="10" 
-                                                                   Margin="0" 
+                                            <Icon:PackIconMaterial Kind="Plus"
+                                                                   Height="10"
+                                                                   Margin="0"
                                                                    VerticalAlignment="Center"
-                                                                   Style="{StaticResource menuButtonIcon}"/>
+                                                                   Style="{StaticResource menuButtonIcon}" />
                                             <TextBlock  Text="Add Renewal Reminder"
-                                                        Style="{StaticResource menuButtonText}"/>
+                                                        Style="{StaticResource menuButtonText}" />
                                         </StackPanel>
                                     </Button>
                                     <Button  Height="20"
-                                             HorizontalAlignment="Right" 
+                                             HorizontalAlignment="Right"
                                              VerticalAlignment="Center"
                                              Margin="10 15"
                                              Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="View All" 
-                                                    Style="{StaticResource menuButtonText}"/>
+                                        <TextBlock  Text="View All"
+                                                    Style="{StaticResource menuButtonText}" />
                                     </Button>
                                 </Grid>
                                 <materialDesign:Card UniformCornerRadius="10"
-                                                     BorderBrush="Gray" 
+                                                     BorderBrush="Gray"
                                                      Margin="10"
                                                      Background="#1e2e44">
                                     <Grid Margin="10">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
-                                        <TextBlock  Grid.Row="0" Grid.Column="0" 
+                                        <TextBlock  Grid.Row="0"
+                                                    Grid.Column="0"
                                                     Text="Overdue"
                                                     FontSize="13"
-                                                    Foreground="#dfe1e3" 
-                                                    Margin="0 0 0 15"/>
-                                        <TextBlock  Grid.Row="0" Grid.Column="1"
+                                                    Foreground="#dfe1e3"
+                                                    Margin="0 0 0 15" />
+                                        <TextBlock  Grid.Row="0"
+                                                    Grid.Column="1"
                                                     Text="Due Soon"
                                                     FontSize="13"
                                                     Foreground="#dfe1e3"
-                                                    Margin="0 0 0 15"/>
+                                                    Margin="0 0 0 15" />
 
-                                        <TextBlock  Grid.Row="1" Grid.Column="0" 
+                                        <TextBlock  Grid.Row="1"
+                                                    Grid.Column="0"
                                                     Text="$"
-                                                    FontSize="13" 
-                                                    Foreground="#dfe1e3"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="1" 
+                                                    FontSize="13"
+                                                    Foreground="#dfe1e3" />
+                                        <TextBlock Grid.Row="1"
+                                                   Grid.Column="1"
                                                    Text="$"
                                                    FontSize="13"
-                                                   Foreground="#dfe1e3"/>
+                                                   Foreground="#dfe1e3" />
                                     </Grid>
                                 </materialDesign:Card>
                                 <Grid>
                                     <TextBlock  Text="Flat Tire"
                                                 FontSize="13"
                                                 Foreground="#dfe1e3"
-                                                Margin="10 15"/>
-                                    <Button  Height="20" 
+                                                Margin="10 15" />
+                                    <Button  Height="20"
                                              HorizontalAlignment="Right"
                                              VerticalAlignment="Center"
                                              Margin="10 15"
                                              Style="{StaticResource menubutton}">
                                         <Icon:PackIconMaterial Kind="DotsHorizontal"
-                                                               Height="10" 
-                                                               Margin="0" 
-                                                               VerticalAlignment="Center" 
-                                                               Style="{StaticResource menuButtonIcon}"/>
+                                                               Height="10"
+                                                               Margin="0"
+                                                               VerticalAlignment="Center"
+                                                               Style="{StaticResource menuButtonIcon}" />
                                     </Button>
                                 </Grid>
                             </StackPanel>
                         </materialDesign:Card>
                         <materialDesign:Card UniformCornerRadius="10"
-                                             Background="#1e2e44" 
+                                             Visibility="Collapsed"
+                                             Background="#1e2e44"
                                              Margin="10 5">
                             <StackPanel>
                                 <!--sua lai home-->
@@ -478,42 +603,43 @@
                                     <TextBlock FontWeight="Bold"
                                                Text="Incomplete Work Orders"
                                                FontSize="15"
-                                               Foreground="#dfe1e3" 
-                                               Margin="10 15"/>
+                                               Foreground="#dfe1e3"
+                                               Margin="10 15" />
                                     <Button  Height="20"
                                              HorizontalAlignment="Right"
-                                             VerticalAlignment="Center" 
+                                             VerticalAlignment="Center"
                                              Margin="10 15 70 15"
                                              Style="{StaticResource menubutton}">
                                         <StackPanel Orientation="Horizontal">
                                             <Icon:PackIconMaterial Kind="Plus"
                                                                    Height="10"
-                                                                   Margin="0" 
+                                                                   Margin="0"
                                                                    VerticalAlignment="Center"
-                                                                   Style="{StaticResource menuButtonIcon}"/>
+                                                                   Style="{StaticResource menuButtonIcon}" />
                                             <TextBlock  Text="Add Work Order"
-                                                        Style="{StaticResource menuButtonText}"/>
+                                                        Style="{StaticResource menuButtonText}" />
                                         </StackPanel>
                                     </Button>
                                     <Button  Height="20"
                                              HorizontalAlignment="Right"
                                              VerticalAlignment="Center"
-                                             Margin="10 15" 
+                                             Margin="10 15"
                                              Style="{StaticResource menubutton}">
-                                        <TextBlock  Text="View All" 
-                                                    Style="{StaticResource menuButtonText}"/>
+                                        <TextBlock  Text="View All"
+                                                    Style="{StaticResource menuButtonText}" />
                                     </Button>
                                 </Grid>
                                 <Grid Height="100">
                                     <TextBlock Text="There are no Work Orders active for this Vehicle"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
-                                               Foreground="#dfe1e3"/>
+                                               Foreground="#dfe1e3" />
                                 </Grid>
                             </StackPanel>
                         </materialDesign:Card>
-                        <materialDesign:Card UniformCornerRadius="10" 
-                                             Background="#1e2e44" 
+                        <materialDesign:Card UniformCornerRadius="10"
+                                             Visibility="Collapsed"
+                                             Background="#1e2e44"
                                              Margin="10 5">
                             <StackPanel>
                                 <!--sua lai home-->
@@ -522,23 +648,23 @@
                                                Grid.Row="0"
                                                Grid.Column="0"
                                                Text="Inspections"
-                                               FontSize="15" 
+                                               FontSize="15"
                                                Foreground="#dfe1e3"
-                                               Margin="10 15"/>
-                                    <Button  Height="20" 
-                                             HorizontalAlignment="Right" 
-                                             VerticalAlignment="Center" 
-                                             Margin="10 15" 
+                                               Margin="10 15" />
+                                    <Button  Height="20"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Center"
+                                             Margin="10 15"
                                              Style="{StaticResource menubutton}">
                                         <TextBlock  Text="View All"
-                                                    Style="{StaticResource menuButtonText}"/>
+                                                    Style="{StaticResource menuButtonText}" />
                                     </Button>
                                 </Grid>
                                 <Grid Height="100">
-                                    <TextBlock Text="There are no Inspections due soon for this Vehicle" 
-                                               HorizontalAlignment="Center" 
-                                               VerticalAlignment="Center" 
-                                               Foreground="#dfe1e3"/>
+                                    <TextBlock Text="There are no Inspections due soon for this Vehicle"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="#dfe1e3" />
                                 </Grid>
                             </StackPanel>
                         </materialDesign:Card>

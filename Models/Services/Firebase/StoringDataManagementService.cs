@@ -50,7 +50,6 @@ namespace Models.Services.Firebase
             {
                 await _data.UpdateAsync(nameof(DatasetFirebase.CountVehicles), FieldValue.Increment(1));
             }
-            //var doc = _firestoreDb.Collection("Data").Document(vehicle.Id);
             await doc.SetAsync(vehicle);
         }
         public async Task AddToArrayVehicle(string documentPath, string arrayField, object newValue)
@@ -66,14 +65,23 @@ namespace Models.Services.Firebase
         public async Task AddOrUpdateDriver(DriverFirebase driver)
         {
             DocumentReference doc = driversRef.Document(driver.Id);
-            //var doc = _firestoreDb.Collection("Data").Document(driver.Id);
+            DocumentSnapshot snapshot = await doc.GetSnapshotAsync();
+            if (!snapshot.Exists)
+            {
+                await _data.UpdateAsync(nameof(DatasetFirebase.CountDrivers), FieldValue.Increment(1));
+            }
             await doc.SetAsync(driver);
         }
         public async Task AddOrUpdateTrip(TripFirebase trip)
         {
             DocumentReference doc = tripRef.Document(trip.Id);
             //var doc = _firestoreDb.Collection("Data").Document(trip.Id);
-            await doc.SetAsync(trip);
+            DocumentSnapshot snapshot = await doc.GetSnapshotAsync();
+            if (!snapshot.Exists)
+            {
+                await _data.UpdateAsync(nameof(DatasetFirebase.CountTrips), FieldValue.Increment(1));
+            }
+            await doc.SetAsync(trip, SetOptions.MergeAll);
         }
 
 
@@ -121,7 +129,6 @@ namespace Models.Services.Firebase
             var snapshot = await doc.GetSnapshotAsync();
             return snapshot.ConvertTo<TripFirebase>();
         }
-
         public async Task<IReadOnlyCollection<TripFirebase>> GetAllTrips()
         {
             DatasetFirebase curData = await GetRootDoc();

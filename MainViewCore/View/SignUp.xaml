@@ -276,8 +276,10 @@
                     <Separator Height="0.8"
                                Width="550"
                                Margin="20 3"
+                               Visibility="Hidden"
                                Background="#9ea4ad" />
                     <Button HorizontalAlignment="Center"
+                            Visibility="Hidden"
                             Style="{StaticResource whitebutton}"
                             Margin="20"
                             Height="30">

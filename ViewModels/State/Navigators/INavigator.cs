@@ -18,12 +18,15 @@ namespace ViewModels.State.Navigators
         DriverList,
         DriverMainOverview,
         VehicleAssignment,
-        Reminders
+        Reminders,
+        TripInfo,
+        TripList,
     }
 
     public interface INavigator
     {
         ViewModelBase CurrentViewModel { get; set; }
         void NavigateTo<TViewModel>() where TViewModel : ViewModelBase;
+        ViewModelBase NavigateToTab<TViewModel>() where TViewModel : ViewModelBase;
     }
 }

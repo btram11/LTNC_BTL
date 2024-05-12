@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 
 namespace Models.ModelFirebase
 {
+    public enum Gender
+    {
+        Male,
+        Female
+    }
+
+
     [FirestoreData]
     public class DriverFirebase : IFirebaseEntity
     {
@@ -20,10 +27,16 @@ namespace Models.ModelFirebase
         public string LastName { get; set; }
 
         [FirestoreProperty]
+        public int Age { get; set; } 
+
+        [FirestoreProperty]
         public string DateOfBirth { get; set; }
 
         [FirestoreProperty]
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }
+
+        [FirestoreProperty]
+        public string Status { get; set; }
 
         [FirestoreProperty]
         public string ID { get; set; }
@@ -66,5 +79,10 @@ namespace Models.ModelFirebase
 
         [FirestoreProperty]
         public List<Dictionary<string, object>> OngoingTripList { get; set; }
+
+        [FirestoreProperty]
+        public Dictionary<string, object> Vehicle { get; set; } = null;
+
+
     }
 }

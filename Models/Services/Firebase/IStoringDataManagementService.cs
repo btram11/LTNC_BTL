@@ -22,7 +22,7 @@ namespace Models.Services.Firebase
         Task<T> GetVehicleById<T>(string id) where T : IVehicleDataFirebase;
         Task<List<IVehicleDataFirebase>> GetAllVehicles();
         Task<TripFirebase> GetTripById(string id);
-
+        Task<IReadOnlyCollection<TripFirebase>> GetAllTrips();
 
 
         Task<IReadOnlyCollection<DriverFirebase>> WhereEqualToDriver(string fieldPath, object value);

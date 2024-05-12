@@ -8,11 +8,23 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
-             Name="DriverListView"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:converter="clr-namespace:MainView.Converters"
+             x:Name="DriverListView"
              mc:Ignorable="d"
              d:DesignHeight="680"
              d:DesignWidth="1030">
-    <Border >
+    <Behaviors:Interaction.Triggers>
+        <Behaviors:EventTrigger EventName="Loaded">
+            <Behaviors:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </Behaviors:EventTrigger>
+    </Behaviors:Interaction.Triggers>
+    <UserControl.Resources>
+        <converter:RegularVisibilityConverter x:Key="VisibilityConverter" />
+        <converter:EmptyStringConverter x:Key="EmptyStringConverter" />
+        <converter:ObjectCompareNULLConverter x:Key="ObjectCompareNULLConverter" />
+    </UserControl.Resources>
+    <Border>
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -24,7 +36,7 @@
                     Style="{StaticResource mainBorder}">
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="500" />
+                        <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
@@ -37,6 +49,7 @@
                                    FontWeight="SemiBold"
                                    Margin="5 0 0 8" />
                         <StackPanel Orientation="Horizontal"
+                                    Visibility="Hidden"
                                     Margin="0 4 0 0">
                             <RadioButton Content="All"
                                          IsChecked="True"
@@ -82,161 +95,242 @@
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
 
                 <!--Search-->
-                <Grid>
-                    <StackPanel>
-                        <Grid Margin="0 8 0 0">
-                            <TextBlock Margin="40 0 15 0"
-                                       VerticalAlignment="Center"
-                                       Foreground="#9ea4ad"
-                                       Panel.ZIndex="1"
-                                       IsHitTestVisible="False"
-                                       Text="Search here..."
-                                       Visibility="{Binding ElementName=textBox,Path=Text.Length,Converter={StaticResource boolToVis}}" />
-                            <TextBox x:Name="textBox"
-                                     Background="#151f2d"
-                                     Height="30"
-                                     Margin="5 0 0 0"
-                                     Style="{StaticResource searchTextBox}" />
-                            <Icon:PackIconMaterial Kind="Magnify"
-                                                   Width="15"
-                                                   Height="15"
-                                                   VerticalAlignment="Center"
-                                                   Foreground="#9ea4ad"
-                                                   Margin="15 0 0 0"
-                                                   HorizontalAlignment="Left" />
-                        </Grid>
-                        <Separator Height="0.8"
-                                   Margin="20 0"
-                                   Background="#9ea4ad" />
-                    </StackPanel>
-                </Grid>
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="0">
                     <StackPanel Orientation="Horizontal">
-
-                        <ComboBox Text="License Type"
-                                  Style="{StaticResource menuComobox}" />
-                        <ComboBox Text="Driver Experience"
-                                  Width="120"
-                                  Style="{StaticResource menuComobox}" />
-                        <ComboBox Text="Driver Status"
-                                  Style="{StaticResource menuComobox}" />
-                        <ComboBox Text="Filters"
-                                  Style="{StaticResource menuComobox}" />
-                        <Button Width="25"
-                                Height="25"
-                                Margin="150 0 0 0"
-                                Style="{StaticResource whitebutton}">
-                            <Icon:PackIconMaterial VerticalAlignment="Center"
-                                                   Kind="ChevronLeft"
-                                                   Width="11"
-                                                   Height="11" />
-                        </Button>
-                        <Button Width="25"
-                                Height="25"
-                                Margin="0 0 0 0"
-                                Style="{StaticResource whitebutton}">
-                            <Icon:PackIconMaterial VerticalAlignment="Center"
-                                                   Kind="ChevronRight"
-                                                   Width="11"
-                                                   Height="11" />
-                        </Button>
-                        <Button  Width="20"
-                                 Style="{StaticResource topmenuButton}"
-                                 Margin="10 0 0 0">
-                            <Icon:PackIconMaterial Kind="Cog"
-                                                   Style="{StaticResource topmenuButtonIcon}" />
-                        </Button>
+                        <StackPanel.Resources>
+                            <materialDesign:PackIconKind x:Key="LeadingIcon">Magnify</materialDesign:PackIconKind>
+                        </StackPanel.Resources>
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="250"
+                                 Padding="4 8 0 0"
+                                 Margin="0 0 16 0"
+                                 materialDesign:HintAssist.IsFloating="False"
+                                 materialDesign:HintAssist.Hint="Name"
+                                 materialDesign:TextFieldAssist.TextBoxViewMargin="0 0 8 0"
+                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                 materialDesign:TextFieldAssist.LeadingIcon="{StaticResource LeadingIcon}"
+                                 Style="{StaticResource MainOutlinedTextBox}" />
+                        <ComboBox Width="auto"
+                                  Margin="0 0 16 0"
+                                  materialDesign:TextFieldAssist.HasClearButton="True"
+                                  materialDesign:HintAssist.IsFloating="False"
+                                  materialDesign:HintAssist.Hint="License Class Type"
+                                  ItemsSource="{Binding LicenseTypeList, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding LicenseTypeFilter, UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{StaticResource MainOutlinedComboBox}" />
+                        <ComboBox Width="auto"
+                                  materialDesign:HintAssist.IsFloating="False"
+                                  materialDesign:HintAssist.Hint="Driver Status"
+                                  materialDesign:TextFieldAssist.HasClearButton="True"
+                                  ItemsSource="{Binding StatusList, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding StatusFilter, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"
+                                  Style="{StaticResource MainOutlinedComboBox}" />
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Column="2">
 
                 </Grid>
             </Grid>
-            <DataGrid Style="{DynamicResource DataGridStyle1}"
-                      CellStyle="{DynamicResource DataGridCellStyle1}"
-                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                      RowStyle="{DynamicResource DataGridRowStyle1}"
+            <DataGrid AutoGenerateColumns="False"
+                      ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      Background="Transparent"
+                      ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}"
+                      CanUserAddRows="False"
+                      ItemsSource="{Binding DriversCollection}"
                       Grid.Row="3"
                       x:Name="membersDataGrid">
+                <Behaviors:Interaction.Triggers>
+                    <Behaviors:EventTrigger EventName="MouseDoubleClick">
+                        <Behaviors:InvokeCommandAction Command="{Binding NavigateToMainDriverOverviewCommand}"
+                                                       CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}, Path=SelectedItem}" />
+                    </Behaviors:EventTrigger>
+                </Behaviors:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn CanUserResize="False"
-                                            Width="auto">
-                        <DataGridCheckBoxColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <CheckBox Style="{StaticResource checkbox}" />
-                            </DataTemplate>
-                        </DataGridCheckBoxColumn.HeaderTemplate>
-                    </DataGridCheckBoxColumn>
 
+                    <DataGridCheckBoxColumn CanUserResize="False"
+                                            Width="auto"
+                                            IsReadOnly="True"
+                                            Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}">
+                        <DataGridCheckBoxColumn.Header>
+                            <Border Background="Transparent">
+                                <CheckBox Style="{StaticResource MainCheckBox}"
+                                          Height="auto"
+                                          IsChecked="{Binding IsAllItemsSelected, UpdateSourceTrigger=PropertyChanged}" />
+                            </Border>
+                        </DataGridCheckBoxColumn.Header>
+                        <DataGridCheckBoxColumn.HeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}"
+                                   BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment"
+                                        Value="Center" />
+                            </Style>
+                        </DataGridCheckBoxColumn.HeaderStyle>
+                        <DataGridCheckBoxColumn.ElementStyle>
+                            <Style TargetType="CheckBox"
+                                   BasedOn="{StaticResource MainCheckBox}">
+                            </Style>
+                        </DataGridCheckBoxColumn.ElementStyle>
+                    </DataGridCheckBoxColumn>
 
                     <DataGridTemplateColumn Header="Name"
                                             IsReadOnly="True"
-                                            Width="*">
+                                            Width="auto"
+                                            MinWidth="150">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Border Width="25"
-                                            Height="25"
-                                            CornerRadius="50"
-                                            Margin="0 0 10 0"
-                                            Background="Red">
-                                        <TextBlock Text="..."
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center"
-                                                   Foreground="White"
-                                                   Margin="0 0 0 1" />
-                                    </Border>
-                                    <TextBlock Text="..."
-                                               VerticalAlignment="Center" />
+                                    <TextBlock VerticalAlignment="Center"
+                                               Style="{StaticResource DataGridTextColumnElementStyle}">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="FirstName" />
+                                                <Binding Path="LastName" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTextColumn Header="Driver License"
+                    <DataGridTextColumn Header="Age"
                                         IsReadOnly="True"
-                                        Width="*" />
-                    <DataGridTextColumn Header="Experience"
+                                        CanUserResize="False"
+                                        Width="auto"
+                                        Binding="{Binding Age, UpdateSourceTrigger=PropertyChanged,  TargetNullValue='-'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <StaticResource ResourceKey="DataGridTextColumnElementStyle" />
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Gender"
                                         IsReadOnly="True"
-                                        Width="*" />
+                                        CanUserResize="False"
+                                        Width="120"
+                                        Binding="{Binding Gender, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource EmptyStringConverter}}">
+                        <DataGridTextColumn.ElementStyle>
+                            <StaticResource ResourceKey="DataGridTextColumnElementStyle" />
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="License Class"
+                                        IsReadOnly="True"
+                                        Width="auto"
+                                        MinWidth="110"
+                                        Binding="{Binding DrivingLicenseClass, TargetNullValue='-'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}"
+                                   BasedOn="{StaticResource DataGridTextColumnElementStyle}" />
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="License Number"
+                                        IsReadOnly="True"
+                                        Width="auto"
+                                        MinWidth="150"
+                                        Binding="{Binding DrivingLicenseNumber, TargetNullValue='-'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}"
+                                   BasedOn="{StaticResource DataGridTextColumnElementStyle}" />
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="Status"
                                         IsReadOnly="True"
-                                        Width="*" />
+                                        Width="auto"
+                                        MinWidth="100"
+                                        Binding="{Binding Status, FallbackValue='None', TargetNullValue='None'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <StaticResource ResourceKey="DataGridTextColumnElementStyle" />
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="Phone Number"
                                         IsReadOnly="True"
-                                        Width="*" />
+                                        Width="auto"
+                                        CanUserResize="False"
+                                        MinWidth="150"
+                                        MaxWidth="250"
+                                        Binding="{Binding Phone, FallbackValue='None', TargetNullValue='Unknown'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource DataGridTextColumnElementStyle}">
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="Email"
                                         IsReadOnly="True"
-                                        Width="*" />
-
-                    <DataGridTemplateColumn Header="Edit"
-                                            IsReadOnly="True"
-                                            Width="auto">
+                                        Width="auto"
+                                        MinWidth="150"
+                                        Binding="{Binding Email, TargetNullValue='-'}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}"
+                                   BasedOn="{StaticResource DataGridTextColumnElementStyle}" />
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Operating Vehicle"
+                                            IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Width="25"
-                                            Height="25"
-                                            Margin="5 0 5 0"
-                                            Style="{StaticResource addbutton}">
-                                        <Icon:PackIconMaterial VerticalAlignment="Center"
-                                                               Kind="PencilOutline"
-                                                               Width="11"
-                                                               Height="11" />
-                                    </Button>
-                                </StackPanel>
+                                <ContentControl>
+                                    <ContentControl.Style>
+                                        <Style TargetType="{x:Type ContentControl}">
+                                            <Setter Property="VerticalAlignment"
+                                                    Value="Center" />
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <TextBlock Text="Unassigned"
+                                                               VerticalAlignment="Center"
+                                                               Style="{StaticResource DataGridTextColumnElementStyle}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+
+                                                <DataTrigger Binding="{Binding Vehicle, FallbackValue=False, TargetNullValue=False, Converter={StaticResource ObjectCompareNULLConverter}}"
+                                                             Value="True">
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <Hyperlink TextDecorations="None"
+                                                                       Command="{Binding DataContext.VehicleNavigateCommand, ElementName=DriverListView}"
+                                                                       CommandParameter="{Binding Vehicle[Id], FallbackValue={x:Null}}">
+                                                                <TextBlock Text="{Binding Vehicle[Name]}"
+                                                                           VerticalAlignment="Center" />
+                                                            </Hyperlink>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
                 </DataGrid.Columns>
             </DataGrid>
+            <TextBlock Text="Seems like you havent added any drivers"
+                       Grid.Row="3"
+                       FontSize="16"
+                       Foreground="Wheat"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility"
+                                Value="{Binding ListDrivers, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource VisibilityConverter}}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ListDrivers}"
+                                         Value="{x:Null}">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
         </Grid>
     </Border>
 </UserControl>

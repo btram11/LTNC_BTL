@@ -28,10 +28,10 @@ namespace Models.ModelFirebase
         public string VIN {  get; set; } 
 
         [FirestoreProperty]
-        public string LicensePlate { get; set; } =  string.Empty;
+        public string LicensePlate { get; set; }
 
         [FirestoreProperty]
-        public VehicleStatus VehicleStatus { get; set; }
+        public VehicleStatus? VehicleStatus { get; set; }
 
         [FirestoreProperty]
         public string VehicleType { get; set; }
@@ -46,13 +46,13 @@ namespace Models.ModelFirebase
         public string Year { get; set; }
 
         [FirestoreProperty]
-        public string Trim { get; set; } = string.Empty;
+        public string Trim { get; set; } 
 
         [FirestoreProperty]
-        public string RegisState { get; set; } =  string.Empty;
+        public string RegisState { get; set; } 
 
         [FirestoreProperty]
-        public string Ownership { get; set; } = string.Empty;
+        public string Ownership { get; set; } 
 
 
 
@@ -64,13 +64,13 @@ namespace Models.ModelFirebase
         public int FuelCapacity { get; set; }
 
         [FirestoreProperty]
-        public string EnginePower { get; set; } = string.Empty;
+        public string EnginePower { get; set; }
 
         [FirestoreProperty]
-        public string EngineSize { get; set; } = string.Empty;
+        public string EngineSize { get; set; } 
 
         [FirestoreProperty]
-        public string EngineCylinders { get; set; } = string.Empty;
+        public string EngineCylinders { get; set; }
 
         [FirestoreProperty]
         public float? GCWR { get; set; } //Gross Combined Weight Rating 
@@ -82,22 +82,22 @@ namespace Models.ModelFirebase
         public float CurbWeight { get; set; }
 
         [FirestoreProperty]
-        public string Color { get; set; } = string.Empty;
+        public string Color { get; set; } 
 
         [FirestoreProperty]
-        public string BodyType { get; set; } = string.Empty;
+        public string BodyType { get; set; } 
 
         [FirestoreProperty]
-        public string BusType { get; set; } = string.Empty;
+        public string BusType { get; set; } 
 
         [FirestoreProperty]
-        public string DisplacementCC { get; set; } = string.Empty;
+        public string DisplacementCC { get; set; } 
 
         [FirestoreProperty]
-        public string DisplacementCI { get; set; } = string.Empty;
+        public string DisplacementCI { get; set; } 
 
         [FirestoreProperty]
-        public string DisplacementL {  get; set; } = string.Empty;
+        public string DisplacementL {  get; set; } 
 
         [FirestoreProperty]
         public float? Length { get; set; }
@@ -106,7 +106,7 @@ namespace Models.ModelFirebase
         public int TotalSeats { get; set; } = 0;
 
         [FirestoreProperty]
-        public string FuelTypePrimary { get; set; } = string.Empty;
+        public string FuelTypePrimary { get; set; } 
 
 
         [FirestoreProperty]

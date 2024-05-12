@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.ModelFirebase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +7,38 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ViewModels.DriverViewModel;
+using ViewModels.State.Data;
+using ViewModels.State.Navigators;
 
 namespace ViewModels
 {
-    public class MainDriverOverviewViewModel: ViewModelBase
+    public class MainDriverOverviewViewModel : ViewModelBase
     {
-        private ViewModelBase _tabView;
+        private INavigator _navigation;
+        public INavigator Navigation
+        {
+            get => _navigation;
+            set
+            {
+                _navigation = value;
+                OnPropertyChanged(nameof(Navigation));
+            }
+        }
 
-        public ViewModelBase TabView
+        private readonly IDataStore _dataStore;
+        public DriverFirebase Driver
+        {
+            get
+            {
+                if (_dataStore.CurrentObject is DriverFirebase)
+                    return (DriverFirebase)_dataStore.CurrentObject;
+                return null;
+            }
+        }
+        private object _tabView = "Overview";
+        private string _tabName = "Overview";
+
+        public object TabView
         {
             get { return _tabView; }
             set
@@ -22,21 +47,64 @@ namespace ViewModels
                 OnPropertyChanged(nameof(TabView));
             }
         }
-        public ICommand OverviewTabCommand { get; }
-        public ICommand AssignmentHistoryTabCommand { get; }
-        public MainDriverOverviewViewModel()
+        public string TabName
         {
-            TabView = new OverviewDriverViewModel();
-
-            OverviewTabCommand = new RelayCommand<UserControl>((p) =>
+            get => _tabName;
+            set
             {
-                TabView = new OverviewDriverViewModel();
-            });
+                _tabName = value;
+                OnPropertyChanged(nameof(TabName));
+            }
+        }
 
-            AssignmentHistoryTabCommand = new RelayCommand<UserControl>((p) =>
+
+        public ICommand UpdateTabCommand { get; }
+        public ICommand UpdateViewCommand { get; }
+        public MainDriverOverviewViewModel(INavigator navigator, IDataStore dataStore)
+        {
+            Navigation = navigator;
+            _dataStore = dataStore;
+            _dataStore.StateChanged += DataStore_StateChanged;
+            UpdateTabCommand = new RelayCommand<string>((content) => ExecuteUpdateTabCommand(content));
+            UpdateViewCommand = new RelayCommand((p) =>
             {
-                TabView = new AssignmentHistoryViewModel();
+                Navigator.NavigateSwitch(navigator, p);
             });
         }
+
+
+        private void DataStore_StateChanged()
+        {
+            OnPropertyChanged(nameof(Driver));
+        }
+
+        private void ExecuteUpdateTabCommand(string content)
+        {
+            switch (content)
+            {
+                case "Assignment History":
+                    TabName = content;
+                    TabView = Navigation.NavigateToTab<DriverViewModel.AssignmentHistoryViewModel>();
+                    return;
+                case "Overview":
+                    TabName = content;
+                    TabView = content;
+                    return;
+                default:
+                    TabName = "Overview";
+                    TabView = "Overview";
+                    return;
+            }
+        }
+
+
+        public override void Dispose()
+        {
+            _dataStore.StateChanged -= DataStore_StateChanged;
+
+            base.Dispose();
+        }
+
+
     }
 }

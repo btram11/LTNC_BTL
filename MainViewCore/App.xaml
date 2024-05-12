@@ -61,6 +61,16 @@
             <DataTemplate DataType="{x:Type viewModels:MainVehicleOverviewViewModel}">
                 <localView:MainVehicleOverview />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:MainDriverOverviewViewModel}">
+                <localView:MainDriverOverview />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:TripInformationViewModel}">
+                <localView:TripInformation />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:AssignmentListViewModel}">
+                <localView:AssignmentList />
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModels:LoginViewModel}">
                 <localView:LoginView />

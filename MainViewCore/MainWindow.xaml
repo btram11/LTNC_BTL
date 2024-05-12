@@ -14,8 +14,8 @@
         AllowsTransparency="True"
         Background="Transparent"
         Name="curWindow"
-        MinHeight="600"
-        MinWidth="900"
+        MinHeight="740"
+        MinWidth="820"
         Height="600"
         Width="900">
     <WindowChrome.WindowChrome>

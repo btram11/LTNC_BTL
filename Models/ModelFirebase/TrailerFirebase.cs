@@ -26,7 +26,7 @@ namespace Models.ModelFirebase
         public string LicensePlate { get; set; } 
 
         [FirestoreProperty]
-        public VehicleStatus VehicleStatus { get; set; } 
+        public VehicleStatus? VehicleStatus { get; set; } 
 
         [FirestoreProperty]
         public string VehicleType { get; set; }

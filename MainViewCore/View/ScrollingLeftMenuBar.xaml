@@ -15,51 +15,63 @@
     <!--<UserControl.DataContext>
         <viewModels:MenuLeftBarViewModel/>
     </UserControl.DataContext>-->
-    <Border 
-            Padding="0 10 0 10">
+    <Border Padding="0 10 0 10">
         <Grid>
-            <ScrollViewer Style="{StaticResource ScrollViewMenu}">
-                <StackPanel>
-                    <!--user-->
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center"
-                                Margin="0 35 0 0">
-                        <Border CornerRadius="10"
-                                Width="40"
-                                Height="40">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0"
-                                                     EndPoint="1,2">
-                                    <GradientStop Color="#7f7cf1"
-                                                  Offset="0" />
-                                    <GradientStop Color="#d3b7ff"
-                                                  Offset="1" />
-                                </LinearGradientBrush>
-                            </Border.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0 35 0 0">
+                    <Border CornerRadius="10"
+                            Width="40"
+                            Height="40">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0"
+                                                 EndPoint="1,2">
+                                <GradientStop Color="#7f7cf1"
+                                              Offset="0" />
+                                <GradientStop Color="#d3b7ff"
+                                              Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
 
-                            <TextBlock Text="L"
-                                       Foreground="#ffffff"
-                                       FontSize="22"
-                                       FontWeight="SemiBold"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Margin="3 0 0 2" />
+                        <TextBlock Text="L"
+                                   Foreground="#ffffff"
+                                   FontSize="22"
+                                   FontWeight="SemiBold"
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="3 0 0 2" />
 
-                        </Border>
+                    </Border>
 
-                        <StackPanel Margin="10 0 0 0"
-                                    VerticalAlignment="Center">
-                            <TextBlock Text="user"
-                                       FontSize="15"
-                                       Margin="0 0 0 5"
-                                       Foreground="#c2cfff" />
-                        </StackPanel>
-
+                    <StackPanel Margin="10 0 0 0"
+                                VerticalAlignment="Center">
+                        <TextBlock FontSize="15"
+                                   Margin="0 0 0 5"
+                                   TextWrapping="Wrap"
+                                   Foreground="#c2cfff">
+            <Run Text="Hello, " />
+            <Run Text="{Binding CurrentAccount.FirstName, TargetNullValue='', FallbackValue='user'}" />
+            <Run Text="{Binding CurrentAccount.LastName, TargetNullValue='', FallbackValue=''}" />
+                        </TextBlock>
                     </StackPanel>
 
-                    <Separator Height="0.8"
-                               Margin="20 30 20 20"
-                               Background="#46558a" />
+                </StackPanel>
+
+                <Separator Height="0.8"
+                           Margin="20 30 20 20"
+                           Background="#46558a" />
+            </StackPanel>
+            <ScrollViewer Style="{StaticResource ScrollViewMenu}"
+                          Grid.Row="1">
+                <StackPanel>
+                    <!--user-->
+
 
                     <!--menu-->
                     <RadioButton Style="{StaticResource MenuBarButton}"
@@ -97,14 +109,6 @@
                         </StackPanel>
                     </RadioButton>
 
-                    <!--<RadioButton Style="{StaticResource MenuBarButton}">
-                    <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Devices" 
-                                               Style="{StaticResource MenuBarButtonIcon}"/>
-                        <TextBlock  Text="Equipment" 
-                                    Style="{StaticResource MenuBarButtonText}"/>
-                    </StackPanel>
-                </RadioButton>-->
 
                     <RadioButton Style="{StaticResource MenuBarButton}"
                                  Command="{Binding UpdateViewModelCommand}"
@@ -117,7 +121,18 @@
                         </StackPanel>
                     </RadioButton>
 
-                    <RadioButton Style="{StaticResource MenuBarButton}">
+                    <RadioButton Style="{StaticResource MenuBarButton}"
+                                 Command="{Binding UpdateViewModelCommand}"
+                                 CommandParameter="{x:Static nav:ViewType.TripList }">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="TableAccount"
+                                                   Style="{StaticResource MenuBarButtonIcon}" />
+                            <TextBlock  Text="Trips"
+                                        Style="{StaticResource MenuBarButtonText}" />
+                        </StackPanel>
+                    </RadioButton>
+
+                    <!--<RadioButton Style="{StaticResource MenuBarButton}">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="Check"
                                                    Style="{StaticResource MenuBarButtonIcon}" />
@@ -216,10 +231,28 @@
                             <TextBlock  Text="Reports"
                                         Style="{StaticResource MenuBarButtonText}" />
                         </StackPanel>
-                    </RadioButton>
+                    </RadioButton>-->
 
                 </StackPanel>
             </ScrollViewer>
+            <StackPanel Grid.Row="3"
+                        Margin="0 0 0 10">
+                <Separator Height="0.8"
+                           Margin="20 10 20 20"
+                           Background="#46558a" />
+                <TextBlock Foreground="{StaticResource MainForegroundBrush}"
+                           TextAlignment="Center">
+                    <Hyperlink Command="{Binding UpdateViewModelCommand}"
+                               TextDecorations="None"
+                               FontSize="17"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"
+                               Foreground="White"
+                               CommandParameter="{x:Static nav:ViewType.Login}">
+                        Log out
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
         </Grid>
     </Border>
 </UserControl>

@@ -1,16 +1,16 @@
-﻿<UserControl x:Class="MainView.View.AssignmentHistoryDriver"
+﻿<UserControl x:Class="MainView.View.AssignmentList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:converter="clr-namespace:MainView.Converters"
              xmlns:local="clr-namespace:MainView.View"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converter="clr-namespace:MainView.Converters"
              x:Name="CurView"
              mc:Ignorable="d"
              d:DesignHeight="450"
-             d:DesignWidth="1080">
+             d:DesignWidth="800">
     <Behaviors:Interaction.Triggers>
         <Behaviors:EventTrigger EventName="Loaded">
             <Behaviors:InvokeCommandAction Command="{Binding LoadCommand}" />
@@ -25,41 +25,93 @@
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid>
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel.Resources>
-                        <materialDesign:PackIconKind x:Key="LeadingIcon">Magnify</materialDesign:PackIconKind>
-                    </StackPanel.Resources>
-                    <TextBox Text="{Binding LocationFilter, UpdateSourceTrigger=PropertyChanged}"
-                             Width="250"
-                             Padding="4 8 0 0"
-                             Margin="0 0 16 0"
-                             materialDesign:HintAssist.IsFloating="False"
-                             materialDesign:HintAssist.Hint="Origin / Destination"
-                             materialDesign:TextFieldAssist.TextBoxViewMargin="0 0 8 0"
-                             materialDesign:TextFieldAssist.HasLeadingIcon="True"
-                             materialDesign:TextFieldAssist.LeadingIcon="{StaticResource LeadingIcon}"
-                             Style="{StaticResource MainOutlinedTextBox}" />
-                    <ComboBox Width="auto"
-                              Margin="0 0 16 0"
-                              materialDesign:TextFieldAssist.HasClearButton="True"
-                              materialDesign:HintAssist.IsFloating="False"
-                              materialDesign:HintAssist.Hint="Transportation Type"
-                              ItemsSource="{Binding TransportationTypeList, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding TransportationTypeFilter, UpdateSourceTrigger=PropertyChanged}"
-                              Style="{StaticResource MainOutlinedComboBox}" />
-                    <ComboBox Width="auto"
-                              materialDesign:HintAssist.IsFloating="False"
-                              materialDesign:HintAssist.Hint="Trip Status"
-                              materialDesign:TextFieldAssist.HasClearButton="True"
-                              ItemsSource="{Binding StatusList, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding StatusFilter, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"
-                              Style="{StaticResource MainOutlinedComboBox}" />
-                </StackPanel>
+
+            <Border Grid.Row="0"
+                    Style="{StaticResource mainBorder}">
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Stretch">
+                        <TextBlock Text="Trips"
+                                   Foreground="{StaticResource ForegroundPearlBushBrush}"
+                                   FontSize="25"
+                                   Margin="5 0 0 8"
+                                   FontWeight="SemiBold" />
+
+                        <StackPanel Orientation="Horizontal"
+                                    Visibility="Hidden"
+                                    Margin="0 4 0 0">
+                            <RadioButton Content="All"
+                                         IsChecked="True"
+                                         Width="120"
+                                         Style="{StaticResource MainOverviewRadioButtonTab}" />
+                            <RadioButton Content="Assigned"
+                                         Width="120"
+                                         Style="{StaticResource MainOverviewRadioButtonTab}" />
+                            <RadioButton Content="Unassigned"
+                                         Width="120"
+                                         Style="{StaticResource MainOverviewRadioButtonTab}" />
+
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1"
+                  Margin="0 8 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
 
                 <!--Search-->
+                <Grid HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <materialDesign:PackIconKind x:Key="LeadingIcon">Magnify</materialDesign:PackIconKind>
+                        </StackPanel.Resources>
+                        <TextBox Text="{Binding LocationFilter, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="250"
+                                 Padding="4 8 0 0"
+                                 Margin="0 0 16 0"
+                                 materialDesign:HintAssist.IsFloating="False"
+                                 materialDesign:HintAssist.Hint="Origin / Destination"
+                                 materialDesign:TextFieldAssist.TextBoxViewMargin="0 0 8 0"
+                                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                                 materialDesign:TextFieldAssist.LeadingIcon="{StaticResource LeadingIcon}"
+                                 Style="{StaticResource MainOutlinedTextBox}" />
+                        <ComboBox Width="auto"
+                                  Margin="0 0 16 0"
+                                  materialDesign:TextFieldAssist.HasClearButton="True"
+                                  materialDesign:HintAssist.IsFloating="False"
+                                  materialDesign:HintAssist.Hint="Transportation Type"
+                                  ItemsSource="{Binding TransportationTypeList, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding TransportationTypeFilter, UpdateSourceTrigger=PropertyChanged}"
+                                  Style="{StaticResource MainOutlinedComboBox}" />
+                        <ComboBox Width="auto"
+                                  materialDesign:HintAssist.IsFloating="False"
+                                  materialDesign:HintAssist.Hint="Trip Status"
+                                  materialDesign:TextFieldAssist.HasClearButton="True"
+                                  ItemsSource="{Binding StatusList, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding StatusFilter, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"
+                                  Style="{StaticResource MainOutlinedComboBox}" />
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+
+
+
+
+
+                    </StackPanel>
+                </Grid>
             </Grid>
             <DataGrid AutoGenerateColumns="False"
                       ScrollViewer.CanContentScroll="True"
@@ -139,13 +191,13 @@
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
-                                        <Run Text="Scheduled: " />
-                                        <Run Text="{Binding ScheduledDepartureTime, TargetNullValue='-', FallbackValue='-'}" />
+                        <Run Text="Scheduled: " />
+                        <Run Text="{Binding ScheduledDepartureTime, TargetNullValue='-', FallbackValue='-'}" />
                                     </TextBlock>
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
-                                        <Run Text="Real: " />
-                                        <Run Text="{Binding DepartureTime, TargetNullValue='-', FallbackValue='-'}" />
+                        <Run Text="Real: " />
+                        <Run Text="{Binding DepartureTime, TargetNullValue='-', FallbackValue='-'}" />
                                     </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
@@ -161,13 +213,13 @@
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
-                                        <Run Text="Scheduled: " />
-                                        <Run Text="{Binding ScheduledArrivalTime, TargetNullValue='-', FallbackValue='-'}" />
+                        <Run Text="Scheduled: " />
+                        <Run Text="{Binding ScheduledArrivalTime, TargetNullValue='-', FallbackValue='-'}" />
                                     </TextBlock>
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
-                                        <Run Text="Real: " />
-                                        <Run Text="{Binding ArrivalTime, TargetNullValue='-', FallbackValue='-'}" />
+                        <Run Text="Real: " />
+                        <Run Text="{Binding ArrivalTime, TargetNullValue='-', FallbackValue='-'}" />
                                     </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
@@ -220,12 +272,11 @@
                                             </Setter>
                                             <Style.Triggers>
 
-                                                <DataTrigger Binding="{Binding Trailer, FallbackValue=False, TargetNullValue=False, Converter={StaticResource ObjectCompareNULLConverter}}"
+                                                <DataTrigger Binding="{Binding HasTrailer, FallbackValue=False, TargetNullValue=False,Converter={StaticResource ObjectCompareNULLConverter}}"
                                                              Value="True">
                                                     <Setter Property="Content">
                                                         <Setter.Value>
-                                                            <Hyperlink TextDecorations="None"
-                                                                       Command="{Binding DataContext.TrailerNavigateCommand, ElementName=CurView}"
+                                                            <Hyperlink Command="{Binding DataContext.TrailerNavigateCommand, ElementName=CurView}"
                                                                        CommandParameter="{Binding Trailer[Id]}">
                                                                 <TextBlock Text="{Binding Trailer[Name]}"
                                                                            VerticalAlignment="Center" />
@@ -264,7 +315,8 @@
                                                              Value="True">
                                                     <Setter Property="Content">
                                                         <Setter.Value>
-                                                            <Hyperlink Command="{Binding DataContext.VehicleNavigateCommand, ElementName=CurView}"
+                                                            <Hyperlink TextDecorations="None"
+                                                                       Command="{Binding DataContext.VehicleNavigateCommand, ElementName=CurView}"
                                                                        CommandParameter="{Binding Vehicle[Id]}">
                                                                 <TextBlock Text="{Binding Vehicle[Name]}"
                                                                            VerticalAlignment="Center" />
@@ -279,9 +331,48 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Operator"
+                                            Width="auto"
+                                            MinWidth="150"
+                                            IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ContentControl>
+                                    <ContentControl.Style>
+                                        <Style TargetType="{x:Type ContentControl}">
+                                            <Setter Property="VerticalAlignment"
+                                                    Value="Center" />
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <TextBlock Text="Unassigned"
+                                                               VerticalAlignment="Center"
+                                                               Style="{StaticResource DataGridTextColumnElementStyle}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Driver, FallbackValue=False, TargetNullValue=False, Converter={StaticResource ObjectCompareNULLConverter}}"
+                                                             Value="True">
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <Hyperlink TextDecorations="None"
+                                                                       Command="{Binding DataContext.DriverNavigateCommand, ElementName=CurView}"
+                                                                       CommandParameter="{Binding Driver[Id]}">
+                                                                <TextBlock Text="{Binding Driver[Name]}"
+                                                                           VerticalAlignment="Center" />
+                                                            </Hyperlink>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+                                </ContentControl>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <TextBlock Text="Seems like you havent added any trips for this driver"
+            <TextBlock Text="Seems like you havent added any trips"
                        Grid.Row="3"
                        FontSize="16"
                        Foreground="Wheat"

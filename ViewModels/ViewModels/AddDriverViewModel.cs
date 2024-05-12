@@ -21,6 +21,7 @@ using System.Reflection;
 using MaterialDesignThemes.Wpf.Internal;
 using Models;
 using System.Xml.Linq;
+using ViewModels.ValidationAttrs;
 
 namespace ViewModels
 {
@@ -51,7 +52,7 @@ namespace ViewModels
         private string _firstName;
         private string _lastName;
         private DateTime? _dateOfBirth;
-        private string _gender;
+        private Gender _gender;
         private string _id;
         private string _placeOfIssue;
         private string _phone;
@@ -78,7 +79,7 @@ namespace ViewModels
                 OnPropertyChanged(nameof(FirstName));
             }
         }
-        
+
         [Required(ErrorMessage = "Last Name is required")]
         public string LastName
         {
@@ -91,12 +92,21 @@ namespace ViewModels
                 OnPropertyChanged(nameof(LastName));
             }
         }
+
+        [Required(ErrorMessage = "Date Of Birth is required")]
+        [DateOfBirthValidate(nameof(Gender), ErrorMessage = "Your age seems not valid")]
         public DateTime? DateOfBirth
         {
             get => _dateOfBirth;
-            set => _dateOfBirth = value;
+            set
+            {
+                _dateOfBirth = value;
+                Helper.ClearErrors(nameof(DateOfBirth));
+                Validate(nameof(DateOfBirth), value);
+                OnPropertyChanged(nameof(DateOfBirth));
+            }
         }
-        public string Gender
+        public Gender Gender
         {
             get => _gender; 
             set
@@ -162,6 +172,7 @@ namespace ViewModels
             set
             {
                 _address = value;
+                Helper.ClearErrors(nameof(Address));
                 Validate(nameof(Address), value);
                 OnPropertyChanged(nameof(Address));
             }
@@ -187,6 +198,7 @@ namespace ViewModels
         #endregion
 
         [Required(ErrorMessage = "Driving License Class is required")]
+        [RegularExpression("^[A-Z][A-Z]*\\d*([,\\s]+[A-Z][A-Z]*\\d*)*", ErrorMessage = "The input you just provided does not match the described format")]
         public string DrivingLicenseClass
         {
             get => _dLClass;
@@ -195,6 +207,7 @@ namespace ViewModels
                 _dLClass = value;
                 Helper.ClearErrors(nameof(DrivingLicenseClass));
                 Validate(nameof(DrivingLicenseClass), value);
+                ValidateLicenseClass(nameof(DrivingLicenseClass), DrivingLicenseClass);
                 OnPropertyChanged(nameof(DrivingLicenseClass));
             }
         }
@@ -222,43 +235,64 @@ namespace ViewModels
 
             AddDriverCommand = new AsyncRelayCommand(ExcuteAddDriver);
 
-            UpdateViewCommand = new RelayCommand<ViewType>((p) => Navigator.NavigateSwitch(Navigation, p));
-
-            GetGenderCommand = new RelayCommand<object>((p) => { Gender = (string)p; }, (p) => { return p != null ? true : false; });
+            ClearingCommand = new RelayCommand((p) => {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to clear all your inputs", "", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                if (result == MessageBoxResult.Cancel)
+                    return;
+                ClearingAllInputField();
+            });
 
             LoadCommand = new RelayCommand((p) => ExcuteLoadViewCommand());
+
+            GetGenderCommand = new RelayCommand<object>((p) => {
+                Gender enumValue;
+                if (Enum.TryParse((string)p, out enumValue))
+                {
+                    Gender = enumValue;
+                }
+            }, (p) => { return p != null ? true : false; });
+
+            UpdateViewCommand = new RelayCommand<ViewType>((p) => Navigator.NavigateSwitch(Navigation, p));
 
             Helper.ErrorsChanged += (sender, e) =>
             {
                 OnPropertyChanged(nameof(Helper));
                 ErrorsChanged?.Invoke(this, e);
             };
-
-            
         }
 
         private void ClearingAllInputField()
         {
-            FirstName = string.Empty;
-            LastName = string.Empty;
+            FirstName = null;
+            LastName = null;
             DateOfBirth = null;
-            ID = string.Empty;
-            PlaceOfIssue = string.Empty;
-            Phone = string.Empty;
-            Email = string.Empty;
-            Address = string.Empty;
-            City = string.Empty;
-            Country = string.Empty;
-            DrivingLicenseClass = string.Empty;
-            DrivingLicenseNumber = string.Empty;
-            CriminalRecord = string.Empty;
+            ID = null;
+            PlaceOfIssue = null;
+            Phone = null;
+            Email = null;
+            Address = null;
+            City = null;
+            Country = null;
+            DrivingLicenseClass = null;
+            DrivingLicenseNumber = null;
+            CriminalRecord = null;
             Helper.ClearAllErrors();
         }
-        
 
+        private int CalculateAge()
+        {
+            DateTime today = DateTime.Today;
+            int age = today.Year - DateOfBirth.Value.Year;
+
+            if (DateOfBirth.Value.Date > today.AddYears(-age))
+                age--;
+
+            return age;
+        }
 
         #region Command
         public ICommand AddDriverCommand { get; }
+        public ICommand ClearingCommand { get; set; }
         public ICommand LoadCommand { get; set; }
         public ICommand GetGenderCommand { get; }
         public ICommand UpdateViewCommand { get; }
@@ -275,7 +309,7 @@ namespace ViewModels
             }
             if (HasValidationError)
             {
-                MessageBox.Show("Please fill in the required fields or fix the fields with errors.");
+                MessageBox.Show("Please fill in the required fields or fix the fields with errors.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             IReadOnlyCollection<DriverFirebase> temp = await _storingDataManagementService.WhereEqualToDriver(nameof(ID), ID);
@@ -284,10 +318,14 @@ namespace ViewModels
                 MessageBox.Show("Please check Identification number as there is a driver with that ID");
                 return;
             }
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to add this driver", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+                return;
             DriverFirebase driver = new DriverFirebase
             {
                 FirstName = FirstName,
                 LastName = LastName,
+                Age = CalculateAge(),
                 DateOfBirth = DateOfBirth.ToString(),
                 Gender = Gender,
                 ID = ID,
@@ -297,7 +335,7 @@ namespace ViewModels
                 Address = Address,
                 City = City,
                 Country = Country,
-                DrivingLicenseClass = DrivingLicenseClass,
+                DrivingLicenseClass = RemoveDuplicateCharacters(DrivingLicenseClass),
                 DrivingLicenseNumber = DrivingLicenseNumber,
                 CriminalRecord = CriminalRecord,
             };
@@ -317,16 +355,31 @@ namespace ViewModels
             {
 
             }
-            
+
         }
         private void ExcuteLoadViewCommand()
         {
             ClearingAllInputField();
         }
 
+        private string RemoveDuplicateCharacters(string input)
+        {
+            string[] parts = input.Split(',').Select(p => p.Trim()).ToArray();
+            List<string> uniqueCharacters = new List<string>();
+
+            foreach (string part in parts)
+            {
+                if (!uniqueCharacters.Contains(part))
+                {
+                    uniqueCharacters.Add(part);
+                }
+            }
+            return string.Join(", ", uniqueCharacters);
+        }
+
         #endregion
 
-        
+
 
         #region Validate Methods
         public bool Validate(string propertyName, object propertyValue)
@@ -343,35 +396,21 @@ namespace ViewModels
             return false;
         }
 
-        //public bool ValidateEmail(string propertyName, string emailAddress)
-        //{
-        //    var pattern = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
-        //                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
-        //                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+        public bool ValidateLicenseClass(string propertyName, string propertyValue)
+        {
+            if (string.IsNullOrEmpty(propertyValue)) return true;
+            List<string>  ClassCanDrive = new List<string> { "C", "FC", "D", "E", "B2" };
+            string[] driverClassess = propertyValue.Split(',').Select(p => p.Trim()).ToArray();
 
-        //    var regex = new Regex(pattern);
+            bool IsInValid = driverClassess.Any(c => !ClassCanDrive.Contains(c));
 
-        //    if (!regex.IsMatch(emailAddress))
-        //    {
-        //        Helper.AddError("Invalid email address", propertyName);
-        //        return true;
-        //    }
-        //    return false;
-        //}
-        //public bool ValidatePhoneNumber(string propertyName, string pNumber)
-        //{
-            
-        //    var pattern = @"\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})";
-
-        //    var regex = new Regex(pattern);
-
-        //    if (!regex.IsMatch(pNumber))
-        //    {
-        //        Helper.AddError("Invalid phone number", propertyName);
-        //        return true;
-        //    }
-        //    return false;
-        //}
+            if (IsInValid)
+            {
+                Helper.AddError("Please delete unsupported License Classess", propertyName);
+                return true;
+            }
+            return false;
+        }
         private bool ValidationSwitch(int index)
         {
             bool error = false;
@@ -396,14 +435,15 @@ namespace ViewModels
                     error = Validate(nameof(Address), Address);
                     break;
                 case 6:
-                    error = Validate(nameof(DrivingLicenseClass), DrivingLicenseClass);
+                    error = Validate(nameof(DrivingLicenseClass), DrivingLicenseClass) || 
+                        ValidateLicenseClass(nameof(DrivingLicenseClass), DrivingLicenseClass);
                     break;
                 case 7:
                     error = Validate(nameof(DrivingLicenseNumber), DrivingLicenseNumber);
                     break;
-                    //case 8:
-                    //    error = Validate(nameof(FuelEfficiency), FuelEfficiency);
-                    //    break;
+                case 8:
+                    error = Validate(nameof(DateOfBirth), DateOfBirth);
+                    break;
                     //case 9:
                     //    error = Validate(nameof(TotalSeats), TotalSeats);
                     //    break;

@@ -5,11 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:converter="clr-namespace:MainView.Converters"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              xmlns:specificDriverVM="clr-namespace:ViewModels.DriverViewModel;assembly=ViewModels"
+             xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
              xmlns:local="clr-namespace:MainView.View"
              mc:Ignorable="d"
              d:DesignWidth="1030">
+    <Behaviors:Interaction.Triggers>
+        <Behaviors:EventTrigger EventName="Loaded">
+            <Behaviors:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </Behaviors:EventTrigger>
+    </Behaviors:Interaction.Triggers>
+    <UserControl.Resources>
+        <converter:RegularVisibilityConverter x:Key="VisibilityConverter" />
+        <converter:EmptyStringConverter x:Key="EmptyStringConverter" />
+    </UserControl.Resources>
     <Border>
         <Grid>
             <Grid.RowDefinitions>
@@ -25,8 +37,8 @@
                                 Width="auto"
                                 HorizontalAlignment="Left"
                                 Style="{StaticResource ReturnButton}"
-                                Command="{Binding BackToDriverListView}"
-                                CommandParameter="{Binding ElementName=AddVehicleView}">
+                                Command="{Binding UpdateViewCommand}"
+                                CommandParameter="{x:Static nav:ViewType.TripList}">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="ArrowLeft"
                                                        VerticalAlignment="Center"
@@ -34,7 +46,7 @@
                                                        Width="auto"
                                                        Margin="0 0 8 0"
                                                        Style="{StaticResource menuButtonIcon}" />
-                                <TextBlock  Text="Driver"
+                                <TextBlock  Text="Trip"
                                             Style="{StaticResource menuButtonText}" />
                             </StackPanel>
                         </Button>
@@ -66,7 +78,7 @@
                                            FontSize="15"
                                            Foreground="#c2cfff">
                                     <Run Text="Trip ID: " />
-                                    <Run Text="{Binding ID}" />
+                                    <Run Text="{Binding Trip.ID}" />
                                 </TextBlock>
                                 <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
 
@@ -76,7 +88,7 @@
                                                  Height="8"
                                                  Margin="0 0 8 0"
                                                  Fill="#eb1700" />
-                                        <TextBlock Text="Active"
+                                        <TextBlock Text="{Binding Trip.Status, FallbackValue='Scheduled', TargetNullValue='Scheduled'}"
                                                    Foreground="{StaticResource WordWhiteBrush}"
                                                    Style="{StaticResource menuButtonText}" />
                                     </StackPanel>
@@ -182,9 +194,9 @@
                                         </StackPanel>
                                         <StackPanel Grid.Row="1"
                                                     Grid.Column="1">
-                                            <TextBlock Text="{Binding }"
+                                            <TextBlock Text="{Binding Trip.Origin, FallbackValue='-', TargetNullValue='-'}"
                                                        Style="{StaticResource CardTextBoxInfo}" />
-                                            <TextBlock Text="{Binding }"
+                                            <TextBlock Text="{Binding Trip.Destination, FallbackValue='-', TargetNullValue='-'}"
                                                        Style="{StaticResource CardTextBoxInfo}" />
                                         </StackPanel>
 
@@ -193,7 +205,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="2"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.ScheduledDepartureTime, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="3"
@@ -201,7 +213,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="3"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.DepartureTime, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="4"
@@ -209,7 +221,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="4"
                                                    Grid.Column="9"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.ScheduledArrivalTime, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="5"
@@ -217,7 +229,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="5"
                                                    Grid.Column="10"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.ArrivalTime, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="6"
@@ -225,7 +237,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="6"
                                                    Grid.Column="1"
-                                                   Text="{Binding }"
+                                                   Text="{Binding Trip.EstimatedCost, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="7"
@@ -233,7 +245,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="7"
                                                    Grid.Column="1"
-                                                   Text="{Binding }"
+                                                   Text="{Binding Trip.Cost, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="8"
@@ -241,7 +253,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="8"
                                                    Grid.Column="1"
-                                                   Text="{Binding }"
+                                                   Text="{Binding Trip.Duration, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="9"
@@ -249,7 +261,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="9"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.ActualDuration, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="10"
@@ -257,7 +269,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="10"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.HasTrailer, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="11"
@@ -265,7 +277,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="11"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Returned, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="12"
@@ -273,7 +285,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="12"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.TransportationType, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="13"
@@ -316,15 +328,18 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="1"
                                                    Grid.Column="1"
-                                                   Text="{Binding }"
-                                                   Style="{StaticResource CardTextBoxInfo}" />
+                                                   Text="{Binding Trip.Trailer[LicensePlate], FallbackValue='-', TargetNullValue='-'}"
+                                                   Style="{StaticResource CardTextBoxInfo}"
+                                                   HorizontalAlignment="Right"
+                                                   Margin="0,8,0,8"
+                                                   Width="237" />
 
                                         <TextBlock Grid.Row="2"
                                                    Text="Trailer Type"
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="2"
                                                    Grid.Column="1"
-                                                   Text="{Binding }"
+                                                   Text="{Binding Trip.Trailer[TrailerType], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="3"
@@ -332,7 +347,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="3"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Trailer[Make], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="4"
@@ -340,7 +355,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="4"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Trailer[GVWR], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="5"
@@ -348,7 +363,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="5"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Trailer[PayloadCapacity], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
 
@@ -397,9 +412,9 @@
                                         </StackPanel>
                                         <StackPanel Grid.Row="1"
                                                     Grid.Column="1">
-                                            <TextBlock Text="{Binding }"
+                                            <TextBlock Text="{Binding Trip.Driver[FirstName], FallbackValue='-', TargetNullValue='-'}"
                                                        Style="{StaticResource CardTextBoxInfo}" />
-                                            <TextBlock Text="{Binding }"
+                                            <TextBlock Text="{Binding Trip.Driver[LastName], FallbackValue='-', TargetNullValue='-'}"
                                                        Style="{StaticResource CardTextBoxInfo}" />
                                         </StackPanel>
 
@@ -409,7 +424,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="3"
                                                    Grid.Column="1"
-                                                   Text="{Binding }"
+                                                   Text="{Binding Trip.Driver[DrivingLicenseNumber], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="4"
@@ -417,7 +432,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="4"
                                                    Grid.Column="1"
-                                                   Text="{Binding }"
+                                                   Text="{Binding Trip.Driver[DrivingLicenseClass], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="5"
@@ -425,7 +440,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="5"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Driver[Phone], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="7"
@@ -433,7 +448,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="7"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Driver[Address], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="8"
@@ -441,7 +456,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="8"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Driver[City], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="9"
@@ -449,7 +464,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="9"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Driver[Country], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
 
@@ -496,9 +511,9 @@
                                         </StackPanel>
                                         <StackPanel Grid.Row="1"
                                                     Grid.Column="1">
-                                            <TextBlock Text="{Binding }"
+                                            <TextBlock Text="{Binding Trip.Vehicle[LicensePlate], FallbackValue='-', TargetNullValue='-'}"
                                                        Style="{StaticResource CardTextBoxInfo}" />
-                                            <TextBlock Text="{Binding }"
+                                            <TextBlock Text="{Binding Trip.Vehicle[VehicleType], FallbackValue='-', TargetNullValue='-'}"
                                                        Style="{StaticResource CardTextBoxInfo}" />
                                         </StackPanel>
 
@@ -508,7 +523,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="3"
                                                    Grid.Column="1"
-                                                   Text="{Binding }"
+                                                   Text="{Binding Trip.Vehicle[Make], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="4"
@@ -516,7 +531,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="4"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Vehicle[Models], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="6"
@@ -524,7 +539,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="6"
                                                    Grid.Column="1"
-                                                   Text="{Binding }"
+                                                   Text="{Binding Trip.Vehicle[FuelTypePrimary], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="7"
@@ -532,7 +547,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="7"
                                                    Grid.Column="1"
-                                                   Text="{Binding }"
+                                                   Text="{Binding Trip.Vehicle[FuelCapacity], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="8"
@@ -540,7 +555,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="8"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Vehicle[FuelEfficiency], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="9"
@@ -548,7 +563,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="9"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Vehicle[GCWR], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="10"
@@ -556,7 +571,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="10"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Vehicle[GVWR], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="11"
@@ -564,7 +579,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="11"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Vehicle[CurbWeight], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
                                         <TextBlock Grid.Row="12"
@@ -572,7 +587,7 @@
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="12"
                                                    Grid.Column="1"
-                                                   Text="Gender"
+                                                   Text="{Binding Trip.Vehicle[PayloadCapacity], FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
 

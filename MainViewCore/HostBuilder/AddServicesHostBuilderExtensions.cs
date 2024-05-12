@@ -16,6 +16,7 @@ using Models.Services.Firebase;
 using Models.Services.AuthenticationServices;
 using ViewModels.State.Accounts;
 using Models.Services.PasswordHash;
+using ViewModels.State.Data;
 
 namespace MainView.HostBuilder
 {
@@ -38,6 +39,7 @@ namespace MainView.HostBuilder
                 services.AddSingleton<IAuthenticator, Authenticator>();
                 services.AddSingleton<IStoringDataManagementService, StoringDataManagementService>();
                 services.AddSingleton<IAccountStore, AccountStore>();
+                services.AddSingleton<IDataStore, DataStore>();
                 services.AddSingleton<IAccountDataService, AccountDataService>();
                 services.AddSingleton<IDistanceService, DistanceService>();
                 services.AddSingleton<IPasswordHasher, PasswordHasher>();

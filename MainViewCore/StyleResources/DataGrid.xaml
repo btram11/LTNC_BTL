@@ -391,18 +391,6 @@
                 Value="White" />
         <Setter Property="VerticalAlignment"
                 Value="Center" />
-        <Style.Triggers>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding RelativeSource= {RelativeSource AncestorType={x:Type DataGridTextColumn}}, Path=Binding}"
-                               Value="{x:Static sys:String.Empty}" />
-                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGridTextColumn}}, Path=Binding}"
-                               Value="{x:Null}" />
-                </MultiDataTrigger.Conditions>
-                <Setter Property="Text"
-                        Value="-" />
-            </MultiDataTrigger>
-        </Style.Triggers>
     </Style>
     <!--datagrid-->
 </ResourceDictionary>

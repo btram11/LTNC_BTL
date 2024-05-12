@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.ModelFirebase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,43 @@ namespace ViewModels.State.Data
 {
     public class DataStore : IDataStore
     {
-        private readonly IAccountStore _accountStore;
-        private string _id => _accountStore.CurrentAccount?.Id ?? "";
+        private object _currentObject;
+        private IVehicleDataFirebase _vehicle;
+
+        public object CurrentObject 
+        { 
+            get => _currentObject; 
+            set
+            {
+                _currentObject = value;
+                StateChanged?.Invoke();
+            }
+        }
+
+        public IVehicleDataFirebase Vehicle
+        {
+            get => _vehicle;
+            private set
+            {
+                _currentObject = value;
+                StateChanged?.Invoke();
+            }
+        }
 
         public event Action StateChanged;
-        public DataStore(IAccountStore accountStore)
+        public DataStore()
         {
-            _accountStore = accountStore;
-            _accountStore.StateChanged += OnStateChanged;
+
         }
 
-        private void OnStateChanged()
+        public IVehicleDataFirebase GetVehicle()
         {
-            StateChanged?.Invoke();
+            if (CurrentObject is TrailerFirebase)
+                return (TrailerFirebase)CurrentObject;
+            else if (CurrentObject is VehicleFirebase) 
+                return (VehicleFirebase)CurrentObject;
+            return null;
         }
+
     }
 }

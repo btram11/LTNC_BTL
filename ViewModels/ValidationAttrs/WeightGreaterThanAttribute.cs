@@ -26,7 +26,7 @@ namespace ViewModels.ValidationAttrs
  
             var regex = new Regex(pattern);
 
-            if (!regex.IsMatch((string)value))
+            if (value == null || !regex.IsMatch((string)value))
             {
                 return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
             }
@@ -34,7 +34,7 @@ namespace ViewModels.ValidationAttrs
             if (currentValue == 0) return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
 
             var comparisonValue = int.Parse((string)validationContext.ObjectType.GetProperty(_comparisonProperty)
-                                                                        .GetValue(validationContext.ObjectInstance));
+                .GetValue(validationContext.ObjectInstance));
 
             if (currentValue <= comparisonValue - comparisonValue * _percentage)
             {

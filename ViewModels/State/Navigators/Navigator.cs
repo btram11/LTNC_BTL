@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModels;
+using ViewModels.ViewModels;
 
 namespace ViewModels.State.Navigators
 {
@@ -33,6 +34,12 @@ namespace ViewModels.State.Navigators
         {
             ViewModelBase viewModel = _viewModelFactory.Invoke(typeof(TViewModel));
             CurrentViewModel = viewModel;
+        }
+
+        public ViewModelBase NavigateToTab<TViewModel>() where TViewModel : ViewModelBase
+        {
+            ViewModelBase viewModel = _viewModelFactory.Invoke(typeof(TViewModel));
+            return viewModel;
         }
 
         public static void NavigateSwitch(INavigator navigator, object parameter)
@@ -74,6 +81,12 @@ namespace ViewModels.State.Navigators
                         break;
                     case ViewType.Register:
                         navigator.NavigateTo<SignUpViewModel>();
+                        break;
+                    case ViewType.TripInfo:
+                        navigator.NavigateTo<TripInformationViewModel>();
+                        break;
+                    case ViewType.TripList:
+                        navigator.NavigateTo<AssignmentListViewModel>();
                         break;
                 }
             }
