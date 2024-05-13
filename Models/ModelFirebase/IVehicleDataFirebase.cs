@@ -17,6 +17,7 @@ namespace Models.ModelFirebase
         Repairing,
         Returning,
         UnderMaintenance,
+        OutOfService,
     }
     public interface IVehicleDataFirebase : IFirebaseEntity
     {

@@ -1,6 +1,7 @@
 ﻿using Models.ModelFirebase;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,7 @@ namespace ViewModels.State.Data
     public class DataStore : IDataStore
     {
         private object _currentObject;
-        private IVehicleDataFirebase _vehicle;
-
+        private ObservableCollection<string> _fuelPrice;
         public object CurrentObject 
         { 
             get => _currentObject; 
@@ -24,15 +24,16 @@ namespace ViewModels.State.Data
             }
         }
 
-        public IVehicleDataFirebase Vehicle
+        public ObservableCollection<string> FuelPrice
         {
-            get => _vehicle;
-            private set
+            get => _fuelPrice;
+            set
             {
-                _currentObject = value;
+                _fuelPrice = value;
                 StateChanged?.Invoke();
             }
         }
+
 
         public event Action StateChanged;
         public DataStore()

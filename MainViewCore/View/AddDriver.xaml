@@ -348,7 +348,7 @@
                                                        FontSize="14"
                                                        Style="{StaticResource titleText}" />
                                             <TextBox Style="{StaticResource MainOutlinedTextBox}"
-                                                     Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+                                                     Text="{Binding Education, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
                                             </TextBox>
                                             <TextBlock Text="Example: &quot;High School&quot; or &quot;College&quot;."
                                                        TextWrapping="Wrap"
@@ -358,11 +358,24 @@
                                     <Grid Grid.Row="2"
                                           Grid.Column="2">
                                         <StackPanel Style="{StaticResource StackPanelInclued}">
+                                            <TextBlock Text="Status"
+                                                       FontSize="14"
+                                                       Style="{StaticResource titleText}" />
+                                            <ComboBox Name="VehicleTypeComboBox"
+                                                      ItemsSource="{Binding StatusTypeList, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding Status, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True, Mode=TwoWay}"
+                                                      Style="{StaticResource MainOutlinedComboBox}">
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Row="3"
+                                          Grid.Column="0">
+                                        <StackPanel Style="{StaticResource StackPanelInclued}">
                                             <TextBlock Text="Criminal Record"
                                                        FontSize="14"
                                                        Style="{StaticResource titleText}" />
                                             <TextBox Style="{StaticResource MainOutlinedTextBox}"
-                                                     Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+                                                     Text="{Binding CriminalRecord, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
                                             </TextBox>
                                             <TextBlock Text="Example: &quot;Convicted of theft in 2015&quot; or &quot;None&quot;."
                                                        TextWrapping="Wrap"
@@ -370,7 +383,7 @@
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Row="3"
-                                          Grid.ColumnSpan="3">
+                                          Grid.Column="3">
                                         <StackPanel Style="{StaticResource StackPanelInclued}">
                                             <TextBlock Text="Health"
                                                        materialDesign:HintAssist.Hint="Describe your health status"
@@ -378,7 +391,7 @@
                                                        FontSize="14"
                                                        Style="{StaticResource titleText}" />
                                             <TextBox Style="{StaticResource MainOutlinedTextBox}"
-                                                     Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+                                                     Text="{Binding Health, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
                                             </TextBox>
                                             <TextBlock Text="Describe your health status"
                                                        TextWrapping="Wrap"

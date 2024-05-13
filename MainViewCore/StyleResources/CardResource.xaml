@@ -3,7 +3,7 @@
     <Style x:Key="CardDashboard" TargetType="Border">
         <Setter Property="Background" Value="{StaticResource BackgroundBlueZodiacBrush}"/>
         <Setter Property="Padding" Value="10"/>
-        <Setter Property="Margin" Value="5 10 10 5"/>
+        <Setter Property="Margin" Value="10"/>
         <Setter Property="CornerRadius" Value="10"/>
     </Style>
     <Style x:Key="CardDashboardTitle" TargetType="TextBlock">
@@ -13,6 +13,8 @@
         <Setter Property="TextAlignment" Value="Left"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="TextWrapping"
+                Value="Wrap" />
     </Style>
 
     <Style x:Key="CardDashboardNormalText"
@@ -27,6 +29,29 @@
                 Value="Center" />
         <Setter Property="HorizontalAlignment"
                 Value="Left" />
+        <Setter Property="TextWrapping"
+                Value="Wrap" />
+    </Style>
+
+
+    <Style x:Key="CardDashboardTriggerText"
+           TargetType="TextBlock">
+        <Setter Property="FontSize"
+                Value="14" />
+        <Setter Property="Foreground"
+                Value="{StaticResource ForegroundPearlBushBrush}" />
+        <Setter Property="TextAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Right" />
+        <Setter Property="TextWrapping"
+                Value="Wrap" />
+        <Setter Property="FontWeight"
+                Value="Bold" />
+        <Setter Property="Margin"
+                Value="0 4 0 4" />
     </Style>
 
 </ResourceDictionary>

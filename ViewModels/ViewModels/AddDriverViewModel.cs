@@ -22,6 +22,7 @@ using MaterialDesignThemes.Wpf.Internal;
 using Models;
 using System.Xml.Linq;
 using ViewModels.ValidationAttrs;
+using System.Collections.ObjectModel;
 
 namespace ViewModels
 {
@@ -41,6 +42,7 @@ namespace ViewModels
         private readonly IStoringDataManagementService _storingDataManagementService;
         private readonly ValidationHelper Helper = new ValidationHelper();
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        public ObservableCollection<DriverStatus> StatusTypeList { get; private set; } = new ObservableCollection<DriverStatus>(System.Enum.GetValues(typeof(DriverStatus)).Cast<DriverStatus>());
         public bool HasErrors => Helper.HasErrors;
         public IEnumerable GetErrors(string propertyName)
         {
@@ -63,6 +65,11 @@ namespace ViewModels
 
         private string _dLClass;
         private string _dLNumber;
+        private string _education;
+        private DriverStatus _driverStatus;
+        private string _criminalRecord;
+        private string _health;
+        private string _exYear;
         #endregion
 
         #region Properties
@@ -225,7 +232,57 @@ namespace ViewModels
             }
         }
 
-        public string CriminalRecord { get; set; }
+        public string Education
+        {
+            get => _education;
+            set
+            {
+                _education = value;
+                OnPropertyChanged(nameof(Education));
+            }
+        }
+        public DriverStatus Status
+        {
+            get => _driverStatus;
+            set
+            {
+                _driverStatus = value;
+                OnPropertyChanged(nameof(DriverStatus));
+            }
+        }
+        public string CriminalRecord
+        {
+            get => _criminalRecord;
+            set
+            {
+                _criminalRecord = value;
+                OnPropertyChanged(nameof(CriminalRecord));
+            }
+        }
+
+        public string Health
+        {
+            get => _health;
+            set
+            {
+                _health = value;
+                OnPropertyChanged(nameof(Health));
+            }
+        }
+
+        [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter a valid positive Number")]
+        [MaxLength(2, ErrorMessage = "It is not possible for having more than 100 years of driving experience")]
+        public string ExYear
+        {
+            get => _exYear;
+            set
+            {
+                _exYear = value;
+                Helper.ClearErrors(nameof(ExYear));
+                Validate(nameof(ExYear), value);
+                OnPropertyChanged(nameof(ExYear));
+            }
+        }
         #endregion
 
         public AddDriverViewModel(INavigator navigator, IStoringDataManagementService storingDataManagementService)
@@ -276,6 +333,10 @@ namespace ViewModels
             DrivingLicenseClass = null;
             DrivingLicenseNumber = null;
             CriminalRecord = null;
+            ExYear = null;
+            Health = null;
+            Status = DriverStatus.Available;
+            Education = null;
             Helper.ClearAllErrors();
         }
 
@@ -329,15 +390,19 @@ namespace ViewModels
                 DateOfBirth = DateOfBirth.ToString(),
                 Gender = Gender,
                 ID = ID,
-                PlaceOfIssue = PlaceOfIssue,
+                PlaceOfIssue = string.IsNullOrEmpty(PlaceOfIssue) ? null : PlaceOfIssue,
                 Phone = Phone,
                 Email = Email,
                 Address = Address,
-                City = City,
-                Country = Country,
+                City = string.IsNullOrEmpty(City) ? null : City,
+                Country = string.IsNullOrEmpty(Country) ? null : Country,
+                Status = Status,
+                Education = string.IsNullOrEmpty(Education) ? null : Education,
+                Health = string.IsNullOrEmpty(Health) ? null : Health, 
+                ExYear = string.IsNullOrEmpty(ExYear) ? null : ExYear,
                 DrivingLicenseClass = RemoveDuplicateCharacters(DrivingLicenseClass),
                 DrivingLicenseNumber = DrivingLicenseNumber,
-                CriminalRecord = CriminalRecord,
+                CriminalRecord = string.IsNullOrEmpty(CriminalRecord) ? null : CriminalRecord,
             };
             DriverFirebase duplicatedIdVehicle = await _storingDataManagementService.GetDriverById(driver.Id);
             while (duplicatedIdVehicle != null)
@@ -444,9 +509,9 @@ namespace ViewModels
                 case 8:
                     error = Validate(nameof(DateOfBirth), DateOfBirth);
                     break;
-                    //case 9:
-                    //    error = Validate(nameof(TotalSeats), TotalSeats);
-                    //    break;
+                case 9:
+                    error = Validate(nameof(ExYear), ExYear);
+                    break;
             }
             return error;
         }

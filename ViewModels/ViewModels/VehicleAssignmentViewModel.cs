@@ -22,6 +22,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using ViewModels.Commands;
+using ViewModels.State.Data;
 using ViewModels.State.Navigators;
 
 namespace ViewModels
@@ -30,6 +31,7 @@ namespace ViewModels
     {
         private readonly IStoringDataManagementService _storingDataManagementService;
         private readonly IDistanceService _distanceService;
+        private readonly IDataStore _dataStore;
         private readonly ValidationHelper Helper = new ValidationHelper();
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
@@ -44,6 +46,7 @@ namespace ViewModels
             }
         }
 
+        public MessageBoxResult resultContinueLoadedFalse = MessageBoxResult.Yes;
         public bool HasErrors => Helper.HasErrors;
         public IEnumerable GetErrors(string propertyName)
         {
@@ -209,10 +212,11 @@ namespace ViewModels
         }
         #endregion
 
-        public VehicleAssignmentViewModel(IStoringDataManagementService storingDataManagementService, IDistanceService distanceService, INavigator navigator)
+        public VehicleAssignmentViewModel(IStoringDataManagementService storingDataManagementService, IDistanceService distanceService, INavigator navigator, IDataStore dataStore)
         {
             _storingDataManagementService = storingDataManagementService;
             _distanceService = distanceService;
+            _dataStore = dataStore;
             Navigation = navigator;
             AddTripCommand = new AsyncRelayCommand(ExecuteAddTripCommand);
             LoadCommand = new RelayCommand(ExecuteLoadCommand);
@@ -244,6 +248,16 @@ namespace ViewModels
         private void ExecuteLoadCommand(object obj)
         {
             ClearingAllInputs();
+            resultContinueLoadedFalse = MessageBoxResult.Yes;
+            if (_dataStore.FuelPrice.Count() <= 0)
+            {
+                resultContinueLoadedFalse = MessageBox.Show("There is an error in loading. If continue, we cannot calculate the cost. Do you wish to continue using this page", "", MessageBoxButton.YesNo, MessageBoxImage.Asterisk);
+            }
+            if (resultContinueLoadedFalse == MessageBoxResult.No)
+            {
+                Navigator.NavigateSwitch(Navigation, ViewType.Home);
+                return;
+            }
         }
 
         public ICommand AddTripCommand { get; }

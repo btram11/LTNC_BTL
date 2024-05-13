@@ -18,10 +18,6 @@ namespace API.Services
         }
         public async Task<VehicleInfo> GetVehicleDataByVIN(string VIN)
         {
-            //if (VIN == string.Empty || VIN.Length < 17)
-            //{
-            //    throw new Exception("VIN IS NOT AT THE LENGHT OF 17 CHARACTER");
-            //}
             string url = $"decodevinvaluesextended/{VIN}?format=json";
             VehicleData data = await _client.GetAsync<VehicleData>(url);
 

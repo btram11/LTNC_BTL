@@ -7,14 +7,14 @@
              xmlns:nav="clr-namespace:ViewModels.State.Navigators;assembly=ViewModels"
              xmlns:viewModels="clr-namespace:ViewModels;assembly=ViewModels"
              xmlns:local="clr-namespace:MainView.View"
+             xmlns:converter="clr-namespace:MainView.Converters"
              mc:Ignorable="d"
              Name="menubar"
              d:DesignHeight="720"
              d:DesignWidth="235">
-
-    <!--<UserControl.DataContext>
-        <viewModels:MenuLeftBarViewModel/>
-    </UserControl.DataContext>-->
+    <UserControl.Resources>
+        <converter:ViewTypeCompareConverter x:Key="ViewTypeCompareConverter" />
+    </UserControl.Resources>
     <Border Padding="0 10 0 10">
         <Grid>
             <Grid.RowDefinitions>
@@ -55,9 +55,9 @@
                                    Margin="0 0 0 5"
                                    TextWrapping="Wrap"
                                    Foreground="#c2cfff">
-            <Run Text="Hello, " />
-            <Run Text="{Binding CurrentAccount.FirstName, TargetNullValue='', FallbackValue='user'}" />
-            <Run Text="{Binding CurrentAccount.LastName, TargetNullValue='', FallbackValue=''}" />
+                            <Run Text="Hello, " />
+                            <Run Text="{Binding CurrentAccount.FirstName, TargetNullValue='', FallbackValue='user'}" />
+                            <Run Text="{Binding CurrentAccount.LastName, TargetNullValue='', FallbackValue=''}" />
                         </TextBlock>
                     </StackPanel>
 
@@ -75,7 +75,7 @@
 
                     <!--menu-->
                     <RadioButton Style="{StaticResource MenuBarButton}"
-                                 IsChecked="True"
+                                 IsChecked="{Binding Navigation.TypeTab, Mode=OneWay, Converter={StaticResource ViewTypeCompareConverter}, ConverterParameter={x:Static nav:ViewType.Home }}"
                                  Command="{Binding UpdateViewModelCommand}"
                                  CommandParameter="{x:Static nav:ViewType.Home }">
                         <StackPanel Orientation="Horizontal">
@@ -88,6 +88,7 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource MenuBarButton}"
+                                 IsChecked="{Binding Navigation.TypeTab, Converter={StaticResource ViewTypeCompareConverter}, ConverterParameter={x:Static nav:ViewType.VehicleList }}"
                                  Command="{Binding UpdateViewModelCommand}"
                                  CommandParameter="{x:Static nav:ViewType.VehicleList }">
                         <StackPanel Orientation="Horizontal">
@@ -99,6 +100,7 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource MenuBarButton}"
+                                 IsChecked="{Binding Navigation.TypeTab, Mode=OneWay, Converter={StaticResource ViewTypeCompareConverter}, ConverterParameter={x:Static nav:ViewType.DriverList }}"
                                  Command="{Binding UpdateViewModelCommand}"
                                  CommandParameter="{x:Static nav:ViewType.DriverList }">
                         <StackPanel Orientation="Horizontal">
@@ -111,6 +113,7 @@
 
 
                     <RadioButton Style="{StaticResource MenuBarButton}"
+                                 IsChecked="{Binding Navigation.TypeTab, Mode=OneWay, Converter={StaticResource ViewTypeCompareConverter}, ConverterParameter={x:Static nav:ViewType.VehicleAssignment }}"
                                  Command="{Binding UpdateViewModelCommand}"
                                  CommandParameter="{x:Static nav:ViewType.VehicleAssignment }">
                         <StackPanel Orientation="Horizontal">
@@ -122,6 +125,7 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource MenuBarButton}"
+                                 IsChecked="{Binding Navigation.TypeTab, Mode=OneWay,Converter={StaticResource ViewTypeCompareConverter}, ConverterParameter={x:Static nav:ViewType.TripList }}"
                                  Command="{Binding UpdateViewModelCommand}"
                                  CommandParameter="{x:Static nav:ViewType.TripList }">
                         <StackPanel Orientation="Horizontal">

@@ -35,7 +35,7 @@ namespace ViewModels
         private bool _IsLoaded { get; set; } = false;
 
         public ObservableCollection<string> LicenseTypeList { get; private set; } = new ObservableCollection<string> { "B2", "C", "D", "E", "FC" };
-        public ObservableCollection<string> StatusList { get; private set; }
+        public ObservableCollection<DriverStatus> StatusList { get; private set; } = new ObservableCollection<DriverStatus>(System.Enum.GetValues(typeof(DriverStatus)).Cast<DriverStatus>());
         private ObservableCollection<DriverFirebase> _listDrivers = new ObservableCollection<DriverFirebase>();
         public ObservableCollection<DriverFirebase> ListDrivers
         {
@@ -147,7 +147,7 @@ namespace ViewModels
             }
             if (StatusFilter != null && StatusFilter.ToString() != "(None)" && !string.IsNullOrEmpty(StatusFilter.ToString()))
             {
-                IsTrue = IsTrue && driver.Status.Contains(StatusFilter);
+                IsTrue = IsTrue && driver.Status.ToString() == StatusFilter;
             }
             if (!string.IsNullOrEmpty(Name))
             {

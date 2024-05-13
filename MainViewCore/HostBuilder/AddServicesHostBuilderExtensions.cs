@@ -24,9 +24,7 @@ namespace MainView.HostBuilder
     {
         public static IHostBuilder AddServices(this IHostBuilder host)
         {
-            //FirebaseSettings firebaseSettings = new FirebaseSettings();
             var jsonString = File.ReadAllText("D:/Misa/Code/fleetmanagement-8b359-firebase-adminsdk-r32vj-cab42b1a38.json");
-            //var firebaseJson = JsonSerializer.Serialize(firebaseSettings);
             host.ConfigureServices(services =>
             {
                 services.AddSingleton<IDataFromNHTSAService, DataFromNHTSAService>();
@@ -43,6 +41,7 @@ namespace MainView.HostBuilder
                 services.AddSingleton<IAccountDataService, AccountDataService>();
                 services.AddSingleton<IDistanceService, DistanceService>();
                 services.AddSingleton<IPasswordHasher, PasswordHasher>();
+                services.AddSingleton<IFuelPriceService, FuelPriceService>();
             });
 
             return host;

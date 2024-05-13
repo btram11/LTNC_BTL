@@ -13,6 +13,15 @@ namespace Models.ModelFirebase
         Female
     }
 
+    public enum DriverStatus
+    {
+        Available,      // Sẵn sàng
+        OnDuty,         // Đang làm việc
+        OffDuty,        // Nghỉ ngơi
+        InTransit,      // Đang vận chuyển
+        OnLeave,
+    }
+
 
     [FirestoreData]
     public class DriverFirebase : IFirebaseEntity
@@ -36,7 +45,7 @@ namespace Models.ModelFirebase
         public Gender Gender { get; set; }
 
         [FirestoreProperty]
-        public string Status { get; set; }
+        public DriverStatus Status { get; set; }
 
         [FirestoreProperty]
         public string ID { get; set; }
@@ -70,6 +79,12 @@ namespace Models.ModelFirebase
 
         [FirestoreProperty]
         public string CriminalRecord { get; set; }
+
+        [FirestoreProperty]
+        public string Health { get; set; }
+
+        [FirestoreProperty]
+        public string ExYear{ get; set; }
 
         [FirestoreProperty]
         public int CompletedTrip { get; set; } = 0;

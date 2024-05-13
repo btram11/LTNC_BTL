@@ -136,7 +136,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="1"
                                            Grid.Column="1"
-                                           Text="{Binding CriminalHistory, TargetNullValue='-', FallbackValue='-'}"
+                                           Text="{Binding Driver.CriminalRecord, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="2"
@@ -144,7 +144,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="2"
                                            Grid.Column="1"
-                                           Text="{Binding Addicted, TargetNullValue='-', FallbackValue='-'}"
+                                           Text="{Binding Driver.Addicted, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <TextBlock Grid.Row="3"
@@ -152,7 +152,7 @@
                                            Style="{StaticResource CardTextBoxInfo}" />
                                 <TextBlock Grid.Row="3"
                                            Grid.Column="1"
-                                           Text="{Binding Health, TargetNullValue='-', FallbackValue='-'}"
+                                           Text="{Binding Driver.Health, TargetNullValue='-', FallbackValue='-'}"
                                            Style="{StaticResource CardTextBoxInfo}" />
 
                                 <!--<TextBlock Grid.Row="4"
@@ -242,6 +242,10 @@
                                     </Grid>
                                 </materialDesign:Card>
                                 <Grid Margin="8 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
                                         <ColumnDefinition />
@@ -252,6 +256,16 @@
                                     <TextBlock Grid.Column="1"
                                                TextAlignment="Justify"
                                                Text="{Binding Driver.CompletedTrip, TargetNullValue='0', FallbackValue='0'}"
+                                               Style="{StaticResource CardTextBoxInfo}" />
+
+                                    <TextBlock Text="Years of Driving"
+                                               Grid.Row="1"
+                                               Style="{StaticResource CardTextBoxInfo}" />
+
+                                    <TextBlock Grid.Column="1"
+                                               Grid.Row="1"
+                                               TextAlignment="Justify"
+                                               Text="{Binding Driver.ExYear, TargetNullValue='0', FallbackValue='0'}"
                                                Style="{StaticResource CardTextBoxInfo}" />
                                 </Grid>
                             </StackPanel>

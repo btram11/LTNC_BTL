@@ -22,6 +22,10 @@ namespace MainView.HostBuilder
                     c.BaseAddress = new Uri("https://vpic.nhtsa.dot.gov/api/vehicles/");
                     c.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 });
+                services.AddHttpClient<FuelModelingHttpClient>(c =>
+                {
+                    c.BaseAddress = new Uri("https://luatvietnam.vn/bang-gia-xang-dau-hom-nay.html");
+                });
                 services.AddGoogleApiClients();
             });
             return host;

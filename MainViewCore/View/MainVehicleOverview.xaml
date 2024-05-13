@@ -74,12 +74,12 @@
                                            VerticalAlignment="Center"
                                            Margin="3 0 0 2" />
                             </Border>
-                            <StackPanel Margin="10 0 0 0" 
+                            <StackPanel Margin="10 0 0 0"
                                         VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Vehicle.Name, FallbackValue='EV', TargetNullValue='EV'}" 
-                                           Margin="0" 
+                                <TextBlock Text="{Binding Vehicle.Name, FallbackValue='EV', TargetNullValue='EV'}"
+                                           Margin="0"
                                            FontSize="16"
-                                           Foreground="#c2cfff"/>
+                                           Foreground="#c2cfff" />
                                 <TextBlock Margin="0"
                                            FontSize="12"
                                            Foreground="#87b0b2">
@@ -92,29 +92,29 @@
                                     <Run Text="{Binding Vehicle.VIN, FallbackValue='VIN/SN', TargetNullValue='VIN/SN'}" />
 
                                 </TextBlock>
-                                
+
 
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock  Text="95" 
-                                                Margin="2" 
-                                                FontSize="12" 
-                                                Foreground="#87b0b2"/>
+                                    <TextBlock  Text="95"
+                                                Margin="2"
+                                                FontSize="12"
+                                                Foreground="#87b0b2" />
                                     <StackPanel Orientation="Horizontal"
                                                 Margin="4 0 4 0">
-                                        <Ellipse Width="8" 
-                                                 Height="8" 
+                                        <Ellipse Width="8"
+                                                 Height="8"
                                                  Margin="2"
-                                                 Fill="#eb1700"/>
+                                                 Fill="#eb1700" />
                                         <TextBlock  Text="Active"
                                                     Margin="2"
                                                     FontSize="12"
-                                                    Foreground="#87b0b2"/>
+                                                    Foreground="#87b0b2" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="Tree" 
-                                                               Height="15" 
-                                                               Margin="2" 
-                                                               Foreground="#87b0b2"/>
+                                        <Icon:PackIconMaterial Kind="Tree"
+                                                               Height="15"
+                                                               Margin="2"
+                                                               Foreground="#87b0b2" />
                                         <TextBlock  Margin="2"
                                                     FontSize="12"
                                                     Foreground="#87b0b2">
@@ -122,42 +122,23 @@
                                             <Run Text="{Binding Vehicle.Driver, FallbackValue='None', TargetNullValue='None'}" />
                                         </TextBlock>
                                     </StackPanel>
-                                    
+
                                 </StackPanel>
                                 <Button Width="80"
-                                        Height="15" 
+                                        Height="15"
                                         FontSize="9"
-                                        HorizontalAlignment="Left" 
+                                        HorizontalAlignment="Left"
                                         Style="{StaticResource addbutton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="Pencil" 
-                                                               Height="10" Margin="0"
-                                                               Style="{StaticResource menuButtonIcon}"/>
-                                        <TextBlock Text="Edit Labels"/>
+                                        <Icon:PackIconMaterial Kind="Pencil"
+                                                               Height="10"
+                                                               Margin="0"
+                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <TextBlock Text="Edit Labels" />
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
                         </StackPanel>
-                        <!--<TabControl materialDesign:ColorZoneAssist.Mode="PrimaryMid"
-                                    materialDesign:RippleAssist.IsCentered="True">
-                            <TabItem Header="Overview">
-                            </TabItem>
-                            <TabItem Header="Service History">
-                               --><!-- Your content for TAB 2 --><!--
-                            </TabItem>
-                            <TabItem Header="Financial">
-                                --><!-- Your content for TAB 2 --><!--
-                            </TabItem>
-                            <TabItem Header="Specs">
-                                --><!-- Your content for TAB 2 --><!--
-                            </TabItem>
-                            <TabItem Header="Assignment History">
-                                 --><!--Your content for TAB 2--><!-- 
-                            </TabItem>
-                            <TabItem Header="Service Reminders">
-                                 --><!--Your content for TAB 2--><!-- 
-                            </TabItem>
-                        </TabControl>-->
                         <StackPanel Orientation="Horizontal"
                                     Margin="0 4 0 0">
                             <RadioButton Content="Overview"

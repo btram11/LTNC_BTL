@@ -14,6 +14,9 @@ using API.Model;
 using System.IO;
 using Microsoft.Extensions.Hosting;
 using MainView.HostBuilder;
+using Models.Services;
+using Models.Vehicles;
+using API.Services;
 
 namespace MainView
 {
@@ -27,9 +30,10 @@ namespace MainView
         {
             _host = CreateHostBuilder().Build();
             
+
             //FirestoreDb Database = FirestoreDb.Create();
 
-            
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args = null)
@@ -47,6 +51,8 @@ namespace MainView
             //    DataContext = new MainViewModel()
             //};
             //Window MainWindow = new LoginWindow();
+            //var fuel = _host.Services.GetRequiredService<IFuelPriceService>();
+            //var price = await fuel.GetPrice();
             var MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.DataContext = _host.Services.GetRequiredService<MainViewModel>();
             MainWindow.Show();
