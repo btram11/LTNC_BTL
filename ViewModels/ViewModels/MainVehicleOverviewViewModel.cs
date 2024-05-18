@@ -86,10 +86,10 @@ namespace ViewModels
                     TabName = content;
                     TabView = Navigation.NavigateToTab<VehicleViewModel.AssignmentHistoryViewModel>();
                     return;
-                case "Service History":
-                    TabName = content;
-                    TabView = new VehicleViewModel.ServiceHistoryViewModel();
-                    return;
+                //case "Service History":
+                //    TabName = content;
+                //    TabView = new VehicleViewModel.ServiceHistoryViewModel();
+                //    return;
                 case "Overview": case "Specs":
                     TabName = content;
                     TabView = content;

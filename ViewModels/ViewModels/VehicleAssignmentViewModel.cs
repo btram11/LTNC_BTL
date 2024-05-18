@@ -1,6 +1,8 @@
 ﻿using API;
 using API.Services;
 using Google.Cloud.Firestore;
+using GoogleApi.Entities.Maps.Common;
+using GoogleApi.Entities.Maps.Directions.Response;
 using GoogleApi.Entities.Maps.DistanceMatrix.Response;
 using GoogleApi.Entities.Search.Video.Common;
 using Models;
@@ -34,6 +36,20 @@ namespace ViewModels
         private readonly IDataStore _dataStore;
         private readonly ValidationHelper Helper = new ValidationHelper();
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        private Leg DistanceGoogle = new Leg
+        {
+            Distance = new Distance
+            {
+                Value = 5800,
+                Text = "5.8 km",
+            },
+            Duration = new GoogleApi.Entities.Maps.Common.Duration
+            {
+                Value = 1500
+            }
+        };
+        private bool HasChangedAddress = false;
 
         private INavigator _navigation;
         public INavigator Navigation
@@ -72,6 +88,7 @@ namespace ViewModels
             set
             {
                 _from = value;
+                HasChangedAddress = true;
                 Helper.ClearErrors(nameof(From));
                 Validate(nameof(From), value);
                 OnPropertyChanged(nameof(From));   
@@ -85,6 +102,7 @@ namespace ViewModels
             set
             {
                 _to = value;
+                HasChangedAddress = true;
                 Helper.ClearErrors(nameof(To));
                 Validate(nameof(To), value);
                 OnPropertyChanged(nameof(To));
@@ -100,7 +118,8 @@ namespace ViewModels
                 if (value != null && _departureDateTime != null)
                 {
                     TimeSpan oldTime = _departureDateTime.TimeOfDay;
-                    _departureDateTime = new DateTime(value.Year, value.Month, value.Day).Add(oldTime);
+                    DateTime temp = new DateTime(value.Year, value.Month, value.Day).Add(oldTime);
+                    _departureDateTime = DateTime.SpecifyKind(temp, DateTimeKind.Utc);
                 }
                 Helper.ClearErrors(nameof(DepartureDate));
                 Validate(nameof(DepartureDate), value);
@@ -121,7 +140,8 @@ namespace ViewModels
                     DateTime dateTime = DateTime.ParseExact(value, format, CultureInfo.InvariantCulture);
                     if (_departureDateTime != null)
                     {
-                        _departureDateTime = new DateTime(_departureDateTime.Year, _departureDateTime.Month, _departureDateTime.Day).Add(dateTime.TimeOfDay);
+                        DateTime temp = new DateTime(_departureDateTime.Year, _departureDateTime.Month, _departureDateTime.Day).Add(dateTime.TimeOfDay);
+                        _departureDateTime = DateTime.SpecifyKind(temp, DateTimeKind.Utc);
                     }
                     else
                     {
@@ -284,8 +304,14 @@ namespace ViewModels
 
             try
             {
-                Element element = await _distanceService.GetDistance(From, To);
-                if (element.Distance == null || element.Distance.Value == 0)
+                Leg element = DistanceGoogle;
+                if (HasChangedAddress == true)
+                {
+
+                    element = await _distanceService.GetDistance(From, To);
+                    HasChangedAddress = false;
+                }
+                if (element.Distance == null || element.Duration == null)
                 {
                     MessageBox.Show("Please check the address again as it seems invalid", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
@@ -336,7 +362,7 @@ namespace ViewModels
                 DriverFirebase driver = await GetSuitableDriver(selectedDrivingVehicle, ArrivingTime);
                 if (driver == null) return;
 
-                Dictionary<string, object> driverFirestore = new Dictionary<string, object>
+                Dictionary<string, string> driverFirestore = new Dictionary<string, string>
             {
                 {nameof(driver.Id), driver.Id},
                 {nameof(driver.LastName), driver.LastName},
@@ -348,7 +374,7 @@ namespace ViewModels
                 {nameof(driver.DrivingLicenseClass), driver.DrivingLicenseClass },
                 {nameof(driver.DrivingLicenseNumber), driver.DrivingLicenseNumber}
             };
-                Dictionary<string, object> vehicleFirestore = new Dictionary<string, object>
+                Dictionary<string, string> vehicleFirestore = new Dictionary<string, string>
             {
                 {nameof(selectedDrivingVehicle.Id), selectedDrivingVehicle.Id},
                 {nameof(selectedDrivingVehicle.LicensePlate), selectedDrivingVehicle.LicensePlate},
@@ -356,12 +382,13 @@ namespace ViewModels
                 {nameof(selectedDrivingVehicle.Make), selectedDrivingVehicle.Make},
                 {nameof(selectedDrivingVehicle.Models), selectedDrivingVehicle.Models},
                 {nameof(selectedDrivingVehicle.FuelTypePrimary), selectedDrivingVehicle.FuelTypePrimary },
-                {nameof(selectedDrivingVehicle.FuelEfficiency), selectedDrivingVehicle.FuelEfficiency},
-                {nameof(selectedDrivingVehicle.FuelCapacity), selectedDrivingVehicle.FuelCapacity},
-                {nameof(selectedDrivingVehicle.GCWR), selectedDrivingVehicle.GCWR},
-                {nameof(selectedDrivingVehicle.GVWR), selectedDrivingVehicle.GVWR},
-                {"PayloadCapacity", selectedDrivingVehicle.GVWR - selectedDrivingVehicle.CurbWeight},
-                {nameof(selectedDrivingVehicle.CurbWeight), selectedDrivingVehicle.CurbWeight},
+                {nameof(selectedDrivingVehicle.FuelEfficiency), selectedDrivingVehicle.FuelEfficiency.ToString()},
+                {nameof(selectedDrivingVehicle.FuelCapacity), selectedDrivingVehicle.FuelCapacity.ToString()},
+                {nameof(selectedDrivingVehicle.GCWR), selectedDrivingVehicle.GCWR.ToString()},
+                {nameof(selectedDrivingVehicle.GVWR), selectedDrivingVehicle.GVWR.ToString()},
+                {"PayloadCapacity", (selectedDrivingVehicle.GVWR - selectedDrivingVehicle.CurbWeight).ToString()},
+                {nameof(selectedDrivingVehicle.CurbWeight), selectedDrivingVehicle.CurbWeight.ToString()},
+                {nameof(selectedDrivingVehicle.Name), selectedDrivingVehicle.Name},
             };
                 TripFirebase newTrip = new TripFirebase
                 {
@@ -370,27 +397,29 @@ namespace ViewModels
                     Destination = To,
                     Distance = distance,
                     Duration = (_departureDateTime - ArrivingTime).TotalMinutes,
-                    ScheduledDepartureTime = Timestamp.FromDateTime(_departureDateTime),
-                    ScheduledArrivalTime = Timestamp.FromDateTime(ArrivingTime),
+                    ScheduledDepartureTime = _departureDateTime.ToString(),
+                    ScheduledArrivalTime = ArrivingTime.ToString(),
                     WeightPassenger = TransportationType?.ToString() == nameof(Passenger) ? int.Parse(Passenger) : int.Parse(Weight),
                     HasTrailer = NeedTrailer,
                     Returned = Returned,
-                    Vehicle = driverFirestore,
-                    Driver = vehicleFirestore,
+                    Vehicle = vehicleFirestore,
+                    Driver = driverFirestore,
                     TransportationType = TransportationType?.ToString(),
-                    Trailer = !NeedTrailer ? null : new Dictionary<string, object>
+                    Trailer = !NeedTrailer ? null : new Dictionary<string, string>
                     {
                         {nameof(selectedTrailer.Id), selectedTrailer.Id},
                         {nameof(selectedTrailer.TrailerType), selectedTrailer.TrailerType},
                         {nameof(selectedTrailer.LicensePlate), selectedTrailer.LicensePlate},
-                        {nameof(selectedTrailer.GVWR), selectedTrailer.GVWR},
+                        {nameof(selectedTrailer.GVWR), selectedTrailer.GVWR.ToString()},
                         {nameof(selectedTrailer.Make), selectedTrailer.Make},
-                        {nameof(selectedTrailer.PayloadCapacity), selectedTrailer.PayloadCapacity},
+                        {nameof(selectedTrailer.PayloadCapacity), selectedTrailer.PayloadCapacity.ToString()},
                     }
                 };
 
-                await _storingDataManagementService.AddOrUpdateTrip(newTrip);
+                var addTripTask = _storingDataManagementService.AddOrUpdateTrip(newTrip);
+                //var addTripToDrivingVehicleTask = _storingDataManagementService.AddOrUpdateVehicle();
                 MessageBox.Show("Successfully adding trip");
+                ClearingAllInputs();
             }
             catch (HttpRequestException ex)
             {
@@ -549,12 +578,12 @@ namespace ViewModels
 
         private VehicleFirebase PassengerVehicleAssign(List<VehicleFirebase> vehicles, DateTime ArrivingTime)
         {
-            vehicles.RemoveAll(vehicle => vehicle.VehicleType != "Bus" || !vehicle.VehicleType.Contains("Passenger"));
+            vehicles.RemoveAll(vehicle => vehicle.VehicleType != "Bus" && !vehicle.VehicleType.Contains("Passenger"));
             vehicles.RemoveAll(vehicle => vehicle.OngoingTrip > 0 && vehicle.OngoingTripList.Any(trip =>
                     ((DateTime)trip["startDay"] <= _departureDateTime && (DateTime)trip["endDay"] >= _departureDateTime) ||
                     ((DateTime)trip["startDay"] <= ArrivingTime && (DateTime)trip["endDay"] >= ArrivingTime))
             );
-            vehicles.RemoveAll(vehicle => vehicle.TotalSeats <= int.Parse(Passenger) + 3);
+            vehicles.RemoveAll(vehicle => vehicle.TotalSeats <= int.Parse(Passenger));
             if (vehicles.Count() == 0)
             {
                 MessageBox.Show("Oh no, there are no vehicles left in system that can carry all passengers");
@@ -564,11 +593,11 @@ namespace ViewModels
             return vehicleFirebase;
 
         }
-        private DateTime GetScheduledArrivalTime(Element element)
+        private DateTime GetScheduledArrivalTime(Leg element)
         {
             int day = 0, hour = 0, minute = 0, second = 0;
-            if (Returned) second = element.Duration.Value * 2;
-            else second = element.Duration.Value;
+            if (Returned) second = element.Distance.Value * 2;
+            else second = element.Distance.Value;
             day = (int)Math.Floor(second / (Math.Pow(60, 2) * 24));
             hour = (int)Math.Floor(second / Math.Pow(60, 2));
             minute = second / 60;

@@ -142,7 +142,7 @@
                                            FontSize="13"
                                            Foreground="#dfe1e3"
                                            Margin="10 10 10 15" />
-                                <TextBlock Text="{Binding Unknown, FallbackValue='-', TargetNullValue='-'}"
+                                <TextBlock Text="{Binding Vehicle.TotalSeats, FallbackValue='-', TargetNullValue='-'}"
                                            Grid.Row="8"
                                            Grid.Column="2"
                                            FontSize="13"

@@ -29,7 +29,6 @@ namespace API.Services
             }
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(htmlContent);
-            //var price = htmlDocument.DocumentNode.SelectNodes("//*[@id=\"automation_TV0\"]/div[3]/table/tbody/tr[2]/td[2]")?.First().InnerText;
             ObservableCollection<string> nameGasPrice = new ObservableCollection<string>();
             for (int i = 1; i <= 4; i++)
             {

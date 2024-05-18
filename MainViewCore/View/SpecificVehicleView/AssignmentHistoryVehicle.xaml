@@ -15,6 +15,7 @@
     <UserControl.Resources>
         <converter:RegularVisibilityConverter x:Key="VisibilityConverter" />
         <converter:EmptyStringConverter x:Key="EmptyStringConverter" />
+        <converter:ObjectCompareNULLConverter x:Key="ObjectCompareNULLConverter" />
     </UserControl.Resources>
     <Behaviors:Interaction.Triggers>
         <Behaviors:EventTrigger EventName="Loaded">
@@ -137,7 +138,8 @@
                                             MinWidth="140">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical"
+                                            VerticalAlignment="Center">
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
                                     <Run Text="Scheduled: " />
@@ -159,7 +161,8 @@
                                             MinWidth="140">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical"
+                                            VerticalAlignment="Center">
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
                                     <Run Text="Scheduled: " />
@@ -274,8 +277,10 @@
                                                         <Setter.Value>
                                                             <Hyperlink Command="{Binding DataContext.DriverNavigateCommand, ElementName=CurView}"
                                                                        CommandParameter="{Binding Driver[Id]}">
-                                                                <TextBlock Text="{Binding Driver[Name]}"
-                                                                           VerticalAlignment="Center" />
+                                                                <TextBlock VerticalAlignment="Center">
+                                                                    <Run Text="{Binding Driver[FirstName]}" />
+                                                                    <Run Text="{Binding Driver[LastName]}" />
+                                                                </TextBlock>
                                                             </Hyperlink>
                                                         </Setter.Value>
                                                     </Setter>

@@ -17,6 +17,7 @@ using MainView.HostBuilder;
 using Models.Services;
 using Models.Vehicles;
 using API.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace MainView
 {
@@ -28,7 +29,12 @@ namespace MainView
         private readonly IHost _host;
         public App()
         {
-            _host = CreateHostBuilder().Build();
+            var temp = Directory.GetCurrentDirectory();
+            var configBuilder = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            var configuration = configBuilder.Build();
+
+            _host = CreateHostBuilder(configuration).Build();
             
 
             //FirestoreDb Database = FirestoreDb.Create();
@@ -36,11 +42,20 @@ namespace MainView
 
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args = null)
+        public static IHostBuilder CreateHostBuilder(IConfigurationRoot configuration, string[] args = null)
         {
             return Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((config) =>
+                {
+                    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                    config.AddEnvironmentVariables();
+                    if (args != null)
+                    {
+                        config.AddCommandLine(args);
+                    }
+                })
                 .AddVehicleAPI()
-                .AddServices()
+                .AddServices(configuration)
                 .AddViewModels();
         }
         protected override void OnStartup(StartupEventArgs e)

@@ -40,16 +40,16 @@ namespace Models.ModelFirebase
         public double Duration { get; set; }
 
         [FirestoreProperty]
-        public Timestamp ScheduledDepartureTime { get; set; }
+        public string ScheduledDepartureTime { get; set; }
 
         [FirestoreProperty]
-        public Timestamp? DepartureTime { get; set; }
+        public string DepartureTime { get; set; }
 
         [FirestoreProperty]
-        public Timestamp ScheduledArrivalTime { get; set; }
+        public string ScheduledArrivalTime { get; set; }
 
         [FirestoreProperty]
-        public Timestamp? ArrivalTime { get; set; }
+        public string ArrivalTime { get; set; }
 
         [FirestoreProperty]
         public bool HasTrailer { get; set; }
@@ -61,13 +61,13 @@ namespace Models.ModelFirebase
         public string TransportationType { get; set; }
 
         [FirestoreProperty]
-        public Dictionary<string, object> Driver { get; set; }
+        public Dictionary<string, string> Driver { get; set; }
 
         [FirestoreProperty]
-        public Dictionary<string, object> Vehicle { get; set; }
+        public Dictionary<string, string> Vehicle { get; set; }
 
         [FirestoreProperty]
-        public Dictionary<string, object> Trailer { get; set; }
+        public Dictionary<string, string> Trailer { get; set; }
 
     }
 }

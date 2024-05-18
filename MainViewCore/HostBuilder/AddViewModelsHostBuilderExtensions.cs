@@ -35,7 +35,6 @@ namespace MainView.HostBuilder
                 services.AddSingleton<MainDriverOverviewViewModel>();
                 services.AddSingleton<MainVehicleOverviewViewModel>();
                 services.AddSingleton<RemindersListViewModel>();
-                services.AddSingleton<VehicleMakeListingViewModel>();
                 services.AddSingleton<LoginViewModel>();
                 services.AddSingleton<SignUpViewModel>();
                 services.AddSingleton<AssignmentListViewModel>();

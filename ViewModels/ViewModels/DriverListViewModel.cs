@@ -105,6 +105,7 @@ namespace ViewModels
                 Navigator.NavigateSwitch(Navigation, p);
             });
             NavigateToMainDriverOverviewCommand = new RelayCommand<DriverFirebase>((driver) => {
+                if (driver == null) return;
                 _dataStore.CurrentObject = driver;
                 Navigator.NavigateSwitch(Navigation, ViewType.DriverMainOverview);
             });

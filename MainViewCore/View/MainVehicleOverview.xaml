@@ -95,7 +95,7 @@
 
 
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock  Text="95"
+                                    <TextBlock  Text="{Binding Vehicle.Meter, FallbackValue='Meter', TargetNullValue='Meter'}"
                                                 Margin="2"
                                                 FontSize="12"
                                                 Foreground="#87b0b2" />
@@ -104,8 +104,8 @@
                                         <Ellipse Width="8"
                                                  Height="8"
                                                  Margin="2"
-                                                 Fill="#eb1700" />
-                                        <TextBlock  Text="Active"
+                                                 Fill="{Binding Vehicle.VehicleStatus, FallbackValue=Green, TargetNullValue=Green}" />
+                                        <TextBlock  Text="{Binding Vehicle.VehicleStatus, FallbackValue='Active', TargetNullValue='Active'}"
                                                     Margin="2"
                                                     FontSize="12"
                                                     Foreground="#87b0b2" />
@@ -185,9 +185,9 @@
                     <DataTemplate DataType="{x:Type specificVehicleVM:AssignmentHistoryViewModel}">
                         <local:AssignmentHistoryVehicle />
                     </DataTemplate>
-                    <DataTemplate DataType="{x:Type specificVehicleVM:ServiceHistoryViewModel}">
+                    <!--<DataTemplate DataType="{x:Type specificVehicleVM:ServiceHistoryViewModel}">
                         <local:ServiceHistory />
-                    </DataTemplate>
+                    </DataTemplate>-->
                     <DataTemplate x:Key="Specs">
                         <local:Specs DataContext="{Binding DataContext, ElementName=CurView}"/>
                     </DataTemplate>

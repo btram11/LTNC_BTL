@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class DriverLicense
+    public interface IResultFromNHTSA
     {
-        public string LicenseNumber { get; set; }
-        public string LicenseClass { get; set; }
+        public int Count { get; set; }
+        public string Message { get; set; }
     }
 }

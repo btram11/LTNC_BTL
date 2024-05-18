@@ -17,39 +17,38 @@ using System.Xml.Linq;
 using GoogleApi;
 using GoogleApi.Interfaces.Maps;
 using Models.Services;
+using GoogleApi.Entities.Maps.Directions.Request;
+using GoogleApi.Entities.Maps.Directions.Response;
+using Microsoft.Extensions.Configuration;
 
 namespace API.Services
 {
     public class DistanceService: IDistanceService
     {
-        private IDistanceMatrixApi _distanceMatrixApi;
+        private IDirectionsApi _directionsApi;
+        private IConfiguration _configuration;
 
-        public DistanceService(IDistanceMatrixApi distanceMatrixApi)
+        public DistanceService(IDirectionsApi distanceMatrixApi, IConfiguration configuration)
         {
-            _distanceMatrixApi = distanceMatrixApi;
+            _directionsApi = distanceMatrixApi;
+            _configuration = configuration;
         }
-        public async Task<Element> GetDistance(string Origin, string Destination)
+        public async Task<Leg> GetDistance(string Origin, string Destination)
         {
             var origin = new Address(Origin);
             var destination = new Address(Destination);
-            var request = new DistanceMatrixRequest
+            var request = new DirectionsRequest
             {
-                Key = Environment.GetEnvironmentVariable("GOOGLEAPI_KEY"),
-                Origins = new[]
-                {
-                    new LocationEx(origin)
-                },
-                Destinations = new[]
-                {
-                    new LocationEx(destination)
-                }
+                Key = /*Environment.GetEnvironmentVariable("GOOGLEAPI_KEY")*/ _configuration["GoogleMapsAPI"],
+                Origin = new LocationEx(origin),
+                Destination =  new LocationEx(destination)
             };
-            DistanceMatrixResponse response = await _distanceMatrixApi.QueryAsync(request);
-            //var response = await GoogleApi.GoogleMaps.DistanceMatrix.QueryAsync(request);
-
+            DirectionsResponse response = await _directionsApi.QueryAsync(request);
+            
+            //RootDirectionsObject data = JsonConvert.DeserializeObject<RootDirectionsObject>(response.RawJson);
             if (response.Status == Status.Ok)
             {
-                return response.Rows.ElementAt(0).Elements.ElementAt(0);
+                return response.Routes.First().Legs.First();
             }
             throw new Exception("Ble Ble Ble Ble");
         }

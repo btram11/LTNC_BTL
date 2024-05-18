@@ -114,7 +114,8 @@ namespace ViewModels
             DriverNavigateCommand = new AsyncRelayCommand<object>((p) => ExecuteDriverNavigateCommand(p));
 
             LoadCommand = new AsyncRelayCommand(ExecuteLoadCommand);
-            NavigateToMainVehicleOverviewCommand = new RelayCommand<IVehicleDataFirebase>((vehicle) => { 
+            NavigateToMainVehicleOverviewCommand = new RelayCommand<IVehicleDataFirebase>((vehicle) => {
+                if (vehicle == null) return;
                 _dataStore.CurrentObject = vehicle;
                 Navigator.NavigateSwitch(Navigation, ViewType.VehicleMainOverview);
             });
@@ -167,17 +168,16 @@ namespace ViewModels
                     VehicleTypeList.Insert(0, "(None)");
                     OnPropertyChanged(nameof(VehicleTypeList));
 
-                    List<IVehicleDataFirebase> temp = await _storingDataManagementService.GetAllVehicles();
-                    if (temp != null)
-                    {
-                        ListVehicles = new ObservableCollection<IVehicleDataFirebase>(temp);
-                    }
-                    VehiclesCollection = CollectionViewSource.GetDefaultView(ListVehicles);
-                    VehiclesCollection.Filter = Filter;
-                    _IsLoaded = true;
+                    
                 }
-
-
+                List<IVehicleDataFirebase> temp = await _storingDataManagementService.GetAllVehicles();
+                if (temp != null)
+                {
+                    ListVehicles = new ObservableCollection<IVehicleDataFirebase>(temp);
+                }
+                VehiclesCollection = CollectionViewSource.GetDefaultView(ListVehicles);
+                VehiclesCollection.Filter = Filter;
+                _IsLoaded = true;
 
             }
             catch (HttpRequestException ex)

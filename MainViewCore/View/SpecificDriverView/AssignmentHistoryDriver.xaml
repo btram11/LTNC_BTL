@@ -136,7 +136,8 @@
                                             MinWidth="140">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical"
+                                            VerticalAlignment="Center">
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
                                         <Run Text="Scheduled: " />
@@ -158,7 +159,8 @@
                                             MinWidth="140">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical"
+                                            VerticalAlignment="Center">
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
                                         <Run Text="Scheduled: " />

@@ -52,20 +52,5 @@ namespace API.Services
             return dataList;
         }
 
-        public async Task<List<string>> GetAllModelsFromNHTSA(string make)
-        {
-            string url = $"GetModelsForMake/{make}?format=json";
-            ModelDataFromNHTSA data = await _client.GetAsync<ModelDataFromNHTSA>(url);
-
-            if (data.Message != "Response returned successfully" || data.Count == 0)
-            {
-                throw new Exception(data.Message);
-            }
-            List<string> models = data.Results.Select(obj => obj.Model_Name).ToList();
-            return models;
-
-
-        }
-
     }
 }

@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace API.Model
 {
-    public class GeneralDataFromNHTSA
+    public class GeneralDataFromNHTSA : IResultFromNHTSA
     {
         public int Count { get; set; }
         public string Message { get; set; }
-        //public string SearchCriteria { get; set; }
         public ObservableCollection<GeneralDataModel> Results { get; set; }
     }
 

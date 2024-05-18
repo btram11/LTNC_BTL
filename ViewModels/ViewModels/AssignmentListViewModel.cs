@@ -100,6 +100,7 @@ namespace ViewModels
             VehicleNavigateCommand = new AsyncRelayCommand<object>((p) => ExecuteVehicleNavigateCommand(p));
             NavigateToTripInfoCommand = new RelayCommand<TripFirebase>((p) =>
             {
+                if (p == null) return;
                 _dataStore.CurrentObject = p;
                 Navigator.NavigateSwitch(Navigation, ViewType.TripInfo);
             });

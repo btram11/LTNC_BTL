@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ViewModels;
-using ViewModels.ViewModels;
 
 namespace ViewModels.State.Navigators
 {

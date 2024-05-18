@@ -17,21 +17,24 @@ using Models.Services.AuthenticationServices;
 using ViewModels.State.Accounts;
 using Models.Services.PasswordHash;
 using ViewModels.State.Data;
+using Microsoft.Extensions.Configuration;
+using Grpc.Core;
 
 namespace MainView.HostBuilder
 {
     public static class AddServicesHostBuilderExtensions
     {
-        public static IHostBuilder AddServices(this IHostBuilder host)
+        public static IHostBuilder AddServices(this IHostBuilder host, IConfigurationRoot config)
         {
-            var jsonString = File.ReadAllText("D:/Misa/Code/fleetmanagement-8b359-firebase-adminsdk-r32vj-cab42b1a38.json");
+            var filePath = config["Firebase"];
+            //var jsonString = File.ReadAllText(filePath);
             host.ConfigureServices(services =>
             {
                 services.AddSingleton<IDataFromNHTSAService, DataFromNHTSAService>();
                 services.AddSingleton<IVINDecoderService, VINDecoderService>();
                 services.AddSingleton(_ => new FirestoreDbBuilder{
                     ProjectId = "fleetmanagement-8b359",
-                    JsonCredentials = jsonString // <-- service account json file
+                    CredentialsPath = filePath
                 }.Build());
                 services.AddSingleton<IAuthenticationService, AuthenticationService>();
                 services.AddSingleton<IAuthenticator, Authenticator>();

@@ -122,7 +122,11 @@ namespace ViewModels
         public string LicensePlate
         {
             get => _licensePlate;
-            set => _licensePlate = value;
+            set
+            {
+                _licensePlate = value;
+                OnPropertyChanged(nameof(LicensePlate));
+            }
         }
         public string VehicleType 
         {
@@ -505,15 +509,15 @@ namespace ViewModels
                 {
                     Name = Name == string.Empty ? null : Name,
                     VIN = VIN,
-                    LicensePlate = LicensePlate,
+                    LicensePlate = LicensePlate == string.Empty ? null : LicensePlate,
                     VehicleType = VehicleType,
                     VehicleStatus = Status,
                     Make = Make,
                     Models = Model,
                     Year = Year,
                     Trim = Trim == string.Empty ? null : Trim,
-                    RegisState = RegisState,
-                    Ownership = Ownership,
+                    RegisState = RegisState == string.Empty ? null : RegisState,
+                    Ownership = Ownership == string.Empty ? null : Ownership,
                     FuelEfficiency = double.Parse(FuelEfficiency),
                     FuelCapacity = int.Parse(FuelCapacity),
                     GCWR = float.TryParse(GCWR, out float parsedGCWR) ? parsedGCWR : (float?)null,

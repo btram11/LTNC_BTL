@@ -172,7 +172,7 @@
                                         IsReadOnly="True"
                                         Width="160"
                                         MinWidth="150"
-                                        Binding="{Binding Origin, FallbackValue='None', TargetNullValue='Unknown'}">
+                                        Binding="{Binding Destination, FallbackValue='None', TargetNullValue='Unknown'}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource DataGridTextColumnElementStyle}">
@@ -188,16 +188,17 @@
                                             MinWidth="140">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical"
+                                            VerticalAlignment="Center">
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
                         <Run Text="Scheduled: " />
-                        <Run Text="{Binding ScheduledDepartureTime, TargetNullValue='-', FallbackValue='-'}" />
+                        <Run Text="{Binding ScheduledDepartureTime, TargetNullValue='-', FallbackValue='-', Mode=OneWay}" />
                                     </TextBlock>
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
                         <Run Text="Real: " />
-                        <Run Text="{Binding DepartureTime, TargetNullValue='-', FallbackValue='-'}" />
+                        <Run Text="{Binding DepartureTime, TargetNullValue='-', FallbackValue='-', Mode=OneWay}" />
                                     </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
@@ -210,16 +211,17 @@
                                             MinWidth="140">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical"
+                                            VerticalAlignment="Center">
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
                         <Run Text="Scheduled: " />
-                        <Run Text="{Binding ScheduledArrivalTime, TargetNullValue='-', FallbackValue='-'}" />
+                        <Run Text="{Binding ScheduledArrivalTime, TargetNullValue='-', FallbackValue='-', Mode=OneWay}" />
                                     </TextBlock>
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
                         <Run Text="Real: " />
-                        <Run Text="{Binding ArrivalTime, TargetNullValue='-', FallbackValue='-'}" />
+                        <Run Text="{Binding ArrivalTime, TargetNullValue='-', FallbackValue='-', Mode=OneWay}" />
                                     </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
@@ -311,7 +313,7 @@
                                             </Setter>
                                             <Style.Triggers>
 
-                                                <DataTrigger Binding="{Binding Vehicle, FallbackValue=False, TargetNullValue=False, Converter={StaticResource ObjectCompareNULLConverter}}"
+                                                <DataTrigger Binding="{Binding Vehicle[Name], FallbackValue=False, TargetNullValue=False, Converter={StaticResource ObjectCompareNULLConverter}}"
                                                              Value="True">
                                                     <Setter Property="Content">
                                                         <Setter.Value>
@@ -357,8 +359,10 @@
                                                             <Hyperlink TextDecorations="None"
                                                                        Command="{Binding DataContext.DriverNavigateCommand, ElementName=CurView}"
                                                                        CommandParameter="{Binding Driver[Id]}">
-                                                                <TextBlock Text="{Binding Driver[Name]}"
-                                                                           VerticalAlignment="Center" />
+                                                                <TextBlock VerticalAlignment="Center">
+                                                                    <Run Text="{Binding Driver[FirstName]}" />
+                                                                    <Run Text="{Binding Driver[LastName]}" />
+                                                                </TextBlock>
                                                             </Hyperlink>
                                                         </Setter.Value>
                                                     </Setter>

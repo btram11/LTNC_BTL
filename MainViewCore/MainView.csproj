@@ -8,6 +8,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <UserSecretsId>1c0a17c2-c514-4058-b589-f4b54c103e9e</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="video\**" />
@@ -72,5 +73,10 @@
     <Compile Remove="ValueConverters\StringRGBToBrushConverter.cs" />
     <Page Remove="Control\BubbleContent.xaml" />
     <Page Remove="StyleResources\MenuButtonTheme.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

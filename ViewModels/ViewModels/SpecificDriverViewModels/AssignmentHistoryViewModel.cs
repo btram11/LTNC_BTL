@@ -104,6 +104,7 @@ namespace ViewModels.DriverViewModel
             LoadCommand = new AsyncRelayCommand(ExecuteLoadCommand);
             NavigateToTripInfoCommand = new RelayCommand<TripFirebase>((p) =>
             {
+                if (p == null) return;
                 _dataStore.CurrentObject = p;
                 Navigator.NavigateSwitch(Navigation, ViewType.TripInfo);
             });

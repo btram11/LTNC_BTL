@@ -8,7 +8,7 @@ using Models;
 
 namespace API.Model
 {
-    public class MakeDataFromNHTSA
+    public class MakeDataFromNHTSA : IResultFromNHTSA
     {
         public int Count { get; set; }
         public string Message { get; set; }
@@ -16,11 +16,4 @@ namespace API.Model
         public ObservableCollection<MakeData> Results { get; set; }
     }
 
-    public class ModelDataFromNHTSA
-    {
-        public int Count { get; set; }
-        public string Message { get; set; }
-        //public string SearchCriteria { get; set; }
-        public List<ModelData> Results { get; set; }
-    }
 }

@@ -189,9 +189,10 @@
                                            FontSize="13"
                                            Foreground="#dfe1e3"
                                            Margin="10 10" />
-                                <TextBlock Text="96"
+                                <TextBlock Text="{Binding Vehicle.Meter, FallbackValue='-', TargetNullValue='-'}"
                                            Grid.Column="1"
                                            FontSize="13"
+                                           TextWrapping="Wrap"
                                            HorizontalAlignment="Left"
                                            Foreground="#dfe1e3"
                                            Margin="10 10" />

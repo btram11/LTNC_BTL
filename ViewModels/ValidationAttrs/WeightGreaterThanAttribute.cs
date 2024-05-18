@@ -26,15 +26,19 @@ namespace ViewModels.ValidationAttrs
  
             var regex = new Regex(pattern);
 
-            if (value == null || !regex.IsMatch((string)value))
+            if (value == null || !regex.IsMatch((string)value) || string.IsNullOrEmpty(_comparisonProperty))
             {
                 return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
             }
             var currentValue = int.Parse(((string)value == string.Empty || value == null) ? "0" : (string)value);
             if (currentValue == 0) return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
 
-            var comparisonValue = int.Parse((string)validationContext.ObjectType.GetProperty(_comparisonProperty)
-                .GetValue(validationContext.ObjectInstance));
+            var stringComValue = validationContext.ObjectType.GetProperty(_comparisonProperty).GetValue(validationContext.ObjectInstance) as string;
+            if (string.IsNullOrEmpty(stringComValue))
+            {
+                return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
+            }
+            var comparisonValue = int.Parse(stringComValue);
 
             if (currentValue <= comparisonValue - comparisonValue * _percentage)
             {
