@@ -163,7 +163,7 @@
                                             HorizontalAlignment="Right"
                                             Style="{StaticResource MainDatePicker}"
                                             Grid.Column="1"
-                                            Width="300"
+                                            Width="301"
                                             materialDesign:CalendarAssist.IsHeaderVisible="False"
                                             materialDesign:HintAssist.Hint="Future Date">
                                     <DatePicker.BlackoutDates>
@@ -180,19 +180,27 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Departure Time"
                                            VerticalAlignment="Center"
                                            FontSize="16"
                                            Margin="0 0 40 5"
                                            Foreground="{StaticResource WordWhiteBrush}" />
-                                <materialDesign:TimePicker Width="300"
+                                <CheckBox materialDesign:HintAssist.Hint="Is 24 hours?"
+                                          FontSize="11"
+                                          Margin="0 0 16 0"
+                                          Grid.Column="1"
+                                          x:Name="Is24HourCheckbox"
+                                          Style="{DynamicResource MainCheckBox}" />
+                                <materialDesign:TimePicker Width="266"
+                                                           HorizontalAlignment="Right"
                                                            Text="{Binding DepartureTime, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                                                            Grid.Column="12"
                                                            Style="{StaticResource MainTimePicker}"
                                                            materialDesign:HintAssist.Hint="Select departure time"
                                                            Is24Hours="{Binding IsChecked, ElementName=Is24HourCheckbox}"
-                                                           IsInvalidTextAllowed="True">
+                                                           IsInvalidTextAllowed="False">
                                     
                                 </materialDesign:TimePicker>
                             </Grid>

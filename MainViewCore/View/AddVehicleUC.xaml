@@ -309,7 +309,8 @@
                                                    FontSize="14"
                                                    Style="{StaticResource titleText}" />
                                         <ComboBox materialDesign:TextFieldAssist.HasClearButton="True"
-                                                  ItemsSource="{Binding ShortStringList}"
+                                                  ItemsSource="{Binding OwnershipList}"
+                                                  SelectedItem="{Binding Ownership}"
                                                   Style="{StaticResource MainOutlinedComboBox}" />
 
                                     </StackPanel>
@@ -415,7 +416,7 @@
                                         <StackPanel.Style>
                                             <Style TargetType="{x:Type StackPanel}">
                                                 <Setter Property="Visibility"
-                                                        Value="{Binding SelectedItem.Content, ElementName=VehicleTypeComboBox, Converter={StaticResource VehicleTypeVisibilityConverter}}" />
+                                                        Value="{Binding SelectedItem.Content,FallbackValue='Visible', TargetNullValue='Visible',ElementName=VehicleTypeComboBox, Converter={StaticResource VehicleTypeVisibilityConverter}}" />
                                             </Style>
                                         </StackPanel.Style>
                                         <TextBlock Text="Body Type"

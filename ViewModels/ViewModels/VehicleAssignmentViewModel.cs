@@ -269,7 +269,7 @@ namespace ViewModels
         {
             ClearingAllInputs();
             resultContinueLoadedFalse = MessageBoxResult.Yes;
-            if (_dataStore.FuelPrice.Count() <= 0)
+            if (_dataStore.FuelPrice == null ||_dataStore.FuelPrice.Count() <= 0)
             {
                 resultContinueLoadedFalse = MessageBox.Show("There is an error in loading. If continue, we cannot calculate the cost. Do you wish to continue using this page", "", MessageBoxButton.YesNo, MessageBoxImage.Asterisk);
             }

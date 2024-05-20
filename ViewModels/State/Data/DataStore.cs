@@ -13,7 +13,7 @@ namespace ViewModels.State.Data
     public class DataStore : IDataStore
     {
         private object _currentObject;
-        private ObservableCollection<string> _fuelPrice;
+        private ObservableCollection<string> _fuelPrice = new ObservableCollection<string>();
         public object CurrentObject 
         { 
             get => _currentObject; 

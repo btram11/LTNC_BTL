@@ -295,7 +295,7 @@
                                                         <Setter.Value>
                                                             <Hyperlink TextDecorations="None"
                                                                        Command="{Binding DataContext.VehicleNavigateCommand, ElementName=DriverListView}"
-                                                                       CommandParameter="{Binding Vehicle[Id], FallbackValue={x:Null}}">
+                                                                       CommandParameter="{Binding Vehicle[Id], FallbackValue={x:Null}, TargetNullValue={x:Null}}">
                                                                 <TextBlock Text="{Binding Vehicle[Name]}"
                                                                            VerticalAlignment="Center" />
                                                             </Hyperlink>

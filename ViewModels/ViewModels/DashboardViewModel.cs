@@ -52,6 +52,7 @@ namespace ViewModels
         {
             try
             {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
                 var GasPriceTask = _fuelPriceService.GetPrice();
                 var GetAllVehicle = _storingDataManagementService.GetAllVehicles();
                 var GetAllDriverTask = _storingDataManagementService.GetAllDrivers();
@@ -72,11 +73,16 @@ namespace ViewModels
                 _dataStore.FuelPrice = nameGasPrice;
                 OnPropertyChanged(nameof(nameGasPrice));
                 OnPropertyChanged(nameof(keyValuePairs));
+                
             }
             catch (HttpRequestException ex)
             {
                 MessageBox.Show("Please check your internet again and connect again or keep using offline", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             } 
+            finally
+            {
+                Mouse.OverrideCursor = null;
+            }
         }
 
         private void putKeyPairsTrip(IReadOnlyCollection<TripFirebase> trips)

@@ -47,6 +47,8 @@ namespace ViewModels
         public ObservableCollection<string> BodyTypeList { get; private set; }
         public ObservableCollection<string> TrailerTypeList { get; private set; }
         public ObservableCollection<VehicleStatus> VehicleStatusList { get; private set; } = new ObservableCollection<VehicleStatus>(System.Enum.GetValues(typeof(VehicleStatus)).Cast<VehicleStatus>());
+        public ObservableCollection<string> OwnershipList { get; private set; } = new ObservableCollection<string>(System.Enum.GetValues(typeof(VehicleStatus)).Cast<string>());
+
         #endregion
         private bool _IsLoaded { get; set; } = false;
         public bool HasErrors => Helper.HasErrors;
@@ -630,18 +632,19 @@ namespace ViewModels
                     error = Validate(nameof(GVWR), GVWR);
                     break;
                 case 7:
-                    if (!VehicleType.Contains("Trailer") && !VehicleType.Contains("Motorcycle")) error = Validate(nameof(GCWR), GCWR);
+
+                    if (VehicleType == null || !VehicleType.Contains("Trailer") && !VehicleType.Contains("Motorcycle")) error = Validate(nameof(GCWR), GCWR);
                     break;
                 case 8:
-                    if (!VehicleType.Contains("Trailer"))
+                    if (VehicleType == null || !VehicleType.Contains("Trailer"))
                         error = Validate(nameof(FuelEfficiency), FuelEfficiency);
                     break;
                 case 9:
-                    if (!VehicleType.Contains("Trailer"))
+                    if (VehicleType == null || !VehicleType.Contains("Trailer"))
                         error = Validate(nameof(TotalSeats), TotalSeats);
                     break;
                 case 10:
-                    if (!VehicleType.Contains("Trailer"))
+                    if (VehicleType == null || !VehicleType.Contains("Trailer"))
                         error = Validate(nameof(FuelCapacity), FuelCapacity);
                     break;
             }

@@ -124,6 +124,7 @@ namespace ViewModels
 
         private async Task ExecuteLoadCommand()
         {
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
             IReadOnlyCollection<DriverFirebase> temp = await _storingDataManagementService.GetAllDrivers();
             if (temp != null)
             {
@@ -132,6 +133,7 @@ namespace ViewModels
             DriversCollection = CollectionViewSource.GetDefaultView(ListDrivers);
             DriversCollection.Filter = Filter;
 
+            Mouse.OverrideCursor = null;
         }
 
 
