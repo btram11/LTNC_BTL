@@ -17,7 +17,8 @@
         MinHeight="740"
         MinWidth="820"
         Height="600"
-        Width="900">
+        Width="900"
+        Icon="./Images/4047413.png">
     <WindowChrome.WindowChrome>
         <WindowChrome ResizeBorderThickness="{Binding ResizeBorderThickness}"
                       CaptionHeight="{Binding TitleHeight}"

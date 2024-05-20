@@ -83,7 +83,7 @@ namespace ViewModels
         {
             if (trips == null) return;
             int TotalTrips = trips.Count();
-            keyValuePairs.Add(nameof(TotalTrips), TotalTrips.ToString());
+            keyValuePairs[nameof(TotalTrips)] = TotalTrips.ToString();
         }
 
         private void putKeyPairsVehicle(List<IVehicleDataFirebase> vehicleData)
@@ -91,14 +91,14 @@ namespace ViewModels
             if (vehicleData == null) return;
             int TotalVehicles = vehicleData.Count(obj => obj.VehicleType != "Trailer");
             int TotalTrailers = vehicleData.Count(obj => obj.VehicleType == "Trailer");
-            keyValuePairs.Add(nameof(TotalVehicles), TotalVehicles.ToString());
-            keyValuePairs.Add(nameof(TotalTrailers), TotalTrailers.ToString());
+            keyValuePairs[nameof(TotalVehicles)] = TotalVehicles.ToString();
+            keyValuePairs[nameof(TotalTrailers)] = TotalTrailers.ToString();
             int Available = vehicleData.Count(obj => obj.VehicleStatus == VehicleStatus.Available);
             int InUse = vehicleData.Count(obj => obj.VehicleStatus == VehicleStatus.InUse);
             int Repairing = vehicleData.Count(obj => obj.VehicleStatus == VehicleStatus.Repairing);
-            keyValuePairs.Add(nameof(Available), Available.ToString());
-            keyValuePairs.Add(nameof(InUse), InUse.ToString());
-            keyValuePairs.Add(nameof(Repairing), Repairing.ToString());
+            keyValuePairs[nameof(Available)] = Available.ToString();
+            keyValuePairs[nameof(InUse)] = InUse.ToString();
+            keyValuePairs[nameof(Repairing)] = Repairing.ToString();
         }
 
         private void putKeyPairsDriver(IReadOnlyCollection<DriverFirebase> drivers)
@@ -108,10 +108,10 @@ namespace ViewModels
             int OnDuty = drivers.Count(obj => obj.Status == DriverStatus.OnDuty);
             int Vaction = drivers.Count(obj => obj.Status == DriverStatus.Vacation);
             int TotalDrivers = drivers.Count();
-            keyValuePairs.Add(nameof(TotalDrivers), TotalDrivers.ToString());
-            keyValuePairs.Add("Driver.Available", Available.ToString());
-            keyValuePairs.Add(nameof(Vaction), Vaction.ToString());
-            keyValuePairs.Add(nameof(OnDuty), OnDuty.ToString());
+            keyValuePairs[nameof(TotalDrivers)] = TotalDrivers.ToString();
+            keyValuePairs["Driver.Available"] =  Available.ToString();
+            keyValuePairs[nameof(Vaction)] = Vaction.ToString();
+            keyValuePairs[nameof(OnDuty)] = OnDuty.ToString();
         }
 
         #endregion

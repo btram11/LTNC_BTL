@@ -17,10 +17,10 @@ namespace Models.Services.Firebase
         private string _datauid;
 
 
-        private DocumentReference _data => _firestoreDb.Collection("Data").Document(_datauid);
-        private CollectionReference driversRef => _data.Collection("Drivers");
-        private CollectionReference vehiclesRef => _data.Collection("Vehicles");
-        private CollectionReference tripRef => _data.Collection("Trips");
+        private DocumentReference _data => _firestoreDb.Collection("Data").Document(_datauid == null ? "0" : _datauid);
+        private CollectionReference driversRef => _data?.Collection("Drivers");
+        private CollectionReference vehiclesRef => _data?.Collection("Vehicles");
+        private CollectionReference tripRef => _data?.Collection("Trips");
 
         public string DataUid 
         { 

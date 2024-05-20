@@ -295,13 +295,13 @@
                                                    Text="{Binding Trip.TransportationType, FallbackValue='-', TargetNullValue='-'}"
                                                    Style="{StaticResource CardTextBoxInfo}" />
 
-                                        <TextBlock Grid.Row="14"
+                                        <!--<TextBlock Grid.Row="14"
                                                    Text="{Binding }"
                                                    Style="{StaticResource CardTextBoxInfo}" />
                                         <TextBlock Grid.Row="14"
                                                    Grid.Column="1"
                                                    Text="{Binding }"
-                                                   Style="{StaticResource CardTextBoxInfo}" />
+                                                   Style="{StaticResource CardTextBoxInfo}" />-->
                                     </Grid>
                                 </materialDesign:Card>
                                 <materialDesign:Card UniformCornerRadius="10"
