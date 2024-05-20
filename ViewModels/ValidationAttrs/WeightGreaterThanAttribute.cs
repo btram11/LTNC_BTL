@@ -30,11 +30,12 @@ namespace ViewModels.ValidationAttrs
             {
                 return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
             }
-            var currentValue = int.Parse(((string)value == string.Empty || value == null) ? "0" : (string)value);
+            string Value = value as string;
+            var currentValue = int.Parse((Value == string.Empty || value == null || Value.Length > 6) ? "0" : (string)value);
             if (currentValue == 0) return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
 
             var stringComValue = validationContext.ObjectType.GetProperty(_comparisonProperty).GetValue(validationContext.ObjectInstance) as string;
-            if (string.IsNullOrEmpty(stringComValue))
+            if (string.IsNullOrEmpty(stringComValue) || stringComValue.Length > 6)
             {
                 return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
             }

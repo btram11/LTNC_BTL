@@ -138,6 +138,10 @@ namespace ViewModels
                 return;
             }
             ErrorMessage = string.Empty;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
             try
             {
                 await _authenticator.Login(Username, Password);
@@ -148,7 +152,13 @@ namespace ViewModels
             {
                 ErrorMessage = "Invalid Username or Password";
             }
-
+            finally
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
+            }
         }
         private void ExecuteCloseWindowCommand(UserControl p)
         {

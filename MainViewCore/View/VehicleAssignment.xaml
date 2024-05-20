@@ -18,7 +18,7 @@
         </Behaviors:EventTrigger>
     </Behaviors:Interaction.Triggers>
     <UserControl.Resources>
-        <converter:TransportationTypeVisibilityConverter x:Key="VisibilityConverter"/>
+        <converter:TransportationTypeVisibilityConverter x:Key="VisibilityConverter" />
     </UserControl.Resources>
     <Border>
         <Grid Margin="10">
@@ -80,7 +80,7 @@
                                     <TextBlock  Text="Cancel" />
                                 </StackPanel>
                             </Button>
-                            
+
                             <Button Width="100"
                                     Margin="0"
                                     Style="{StaticResource addbutton}"
@@ -91,12 +91,20 @@
                             </Button>
                         </StackPanel>
                     </Grid>
+                    <Canvas Grid.ColumnSpan="3"
+                            Visibility="{Binding ErrorLoadingCost, UpdateSourceTrigger=PropertyChanged, FallbackValue=Hidden, TargetNullValue=Hidden}">
+                        <TextBlock Text="There is an error in loading. If continue, we cannot calculate the cost"
+                                   FontSize="15"
+                                   Canvas.Bottom="10"
+                                   Canvas.Left="10"
+                                   Foreground="Red" />
+                    </Canvas>
                 </Grid>
             </Border>
 
             <Grid x:Name="grid"
                   Grid.Row="1"
-                  Margin="0 15" 
+                  Margin="0 15"
                   HorizontalAlignment="Center"
                   MinWidth="500">
                 <Border Style="{StaticResource mainBorder}"
@@ -194,14 +202,15 @@
                                           x:Name="Is24HourCheckbox"
                                           Style="{DynamicResource MainCheckBox}" />
                                 <materialDesign:TimePicker Width="266"
-                                                           HorizontalAlignment="Right"
+                                                           HorizontalAlignment="Center"
                                                            Text="{Binding DepartureTime, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
-                                                           Grid.Column="12"
+                                                           Grid.Column="2"
                                                            Style="{StaticResource MainTimePicker}"
                                                            materialDesign:HintAssist.Hint="Select departure time"
-                                                           Is24Hours="{Binding IsChecked, ElementName=Is24HourCheckbox}"
-                                                           IsInvalidTextAllowed="False">
-                                    
+                                                           Is24Hours="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged,ElementName=Is24HourCheckbox}"
+                                                           IsInvalidTextAllowed="False"
+                                                           VerticalAlignment="Bottom">
+
                                 </materialDesign:TimePicker>
                             </Grid>
                         </StackPanel>
@@ -294,7 +303,7 @@
                                          Grid.Column="2"
                                          Style="{StaticResource MainTextBox}"
                                          materialDesign:HintAssist.Hint="Total Weight of Goods in Kilograms">
-                                    
+
                                 </TextBox>
                             </Grid>
                         </StackPanel>
@@ -328,10 +337,10 @@
                                     </CheckBox.Style>
                                 </CheckBox>
                             </Grid>
-                            
+
                         </StackPanel>
                     </StackPanel>
-                    
+
                 </Border>
             </Grid>
         </Grid>

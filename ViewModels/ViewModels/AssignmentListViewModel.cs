@@ -116,13 +116,22 @@ namespace ViewModels
         public ICommand DriverNavigateCommand { get; }
         private async Task ExecuteLoadCommand()
         {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
             IReadOnlyCollection<TripFirebase> temp = await _storingDataManagementService.GetAllTrips();
             if (temp != null && temp.Count != 0)
             {
                 ListTrips = new ObservableCollection<TripFirebase>(temp);
             }
+            else ListTrips = new ObservableCollection<TripFirebase>();
             TripsCollection = CollectionViewSource.GetDefaultView(ListTrips);
             TripsCollection.Filter = Filter;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
         }
 
         private bool Filter(object obj)

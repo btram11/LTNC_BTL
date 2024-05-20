@@ -50,9 +50,12 @@ namespace ViewModels
         public ICommand LoadCommand { get; }
         private async Task ExecuteLoadCommand()
         {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
             try
             {
-                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
                 var GasPriceTask = _fuelPriceService.GetPrice();
                 var GetAllVehicle = _storingDataManagementService.GetAllVehicles();
                 var GetAllDriverTask = _storingDataManagementService.GetAllDrivers();
@@ -75,13 +78,16 @@ namespace ViewModels
                 OnPropertyChanged(nameof(keyValuePairs));
                 
             }
-            catch (HttpRequestException ex)
+            catch (HttpRequestException )
             {
                 MessageBox.Show("Please check your internet again and connect again or keep using offline", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             } 
             finally
             {
-                Mouse.OverrideCursor = null;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
             }
         }
 

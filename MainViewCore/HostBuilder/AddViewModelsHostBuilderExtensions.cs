@@ -30,17 +30,17 @@ namespace MainView.HostBuilder
                 services.AddSingleton<AddDriverViewModel>();
                 services.AddSingleton<AddVehicleViewModel>();
                 services.AddSingleton<VehicleAssignmentViewModel>();
-                services.AddSingleton<VehicleListViewModel>();
-                services.AddSingleton<DriverListViewModel>();
+                services.AddTransient<VehicleListViewModel>();
+                services.AddTransient<DriverListViewModel>();
                 services.AddSingleton<MainDriverOverviewViewModel>();
                 services.AddSingleton<MainVehicleOverviewViewModel>();
                 services.AddSingleton<RemindersListViewModel>();
                 services.AddSingleton<LoginViewModel>();
                 services.AddSingleton<SignUpViewModel>();
-                services.AddSingleton<AssignmentListViewModel>();
+                services.AddTransient<AssignmentListViewModel>();
                 services.AddSingleton<TripInformationViewModel>();
-                services.AddSingleton<ViewModels.DriverViewModel.AssignmentHistoryViewModel>();
-                services.AddSingleton<ViewModels.VehicleViewModel.AssignmentHistoryViewModel>();
+                services.AddTransient<ViewModels.DriverViewModel.AssignmentHistoryViewModel>();
+                services.AddTransient<ViewModels.VehicleViewModel.AssignmentHistoryViewModel>();
                 services.AddSingleton<Func<Type, ViewModelBase>>(serviceProvider => viewModelType => (ViewModelBase)serviceProvider.GetRequiredService(viewModelType));
 
 

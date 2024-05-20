@@ -29,6 +29,7 @@ using ViewModels.ValidationAttrs;
 using System.Xml.Linq;
 using System.Net.Http;
 using Models;
+using Models.Exceptions;
 
 namespace ViewModels
 {
@@ -47,7 +48,7 @@ namespace ViewModels
         public ObservableCollection<string> BodyTypeList { get; private set; }
         public ObservableCollection<string> TrailerTypeList { get; private set; }
         public ObservableCollection<VehicleStatus> VehicleStatusList { get; private set; } = new ObservableCollection<VehicleStatus>(System.Enum.GetValues(typeof(VehicleStatus)).Cast<VehicleStatus>());
-        public ObservableCollection<string> OwnershipList { get; private set; } = new ObservableCollection<string>(System.Enum.GetValues(typeof(VehicleStatus)).Cast<string>());
+        public ObservableCollection<string> OwnershipList { get; private set; } = new ObservableCollection<string>(System.Enum.GetValues(typeof(VehicleStatus)).Cast<VehicleStatus>().Select(status => status.ToString()));
 
         #endregion
         private bool _IsLoaded { get; set; } = false;
@@ -223,7 +224,7 @@ namespace ViewModels
         #region Weight Props
         [Required(ErrorMessage = "Curb Weight is required")]
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter a valid positive Number")]
-        [MaxLength(9, ErrorMessage = "Personally, I dont think it can weight this much in kilograms, isnt it?")]
+        [MaxLength(6, ErrorMessage = "Personally, I dont think it can weight this much in kilograms, isnt it?")]
         public string CurbWeight 
         { 
             get => _curbWeight; 
@@ -238,7 +239,7 @@ namespace ViewModels
 
         [Required(ErrorMessage = "Gross Vehicle Weight Rating is required")]
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter a valid positive Number")]
-        [MaxLength(9, ErrorMessage = "Personally, I dont think it can weight this much in kilograms, isnt it?")]
+        [MaxLength(6, ErrorMessage = "Personally, I dont think it can weight this much in kilograms, isnt it?")]
         [WeightStringGreaterThan(nameof(CurbWeight), ErrorMessage = "Gross Vehicle Weight Rating must larger than Curb Weight")]
         public string GVWR 
         {
@@ -254,7 +255,7 @@ namespace ViewModels
 
         [Required(ErrorMessage = "Gross Combined Weight Rating is required")]
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter a valid positive Number")]
-        [MaxLength(9, ErrorMessage = "Personally, I dont think it can weight this much in kilograms, isnt it?")]
+        [MaxLength(6, ErrorMessage = "Personally, I dont think it can weight this much in kilograms, isnt it?")]
         [WeightStringGreaterThan(nameof(GVWR), ErrorMessage = "GCWR must larger than GVWR")]
         public string GCWR {
             get => _gcwr; 
@@ -273,7 +274,7 @@ namespace ViewModels
 
         #region Additional Detail Props
         [Required(ErrorMessage = "Fuel Efficiency is required")]
-        [MaxLength(8, ErrorMessage = "The maximum length of the number is 8")]
+        [MaxLength(6, ErrorMessage = "The maximum length of the number is 6")]
         [RegularExpression("^[0-9]*\\.?[0-9]+$", ErrorMessage = "Please enter a positive FLOAT NUMBER")]
         public string FuelEfficiency 
         {
@@ -289,7 +290,7 @@ namespace ViewModels
         }
 
         [Required(ErrorMessage = "Fuel Capacity is required")]
-        [MaxLength(8, ErrorMessage = "The maximum length of the number is 8")]
+        [MaxLength(6, ErrorMessage = "The maximum length of the number is 6")]
         [RegularExpression("([0-9][0-9]*)", ErrorMessage = "Please enter a posittive INTEGER")]
         public string FuelCapacity
         {
@@ -453,26 +454,36 @@ namespace ViewModels
                 return;
             }
             if (Name == string.Empty || Name == null) Name = $"{Year} {Make} {Model}";
-            IReadOnlyCollection<VehicleFirebase> temp = await _storingDataManagementService.WhereEqualToVehicle<VehicleFirebase>(nameof(VIN), VIN);
-            if (temp.Count > 0)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                MessageBox.Show("Please check your VIN number as there is a vehicle with that VIN", string.Empty, MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+            try
+            {
+                IReadOnlyCollection<VehicleFirebase> temp = await _storingDataManagementService.WhereEqualToVehicle<VehicleFirebase>(nameof(VIN), VIN);
+                if (temp.Count > 0)
+                {
+                    MessageBox.Show("Please check your VIN number as there is a vehicle with that VIN", string.Empty, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                IVehicleDataFirebase vehicle = await CreateVehicle();
+
+                await _storingDataManagementService.AddOrUpdateVehicle(vehicle);
+                MessageBox.Show("Adding success");
+                ClearingAllInputField();
             }
-            //IVehicleDataFirebase vehicleDataFirebase = new VehicleFirebase
-            //{
-            //    test = Test.Approved,
-            //};
-            //await _storingDataManagementService.AddOrUpdateVehicle(vehicleDataFirebase);
-
-            //IVehicleDataFirebase temp1 = await _storingDataManagementService.GetVehicleById<VehicleFirebase>(vehicleDataFirebase.Id);
-
-            IVehicleDataFirebase vehicle = await CreateVehicle();
-
-            await _storingDataManagementService.AddOrUpdateVehicle(vehicle);
-            MessageBox.Show("Adding success");
-            ClearingAllInputField();
-            
+            catch (InvalidVINException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
+            }
                
         }
         private async Task<IVehicleDataFirebase> CreateVehicle()

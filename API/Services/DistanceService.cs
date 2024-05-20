@@ -20,6 +20,7 @@ using Models.Services;
 using GoogleApi.Entities.Maps.Directions.Request;
 using GoogleApi.Entities.Maps.Directions.Response;
 using Microsoft.Extensions.Configuration;
+using Models.Exceptions;
 
 namespace API.Services
 {
@@ -39,18 +40,17 @@ namespace API.Services
             var destination = new Address(Destination);
             var request = new DirectionsRequest
             {
-                Key = /*Environment.GetEnvironmentVariable("GOOGLEAPI_KEY")*/ _configuration["GoogleMapsAPI"],
+                Key = _configuration["GoogleMapsAPI"],
                 Origin = new LocationEx(origin),
                 Destination =  new LocationEx(destination)
             };
             DirectionsResponse response = await _directionsApi.QueryAsync(request);
             
-            //RootDirectionsObject data = JsonConvert.DeserializeObject<RootDirectionsObject>(response.RawJson);
             if (response.Status == Status.Ok)
             {
                 return response.Routes.First().Legs.First();
             }
-            throw new Exception("Ble Ble Ble Ble");
+            throw new InvalidDistanceException("Invalid distances");
         }
     }
 }

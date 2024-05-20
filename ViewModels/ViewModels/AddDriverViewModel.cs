@@ -373,6 +373,12 @@ namespace ViewModels
                 MessageBox.Show("Please fill in the required fields or fix the fields with errors.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+            try
+            {
             IReadOnlyCollection<DriverFirebase> temp = await _storingDataManagementService.WhereEqualToDriver(nameof(ID), ID);
             if (temp.Count > 0)
             {
@@ -410,15 +416,21 @@ namespace ViewModels
                 driver.Id = Guid.NewGuid().ToString("N");
                 duplicatedIdVehicle = await _storingDataManagementService.GetDriverById(driver.Id);
             }
-            try
-            {
+            
                 await _storingDataManagementService.AddOrUpdateDriver(driver);
                 MessageBox.Show("Successfully added");
                 ClearingAllInputField();
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
             }
 
         }

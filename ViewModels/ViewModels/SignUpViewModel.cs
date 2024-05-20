@@ -178,6 +178,10 @@ namespace ViewModels
                 MessageBox.Show("Please fill in the required fields or fix the fields with errors.");
                 return;
             }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
 
             Account newUser = new Account
             {
@@ -188,6 +192,10 @@ namespace ViewModels
                 Username = Username,
             };
             RegistrationResult result = await _authenticator.Register(newUser);
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
             switch (result)
             {
                 case RegistrationResult.Success:

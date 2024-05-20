@@ -35,7 +35,6 @@ namespace MainView
             var configuration = configBuilder.Build();
 
             _host = CreateHostBuilder(configuration).Build();
-            
 
             //FirestoreDb Database = FirestoreDb.Create();
 

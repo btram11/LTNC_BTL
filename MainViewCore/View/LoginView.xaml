@@ -213,16 +213,6 @@
                                  Style="{StaticResource MainTextBox}"
                                  materialDesign:HintAssist.Hint="Username"
                                  Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
-                            <!--materialDesign:HintAssist.HelperText="Helper text longer than error"-->
-                            <!--<TextBox.Text>
-                            <Binding Path="Name"
-                                     UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True"
-                                                                   xmlns:domain="clr-namespace:MaterialDesignDemo.Domain" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>-->
                         </TextBox>
                     </Grid>
 

@@ -6,6 +6,7 @@ using GoogleApi.Entities.Maps.Directions.Response;
 using GoogleApi.Entities.Maps.DistanceMatrix.Response;
 using GoogleApi.Entities.Search.Video.Common;
 using Models;
+using Models.Exceptions;
 using Models.ModelFirebase;
 using Models.Services;
 using Models.Services.Firebase;
@@ -29,12 +30,14 @@ using ViewModels.State.Navigators;
 
 namespace ViewModels
 {
-    public class VehicleAssignmentViewModel: ViewModelBase
+    public class VehicleAssignmentViewModel : ViewModelBase
     {
         private readonly IStoringDataManagementService _storingDataManagementService;
         private readonly IDistanceService _distanceService;
         private readonly IDataStore _dataStore;
         private readonly ValidationHelper Helper = new ValidationHelper();
+
+
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
         private Leg DistanceGoogle = new Leg
@@ -73,26 +76,28 @@ namespace ViewModels
         private string _from;
         private string _to;
         private DateTime _departureDateTime;
+        private bool _is24Hours;
         private string _transportType;
         private string _weight;
         private string _passengers;
         private bool _returned = false;
         private bool _trailers = false;
+        private Visibility _errorLoadingCost;
         #endregion
 
         #region Properties
         [Required(ErrorMessage = "Origin is required")]
-        public string From 
-        { 
-            get => _from; 
+        public string From
+        {
+            get => _from;
             set
             {
                 _from = value;
                 HasChangedAddress = true;
                 Helper.ClearErrors(nameof(From));
                 Validate(nameof(From), value);
-                OnPropertyChanged(nameof(From));   
-            } 
+                OnPropertyChanged(nameof(From));
+            }
         }
 
         [Required(ErrorMessage = "Destination is required")]
@@ -112,7 +117,7 @@ namespace ViewModels
         [Required(ErrorMessage = "Departure Date is required")]
         public DateTime DepartureDate
         {
-            get => (_departureDateTime != null) ?_departureDateTime.Date : _departureDateTime;
+            get => (_departureDateTime != null) ? _departureDateTime.Date : _departureDateTime;
             set
             {
                 if (value != null && _departureDateTime != null)
@@ -127,27 +132,38 @@ namespace ViewModels
             }
         }
 
+
+        public bool Is24Hours
+        {
+            get => _is24Hours;
+            set
+            {
+                _is24Hours = value;
+                OnPropertyChanged(nameof(Is24Hours));
+            }
+        }
+
         [Required(ErrorMessage = "Departure Time is required")]
         public string DepartureTime
         {
-            get => (_departureDateTime != null ) ? _departureDateTime.ToString("h:mm tt") : string.Empty;
+            get => _departureDateTime.ToString("h:mm tt");
             set
             {
-                //_departureTime = value
+
                 if (value != null && value != string.Empty)
                 {
                     string format = "h:mm tt";
                     DateTime dateTime = DateTime.ParseExact(value, format, CultureInfo.InvariantCulture);
-                    if (_departureDateTime != null)
-                    {
-                        DateTime temp = new DateTime(_departureDateTime.Year, _departureDateTime.Month, _departureDateTime.Day).Add(dateTime.TimeOfDay);
-                        _departureDateTime = DateTime.SpecifyKind(temp, DateTimeKind.Utc);
+                        if (_departureDateTime != null)
+                        {
+                            DateTime temp = new DateTime(_departureDateTime.Year, _departureDateTime.Month, _departureDateTime.Day).Add(dateTime.TimeOfDay);
+                            _departureDateTime = DateTime.SpecifyKind(temp, DateTimeKind.Utc);
+                        }
+                        else
+                        {
+                            _departureDateTime = DateTime.Today.Add(dateTime.TimeOfDay);
+                        }
                     }
-                    else
-                    {
-                        _departureDateTime = DateTime.Today.Add(dateTime.TimeOfDay); 
-                    }
-                }
                 Helper.ClearErrors(nameof(DepartureTime));
                 Validate(nameof(DepartureTime), value);
                 OnPropertyChanged(nameof(DepartureTime));
@@ -155,9 +171,9 @@ namespace ViewModels
         }
 
         [Required(ErrorMessage = "Transportation Type is required")]
-        public object TransportationType 
+        public object TransportationType
         {
-            get => _transportType; 
+            get => _transportType;
             set
             {
                 ComboBoxItem comboBoxItem = value as ComboBoxItem;
@@ -180,7 +196,7 @@ namespace ViewModels
         [Required(ErrorMessage = "Total Weight is required")]
         [RegularExpression("([0-9][0-9]*)", ErrorMessage = "Please enter a posittive INTEGER")]
         [MaxLength(7, ErrorMessage = "The number length must be smaller than 7")]
-        public string Passenger 
+        public string Passenger
         {
             get => _passengers;
             set
@@ -212,7 +228,7 @@ namespace ViewModels
                 OnPropertyChanged(nameof(Weight));
             }
         }
-        public bool NeedTrailer 
+        public bool NeedTrailer
         {
             get => _trailers;
             set
@@ -221,14 +237,26 @@ namespace ViewModels
                 OnPropertyChanged(nameof(NeedTrailer));
             }
         }
-        public bool Returned 
-        { 
+        public bool Returned
+        {
             get => _returned;
             set
             {
                 _returned = value;
                 OnPropertyChanged(nameof(Returned));
-            } 
+            }
+        }
+
+
+
+        public Visibility ErrorLoadingCost
+        {
+            get => _errorLoadingCost;
+            set
+            {
+                _errorLoadingCost = value;
+                OnPropertyChanged(nameof(ErrorLoadingCost));
+            }
         }
         #endregion
 
@@ -269,15 +297,11 @@ namespace ViewModels
         {
             ClearingAllInputs();
             resultContinueLoadedFalse = MessageBoxResult.Yes;
-            if (_dataStore.FuelPrice == null ||_dataStore.FuelPrice.Count() <= 0)
+            if (_dataStore.FuelPrice == null || _dataStore.FuelPrice.Count() <= 0)
             {
-                resultContinueLoadedFalse = MessageBox.Show("There is an error in loading. If continue, we cannot calculate the cost. Do you wish to continue using this page", "", MessageBoxButton.YesNo, MessageBoxImage.Asterisk);
+                ErrorLoadingCost = Visibility.Visible;
             }
-            if (resultContinueLoadedFalse == MessageBoxResult.No)
-            {
-                Navigator.NavigateSwitch(Navigation, ViewType.Home);
-                return;
-            }
+            else ErrorLoadingCost = Visibility.Hidden;
         }
 
         public ICommand AddTripCommand { get; }
@@ -289,7 +313,7 @@ namespace ViewModels
         private async Task ExecuteAddTripCommand()
         {
             bool HasValidationError = false;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 7; i++)
             {
                 if (ValidationSwitch(i))
                 {
@@ -301,7 +325,10 @@ namespace ViewModels
                 MessageBox.Show("Please fill in the required fields or fix the fields with errors.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
             try
             {
                 Leg element = DistanceGoogle;
@@ -417,7 +444,10 @@ namespace ViewModels
                 };
 
                 var addTripTask = _storingDataManagementService.AddOrUpdateTrip(newTrip);
-                //var addTripToDrivingVehicleTask = _storingDataManagementService.AddOrUpdateVehicle();
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                });
                 MessageBox.Show("Successfully adding trip");
                 ClearingAllInputs();
             }
@@ -428,6 +458,17 @@ namespace ViewModels
             catch (TaskCanceledException ex)
             {
                 MessageBox.Show($"Timeout: {ex.Message}. Please try again", "Timeout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (InvalidDistanceException ex)
+            {
+                MessageBox.Show($"{ex.Message}. Please try again", "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
             }
         }
         private async Task<DriverFirebase> GetSuitableDriver(VehicleFirebase vehicle, DateTime ArrivingTime)
@@ -543,7 +584,8 @@ namespace ViewModels
             {
                 IOrderedEnumerable<VehicleFirebase> list = vehicles
                     .Where(vehicle => vehicle.BodyType == "Truck-Tractor" || vehicle.VehicleType.Contains("Incomplete"))
-                    .Where(vehicle => {
+                    .Where(vehicle =>
+                    {
                         Random random = new Random();
                         return vehicle.GCWR - vehicle.GVWR >= selectedTrailer.GVWR &&
                         vehicle.GVWR >= selectedTrailer.GVWR * 20 / 100 + vehicle.FuelCapacity * 0.84 + random.Next(150, 500);
@@ -647,14 +689,14 @@ namespace ViewModels
                     if (TransportationType == null) break;
                     if (TransportationType.ToString() == nameof(Passenger))
                     {
-                        Validate(nameof(Passenger), Passenger);
+                        error = Validate(nameof(Passenger), Passenger);
                     }
                     break;
                 case 6:
                     if (TransportationType == null) break;
                     if (TransportationType.ToString() == "Cargo")
                     {
-                        Validate(nameof(Weight), Weight);
+                        error = Validate(nameof(Weight), Weight);
                     }
                     break;
             }

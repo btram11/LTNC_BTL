@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Models.Vehicles;
 using Models.Services;
 using Newtonsoft.Json;
+using Models.Exceptions;
 
 namespace API.Services
 {
@@ -23,7 +24,7 @@ namespace API.Services
 
             if (!data.Results.ElementAt(0).ErrorCode.Contains("0"))
             {
-                throw new Exception(data.Results.ElementAt(0).ErrorText);
+                throw new InvalidVINException(data.Results.ElementAt(0).ErrorText);
             }
             return data.Results.ElementAt(0);
         }

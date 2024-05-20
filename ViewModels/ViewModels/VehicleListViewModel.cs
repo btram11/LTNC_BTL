@@ -159,6 +159,10 @@ namespace ViewModels
 
         private async Task ExecuteLoadCommand()
         {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
             try
             {
                 //ClearingAllInputField();
@@ -180,13 +184,20 @@ namespace ViewModels
                 _IsLoaded = true;
 
             }
-            catch (HttpRequestException ex)
+            catch (HttpRequestException )
             {
                 MessageBoxResult result = MessageBox.Show("Please check your internet and try again", "", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 if (result == MessageBoxResult.OK)
                 {
                     Navigator.NavigateSwitch(Navigation, ViewType.VehicleList);
                 }
+            }
+            finally
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
             }
 
 
