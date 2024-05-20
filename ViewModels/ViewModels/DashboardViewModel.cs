@@ -1,4 +1,6 @@
 ﻿using Models.Services;
+using Models.Services.Firebase;
+using Models.ModelFirebase;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +13,7 @@ using System.Windows.Input;
 using ViewModels.Commands;
 using ViewModels.State.Data;
 using ViewModels.State.Navigators;
+using Models.Vehicles;
 
 namespace ViewModels
 {
@@ -28,14 +31,17 @@ namespace ViewModels
         }
 
         private readonly IFuelPriceService _fuelPriceService;
+        private readonly IStoringDataManagementService _storingDataManagementService;
         private readonly IDataStore _dataStore;
 
         public ObservableCollection<string> nameGasPrice { get; set; } = new ObservableCollection<string>();
+        public Dictionary<string, string> keyValuePairs { get; set; } = new Dictionary<string, string>();
 
-        public DashboardViewModel(INavigator navigator, IFuelPriceService fuelPriceService, IDataStore dataStore)
+        public DashboardViewModel(INavigator navigator, IFuelPriceService fuelPriceService, IDataStore dataStore, IStoringDataManagementService storingDataManagementService)
         {
             Navigation = navigator;
             _fuelPriceService = fuelPriceService;
+            _storingDataManagementService = storingDataManagementService;
             _dataStore = dataStore;
             LoadCommand = new AsyncRelayCommand(ExecuteLoadCommand);
         }
@@ -46,14 +52,66 @@ namespace ViewModels
         {
             try
             {
-                nameGasPrice = await _fuelPriceService.GetPrice();
+                var GasPriceTask = _fuelPriceService.GetPrice();
+                var GetAllVehicle = _storingDataManagementService.GetAllVehicles();
+                var GetAllDriverTask = _storingDataManagementService.GetAllDrivers();
+                var GetAllTripTask = _storingDataManagementService.GetAllTrips();
+                await Task.WhenAll(GasPriceTask,  GetAllVehicle, GetAllDriverTask, GetAllTripTask);
+
+                nameGasPrice = GasPriceTask.Result;
+                List<IVehicleDataFirebase> vehicleData = GetAllVehicle.Result;
+                IReadOnlyCollection<DriverFirebase> drivers = GetAllDriverTask.Result;
+                IReadOnlyCollection<TripFirebase> trips = GetAllTripTask.Result;
+
+                putKeyPairsDriver(drivers);
+                putKeyPairsVehicle(vehicleData);
+                putKeyPairsTrip(trips);
+
+
+
                 _dataStore.FuelPrice = nameGasPrice;
                 OnPropertyChanged(nameof(nameGasPrice));
+                OnPropertyChanged(nameof(keyValuePairs));
             }
             catch (HttpRequestException ex)
             {
                 MessageBox.Show("Please check your internet again and connect again or keep using offline", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             } 
+        }
+
+        private void putKeyPairsTrip(IReadOnlyCollection<TripFirebase> trips)
+        {
+            if (trips == null) return;
+            int TotalTrips = trips.Count();
+            keyValuePairs.Add(nameof(TotalTrips), TotalTrips.ToString());
+        }
+
+        private void putKeyPairsVehicle(List<IVehicleDataFirebase> vehicleData)
+        {
+            if (vehicleData == null) return;
+            int TotalVehicles = vehicleData.Count(obj => obj.VehicleType != "Trailer");
+            int TotalTrailers = vehicleData.Count(obj => obj.VehicleType == "Trailer");
+            keyValuePairs.Add(nameof(TotalVehicles), TotalVehicles.ToString());
+            keyValuePairs.Add(nameof(TotalTrailers), TotalTrailers.ToString());
+            int Available = vehicleData.Count(obj => obj.VehicleStatus == VehicleStatus.Available);
+            int InUse = vehicleData.Count(obj => obj.VehicleStatus == VehicleStatus.InUse);
+            int Repairing = vehicleData.Count(obj => obj.VehicleStatus == VehicleStatus.Repairing);
+            keyValuePairs.Add(nameof(Available), Available.ToString());
+            keyValuePairs.Add(nameof(InUse), InUse.ToString());
+            keyValuePairs.Add(nameof(Repairing), Repairing.ToString());
+        }
+
+        private void putKeyPairsDriver(IReadOnlyCollection<DriverFirebase> drivers)
+        {
+            if (drivers == null) return;
+            int Available = drivers.Count(obj => obj.Status == DriverStatus.Available);
+            int OnDuty = drivers.Count(obj => obj.Status == DriverStatus.OnDuty);
+            int Vaction = drivers.Count(obj => obj.Status == DriverStatus.Vacation);
+            int TotalDrivers = drivers.Count();
+            keyValuePairs.Add(nameof(TotalDrivers), TotalDrivers.ToString());
+            keyValuePairs.Add("Driver.Available", Available.ToString());
+            keyValuePairs.Add(nameof(Vaction), Vaction.ToString());
+            keyValuePairs.Add(nameof(OnDuty), OnDuty.ToString());
         }
 
         #endregion

@@ -8,6 +8,14 @@ using System.Threading.Tasks;
 
 namespace Models.ModelFirebase
 {
+    enum TripStatus
+    {
+        Scheduled,
+        Cancelled,
+        EnRoute,
+        Completed,
+    }
+
     [FirestoreData]
     public class TripFirebase : IFirebaseEntity
     {

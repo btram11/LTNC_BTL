@@ -391,6 +391,8 @@
                 Value="White" />
         <Setter Property="VerticalAlignment"
                 Value="Center" />
+        <Setter Property="TextWrapping"
+                Value="Wrap" />
     </Style>
     <!--datagrid-->
 </ResourceDictionary>

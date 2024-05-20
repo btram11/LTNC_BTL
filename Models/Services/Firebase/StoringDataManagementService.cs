@@ -36,7 +36,7 @@ namespace Models.Services.Firebase
             _firestoreDb = firestoreDb;
         }
 
-        private async Task<DatasetFirebase> GetRootDoc ()
+        public async Task<DatasetFirebase> GetRootDoc ()
         {
             var snapshot = await _data.GetSnapshotAsync();
             return snapshot.ConvertTo<DatasetFirebase>();
@@ -98,7 +98,7 @@ namespace Models.Services.Firebase
             DatasetFirebase curData = await GetRootDoc();
             if (curData == null || curData.CountDrivers <= 0) // Cần check lại coi có cái nào bị trừ dư ko
             {
-                return null;
+                return new List<DriverFirebase>();
             }
             var snapshot = await driversRef.GetSnapshotAsync();
             return snapshot.Documents.Select(x => x.ConvertTo<DriverFirebase>()).ToList();

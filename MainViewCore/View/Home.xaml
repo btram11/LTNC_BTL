@@ -20,21 +20,11 @@
         <converter:PriceDifferentialToColorConverter x:Key="PriceDifferentialToColorConverter" />
     </UserControl.Resources>
     <Border Padding="0 10 0 10">
-        <Grid Margin="10"
-              SnapsToDevicePixels="true">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
             <TextBlock Text="My Dashboard"
                        Grid.Row="0"
                        Grid.Column="0"
@@ -43,11 +33,118 @@
                        FontSize="25"
                        Margin="5 0 0 0"
                        FontWeight="SemiBold" />
-            <Grid Grid.Column="2"
+            <ScrollViewer Grid.Row="1"
+                          Margin="0 10 0 0"
+                          Style="{StaticResource ScrollViewMenu}"
+                          HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto">
+                <Grid SnapsToDevicePixels="true">
+                    <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="175" />
+                        <RowDefinition MinHeight="175" />
+                        <RowDefinition MinHeight="175" />
+                        <RowDefinition MinHeight="175" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Row="0"
+                            Grid.ColumnSpan="2"
+                            Style="{StaticResource CardDashboard}"
+                            Grid.Column="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition  Height="2*" />
+                                <RowDefinition  Height="2*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Grid.ColumnSpan="4"
+                                       Grid.Column="0"
+                                       Text="Overview"
+                                       Style="{StaticResource CardDashboardTitle}" />
+
+                            <TextBlock  Grid.Row="1"
+                                        Grid.Column="0"
+                                        TextAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 16 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}">
+                                Total Vehicles
+                                <LineBreak />
+                                (Exclude Trailer)
+                            </TextBlock>
+                            <TextBlock  Grid.Row="2"
+                                        Grid.Column="0"
+                                        Margin="0 16 0 4"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding keyValuePairs[TotalVehicles], FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+
+
+                            <TextBlock  Grid.Row="1"
+                                        Grid.Column="1"
+                                        Text="Total Trailers"
+                                        TextAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 16 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}">
+                            </TextBlock>
+                            <TextBlock  Grid.Row="2"
+                                        Grid.Column="1"
+                                        Margin="0 16 0 4"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding keyValuePairs[TotalTrailers], FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+
+
+                            <TextBlock  Grid.Row="1"
+                                        Grid.Column="2"
+                                        Text="Total Drivers"
+                                        TextAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 16 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}">
+                            </TextBlock>
+                            <TextBlock  Grid.Row="2"
+                                        Grid.Column="2"
+                                        Margin="0 16 0 4"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding keyValuePairs[TotalDrivers], FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+
+
+                            <TextBlock  Grid.Row="1"
+                                        Grid.Column="4"
+                                        Text="Total Trips"
+                                        TextAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 16 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}">
+                            </TextBlock>
+                            <TextBlock  Grid.Row="2"
+                                        Grid.Column="4"
+                                        Margin="0 16 0 4"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding keyValuePairs[TotalTrips], FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                        </Grid>
+                    </Border>
+
+                    <!--<Grid Grid.Column="2"
                   Grid.ColumnSpan="2"
                   Grid.Row="0">
-                <StackPanel Orientation="Horizontal"
-                            Visibility="Hidden">
+                <StackPanel Orientation="Horizontal">
                     <ComboBox Text="Services/Emergency"
                               Width="200"
                               Style="{StaticResource menuComobox}" />
@@ -65,74 +162,113 @@
                                                Style="{StaticResource topmenuButtonIcon}" />
                     </Button>
                 </StackPanel>
-            </Grid>
+            </Grid>-->
 
-            <Border Grid.Row="1"
-                    Style="{StaticResource CardDashboard}"
-                    Grid.Column="0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition  Height="*" />
-                        <RowDefinition  Height="*" />
-                        <RowDefinition  Height="*" />
-                        <RowDefinition  Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0"
-                               Grid.Column="0"
-                               Text="Vehicle Status"
-                               Style="{StaticResource CardDashboardTitle}" />
-                    <Button  Height="13"
-                             Margin="0 2.5"
-                             VerticalAlignment="Top"
-                             HorizontalAlignment="Right"
-                             Style="{StaticResource menubutton}"
-                             Grid.Row="0"
-                             Grid.Column="1">
-                        <StackPanel Orientation="Horizontal"
-                                    Visibility="Hidden">
-                            <TextBlock  Text="Details"
-                                        Style="{StaticResource menuButtonText}" />
-                            <Icon:PackIconMaterial Kind="ChevronRight"
-                                                   Height="10"
-                                                   Padding="2 0 2 0"
-                                                   VerticalAlignment="Bottom"
-                                                   Margin="0"
-                                                   Style="{StaticResource menuButtonIcon}" />
-                        </StackPanel>
-                    </Button>
-                    <TextBlock  Grid.Row="1"
-                                Grid.Column="0"
-                                Text="Out of Service"
-                                Style="{StaticResource CardDashboardNormalText}"/>
-                    <TextBlock  Grid.Row="1"
-                                Grid.Column="2"
-                                Text="{Binding OutOfService}"
-                                Style="{StaticResource CardDashboardNormalText}" />
-                    <TextBlock  Grid.Row="2"
-                                Grid.Column="0"
-                                Text="Available"
-                                FontSize="14"
-                                Style="{StaticResource CardDashboardNormalText}" />
-                    <TextBlock  Grid.Row="1"
-                                Grid.Column="2"
-                                Text="{Binding Available}"
-                                Style="{StaticResource CardDashboardNormalText}" />
-                    <TextBlock  Grid.Row="3"
-                                Grid.Column="0"
-                                Text="Not Available"
-                                Style="{StaticResource CardDashboardNormalText}"/>
-                    <TextBlock  Grid.Row="1"
-                                Grid.Column="2"
-                                Text="{Binding NotAvailable}"
-                                Style="{StaticResource CardDashboardNormalText}" />
-                </Grid>
-            </Border>
+                    <Border Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Style="{StaticResource CardDashboard}"
+                            Grid.Column="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  Height="*" />
+                                <RowDefinition  Height="*" />
+                                <RowDefinition  Height="*" />
+                                <RowDefinition  Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Grid.ColumnSpan="2"
+                                       Grid.Column="0"
+                                       Text="Vehicle Status"
+                                       Style="{StaticResource CardDashboardTitle}" />
+                            <Button  Height="13"
+                                     Margin="0 2.5"
+                                     VerticalAlignment="Top"
+                                     HorizontalAlignment="Right"
+                                     Style="{StaticResource menubutton}"
+                                     Grid.Row="0"
+                                     Grid.Column="1">
+                                <StackPanel Orientation="Horizontal"
+                                            Visibility="Hidden">
+                                    <TextBlock  Text="Details"
+                                                Style="{StaticResource menuButtonText}" />
+                                    <Icon:PackIconMaterial Kind="ChevronRight"
+                                                           Height="10"
+                                                           Padding="2 0 2 0"
+                                                           VerticalAlignment="Bottom"
+                                                           Margin="0"
+                                                           Style="{StaticResource menuButtonIcon}" />
+                                </StackPanel>
+                            </Button>
+                            <TextBlock  Grid.Row="1"
+                                        Grid.Column="0"
+                                        Text="Available"
+                                        Margin="0 16 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                            <TextBlock  Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="0 16 0 4"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding keyValuePairs[Available], FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
 
-            <Border Grid.Row="1"
+                            <TextBlock  Grid.Row="1"
+                                        Grid.Column="2"
+                                        Text="Repairing"
+                                        Margin="16 16 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                            <TextBlock  Grid.Row="1"
+                                        Grid.Column="3"
+                                        Margin="0 16 0 4"
+                                        HorizontalAlignment="Right"
+                                        Text="{Binding Repairing, FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+
+
+                            <TextBlock  Grid.Row="2"
+                                        Grid.Column="0"
+                                        Text="In Use"
+                                        Margin="0 8 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                            <TextBlock  Grid.Row="2"
+                                        Grid.Column="1"
+                                        Margin="0 8 0 4"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding InUse, FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+
+                            <TextBlock  Grid.Row="2"
+                                        Grid.Column="2"
+                                        Text="Maintenance"
+                                        Margin="16 8 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                            <TextBlock  Grid.Row="2"
+                                        Grid.Column="3"
+                                        Margin="0 8 0 4"
+                                        HorizontalAlignment="Right"
+                                        Text="{Binding Maintenance, FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+
+                            <TextBlock  Grid.Row="3"
+                                        Grid.Column="0"
+                                        Text="Out Of Service"
+                                        Margin="0 8 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                            <TextBlock  Grid.Row="3"
+                                        Grid.Column="1"
+                                        Margin="0 8 0 4"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding OutOfService, FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                        </Grid>
+                    </Border>
+
+                    <!--<Border Grid.Row="1"
                     Grid.Column="1"
                     Style="{StaticResource CardDashboard}">
                 <Grid>
@@ -154,250 +290,274 @@
                     </Button>
                     
                 </Grid>
-            </Border>
-            <Border Grid.Row="1"
-                    Grid.RowSpan="2"
-                    Grid.ColumnSpan="2"
-                    Grid.Column="2"
-                    Style="{StaticResource CardDashboard}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Fuel Price"
-                               FontSize="20"
-                               Style="{StaticResource CardDashboardTitle}" />
-                    <ScrollViewer Grid.Row="1"
-                                  Style="{StaticResource ScrollViewMenu}"
-                                  HorizontalScrollBarVisibility="Auto"
-                                  VerticalScrollBarVisibility="Auto">
-                        <Grid >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
+            </Border>-->
+                    <Border Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.ColumnSpan="2"
+                            Grid.Column="2"
+                            Style="{StaticResource CardDashboard}">
+                        <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
+                                <RowDefinition Height="auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <TextBlock  Grid.Row="0"
-                                        Grid.Column="0"
-                                        Text="Fuel Type"
-                                        HorizontalAlignment="Left"
-                                        FontWeight="Bold"
-                                        FontSize="17"
-                                        Margin="0 8 0 8"
-                                        Style="{StaticResource CardDashboardNormalText}" />
-                            <TextBlock  Grid.Row="0"
-                                        Grid.Column="2"
-                                        Margin="0 8 0 8"
-                                        TextAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        FontSize="17"
-                                        FontWeight="Bold"
-                                        Style="{StaticResource CardDashboardNormalText}">
+                            <TextBlock Text="Fuel Price"
+                                       FontSize="20"
+                                       Style="{StaticResource CardDashboardTitle}" />
+                            <ScrollViewer Grid.Row="1"
+                                          Style="{StaticResource ScrollViewMenu}"
+                                          HorizontalScrollBarVisibility="Auto"
+                                          VerticalScrollBarVisibility="Auto">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock  Grid.Row="0"
+                                                Grid.Column="0"
+                                                Text="Fuel Type"
+                                                HorizontalAlignment="Left"
+                                                FontWeight="Bold"
+                                                FontSize="17"
+                                                Margin="0 8 0 8"
+                                                Style="{StaticResource CardDashboardNormalText}" />
+                                    <TextBlock  Grid.Row="0"
+                                                Grid.Column="2"
+                                                Margin="0 8 0 8"
+                                                TextAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                FontSize="17"
+                                                FontWeight="Bold"
+                                                Style="{StaticResource CardDashboardNormalText}">
                             Price <LineBreak />
                             (VNĐ/Liter)
-                            </TextBlock>
-                            <TextBlock Grid.Row="0"
-                                       Grid.Column="5"
-                                       Margin="0 8 0 8"
-                                       TextAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       FontSize="17"
-                                       FontWeight="Bold"
-                                       Style="{StaticResource CardDashboardNormalText}">
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="5"
+                                               Margin="0 8 0 8"
+                                               TextAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               FontSize="17"
+                                               FontWeight="Bold"
+                                               Style="{StaticResource CardDashboardNormalText}">
                             Price differential <LineBreak />
                             (VNĐ/Liter)
-                            </TextBlock>
+                                    </TextBlock>
 
 
-                            <TextBlock  Grid.Row="1"
-                                        Grid.Column="0"
-                                        Text="{Binding nameGasPrice[0], UpdateSourceTrigger=PropertyChanged,FallbackValue='Type 1', TargetNullValue= 'Type 1'}"
-                                        HorizontalAlignment="Left"
-                                        FontSize="17"
-                                        Style="{StaticResource CardDashboardNormalText}" />
-                            <TextBlock  Grid.Row="1"
-                                        Grid.Column="2"
-                                        Text="{Binding nameGasPrice[1], UpdateSourceTrigger=PropertyChanged, FallbackValue='00.000', TargetNullValue='00.000'}"
-                                        HorizontalAlignment="Right"
-                                        FontSize="17"
-                                        Style="{StaticResource CardDashboardNormalText}" />
-                            <TextBlock  Grid.Row="1"
-                                        Grid.Column="4"
-                                        Text="{Binding nameGasPrice[2], UpdateSourceTrigger=PropertyChanged, FallbackValue='0', TargetNullValue='0'}"
-                                        HorizontalAlignment="Right"
-                                        FontSize="17"
-                                        Margin="0 4 0 4"
-                                        Foreground="{Binding Text, Mode=OneWay, RelativeSource={RelativeSource Self}, Converter={StaticResource PriceDifferentialToColorConverter}, FallbackValue={StaticResource ForegroundPearlBushBrush}, TargetNullValue={StaticResource ForegroundPearlBushBrush}}"
-                                        Style="{StaticResource CardDashboardTriggerText}" />
+                                    <TextBlock  Grid.Row="1"
+                                                Grid.Column="0"
+                                                Text="{Binding nameGasPrice[0], UpdateSourceTrigger=PropertyChanged,FallbackValue='Type 1', TargetNullValue= 'Type 1'}"
+                                                HorizontalAlignment="Left"
+                                                FontSize="17"
+                                                Style="{StaticResource CardDashboardNormalText}" />
+                                    <TextBlock  Grid.Row="1"
+                                                Grid.Column="2"
+                                                Text="{Binding nameGasPrice[1], UpdateSourceTrigger=PropertyChanged, FallbackValue='00.000', TargetNullValue='00.000'}"
+                                                HorizontalAlignment="Right"
+                                                FontSize="17"
+                                                Style="{StaticResource CardDashboardNormalText}" />
+                                    <TextBlock  Grid.Row="1"
+                                                Grid.Column="4"
+                                                Text="{Binding nameGasPrice[2], UpdateSourceTrigger=PropertyChanged, FallbackValue='0', TargetNullValue='0'}"
+                                                HorizontalAlignment="Right"
+                                                FontSize="17"
+                                                Margin="0 4 0 4"
+                                                Foreground="{Binding Text, Mode=OneWay, RelativeSource={RelativeSource Self}, Converter={StaticResource PriceDifferentialToColorConverter}, FallbackValue={StaticResource ForegroundPearlBushBrush}, TargetNullValue={StaticResource ForegroundPearlBushBrush}}"
+                                                Style="{StaticResource CardDashboardTriggerText}" />
 
-                            <TextBlock  Grid.Row="2"
-                                        Grid.Column="0"
-                                        Text="{Binding nameGasPrice[3], UpdateSourceTrigger=PropertyChanged,FallbackValue='Type 2', TargetNullValue= 'Type 2'}"
-                                        HorizontalAlignment="Left"
-                                        FontSize="17"
-                                        Style="{StaticResource CardDashboardNormalText}" />
-                            <TextBlock  Grid.Row="2"
-                                        Grid.Column="2"
-                                        Text="{Binding nameGasPrice[4], UpdateSourceTrigger=PropertyChanged, FallbackValue='00.000', TargetNullValue='00.000'}"
-                                        HorizontalAlignment="Right"
-                                        FontSize="17"
-                                        Style="{StaticResource CardDashboardNormalText}" />
-                            <TextBlock  Grid.Row="2"
-                                        Grid.Column="4"
-                                        Text="{Binding nameGasPrice[5], UpdateSourceTrigger=PropertyChanged, FallbackValue='0', TargetNullValue='0'}"
-                                        HorizontalAlignment="Right"
-                                        Foreground="{Binding Text, Mode=OneWay, RelativeSource={RelativeSource Self}, Converter={StaticResource PriceDifferentialToColorConverter}, FallbackValue={StaticResource ForegroundPearlBushBrush}, TargetNullValue={StaticResource ForegroundPearlBushBrush}}"
-                                        FontSize="17"
-                                        Margin="0 4 0 4"
-                                        Style="{StaticResource CardDashboardTriggerText}" />
-
-
-                            <TextBlock  Grid.Row="3"
-                                        Grid.Column="0"
-                                        Text="{Binding nameGasPrice[6], UpdateSourceTrigger=PropertyChanged,FallbackValue='Type 3', TargetNullValue= 'Type 3'}"
-                                        HorizontalAlignment="Left"
-                                        FontSize="17"
-                                        Style="{StaticResource CardDashboardNormalText}" />
-                            <TextBlock  Grid.Row="3"
-                                        Grid.Column="2"
-                                        Text="{Binding nameGasPrice[7], UpdateSourceTrigger=PropertyChanged, FallbackValue='00.000', TargetNullValue='00.000'}"
-                                        HorizontalAlignment="Right"
-                                        FontSize="17"
-                                        Style="{StaticResource CardDashboardNormalText}" />
-                            <TextBlock  Grid.Row="3"
-                                        Grid.Column="4"
-                                        Text="{Binding nameGasPrice[8], UpdateSourceTrigger=PropertyChanged, FallbackValue='0', TargetNullValue='0'}"
-                                        HorizontalAlignment="Right"
-                                        FontSize="17"
-                                        Margin="0 4 0 4"
-                                        Foreground="{Binding Text, Mode=OneWay, RelativeSource={RelativeSource Self}, Converter={StaticResource PriceDifferentialToColorConverter}, FallbackValue={StaticResource ForegroundPearlBushBrush}, TargetNullValue={StaticResource ForegroundPearlBushBrush}}"
-                                        Style="{StaticResource CardDashboardTriggerText}" />
+                                    <TextBlock  Grid.Row="2"
+                                                Grid.Column="0"
+                                                Text="{Binding nameGasPrice[3], UpdateSourceTrigger=PropertyChanged,FallbackValue='Type 2', TargetNullValue= 'Type 2'}"
+                                                HorizontalAlignment="Left"
+                                                FontSize="17"
+                                                Style="{StaticResource CardDashboardNormalText}" />
+                                    <TextBlock  Grid.Row="2"
+                                                Grid.Column="2"
+                                                Text="{Binding nameGasPrice[4], UpdateSourceTrigger=PropertyChanged, FallbackValue='00.000', TargetNullValue='00.000'}"
+                                                HorizontalAlignment="Right"
+                                                FontSize="17"
+                                                Style="{StaticResource CardDashboardNormalText}" />
+                                    <TextBlock  Grid.Row="2"
+                                                Grid.Column="4"
+                                                Text="{Binding nameGasPrice[5], UpdateSourceTrigger=PropertyChanged, FallbackValue='0', TargetNullValue='0'}"
+                                                HorizontalAlignment="Right"
+                                                Foreground="{Binding Text, Mode=OneWay, RelativeSource={RelativeSource Self}, Converter={StaticResource PriceDifferentialToColorConverter}, FallbackValue={StaticResource ForegroundPearlBushBrush}, TargetNullValue={StaticResource ForegroundPearlBushBrush}}"
+                                                FontSize="17"
+                                                Margin="0 4 0 4"
+                                                Style="{StaticResource CardDashboardTriggerText}" />
 
 
-                            <TextBlock  Grid.Row="4"
-                                        Grid.Column="0"
-                                        Text="{Binding nameGasPrice[9], UpdateSourceTrigger=PropertyChanged,FallbackValue='Type 4', TargetNullValue= 'Type 4'}"
-                                        HorizontalAlignment="Left"
-                                        FontSize="17"
-                                        Style="{StaticResource CardDashboardNormalText}" />
-                            <TextBlock  Grid.Row="4"
-                                        Grid.Column="2"
-                                        Text="{Binding nameGasPrice[10], UpdateSourceTrigger=PropertyChanged, FallbackValue='00.000', TargetNullValue='00.000'}"
-                                        HorizontalAlignment="Right"
-                                        FontSize="17"
-                                        Style="{StaticResource CardDashboardNormalText}" />
-                            <TextBlock  Grid.Row="4"
-                                        Grid.Column="4"
-                                        Text="{Binding nameGasPrice[11], UpdateSourceTrigger=PropertyChanged, FallbackValue='0', TargetNullValue='0'}"
-                                        HorizontalAlignment="Right"
-                                        FontSize="17"
-                                        Margin="0 4 0 4"
-                                        Foreground="{Binding Text, Mode=OneWay, RelativeSource={RelativeSource Self}, Converter={StaticResource PriceDifferentialToColorConverter}, FallbackValue={StaticResource ForegroundPearlBushBrush}, TargetNullValue={StaticResource ForegroundPearlBushBrush}}"
-                                        Style="{StaticResource CardDashboardTriggerText}" />
+                                    <TextBlock  Grid.Row="3"
+                                                Grid.Column="0"
+                                                Text="{Binding nameGasPrice[6], UpdateSourceTrigger=PropertyChanged,FallbackValue='Type 3', TargetNullValue= 'Type 3'}"
+                                                HorizontalAlignment="Left"
+                                                FontSize="17"
+                                                Style="{StaticResource CardDashboardNormalText}" />
+                                    <TextBlock  Grid.Row="3"
+                                                Grid.Column="2"
+                                                Text="{Binding nameGasPrice[7], UpdateSourceTrigger=PropertyChanged, FallbackValue='00.000', TargetNullValue='00.000'}"
+                                                HorizontalAlignment="Right"
+                                                FontSize="17"
+                                                Style="{StaticResource CardDashboardNormalText}" />
+                                    <TextBlock  Grid.Row="3"
+                                                Grid.Column="4"
+                                                Text="{Binding nameGasPrice[8], UpdateSourceTrigger=PropertyChanged, FallbackValue='0', TargetNullValue='0'}"
+                                                HorizontalAlignment="Right"
+                                                FontSize="17"
+                                                Margin="0 4 0 4"
+                                                Foreground="{Binding Text, Mode=OneWay, RelativeSource={RelativeSource Self}, Converter={StaticResource PriceDifferentialToColorConverter}, FallbackValue={StaticResource ForegroundPearlBushBrush}, TargetNullValue={StaticResource ForegroundPearlBushBrush}}"
+                                                Style="{StaticResource CardDashboardTriggerText}" />
 
-                            <TextBlock Grid.Row="5"
-                                       Grid.ColumnSpan="5"
-                                       TextAlignment="Right"
-                                       HorizontalAlignment="Right"
-                                       Style="{StaticResource CardDashboardTriggerText}">
+
+                                    <TextBlock  Grid.Row="4"
+                                                Grid.Column="0"
+                                                Text="{Binding nameGasPrice[9], UpdateSourceTrigger=PropertyChanged,FallbackValue='Type 4', TargetNullValue= 'Type 4'}"
+                                                HorizontalAlignment="Left"
+                                                FontSize="17"
+                                                Style="{StaticResource CardDashboardNormalText}" />
+                                    <TextBlock  Grid.Row="4"
+                                                Grid.Column="2"
+                                                Text="{Binding nameGasPrice[10], UpdateSourceTrigger=PropertyChanged, FallbackValue='00.000', TargetNullValue='00.000'}"
+                                                HorizontalAlignment="Right"
+                                                FontSize="17"
+                                                Style="{StaticResource CardDashboardNormalText}" />
+                                    <TextBlock  Grid.Row="4"
+                                                Grid.Column="4"
+                                                Text="{Binding nameGasPrice[11], UpdateSourceTrigger=PropertyChanged, FallbackValue='0', TargetNullValue='0'}"
+                                                HorizontalAlignment="Right"
+                                                FontSize="17"
+                                                Margin="0 4 0 4"
+                                                Foreground="{Binding Text, Mode=OneWay, RelativeSource={RelativeSource Self}, Converter={StaticResource PriceDifferentialToColorConverter}, FallbackValue={StaticResource ForegroundPearlBushBrush}, TargetNullValue={StaticResource ForegroundPearlBushBrush}}"
+                                                Style="{StaticResource CardDashboardTriggerText}" />
+                                    <TextBlock Grid.Row="5"
+                                               Grid.ColumnSpan="5"
+                                               TextAlignment="Right"
+                                               HorizontalAlignment="Right"
+                                               Style="{StaticResource CardDashboardTriggerText}">
                                 Date Updated:
                                 <Run Text="{Binding nameGasPrice[12], UpdateSourceTrigger=PropertyChanged, FallbackValue='-', TargetNullValue='-'}" />
-                            </TextBlock>
-                                       
+                                    </TextBlock>
+
+                                </Grid>
+                            </ScrollViewer>
+
+
                         </Grid>
-                    </ScrollViewer>
+                    </Border>
+                    <Border Grid.Row="1"
+                            Visibility="Hidden"
+                            Grid.Column="3"
+                            Style="{StaticResource CardDashboard}"
+                            Margin="5">
+                        <Grid>
+                            <TextBlock Text="Other Costs"
+                                       Style="{StaticResource CardDashboardTitle}"
+                                       Margin="0 0 0 15" />
+
+                            <Button  Height="13"
+                                     HorizontalAlignment="Right"
+                                     VerticalAlignment="Top"
+                                     Style="{StaticResource menubutton}"
+                                     Margin="0 3 0 0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock  Text="Details"
+                                                Style="{StaticResource menuButtonText}" />
+                                    <Icon:PackIconMaterial Kind="ChevronRight"
+                                                           Height="15"
+                                                           Margin="0"
+                                                           Style="{StaticResource menuButtonIcon}" />
+                                </StackPanel>
+                            </Button>
 
 
-                </Grid>
-            </Border>
-            <Border Grid.Row="1"
-                    Visibility="Hidden"
-                    Grid.Column="3"
-                    Style="{StaticResource CardDashboard}"
-                    Margin="5">
-                <Grid>
-                    <TextBlock Text="Other Costs"
-                               Style="{StaticResource CardDashboardTitle}"
-                               Margin="0 0 0 15" />
 
-                    <Button  Height="13"
-                             HorizontalAlignment="Right"
-                             VerticalAlignment="Top"
-                             Style="{StaticResource menubutton}"
-                             Margin="0 3 0 0">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock  Text="Details"
-                                        Style="{StaticResource menuButtonText}" />
-                            <Icon:PackIconMaterial Kind="ChevronRight"
-                                                   Height="15"
-                                                   Margin="0"
-                                                   Style="{StaticResource menuButtonIcon}" />
-                        </StackPanel>
-                    </Button>
+                        </Grid>
+                    </Border>
 
- 
+                    <Border Grid.Row="2"
+                            Grid.Column="0"
+                            Style="{StaticResource CardDashboard}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  Height="*" />
+                                <RowDefinition  Height="*" />
+                                <RowDefinition  Height="*" />
+                                <RowDefinition  Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Grid.ColumnSpan="2"
+                                       Text="Driver Status"
+                                       Style="{StaticResource CardDashboardTitle}" />
+                            <TextBlock  Grid.Row="1"
+                                        Grid.Column="0"
+                                        Text="Available"
+                                        Margin="0 16 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                            <TextBlock  Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="0 16 0 4"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding keyValuePairs[Driver.Available], FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
 
-                </Grid>
-            </Border>
 
-            <Border Grid.Row="2"
-                    Grid.Column="0"
-                    Style="{StaticResource CardDashboard}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition  Height="*" />
-                        <RowDefinition  Height="*" />
-                        <RowDefinition  Height="*" />
-                        <RowDefinition  Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0"
-                               Grid.Column="0"
-                               Text="Driver Status"
-                               Style="{StaticResource CardDashboardTitle}" />
-                    <TextBlock  Grid.Row="1"
-                                Grid.Column="0"
-                                Text="In Service"
-                                Style="{StaticResource CardDashboardNormalText}"/>
-                    <TextBlock  Grid.Row="2"
-                                Grid.Column="0"
-                                Text="In-Service"
-                                Style="{StaticResource CardDashboardNormalText}" />
-                    <TextBlock  Grid.Row="3"
-                                Grid.Column="0"
-                                Text="Active"
-                                Style="{StaticResource CardDashboardNormalText}" />
-                </Grid>
-            </Border>
-            <Border Grid.Row="2"
-                    Grid.Column="1"
-                    Style="{StaticResource CardDashboard}">
-                <Grid>
-                    <TextBlock FontWeight="Bold"
-                               Grid.Row="0"
-                               Grid.Column="0"
-                               Text="Cost Per Meter"
-                               FontSize="13"
-                               Foreground="#dfe1e3"
-                               Margin="0 0 0 15" />
-                    
-                </Grid>
-            </Border>
-            <Border Grid.Row="3"
+                            <TextBlock  Grid.Row="2"
+                                        Grid.Column="0"
+                                        Text="On Duty"
+                                        Margin="0 8 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                            <TextBlock  Grid.Row="2"
+                                        Grid.Column="1"
+                                        Margin="0 8 0 4"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding keyValuePairs[OnDuty], FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+
+
+                            <TextBlock  Grid.Row="3"
+                                        Grid.Column="0"
+                                        Text="Vacation"
+                                        Margin="0 8 0 4"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                            <TextBlock  Grid.Row="3"
+                                        Grid.Column="1"
+                                        Margin="0 8 0 4"
+                                        HorizontalAlignment="Center"
+                                        Text="{Binding keyValuePairs[Vacation], FallbackValue=0, TargetNullValue=0}"
+                                        Style="{StaticResource CardDashboardNormalText}" />
+                        </Grid>
+                    </Border>
+                    <!--<Border Grid.Row="2"
+                            Grid.Column="1"
+                            Style="{StaticResource CardDashboard}">
+                        <Grid>
+                            <TextBlock FontWeight="Bold"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="Cost Per Meter"
+                                       FontSize="13"
+                                       Foreground="#dfe1e3"
+                                       Margin="0 0 0 15" />
+
+                        </Grid>
+                    </Border>-->
+                    <!--<Border Grid.Row="3"
                     Grid.Column="0"
                     Style="{StaticResource CardDashboard}"
                     Margin="5">
@@ -476,9 +636,9 @@
                                    Margin="0 20" />
                     </Grid>
                 </Grid>
-            </Border>
+            </Border>-->
 
-            <!--<Border Style="{StaticResource CardDashboard}" Margin="5">
+                    <!--<Border Style="{StaticResource CardDashboard}" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="auto"/>
@@ -488,7 +648,7 @@
 
                     </Grid>
                 </Border>-->
-            <!--<Border Grid.Column="1" Style="{StaticResource CardDashboard}" Margin="5">
+                    <!--<Border Grid.Column="1" Style="{StaticResource CardDashboard}" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="auto"/>
@@ -506,47 +666,49 @@
                     </Grid>
                 </Border>-->
 
-            <Border Grid.Row="4"
-                    Grid.Column="2"
-                    Grid.ColumnSpan="2"
-                    Style="{StaticResource CardDashboard}"
-                    Margin="5">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition  Height="auto" />
-                        <RowDefinition  Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock FontWeight="Bold"
-                               Grid.Row="0"
-                               Grid.Column="0"
-                               Text="Vehicle Assignments"
-                               FontSize="13"
-                               Foreground="#dfe1e3"
-                               Margin="0 0 0 15" />
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock FontWeight="Thin"
-                                   Grid.Column="0"
-                                   Text="Assigned"
-                                   FontSize="13"
-                                   Foreground="#dfe1e3"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Bottom"
-                                   Margin="0 20" />
-                        <TextBlock FontWeight="Thin"
-                                   Grid.Column="1"
-                                   Text="Unassigned"
-                                   FontSize="13"
-                                   Foreground="#dfe1e3"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Bottom"
-                                   Margin="0 20" />
-                    </Grid>
+                    <!--<Border Grid.Row="4"
+                            Grid.Column="2"
+                            Grid.ColumnSpan="2"
+                            Style="{StaticResource CardDashboard}"
+                            Margin="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition  Height="auto" />
+                                <RowDefinition  Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock FontWeight="Bold"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="Vehicle Assignments"
+                                       FontSize="13"
+                                       Foreground="#dfe1e3"
+                                       Margin="0 0 0 15" />
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock FontWeight="Thin"
+                                           Grid.Column="0"
+                                           Text="Assigned"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Bottom"
+                                           Margin="0 20" />
+                                <TextBlock FontWeight="Thin"
+                                           Grid.Column="1"
+                                           Text="Unassigned"
+                                           FontSize="13"
+                                           Foreground="#dfe1e3"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Bottom"
+                                           Margin="0 20" />
+                            </Grid>
+                        </Grid>
+                    </Border>-->
                 </Grid>
-            </Border>
+            </ScrollViewer>
         </Grid>
     </Border>
 </UserControl>

@@ -10,13 +10,13 @@ namespace Models.ModelFirebase
 {
     public enum VehicleStatus
     {
-        Available,          
-        NotAvailable,
+        Available,
+        InUse,
         Scheduled,
         OnGoing,
         Repairing,
         Returning,
-        UnderMaintenance,
+        Maintenance,
         OutOfService,
     }
     public interface IVehicleDataFirebase : IFirebaseEntity

@@ -19,7 +19,7 @@ namespace Models.ModelFirebase
         OnDuty,         // Đang làm việc
         OffDuty,        // Nghỉ ngơi
         InTransit,      // Đang vận chuyển
-        OnLeave,
+        Vacation,
     }
 
 

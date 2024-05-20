@@ -215,8 +215,8 @@
                                             VerticalAlignment="Center">
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
-                        <Run Text="Scheduled: " />
-                        <Run Text="{Binding ScheduledArrivalTime, TargetNullValue='-', FallbackValue='-', Mode=OneWay}" />
+                            <Run Text="Scheduled: " />
+                            <Run Text="{Binding ScheduledArrivalTime, TargetNullValue='-', FallbackValue='-', Mode=OneWay}" />
                                     </TextBlock>
                                     <TextBlock VerticalAlignment="Center"
                                                Style="{StaticResource DataGridTextColumnElementStyle}">
@@ -245,11 +245,11 @@
                             <StaticResource ResourceKey="DataGridTextColumnElementStyle" />
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Distance"
+                    <DataGridTextColumn Header="Distance (One Way)"
                                         IsReadOnly="True"
                                         Width="auto"
                                         CanUserResize="False"
-                                        Binding="{Binding Distance, FallbackValue='0', TargetNullValue='0'}">
+                                        Binding="{Binding Distance, FallbackValue='0', TargetNullValue='0', StringFormat= {}{0} km}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock"
                                    BasedOn="{StaticResource DataGridTextColumnElementStyle}">

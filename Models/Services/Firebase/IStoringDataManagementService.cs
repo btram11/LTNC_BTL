@@ -13,6 +13,8 @@ namespace Models.Services.Firebase
         string DataUid { get; set; }
         Task<IReadOnlyCollection<T>> GetList<T>(Query query) where T : IFirebaseEntity;
 
+        Task<DatasetFirebase> GetRootDoc();
+
         Task AddOrUpdateVehicle(IVehicleDataFirebase vehicle);
         Task AddOrUpdateDriver(DriverFirebase vehicle);
         Task AddOrUpdateTrip(TripFirebase trip);
